@@ -14,3 +14,8 @@ jobs:
         run: |
           apk add --no-cache bash
           ./bsdtar/build.sh
+
+      - uses: actions/upload-artifact@v1
+        with:
+          name: build-alpine-linux
+          path: ./bsdtar/release/bsdtar
