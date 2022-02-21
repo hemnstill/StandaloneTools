@@ -24,3 +24,6 @@ gcc -static -o ../bsdtar \
   .libs/libarchive.a \
   .libs/libarchive_fe.a \
   /lib/libz.a
+
+cd "$dp0/release" && chmod +x "bsdtar"
+"./bsdtar" --version
