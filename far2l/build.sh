@@ -13,6 +13,8 @@ mkdir -p "$dp0/release" && cd "$dp0/release"
 wget https://github.com/elfmz/far2l/archive/refs/tags/v_2.4.0.tar.gz -O v_2.4.0.tar.gz
 tar -xf v_2.4.0.tar.gz && cd far2l-v_2.4.0
 
+cp -f "../SafeMMap.cpp" "./far2l/src/base/"
+
 cmake -DUSEWX=no -DCMAKE_BUILD_TYPE=Release .
 
 cmake --build . --config Release
