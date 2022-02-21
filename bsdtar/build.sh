@@ -11,7 +11,7 @@ mkdir -p "$dp0/release" && cd "$dp0/release"
 wget https://github.com/libarchive/libarchive/releases/download/v3.5.1/libarchive-3.5.1.tar.gz -O libarchive-3.5.1.tar.gz
 tar -xf libarchive-3.5.1.tar.gz && cd libarchive-3.5.1
 
-./configure LDFLAGS='--static' --enable-bsdtar=static --disable-shared --with-zlib --without-bz2lib --disable-bsdcpio --disable-bsdcat
+./configure LDFLAGS='--static' --enable-bsdtar=static --disable-shared --with-zlib -with-lzma --without-bz2lib --disable-bsdcpio --disable-bsdcat
 make -j$(nproc)
 gcc -static -o ../bsdtar \
   tar/bsdtar-bsdtar.o \
