@@ -4,6 +4,7 @@ on: [pull_request]
 
 jobs:
   alpine-bsdtar-linux:
+    if: ${{ false }}
     runs-on: ubuntu-latest
     container: alpine:3.15.0
 
@@ -21,6 +22,7 @@ jobs:
           path: ./bsdtar/release/bsdtar
 
   alpine-pcre2grep-linux:
+    if: ${{ false }}
     runs-on: ubuntu-latest
     container: alpine:3.15.0
 
@@ -36,3 +38,20 @@ jobs:
         with:
           name: pcre2grep-linux
           path: ./pcre2grep/release/pcre2grep
+
+  alpine-far2l-linux:
+    runs-on: ubuntu-latest
+    container: alpine:3.15.0
+
+    steps:
+      - uses: actions/checkout@v2
+
+      - name: build
+        run: |
+          apk add --no-cache bash
+          ./far2l/build.sh
+
+      - uses: actions/upload-artifact@v1
+        with:
+          name: far2l-linux
+          path: ./far2l/release/far2l
