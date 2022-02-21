@@ -1,0 +1,21 @@
+name: ci build
+
+on: [pull_request]
+
+jobs:
+  alpine-bsdtar-linux:
+    runs-on: ubuntu-latest
+    container: alpine:3.15.0
+
+    steps:
+      - uses: actions/checkout@v2
+
+      - name: build
+        run: |
+          apk add --no-cache bash
+          ./bsdtar/build.sh
+
+      - uses: actions/upload-artifact@v1
+        with:
+          name: bsdtar-linux
+          path: ./bsdtar/release/bsdtar
