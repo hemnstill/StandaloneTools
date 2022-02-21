@@ -14,3 +14,10 @@ tar -xf pcre2-10.39.tar.gz && cd pcre2-10.39
 ./configure LDFLAGS='--static' --disable-shared --enable-jit --enable-pcre2-8 --enable-pcre2-16 --enable-pcre2-32
 
 make -j$(nproc)
+
+cp -f "$dp0/release/pcre2-10.39/pcre2grep" "$dp0/release/"
+
+cd "$dp0/release"
+strip "pcre2grep"
+chmod +x "pcre2grep"
+"./pcre2grep" --version
