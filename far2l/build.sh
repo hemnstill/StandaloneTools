@@ -15,6 +15,6 @@ tar -xf v_2.4.0.tar.gz && cd far2l-v_2.4.0
 
 export SUPPORTS_BACKTRACE=0
 
-cmake -DUSEWX=no -DCMAKE_BUILD_TYPE=Release .
+cmake -DUSEWX=no -DCMAKE_BUILD_TYPE=Release -DSTACK_TRACE:BOOL=OFF .
 
 cmake --build .
