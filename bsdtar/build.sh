@@ -23,7 +23,8 @@ gcc -static -o ../bsdtar \
   tar/bsdtar-write.o \
   .libs/libarchive.a \
   .libs/libarchive_fe.a \
-  /lib/libz.a
+  /lib/libz.a \
+  /usr/lib/libbz2.a
 
 cd "$dp0/release"
 strip "bsdtar"
