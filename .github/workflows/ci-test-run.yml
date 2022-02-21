@@ -11,4 +11,6 @@ jobs:
       - uses: actions/checkout@v2
 
       - name: build bsdtar
-        run: ./bsdtar/build.sh
+        run: |
+          apk add --no-cache bash
+          ./bsdtar/build.sh
