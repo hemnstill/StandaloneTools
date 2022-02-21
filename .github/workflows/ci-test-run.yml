@@ -19,3 +19,20 @@ jobs:
         with:
           name: bsdtar-linux
           path: ./bsdtar/release/bsdtar
+
+  alpine-pcre2grep-linux:
+    runs-on: ubuntu-latest
+    container: alpine:3.15.0
+
+    steps:
+      - uses: actions/checkout@v2
+
+      - name: build
+        run: |
+          apk add --no-cache bash
+          ./pcre2grep/build.sh
+
+      - uses: actions/upload-artifact@v1
+        with:
+          name: pcre2grep-linux
+          path: ./pcre2grep/release/pcre2grep
