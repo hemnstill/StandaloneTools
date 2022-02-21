@@ -1,17 +1,17 @@
 #!/bin/bash
 dp0="$(realpath "$(dirname "$0")")"
-cd "$dp0" || exit 1
+mkdir -p "$dp0/release" && cd "$dp0/release" || exit 1
 
 set -e
 
 # Install build dependencies
 apk update
-apk add --no-cache alpine-sdk util-linux strace file zlib-dev autoconf automake libtool zlib-dev bzip2-dev
+apk add --no-cache alpine-sdk util-linux strace file zlib-dev bzip2-dev autoconf automake libtool zlib-static
 
-wget https://www.libarchive.org/downloads/libarchive-3.3.2.tar.gz
-tar xf libarchive-3.3.2.tar.gz
-cd libarchive-3.3.2
-./configure LDFLAGS='--static' --enable-bsdtar=static --disable-shared --with-zlib --without-bz2lib --disable-bsdcpio --disable-bsdcat
+wget https://github.com/libarchive/libarchive/releases/download/v3.5.1/libarchive-3.5.1.tar.gz -O libarchive-3.5.1.tar.gz
+tar -xf libarchive-3.5.1.tar.gz && cd libarchive-3.5.1
+
+./configure LDFLAGS='--static' --enable-bsdtar=static --disable-shared --with-zlib --without-bz2lib
 make -j$(nproc)
 gcc -static -o bsdtar \
   tar/bsdtar-bsdtar.o \
