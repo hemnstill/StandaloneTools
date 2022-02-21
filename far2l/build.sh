@@ -4,7 +4,7 @@ set -e
 
 apk update
 apk add --no-cache alpine-sdk gawk m4 pcre2-dev libssh-dev libressl-dev libnfs-dev libarchive-dev cmake git
-apk add --no-cache uchardet-dev neon-dev spdlog-dev
+apk add --no-cache uchardet-dev neon-dev spdlog-dev xerces-c-dev
 
 mkdir -p "$dp0/release" && cd "$dp0/release"
 
