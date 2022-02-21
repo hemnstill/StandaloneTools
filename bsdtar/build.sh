@@ -11,7 +11,7 @@ apk add --no-cache alpine-sdk util-linux strace file zlib-dev autoconf automake 
 wget https://www.libarchive.org/downloads/libarchive-3.3.2.tar.gz
 tar xf libarchive-3.3.2.tar.gz
 cd libarchive-3.3.2
-./configure LDFLAGS='--static' --enable-bsdtar=static --disable-shared --with-zlib --without-bz2lib --disable-bsdcpio
+./configure LDFLAGS='--static' --enable-bsdtar=static --disable-shared --with-zlib --without-bz2lib --disable-bsdcpio --disable-bsdcat
 make -j$(nproc)
 gcc -static -o bsdtar \
   tar/bsdtar-bsdtar.o \
