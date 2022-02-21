@@ -3,7 +3,7 @@ dp0="$(realpath "$(dirname "$0")")"
 set -e
 
 apk update
-apk add --no-cache alpine-sdk zlib-dev bzip2-dev autoconf automake libtool zlib-static
+apk add --no-cache alpine-sdk zlib-dev bzip2-dev automake libtool zlib-static
 
 mkdir -p "$dp0/release" && cd "$dp0/release"
 
