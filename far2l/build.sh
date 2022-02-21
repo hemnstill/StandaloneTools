@@ -14,6 +14,7 @@ wget https://github.com/elfmz/far2l/archive/refs/tags/v_2.4.0.tar.gz -O v_2.4.0.
 tar -xf v_2.4.0.tar.gz && cd far2l-v_2.4.0
 
 export SUPPORTS_BACKTRACE=0
+export LD_PRELOAD=/usr/lib/libexecinfo.so
 
 cmake -DUSEWX=no -DCMAKE_BUILD_TYPE=Release -DSTACK_TRACE:BOOL=OFF .
 
