@@ -4,7 +4,6 @@ on: [pull_request]
 
 jobs:
   alpine-bsdtar-linux:
-    if: ${{ false }}
     runs-on: ubuntu-latest
     container: alpine:3.15.0
 
