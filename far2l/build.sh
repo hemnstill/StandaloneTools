@@ -15,7 +15,7 @@ tar -xf v_2.4.0.tar.gz && cd far2l-v_2.4.0
 
 cp -f "../SafeMMap.cpp" "./far2l/src/base/"
 
-cmake -DUSEWX=no -DNETROCKS=no -DUSEUCD=no -DCMAKE_BUILD_TYPE=Release -DCMAKE_EXE_LINKER_FLAGS="-static" .
+cmake -DUSEWX=no -DNETROCKS=no -DUSEUCD=no -DCMAKE_BUILD_TYPE=Release -DCMAKE_EXE_LINKER_FLAGS="-no-pie" .
 
 cmake --build . --config Release
 
@@ -24,4 +24,5 @@ cp -rf "$dp0/release/far2l-v_2.4.0/install/." "$dp0/release/build/"
 cd "$dp0/release/build"
 strip "far2l" -o "far2l_stripped" && mv -f "far2l_stripped" "far2l"
 chmod +x "far2l"
+ldd "far2l"
 "./far2l" --help
