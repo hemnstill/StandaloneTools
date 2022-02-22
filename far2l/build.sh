@@ -19,7 +19,7 @@ cmake -DUSEWX=no -DNETROCKS=no -DUSEUCD=no -DCMAKE_BUILD_TYPE=Release -DCMAKE_EX
 
 cmake --build . --config Release
 
-cp -rf "$dp0/release/far2l-v_2.4.0/install/" "$dp0/release/build/"
+cp -rf "$dp0/release/far2l-v_2.4.0/install/." "$dp0/release/build/"
 
 cd "$dp0/release/build"
 strip "far2l" -o "far2l_stripped" && mv -f "far2l_stripped" "far2l"
