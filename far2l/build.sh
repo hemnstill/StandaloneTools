@@ -3,9 +3,9 @@ dp0="$(realpath "$(dirname "$0")")"
 set -e
 
 apk update
-apk add --no-cache alpine-sdk gawk m4 libssh-dev libressl-dev libnfs-dev libarchive-dev cmake g++ git
+apk add --no-cache alpine-sdk gawk m4 libssh-dev libressl-dev libnfs-dev libarchive-dev cmake git
 apk add --no-cache pcre2-dev uchardet-dev neon-dev spdlog-dev xerces-c-dev
-apk add --no-cache linux-headers libexecinfo-dev libexecinfo-static uchardet-static
+apk add --no-cache libexecinfo-dev
 
 mkdir -p "$dp0/release" && cd "$dp0/release"
 
@@ -22,7 +22,6 @@ cmake --build . --config Release
 cp -rf "$dp0/release/far2l-v_2.4.0/install/." "$dp0/release/build/"
 
 cd "$dp0/release/build"
-strip "far2l"
 chmod +x "far2l"
 ldd "far2l"
 "./far2l" --help
