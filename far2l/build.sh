@@ -3,7 +3,7 @@ dp0="$(realpath "$(dirname "$0")")"
 set -e
 
 apk update
-apk add --no-cache gawk m4 libssh-dev libressl-dev libnfs-dev libarchive-dev cmake alpine-sdk musl-dev git
+apk add --no-cache gawk m4 libssh-dev libressl-dev libnfs-dev libarchive-dev cmake alpine-sdk linux-headers git
 apk add --no-cache pcre2-dev uchardet-dev neon-dev spdlog-dev xerces-c-dev
 apk add --no-cache libexecinfo-dev
 
