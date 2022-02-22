@@ -18,3 +18,10 @@ cp -f "../SafeMMap.cpp" "./far2l/src/base/"
 cmake -DUSEWX=no -DCMAKE_BUILD_TYPE=Release .
 
 cmake --build . --config Release
+
+cp -f "$dp0/release/far2l-v_2.4.0/install/far2l" "$dp0/release/"
+
+cd "$dp0/release"
+strip "far2l"
+chmod +x "far2l"
+"./far2l" --version
