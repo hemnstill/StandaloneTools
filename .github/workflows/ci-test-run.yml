@@ -54,4 +54,4 @@ jobs:
       - uses: actions/upload-artifact@v1
         with:
           name: far2l-linux
-          path: ./far2l/release/far2l
+          path: ./far2l/release/build/

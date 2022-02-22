@@ -19,9 +19,9 @@ cmake -DUSEWX=no -DCMAKE_BUILD_TYPE=Release .
 
 cmake --build . --config Release
 
-cp -f "$dp0/release/far2l-v_2.4.0/install/far2l" "$dp0/release/"
+cp -rf "$dp0/release/far2l-v_2.4.0/install/" "$dp0/release/build/"
 
-cd "$dp0/release"
+cd "$dp0/release/build"
 strip "far2l"
 chmod +x "far2l"
 "./far2l" --version
