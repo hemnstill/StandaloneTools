@@ -11,7 +11,7 @@ mkdir -p "$dp0/release" && cd "$dp0/release"
 wget https://github.com/elfmz/far2l/archive/refs/tags/v_2.4.0.tar.gz -O v_2.4.0.tar.gz
 tar -xf v_2.4.0.tar.gz && cd far2l-v_2.4.0
 
-cmake -DUSEWX=no -DNETROCKS=no -DUSEUCD=no -DCMAKE_BUILD_TYPE=Release -DCMAKE_EXE_LINKER_FLAGS="-static-libgcc -static-libstdc++" .
+cmake -DUSEWX=no -DNETROCKS=no -DUSEUCD=no -DCOLORER=no -DCMAKE_BUILD_TYPE=Release -DCMAKE_EXE_LINKER_FLAGS="-static-libgcc -static-libstdc++" .
 
 cmake --build . --config Release
 
