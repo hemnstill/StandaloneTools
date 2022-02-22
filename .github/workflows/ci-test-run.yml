@@ -40,7 +40,6 @@ jobs:
           path: ./pcre2grep/release/pcre2grep
 
   alpine-far2l-linux:
-    if: ${{ false }}
     runs-on: ubuntu-latest
     container: alpine:3.15.0
 
@@ -58,6 +57,7 @@ jobs:
           path: ./far2l/release/build/
 
   ubuntu-far2l-linux:
+    if: ${{ false }}
     runs-on: ubuntu-latest
     container: ubuntu:20.04
 
