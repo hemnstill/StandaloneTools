@@ -15,7 +15,7 @@ tar -xf v_2.4.0.tar.gz && cd far2l-v_2.4.0
 
 cp -f "../SafeMMap.cpp" "./far2l/src/base/"
 
-cmake -DUSEWX=no -DNETROCKS=no -DUSEUCD=no -DCMAKE_BUILD_TYPE=Release -DCMAKE_EXE_LINKER_FLAGS="-Wl,-Bstatic" .
+cmake -DUSEWX=no -DNETROCKS=no -DUSEUCD=no -DCMAKE_BUILD_TYPE=Release -DCMAKE_EXE_LINKER_FLAGS="-static-libgcc -Wl,-Bstatic" .
 
 cmake --build . --config Release
 
