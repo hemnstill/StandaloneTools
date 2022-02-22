@@ -1,7 +1,7 @@
 #!/bin/bash
 dp0="$(realpath "$(dirname "$0")")"
 set -e
-
+export DEBIAN_FRONTEND=noninteractive
 apt update
 apt install -y libspdlog-dev patchelf wget gawk m4 libx11-dev libxi-dev libxerces-c-dev libuchardet-dev libssh-dev libssl-dev libnfs-dev libneon27-dev libarchive-dev libpcre3-dev cmake g++ git
 
