@@ -5,7 +5,7 @@ set -e
 apk update
 apk add --no-cache gawk m4 libssh-dev libressl-dev libnfs-dev libarchive-dev cmake alpine-sdk linux-headers musl-dev g++ git
 apk add --no-cache pcre2-dev uchardet-dev  neon-dev spdlog-dev xerces-c-dev libexecinfo-dev
-apk add --no-cache uchardet-static libexecinfo-static
+apk add --no-cache uchardet-static libexecinfo-static libssh2-static
 
 mkdir -p "$dp0/release" && cd "$dp0/release"
 
@@ -15,7 +15,7 @@ tar -xf v_2.4.0.tar.gz && cd far2l-v_2.4.0
 
 cp -f "../SafeMMap.cpp" "./far2l/src/base/"
 
-cmake -DUSEWX=no -DCMAKE_EXE_LINKER_FLAGS="-Wl,-Bstatic -luchardet -lexecinfo -static-libstdc++ -lstdc++ -Wl,--as-needed" -DCMAKE_BUILD_TYPE=Release .
+cmake -DUSEWX=no -DNETROCKS=no -DCMAKE_EXE_LINKER_FLAGS="-Wl,-Bstatic -luchardet -lexecinfo -static-libstdc++ -lstdc++ -Wl,-Bdynamic" -DCMAKE_BUILD_TYPE=Release .
 
 cmake --build . --config Release
 
