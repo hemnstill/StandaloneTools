@@ -7,7 +7,7 @@ env:
 
 jobs:
   alpine-bsdtar-linux:
-    if: ${{ '${{ env.CURRENT_TOOL }}' == 'bsdtar' }}
+    if: ${{ env.CURRENT_TOOL }} == 'bsdtar'
     runs-on: ubuntu-latest
     container: alpine:3.15.0
 
@@ -25,7 +25,7 @@ jobs:
           path: ./bsdtar/release/bsdtar
 
   alpine-pcre2grep-linux:
-    if: ${{ '${{ env.CURRENT_TOOL }}' == 'pcre2grep' }}
+    if: ${{ env.CURRENT_TOOL }} == 'pcre2grep'
     runs-on: ubuntu-latest
     container: alpine:3.15.0
 
@@ -43,7 +43,7 @@ jobs:
           path: ./pcre2grep/release/pcre2grep
 
   alpine-far2l-linux:
-    if: ${{ '${{ env.CURRENT_TOOL }}' == 'far2l' }}
+    if: ${{ env.CURRENT_TOOL }} == 'far2l'
     runs-on: ubuntu-latest
     container: alpine:3.15.0
 
@@ -61,7 +61,7 @@ jobs:
           path: ./far2l/release/build/
 
   ubuntu-far2l-linux:
-    if: ${{ '${{ env.CURRENT_TOOL }}' == 'far2l' }}
+    if: ${{ env.CURRENT_TOOL }} == 'far2l'
     runs-on: ubuntu-latest
     container: ubuntu:20.04
 
