@@ -34,9 +34,9 @@ without_plugins="\
 -DTMPPANEL=no \
 "
 
-cmake_command=$(printf 'cmake -DUSEWX=no %s -DCMAKE_EXE_LINKER_FLAGS="%s" -DCMAKE_BUILD_TYPE=Release .' \
+cmake_command=$(printf 'cmake -DUSEWX=no -DUSEUCD=no %s -DCMAKE_EXE_LINKER_FLAGS="%s" -DCMAKE_BUILD_TYPE=Release .' \
   "$without_plugins" \
-  "-l:libuchardet.a -l:libstdc++.a -static-libstdc++ -static-libgcc")
+  "-l:libuchardet.a -static-libstdc++ -static-libgcc")
 echo ">> $cmake_command"
 eval "$cmake_command"
 
