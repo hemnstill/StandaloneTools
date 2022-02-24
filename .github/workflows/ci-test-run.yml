@@ -6,8 +6,17 @@ env:
   CURRENT_TOOL: far2l
 
 jobs:
+  prejob:
+    runs-on: ubuntu-latest
+    outputs:
+      tool: ${{ steps.setvar.outputs.envvar }}
+    steps:
+      - id: setvar
+        run: echo "::set-output name=envvar::$CURRENT_TOOL"  # get top level env and set it as output
+
   alpine-bsdtar-linux:
-    if: ${{ env.CURRENT_TOOL }} == 'bsdtar'
+    needs: prejob
+    if: ${{ needs.prejob.outputs.tool=='bsdtar' }}
     runs-on: ubuntu-latest
     container: alpine:3.15.0
 
@@ -25,7 +34,9 @@ jobs:
           path: ./bsdtar/release/bsdtar
 
   alpine-pcre2grep-linux:
-    if: ${{ env.CURRENT_TOOL }} == 'pcre2grep'
+    needs: prejob
+    if: ${{ needs.prejob.outputs.tool=='pcre2grep' }}
+
     runs-on: ubuntu-latest
     container: alpine:3.15.0
 
@@ -43,7 +54,9 @@ jobs:
           path: ./pcre2grep/release/pcre2grep
 
   alpine-far2l-linux:
-    if: ${{ env.CURRENT_TOOL }} == 'far2l'
+    needs: prejob
+    if: ${{ needs.prejob.outputs.tool=='far2l' }}
+
     runs-on: ubuntu-latest
     container: alpine:3.15.0
 
@@ -61,7 +74,9 @@ jobs:
           path: ./far2l/release/build/
 
   ubuntu-far2l-linux:
-    if: ${{ env.CURRENT_TOOL }} == 'far2l'
+    needs: prejob
+    if: ${{ needs.prejob.outputs.tool=='far2l' }}
+
     runs-on: ubuntu-latest
     container: ubuntu:20.04
 
