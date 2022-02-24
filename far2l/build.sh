@@ -3,7 +3,7 @@ dp0="$(realpath "$(dirname "$0")")"
 set -e
 
 apk update
-apk add --no-cache gawk m4 libssh-dev libressl-dev libnfs-dev libarchive-dev cmake alpine-sdk linux-headers musl-dev g++ git
+apk add --no-cache gawk m4 libssh-dev libressl-dev libnfs-dev libarchive-dev cmake alpine-sdk linux-headers musl-dev g++ mingw-w64-gcc git
 apk add --no-cache pcre2-dev uchardet-dev  neon-dev spdlog-dev xerces-c-dev libexecinfo-dev
 apk add --no-cache uchardet-static libexecinfo-static libssh2-static
 
@@ -34,7 +34,7 @@ without_plugins="\
 -DTMPPANEL=no \
 "
 
-cmake_command=$(printf 'cmake -DUSEWX=no %s -DCMAKE_EXE_LINKER_FLAGS="%s" -DCMAKE_BUILD_TYPE=Release .' "$without_plugins" "-l:libuchardet.a -l:libstdc++.a")
+cmake_command=$(printf 'cmake -DUSEWX=no %s -DCMAKE_EXE_LINKER_FLAGS="%s" -DCMAKE_BUILD_TYPE=Release .' "$without_plugins" "-l:libuchardet.a -l:libstdc++.a -l:libgcc_s.a")
 echo ">> $cmake_command"
 eval "$cmake_command"
 
