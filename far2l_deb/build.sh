@@ -11,7 +11,28 @@ mkdir -p "$dp0/release" && cd "$dp0/release"
 wget https://github.com/elfmz/far2l/archive/refs/tags/v_2.4.0.tar.gz -O v_2.4.0.tar.gz
 tar -xf v_2.4.0.tar.gz && cd far2l-v_2.4.0
 
-cmake -DUSEWX=no -DNETROCKS=no -DCMAKE_EXE_LINKER_FLAGS="-Wl,-Bstatic -luchardet -static-libstdc++ -lstdc++ -Wl,-Bdynamic" -DCMAKE_BUILD_TYPE=Release .
+without_plugins="\
+-DALIGN=no \
+-DAUTOWRAP=no \
+-DCALC=no \
+-DCOLORER=no \
+-DCOMPARE=no \
+-DDRAWLINE=no \
+-DEDITCASE=no \
+-DEDITORCOMP=no \
+-DFARFTP=no \
+-DFILECASE=no \
+-DINCSRCH=no \
+-DINSIDE=no \
+-DMULTIARC=no \
+-DNETROCKS=no \
+-DSIMPLEINDENT=no \
+-DTMPPANEL=no \
+"
+
+cmake_command=$(printf 'cmake -DUSEWX=no %s -DCMAKE_EXE_LINKER_FLAGS="%s" -DCMAKE_BUILD_TYPE=Release .' "$without_plugins" "")
+echo ">> $cmake_command"
+eval "$cmake_command"
 
 cmake --build . --config Release
 

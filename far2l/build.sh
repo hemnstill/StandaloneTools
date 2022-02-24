@@ -15,7 +15,28 @@ tar -xf v_2.4.0.tar.gz && cd far2l-v_2.4.0
 
 cp -f "../SafeMMap.cpp" "./far2l/src/base/"
 
-cmake -DUSEWX=no -DNETROCKS=no -DCMAKE_EXE_LINKER_FLAGS="-static" -DCMAKE_BUILD_TYPE=Release .
+without_plugins="\
+-DALIGN=no \
+-DAUTOWRAP=no \
+-DCALC=no \
+-DCOLORER=no \
+-DCOMPARE=no \
+-DDRAWLINE=no \
+-DEDITCASE=no \
+-DEDITORCOMP=no \
+-DFARFTP=no \
+-DFILECASE=no \
+-DINCSRCH=no \
+-DINSIDE=no \
+-DMULTIARC=no \
+-DNETROCKS=no \
+-DSIMPLEINDENT=no \
+-DTMPPANEL=no \
+"
+
+cmake_command=$(printf 'cmake -DUSEWX=no %s -DCMAKE_EXE_LINKER_FLAGS="%s" -DCMAKE_BUILD_TYPE=Release .' "$without_plugins" "-static -l:libuchardet.a")
+echo ">> $cmake_command"
+eval "$cmake_command"
 
 cmake --build . --config Release
 
