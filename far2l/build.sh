@@ -4,8 +4,8 @@ set -e
 
 apk update
 apk add --no-cache gawk m4 libssh-dev libressl-dev libnfs-dev libarchive-dev cmake alpine-sdk linux-headers musl-dev git
-apk add --no-cache pcre2-dev uchardet-dev  neon-dev spdlog-dev xerces-c-dev libexecinfo-dev
-apk add --no-cache uchardet-static libexecinfo-static libssh2-static
+apk add --no-cache uchardet-dev  neon-dev spdlog-dev xerces-c-dev libexecinfo-dev
+apk add --no-cache uchardet-static libexecinfo-static
 
 mkdir -p "$dp0/release" && cd "$dp0/release"
 
