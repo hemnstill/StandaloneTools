@@ -41,4 +41,4 @@ cp -rf "$dp0/release/far2l-v_2.4.0/install/." "$dp0/release/build/"
 cd "$dp0/release/build"
 chmod +x "far2l"
 ldd "far2l"
-"./far2l" --help
+"./far2l" --help | head -n 1

@@ -34,7 +34,7 @@ without_plugins="\
 -DTMPPANEL=no \
 "
 
-cmake_command=$(printf 'cmake -DUSEWX=no %s -DCMAKE_EXE_LINKER_FLAGS="%s" -DCMAKE_BUILD_TYPE=Release .' "$without_plugins" "-static -l:libuchardet.a")
+cmake_command=$(printf 'cmake -DUSEWX=no %s -DCMAKE_EXE_LINKER_FLAGS="%s" -DCMAKE_BUILD_TYPE=Release .' "$without_plugins" "-l:libuchardet.a")
 echo ">> $cmake_command"
 eval "$cmake_command"
 
@@ -45,4 +45,4 @@ cp -rf "$dp0/release/far2l-v_2.4.0/install/." "$dp0/release/build/"
 cd "$dp0/release/build"
 chmod +x "far2l"
 # ldd "far2l"
-"./far2l" --help
+"./far2l" --help | head -n1
