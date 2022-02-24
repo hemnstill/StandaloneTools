@@ -2,10 +2,16 @@
 dp0="$(realpath "$(dirname "$0")")"
 set -e
 
+echo "::group::install deps"
+
 apk update
 apk add --no-cache gawk m4 libssh-dev libressl-dev libnfs-dev libarchive-dev cmake alpine-sdk linux-headers musl-dev git
 apk add --no-cache uchardet-dev  neon-dev spdlog-dev xerces-c-dev libexecinfo-dev
 apk add --no-cache uchardet-static libexecinfo-static
+
+echo "::endgroup::"
+
+echo "::group::prepare sources v_2.4.0"
 
 mkdir -p "$dp0/release" && cd "$dp0/release"
 
@@ -14,6 +20,10 @@ wget https://github.com/elfmz/far2l/archive/refs/tags/v_2.4.0.tar.gz -O v_2.4.0.
 tar -xf v_2.4.0.tar.gz && cd far2l-v_2.4.0
 
 cp -f "../SafeMMap.cpp" "./far2l/src/base/"
+
+echo "::endgroup::"
+
+echo "::group::build"
 
 without_plugins="\
 -DALIGN=no \
@@ -41,6 +51,8 @@ echo ">> $cmake_command"
 eval "$cmake_command"
 
 cmake --build . --config Release
+
+echo "::endgroup::"
 
 cp -rf "$dp0/release/far2l-v_2.4.0/install/." "$dp0/release/build/"
 
