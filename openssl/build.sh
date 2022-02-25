@@ -5,7 +5,7 @@ set -e
 echo "::group::install deps"
 
 apk update
-apk add --no-cache alpine-sdk perl make
+apk add --no-cache alpine-sdk perl make musl-dev
 
 echo "::endgroup::"
 
