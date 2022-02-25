@@ -30,7 +30,7 @@ jobs:
       - uses: ncipollo/release-action@v1
         with:
           tag: '${{ steps.build.outputs.tool_name }}-${{ steps.build.outputs.tool_version }}'
-          body: '${{ steps.build.outputs.tool_body }}'
+          bodyFile: './bsdtar/release/body.md'
           artifacts: './bsdtar/release/${{ steps.build.outputs.tool_name }}'
           allowUpdates: true
           token: ${{ secrets.GITHUB_TOKEN }}

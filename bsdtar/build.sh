@@ -47,5 +47,7 @@ strip "$tool_name"
 chmod +x "$tool_name"
 actual_version=$("./$tool_name" --version)
 echo "$actual_version"
-printf '::set-output name=tool_body::%s
+
+{ printf '%s
 %s' "$actual_version" "$download_url"
+} > body.md
