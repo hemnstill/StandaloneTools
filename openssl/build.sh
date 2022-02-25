@@ -5,7 +5,7 @@ set -e
 echo "::group::install deps"
 
 apk update
-apk add --no-cache alpine-sdk perl make musl-dev
+apk add --no-cache alpine-sdk perl make linux-headers
 
 echo "::endgroup::"
 
@@ -18,8 +18,8 @@ download_url="https://github.com/openssl/openssl/archive/refs/tags/OpenSSL_$tool
 echo "::group::prepare sources $download_url"
 
 mkdir -p "$dp0/release" && cd "$dp0/release"
-wget "$download_url" -O "openssl-$tool_version.tar.gz"
-tar -xf "openssl-$tool_version.tar.gz" && cd "openssl-OpenSSL_$tool_version"
+wget "$download_url" -O "tool-$tool_version.tar.gz"
+tar -xf "tool-$tool_version.tar.gz" && cd "openssl-OpenSSL_$tool_version"
 
 echo "::endgroup::"
 
