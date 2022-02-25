@@ -5,7 +5,7 @@ set -e
 echo "::group::install deps"
 
 apk update
-apk add --no-cache alpine-sdk zlib-dev bzip2-dev zlib-static bzip2-static
+apk add --no-cache alpine-sdk perl
 
 echo "::endgroup::"
 
