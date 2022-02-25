@@ -48,6 +48,7 @@ chmod +x "$tool_name"
 actual_version=$("./$tool_name" --version)
 echo "$actual_version"
 
-{ printf '%s
-%s' "$actual_version" "$download_url"
+{ printf 'sha256: %s
+%s
+%s' "$(sha256sum $tool_name)" "$actual_version" "$download_url"
 } > body.md
