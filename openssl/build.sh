@@ -26,7 +26,7 @@ echo "::endgroup::"
 echo "::group::build"
 
 ./Configure no-shared LDFLAGS='--static' linux-x86_64
-./make
+make
 
 echo "::endgroup::"
 
