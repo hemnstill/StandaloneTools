@@ -18,21 +18,24 @@ jobs:
     needs: prejob
     if: ${{ needs.prejob.outputs.tool=='bsdtar' }}
     runs-on: ubuntu-latest
+    outputs:
+      tool: ${{ steps.setvar.outputs.envvar }}
+
     container: alpine:3.15.0
 
     steps:
       - uses: actions/checkout@v2
-
       - name: build
+        id: build
         run: |
           apk add --no-cache bash
           ./bsdtar/build.sh
 
       - uses: ncipollo/release-action@v1
         with:
-          tag: 'bsdtar-3.5.1'
-          body: 'https://github.com/libarchive/libarchive'
-          artifacts: './bsdtar/release/bsdtar'
+          tag: '${{ steps.build.outputs.tool_name }}-${{ steps.build.outputs.tool_version }}'
+          body: '${{ steps.build.outputs.tool_body }}'
+          artifacts: './bsdtar/release/${{ steps.build.outputs.tool_name }}'
           allowUpdates: true
           token: ${{ secrets.GITHUB_TOKEN }}
 

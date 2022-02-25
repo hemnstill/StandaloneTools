@@ -2,18 +2,33 @@
 dp0="$(realpath "$(dirname "$0")")"
 set -e
 
+echo "::group::install deps"
+
 apk update
 apk add --no-cache alpine-sdk zlib-dev bzip2-dev zlib-static bzip2-static
 
-mkdir -p "$dp0/release" && cd "$dp0/release"
+echo "::endgroup::"
+
+tool_name="bsdtar"
+tool_version="3.5.1"
+echo "::group::prepare sources $tool_name $tool_version"
+
+echo "::set-output name=tool_name::$tool_name"
+echo "::set-output name=tool_version::$tool_version"
 
 # Download release
-wget https://github.com/libarchive/libarchive/releases/download/v3.5.1/libarchive-3.5.1.tar.gz -O libarchive-3.5.1.tar.gz
-tar -xf libarchive-3.5.1.tar.gz && cd libarchive-3.5.1
+download_url="https://github.com/libarchive/libarchive/releases/download/v3.5.1/libarchive-$tool_version.tar.gz"
+mkdir -p "$dp0/release" && cd "$dp0/release"
+wget "$download_url" -O "libarchive-$tool_version.tar.gz"
+tar -xf "libarchive-$tool_version.tar.gz" && cd "libarchive-$tool_version"
+
+echo "::endgroup::"
+
+echo "::group::build"
 
 ./configure LDFLAGS='--static' --enable-bsdtar=static --disable-shared --disable-bsdcpio --disable-bsdcat
 make -j$(nproc)
-gcc -static -o ../bsdtar \
+gcc -static -o "../$tool_name" \
   tar/bsdtar-bsdtar.o \
   tar/bsdtar-cmdline.o \
   tar/bsdtar-creation_set.o \
@@ -26,7 +41,11 @@ gcc -static -o ../bsdtar \
   /lib/libz.a \
   /usr/lib/libbz2.a
 
+echo "::endgroup::"
+
 cd "$dp0/release"
-strip "bsdtar"
-chmod +x "bsdtar"
-"./bsdtar" --version
+strip "$tool_name"
+chmod +x "$tool_name"
+actual_version=$("./$tool_name" --version)
+echo "$actual_version"
+echo "::set-output name=tool_body::$actual_version"
