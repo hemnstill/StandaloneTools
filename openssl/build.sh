@@ -38,7 +38,7 @@ chmod +x "$tool_name"
 
 { printf 'SHA-256: %s
 %s
-%s' "$(sha256sum < $tool_name)" "$("./$tool_name" --version)" "$download_url"
+%s' "$(sha256sum < $tool_name)" "$("./$tool_name" version)" "$download_url"
 } > body.md
 
 cat body.md
