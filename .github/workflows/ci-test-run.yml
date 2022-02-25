@@ -43,6 +43,7 @@ jobs:
     steps:
       - uses: actions/checkout@v2
       - name: build
+        id: build
         run: |
           apk add --no-cache bash
           ./pcre2grep/build.sh
