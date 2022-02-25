@@ -14,7 +14,7 @@ tool_version="1_1_1k"
 echo "::set-output name=tool_name::$tool_name"
 echo "::set-output name=tool_version::$tool_version"
 
-download_url="https://github.com/openssl/openssl/archive/refs/tags/OpenSSL_$tool_version.zip"
+download_url="https://github.com/openssl/openssl/archive/refs/tags/OpenSSL_$tool_version.tar.gz"
 echo "::group::prepare sources $download_url"
 
 mkdir -p "$dp0/release" && cd "$dp0/release"
