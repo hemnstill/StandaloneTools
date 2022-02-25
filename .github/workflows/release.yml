@@ -13,5 +13,5 @@ jobs:
         artifacts: 'README.md'
         tag: 'v1'
         allowUpdates: true
-        prerelease: true
+        draft: true
         token: ${{ secrets.GITHUB_TOKEN }}
