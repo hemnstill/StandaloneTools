@@ -3,7 +3,7 @@ name: ci build
 on: [pull_request]
 
 env:
-  CURRENT_TOOL: ''
+  CURRENT_TOOL: 'bsdtar'
 
 jobs:
   prejob:
@@ -28,10 +28,13 @@ jobs:
           apk add --no-cache bash
           ./bsdtar/build.sh
 
-      - uses: actions/upload-artifact@v1
+      - uses: ncipollo/release-action@v1
         with:
-          name: bsdtar-linux
-          path: ./bsdtar/release/bsdtar
+          tag: 'bsdtar-3.5.1'
+          body: 'https://github.com/libarchive/libarchive'
+          artifacts: './bsdtar/release/bsdtar'
+          allowUpdates: true
+          token: ${{ secrets.GITHUB_TOKEN }}
 
   alpine-pcre2grep-linux:
     needs: prejob
