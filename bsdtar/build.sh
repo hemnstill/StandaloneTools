@@ -50,5 +50,5 @@ echo "$actual_version"
 
 { printf 'sha256: %s
 %s
-%s' "$(sha256sum $tool_name)" "$actual_version" "$download_url"
+%s' "$(sha256sum < $tool_name)" "$actual_version" "$download_url"
 } > body.md
