@@ -1,6 +1,7 @@
 name: release
 
 on:
+  pull_request:
   workflow_dispatch:
     inputs:
       tool:
@@ -9,8 +10,6 @@ on:
 
 jobs:
   test_release:
-    needs: prejob
-    if: ${{ needs.prejob.outputs.tool=='test_release' }}
     runs-on: ubuntu-latest
     steps:
     - uses: fnkr/github-action-ghr@v1
