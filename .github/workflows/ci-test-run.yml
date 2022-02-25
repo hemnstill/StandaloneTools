@@ -3,7 +3,7 @@ name: ci build
 on: [pull_request]
 
 env:
-  CURRENT_TOOL: 'pcre2grep'
+  CURRENT_TOOL: 'openssl'
 
 jobs:
   prejob:
@@ -53,6 +53,27 @@ jobs:
           tag: '${{ steps.build.outputs.tool_name }}-${{ steps.build.outputs.tool_version }}'
           bodyFile: './pcre2grep/release/body.md'
           artifacts: './pcre2grep/release/${{ steps.build.outputs.tool_name }}'
+          allowUpdates: true
+          token: ${{ secrets.GITHUB_TOKEN }}
+
+  alpine-openssl-linux:
+    needs: prejob
+    if: ${{ needs.prejob.outputs.tool=='openssl' }}
+    runs-on: ubuntu-latest
+    container: alpine:3.15.0
+    steps:
+      - uses: actions/checkout@v2
+      - name: build
+        id: build
+        run: |
+          apk add --no-cache bash
+          ./openssl/build.sh
+
+      - uses: ncipollo/release-action@v1
+        with:
+          tag: '${{ steps.build.outputs.tool_name }}-${{ steps.build.outputs.tool_version }}'
+          bodyFile: './openssl/release/body.md'
+          artifacts: './openssl/release/${{ steps.build.outputs.tool_name }}'
           allowUpdates: true
           token: ${{ secrets.GITHUB_TOKEN }}
 
