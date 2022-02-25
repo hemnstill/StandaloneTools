@@ -12,17 +12,13 @@ jobs:
       tool: ${{ steps.setvar.outputs.envvar }}
     steps:
       - id: setvar
-        run: echo "::set-output name=envvar::$CURRENT_TOOL"  # get top level env and set it as output
+        run: echo "::set-output name=envvar::$CURRENT_TOOL"
 
   alpine-bsdtar-linux:
     needs: prejob
     if: ${{ needs.prejob.outputs.tool=='bsdtar' }}
     runs-on: ubuntu-latest
-    outputs:
-      tool: ${{ steps.setvar.outputs.envvar }}
-
     container: alpine:3.15.0
-
     steps:
       - uses: actions/checkout@v2
       - name: build

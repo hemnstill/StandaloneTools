@@ -11,13 +11,12 @@ echo "::endgroup::"
 
 tool_name="bsdtar"
 tool_version="3.5.1"
-echo "::group::prepare sources $tool_name $tool_version"
-
 echo "::set-output name=tool_name::$tool_name"
 echo "::set-output name=tool_version::$tool_version"
 
-# Download release
 download_url="https://github.com/libarchive/libarchive/releases/download/v3.5.1/libarchive-$tool_version.tar.gz"
+echo "::group::prepare sources $download_url"
+
 mkdir -p "$dp0/release" && cd "$dp0/release"
 wget "$download_url" -O "libarchive-$tool_version.tar.gz"
 tar -xf "libarchive-$tool_version.tar.gz" && cd "libarchive-$tool_version"
@@ -48,4 +47,5 @@ strip "$tool_name"
 chmod +x "$tool_name"
 actual_version=$("./$tool_name" --version)
 echo "$actual_version"
-echo "::set-output name=tool_body::$actual_version"
+printf '::set-output name=tool_body::%s
+%s' "$actual_version" "$download_url"
