@@ -30,6 +30,8 @@ make
 
 echo "::endgroup::"
 
+cp -f "$dp0/release/openssl-OpenSSL_$tool_version/$tool_name" "$dp0/release/"
+
 cd "$dp0/release"
 strip "$tool_name"
 chmod +x "$tool_name"
