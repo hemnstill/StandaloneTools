@@ -45,10 +45,10 @@ echo "::endgroup::"
 cd "$dp0/release"
 strip "$tool_name"
 chmod +x "$tool_name"
-actual_version=$("./$tool_name" --version)
-echo "$actual_version"
 
 { printf 'sha256: %s
 %s
-%s' "$(sha256sum < $tool_name)" "$actual_version" "$download_url"
+%s' "$(sha256sum < $tool_name | head -c 40)" "$("./$tool_name" --version)" "$download_url"
 } > body.md
+
+cat body.md
