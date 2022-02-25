@@ -3,7 +3,7 @@ name: ci build
 on: [pull_request]
 
 env:
-  CURRENT_TOOL: far2l
+  CURRENT_TOOL: 'bsdtar'
 
 jobs:
   prejob:
@@ -12,26 +12,28 @@ jobs:
       tool: ${{ steps.setvar.outputs.envvar }}
     steps:
       - id: setvar
-        run: echo "::set-output name=envvar::$CURRENT_TOOL"  # get top level env and set it as output
+        run: echo "::set-output name=envvar::$CURRENT_TOOL"
 
   alpine-bsdtar-linux:
     needs: prejob
     if: ${{ needs.prejob.outputs.tool=='bsdtar' }}
     runs-on: ubuntu-latest
     container: alpine:3.15.0
-
     steps:
       - uses: actions/checkout@v2
-
       - name: build
+        id: build
         run: |
           apk add --no-cache bash
           ./bsdtar/build.sh
 
-      - uses: actions/upload-artifact@v1
+      - uses: ncipollo/release-action@v1
         with:
-          name: bsdtar-linux
-          path: ./bsdtar/release/bsdtar
+          tag: '${{ steps.build.outputs.tool_name }}-${{ steps.build.outputs.tool_version }}'
+          bodyFile: './bsdtar/release/body.md'
+          artifacts: './bsdtar/release/${{ steps.build.outputs.tool_name }}'
+          allowUpdates: true
+          token: ${{ secrets.GITHUB_TOKEN }}
 
   alpine-pcre2grep-linux:
     needs: prejob
