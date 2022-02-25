@@ -2,17 +2,16 @@ name: release
 
 on:
   pull_request:
-  workflow_dispatch:
-    inputs:
-      tool:
-        description: 'CURRENT_TOOL'
-        required: true
 
 jobs:
   test_release:
     runs-on: ubuntu-latest
     steps:
-    - uses: fnkr/github-action-ghr@v1
-      env:
-        GHR_PATH: ${{ github.event.inputs.tool }}/
-        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+    - uses: actions/checkout@v2
+    - uses: ncipollo/release-action@v1
+      with:
+        artifacts: 'README.md'
+        tag: 'v1'
+        allowUpdates: true
+        prerelease: true
+        token: ${{ secrets.GITHUB_TOKEN }}
