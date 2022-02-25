@@ -46,7 +46,7 @@ cd "$dp0/release"
 strip "$tool_name"
 chmod +x "$tool_name"
 
-{ printf 'sha256: %s
+{ printf 'SHA-256: %s
 %s
 %s' "$(sha256sum < $tool_name | head -c 40)" "$("./$tool_name" --version)" "$download_url"
 } > body.md
