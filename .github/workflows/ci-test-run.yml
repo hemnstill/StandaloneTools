@@ -3,7 +3,7 @@ name: ci build
 on: [pull_request]
 
 env:
-  CURRENT_TOOL: 'bsdtar'
+  CURRENT_TOOL: 'pcre2grep'
 
 jobs:
   prejob:
@@ -38,22 +38,23 @@ jobs:
   alpine-pcre2grep-linux:
     needs: prejob
     if: ${{ needs.prejob.outputs.tool=='pcre2grep' }}
-
     runs-on: ubuntu-latest
     container: alpine:3.15.0
-
     steps:
       - uses: actions/checkout@v2
-
       - name: build
+        id: build
         run: |
           apk add --no-cache bash
           ./pcre2grep/build.sh
 
-      - uses: actions/upload-artifact@v1
+      - uses: ncipollo/release-action@v1
         with:
-          name: pcre2grep-linux
-          path: ./pcre2grep/release/pcre2grep
+          tag: '${{ steps.build.outputs.tool_name }}-${{ steps.build.outputs.tool_version }}'
+          bodyFile: './pcre2grep/release/body.md'
+          artifacts: './pcre2grep/release/${{ steps.build.outputs.tool_name }}'
+          allowUpdates: true
+          token: ${{ secrets.GITHUB_TOKEN }}
 
   alpine-far2l-linux:
     needs: prejob
