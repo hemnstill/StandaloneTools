@@ -11,7 +11,7 @@ jobs:
     - uses: ncipollo/release-action@v1
       with:
         artifacts: 'README.md'
-        tag: 'v1'
+        name: 'v2'
         allowUpdates: true
         draft: true
         token: ${{ secrets.GITHUB_TOKEN }}
