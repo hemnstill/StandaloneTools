@@ -3,7 +3,7 @@ name: ci build
 on: [pull_request]
 
 env:
-  CURRENT_TOOL: 'openssl'
+  CURRENT_TOOL: 'far2l'
 
 jobs:
   prejob:
