@@ -129,4 +129,5 @@ jobs:
 
       - name: Test on Alpine
         run: |
+          (cd musl && tar -xf ./far2l.tar)
           ./musl/far2l --help
