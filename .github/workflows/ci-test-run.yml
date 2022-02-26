@@ -114,3 +114,21 @@ jobs:
         with:
           name: far2l-linux-glibc
           path: ./far2l_deb/release/build/
+
+  far2l-linux-release:
+    needs: alpine-far2l-linux
+
+    runs-on: ubuntu-latest
+    container: alpine:3.15.0
+
+    steps:
+      - uses: actions/checkout@v2
+
+      - uses: actions/download-artifact@v2
+        with:
+          name: far2l-linux
+          path: musl
+
+      - name: Test on Alpine
+        run: |
+          ./musl/far2l --help

@@ -11,13 +11,18 @@ apk add --no-cache uchardet-static libexecinfo-static
 
 echo "::endgroup::"
 
-echo "::group::prepare sources v_2.4.0"
+tool_name="far2l"
+tool_version="2.4.0"
+echo "::set-output name=tool_name::$tool_name"
+echo "::set-output name=tool_version::$tool_version"
 
-mkdir -p "$dp0/release" && cd "$dp0/release"
+download_url="https://github.com/elfmz/far2l/archive/refs/tags/v_$tool_version.tar.gz"
+echo "::group::prepare sources $download_url"
 
 # Download release
-wget https://github.com/elfmz/far2l/archive/refs/tags/v_2.4.0.tar.gz -O v_2.4.0.tar.gz
-tar -xf v_2.4.0.tar.gz && cd far2l-v_2.4.0
+mkdir -p "$dp0/release" && cd "$dp0/release"
+wget "$download_url" -O "v_$tool_version.tar.gz"
+tar -xf "v_$tool_version.tar.gz" && cd "far2l-v_$tool_version"
 
 cp -f "../SafeMMap.cpp" "./far2l/src/base/"
 
@@ -46,7 +51,7 @@ without_plugins="\
 
 cmake_command=$(printf 'cmake -DUSEWX=no -DUSEUCD=no %s -DCMAKE_EXE_LINKER_FLAGS="%s" -DCMAKE_BUILD_TYPE=Release .' \
   "$without_plugins" \
-  "")
+  "-l:libuchardet.a -static-libstdc++ -static-libgcc")
 echo ">> $cmake_command"
 eval "$cmake_command"
 
@@ -54,9 +59,15 @@ cmake --build . --config Release
 
 echo "::endgroup::"
 
-cp -rf "$dp0/release/far2l-v_2.4.0/install/." "$dp0/release/build/"
+cp -rf "$dp0/release/far2l-v_$tool_version/install/." "$dp0/release/build/"
 
-cd "$dp0/release/build"
-chmod +x "far2l"
-ldd "far2l"
-"./far2l" --help | head -n1
+cd "$dp0/release"
+strip "$tool_name"
+chmod +x "$tool_name"
+
+{ printf 'SHA-256: %s
+%s
+%s' "$(sha256sum < $tool_name)" "$("./$tool_name" --help | head -n1)" "$download_url"
+} > body.md
+
+cat body.md
