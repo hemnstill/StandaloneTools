@@ -61,7 +61,7 @@ echo "::endgroup::"
 
 cp -rf "$dp0/release/far2l-v_$tool_version/install/." "$dp0/release/build/"
 
-cd "$dp0/release"
+cd "$dp0/release/build"
 strip "$tool_name"
 chmod +x "$tool_name"
 

@@ -122,8 +122,6 @@ jobs:
     container: alpine:3.15.0
 
     steps:
-      - uses: actions/checkout@v2
-
       - uses: actions/download-artifact@v2
         with:
           name: far2l-linux
