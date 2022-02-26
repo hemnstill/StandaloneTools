@@ -95,7 +95,7 @@ jobs:
       - uses: actions/upload-artifact@v1
         with:
           name: far2l-linux
-          path: ./far2l/release/build/
+          path: ./far2l/release/far2l.tar
 
   ubuntu-far2l-linux:
     needs: prejob
@@ -113,7 +113,7 @@ jobs:
       - uses: actions/upload-artifact@v1
         with:
           name: far2l-linux-glibc
-          path: ./far2l_deb/release/build/
+          path: ./far2l_deb/release/far2l.tar
 
   far2l-linux-release:
     needs: alpine-far2l-linux

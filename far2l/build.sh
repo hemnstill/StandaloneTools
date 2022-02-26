@@ -65,6 +65,8 @@ cd "$dp0/release/build"
 strip "$tool_name"
 chmod +x "$tool_name"
 
+tar -cvf far2l.tar ..
+
 { printf 'SHA-256: %s
 %s
 %s' "$(sha256sum < $tool_name)" "$("./$tool_name" --help | head -n1)" "$download_url"
