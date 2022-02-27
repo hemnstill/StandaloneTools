@@ -93,7 +93,7 @@ jobs:
 
       - uses: actions/upload-artifact@v1
         with:
-          name: far2l-linux
+          name: far2l-linux-musl
           path: ./far2l/release/far2l.tar
 
   ubuntu-far2l-linux:
@@ -122,7 +122,7 @@ jobs:
     steps:
       - uses: actions/download-artifact@v2
         with:
-          name: far2l-linux
+          name: far2l-linux-musl
           path: musl
 
       - name: Test on Alpine
@@ -131,7 +131,7 @@ jobs:
           ldd ./musl/far2l
           ./musl/far2l --help
 
-  ubuntu-far2l-linux-test:
+  ubuntu-far2l-musl-test:
     needs: alpine-far2l-linux
 
     runs-on: ubuntu-latest
@@ -140,7 +140,7 @@ jobs:
     steps:
       - uses: actions/download-artifact@v2
         with:
-          name: far2l-linux
+          name: far2l-linux-musl
           path: musl
 
       - name: Test on Ubuntu
@@ -151,3 +151,21 @@ jobs:
           (cd musl && tar -xf ./far2l.tar)
           ldd ./musl/far2l
           ./musl/far2l --help
+
+  ubuntu-far2l-glibc-test:
+    needs: ubuntu-far2l-linux
+
+    runs-on: ubuntu-latest
+    container: ubuntu:20.04
+
+    steps:
+      - uses: actions/download-artifact@v2
+        with:
+          name: far2l-linux-glibc
+          path: glibc
+
+      - name: Test on Ubuntu
+        run: |
+          (cd glibc && tar -xf ./far2l.tar)
+          ldd ./glibc/far2l
+          ./glibc/far2l --help
