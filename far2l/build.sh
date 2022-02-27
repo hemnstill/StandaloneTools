@@ -25,6 +25,8 @@ wget "$download_url" -O "v_$tool_version.tar.gz"
 tar -xf "v_$tool_version.tar.gz" && cd "far2l-v_$tool_version"
 
 cp -f "../SafeMMap.cpp" "./far2l/src/base/"
+cp -f "../sort_r.h" "./far2l/src/base/"
+cp -f "../farrtl.cpp" "./far2l/src/base/"
 
 echo "::endgroup::"
 
