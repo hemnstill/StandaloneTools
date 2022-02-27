@@ -152,6 +152,27 @@ jobs:
           ldd ./musl/far2l
           ./musl/far2l --help
 
+  alpine-far2l-glibc-test:
+    needs: ubuntu-far2l-linux
+
+    runs-on: ubuntu-latest
+    container: alpine:3.15.0
+
+    steps:
+      - uses: actions/download-artifact@v2
+        with:
+          name: far2l-linux-glibc
+          path: glibc
+
+      - name: Test on Alpine
+        run: |
+          wget -q -O /etc/apk/keys/sgerrand.rsa.pub https://alpine-pkgs.sgerrand.com/sgerrand.rsa.pub
+          wget https://github.com/sgerrand/alpine-pkg-glibc/releases/download/2.34-r0/glibc-2.34-r0.apk
+          apk add glibc-2.34-r0.apk
+          (cd glibc && tar -xf ./far2l.tar)
+          ldd ./glibc/far2l
+          ./glibc/far2l --help
+
   ubuntu-far2l-glibc-test:
     needs: ubuntu-far2l-linux
 
