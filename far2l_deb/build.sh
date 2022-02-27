@@ -64,9 +64,10 @@ chmod +x "$tool_name"
 
 tar -cvf ../far2l.tar .
 
-{ printf 'SHA-256: %s
+{ printf 'ldd: %s
+SHA-256: %s
 %s
-%s' "$(sha256sum < $tool_name)" "$("./$tool_name" --help | head -n1)" "$download_url"
+%s' "$(ldd $tool_name)" "$(sha256sum < $tool_name)" "$("./$tool_name" --help | head -n1)" "$download_url"
 } > body.md
 
 cat body.md
