@@ -113,7 +113,7 @@ jobs:
           name: far2l-linux-glibc
           path: ./far2l_deb/release/far2l.tar
 
-  alpine-far2l-linux-test:
+  alpine-far2l-musl-test:
     needs: alpine-far2l-linux
 
     runs-on: ubuntu-latest
@@ -129,7 +129,7 @@ jobs:
         run: |
           (cd musl && tar -xf ./far2l.tar)
           ldd ./musl/far2l
-          ./musl/far2l --help
+          ./musl/far2l --help | head -n2
 
   ubuntu-far2l-musl-test:
     needs: alpine-far2l-linux
@@ -150,7 +150,7 @@ jobs:
           ln -s /usr/lib/x86_64-linux-musl/libc.so /lib/libc.musl-x86_64.so.1
           (cd musl && tar -xf ./far2l.tar)
           ldd ./musl/far2l
-          ./musl/far2l --help
+          ./musl/far2l --help | head -n2
 
   alpine-far2l-glibc-test:
     needs: ubuntu-far2l-linux
@@ -171,7 +171,7 @@ jobs:
           apk add glibc-2.34-r0.apk
           (cd glibc && tar -xf ./far2l.tar)
           ldd ./glibc/far2l
-          ./glibc/far2l --help
+          ./glibc/far2l --help | head -n2
 
   ubuntu-far2l-glibc-test:
     needs: ubuntu-far2l-linux
@@ -189,4 +189,4 @@ jobs:
         run: |
           (cd glibc && tar -xf ./far2l.tar)
           ldd ./glibc/far2l
-          ./glibc/far2l --help
+          ./glibc/far2l --help | head -n2

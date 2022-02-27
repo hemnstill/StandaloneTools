@@ -67,7 +67,7 @@ tar -cvf ../far2l.tar .
 { printf 'ldd: %s
 SHA-256: %s
 %s
-%s' "$(ldd $tool_name)" "$(sha256sum < $tool_name)" "$("./$tool_name" --help | head -n1)" "$download_url"
+%s' "$(ldd $tool_name)" "$(sha256sum < $tool_name)" "$("./$tool_name" --help | head -n2)" "$download_url"
 } > body.md
 
 cat body.md
