@@ -166,14 +166,11 @@ jobs:
 
       - name: Test on Alpine
         run: |
-          apk update
-          apk add --no-cache bash libc6-compat
-          apk del libc6-compat
           wget -q -O /etc/apk/keys/sgerrand.rsa.pub https://alpine-pkgs.sgerrand.com/sgerrand.rsa.pub
           wget https://github.com/sgerrand/alpine-pkg-glibc/releases/download/2.34-r0/glibc-2.34-r0.apk
           apk add glibc-2.34-r0.apk
           (cd glibc && tar -xf ./far2l.tar)
-          ldd ./glibc/far2l
+          ldd ./glibc/far2l || true
           ./glibc/far2l --help | head -n2
 
   ubuntu-far2l-glibc-test:
