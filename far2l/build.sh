@@ -21,8 +21,8 @@ echo "::group::prepare sources $download_url"
 
 # Download release
 mkdir -p "$dp0/release" && cd "$dp0/release"
-wget "$download_url" -O "v_$tool_version.tar.gz"
-tar -xf "v_$tool_version.tar.gz" && cd "far2l-v_$tool_version"
+wget "$download_url" -O "$tool_version.tar.gz"
+tar -xf "$tool_version.tar.gz" && cd "far2l-v_$tool_version"
 
 cp -f "../SafeMMap.cpp" "./far2l/src/base/"
 cp -f "../sort_r.h" "./far2l/src/base/"
