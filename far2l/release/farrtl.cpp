@@ -49,7 +49,7 @@ void __cdecl far_qsortex(void *base, size_t num, size_t width,
 	int (*__cdecl comp)(const void *, const void *, void *), void *ctx)
 {
 	struct QSortExAdapterArg aa = { comp, ctx };
-	qsort_r(base, num, width, &aa, QSortExAdapter);
+	sort_r_simple(base, num, width, &aa, QSortExAdapter);
 }
 
 #else
@@ -57,7 +57,7 @@ void __cdecl far_qsortex(void *base, size_t num, size_t width,
 void __cdecl far_qsortex(void *base, size_t num, size_t width,
 	int (*__cdecl comp)(const void *, const void *, void *), void *ctx)
 {
-	qsort_r(base, num, width, comp, ctx);
+	sort_r_simple(base, num, width, comp, ctx);
 }
 
 #endif
