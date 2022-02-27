@@ -100,7 +100,7 @@ jobs:
     needs: prejob
     if: ${{ needs.prejob.outputs.tool=='far2l' }}
     runs-on: ubuntu-latest
-    container: ubuntu:20.04
+    container: ubuntu:18.04
 
     steps:
       - uses: actions/checkout@v2
