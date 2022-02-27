@@ -66,7 +66,7 @@ cd "$dp0/release/build"
 strip "$tool_name"
 chmod +x "$tool_name"
 
-tar -cvf ../far2l.tar .
+tar -czvf ../far2l_glibc.tar.gz .
 
 { printf 'ldd: %s
 SHA-256: %s
