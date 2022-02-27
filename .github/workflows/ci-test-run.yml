@@ -80,7 +80,6 @@ jobs:
   alpine-far2l-linux:
     needs: prejob
     if: ${{ needs.prejob.outputs.tool=='far2l' }}
-
     runs-on: ubuntu-latest
     container: alpine:3.12.9
 
@@ -100,7 +99,6 @@ jobs:
   ubuntu-far2l-linux:
     needs: prejob
     if: ${{ needs.prejob.outputs.tool=='far2l' }}
-
     runs-on: ubuntu-latest
     container: ubuntu:20.04
 
@@ -115,7 +113,7 @@ jobs:
           name: far2l-linux-glibc
           path: ./far2l_deb/release/far2l.tar
 
-  far2l-linux-release:
+  alpine-far2l-linux-test:
     needs: alpine-far2l-linux
 
     runs-on: ubuntu-latest
@@ -130,4 +128,24 @@ jobs:
       - name: Test on Alpine
         run: |
           (cd musl && tar -xf ./far2l.tar)
+          ldd ./musl/far2l
+          ./musl/far2l --help
+
+  ubuntu-far2l-linux-test:
+    needs: alpine-far2l-linux
+
+    runs-on: ubuntu-latest
+    container: ubuntu:20.04
+
+    steps:
+      - uses: actions/download-artifact@v2
+        with:
+          name: far2l-linux
+          path: musl
+
+      - name: Test on Ubuntu
+        run: |
+          apt -y install musl
+          (cd musl && tar -xf ./far2l.tar)
+          ldd ./musl/far2l
           ./musl/far2l --help
