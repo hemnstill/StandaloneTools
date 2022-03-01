@@ -25,14 +25,10 @@ export BE=mingw-gcc
 "$dp0/ci.cmd" deplibs
 "$dp0/ci.cmd" configure
 "$dp0/ci.cmd" build
-"$dp0/ci.cmd" artifact
 
 echo "::endgroup::"
 
-ls -l -R "$dp0/release"
-ls -l -R "$dp0/.."
-
-cp -f "$dp0/../bin/$tool_name" "$dp0/release/"
+cp -f "./libarchive/$tool_name" "$dp0/release/"
 
 cd "$dp0/release"
 
