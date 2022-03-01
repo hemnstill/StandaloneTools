@@ -29,7 +29,7 @@ export BE=mingw-gcc
 
 echo "::endgroup::"
 
-cp -f "$dp0/release/bin/$tool_name" "$dp0/release/"
+cp -f "$dp0/release/build_ci/bin/$tool_name" "$dp0/release/"
 
 cd "$dp0/release"
 
