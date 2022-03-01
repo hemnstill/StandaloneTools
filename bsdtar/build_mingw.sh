@@ -14,7 +14,7 @@ mkdir -p "$dp0/release" && cd "$dp0/release"
 wget "$download_url" -O "libarchive-$tool_version.tar.gz"
 tar -xf "libarchive-$tool_version.tar.gz" && cd "libarchive-$tool_version"
 
-wget "https://github.com/libarchive/libarchive/raw/v$tool_version/build/ci/github_actions/ci.cmd" -O "ci.cmd"
+wget "https://github.com/libarchive/libarchive/raw/v$tool_version/build/ci/github_actions/ci.cmd" -O "$dp0/ci.cmd"
 
 echo "::endgroup::"
 
@@ -22,11 +22,12 @@ echo "::group::build"
 
 export BE=mingw-gcc
 
-"ci.cmd" deplibs
-"ci.cmd" configure
-"ci.cmd" build
-"ci.cmd" artifact
+"$dp0/ci.cmd" deplibs
+"$dp0/ci.cmd" configure
+"$dp0/ci.cmd" build
+"$dp0/ci.cmd" artifact
 
 echo "::endgroup::"
 
-cp -f "$dp0/release/libarchive-$tool_version/libarchive.zip" "$dp0/release/"
+ls "$dp0/release/libarchive-$tool_version"
+cp -f "$dp0/release/libarchive-$tool_version/bsdtar.exe" "$dp0/release/"
