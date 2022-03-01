@@ -29,8 +29,7 @@ export BE=mingw-gcc
 
 echo "::endgroup::"
 
-ls "$dp0/release/libarchive-$tool_version"
-cp -f "$dp0/release/libarchive-$tool_version/$tool_name" "$dp0/release/"
+cp -f "$dp0/release/bin/$tool_name" "$dp0/release/"
 
 cd "$dp0/release"
 
