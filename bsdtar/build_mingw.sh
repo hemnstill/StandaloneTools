@@ -18,6 +18,8 @@ echo "::endgroup::"
 
 echo "::group::build"
 
+export BE=mingw-gcc
+
 "$dp0/ci.cmd" deplibs
 "$dp0/ci.cmd" configure
 "$dp0/ci.cmd" build
