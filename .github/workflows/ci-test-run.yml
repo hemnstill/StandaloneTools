@@ -38,7 +38,7 @@ jobs:
   windows-bsdtar-mingw:
     needs: prejob
     if: ${{ needs.prejob.outputs.tool=='bsdtar_win' }}
-    runs-on: windows-2022
+    runs-on: windows-2019
     strategy:
       matrix:
         be: [mingw-gcc]
