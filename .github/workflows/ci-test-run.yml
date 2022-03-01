@@ -3,7 +3,7 @@ name: ci build
 on: [pull_request]
 
 env:
-  CURRENT_TOOL: 'far2l'
+  CURRENT_TOOL: 'bsdtar_win'
 
 jobs:
   prejob:
@@ -34,6 +34,26 @@ jobs:
           artifacts: './bsdtar/release/${{ steps.build.outputs.tool_name }}'
           allowUpdates: true
           token: ${{ secrets.GITHUB_TOKEN }}
+
+  alpine-bsdtar-windows:
+    needs: prejob
+    if: ${{ needs.prejob.outputs.tool=='bsdtar_win' }}
+    runs-on: ubuntu-latest
+    container: alpine:3.15.0
+    steps:
+      - uses: actions/checkout@v2
+      - name: build
+        id: build
+        run: |
+          apk add --no-cache bash
+          ./bsdtar/build_mingw.sh
+
+#      - uses: ncipollo/release-action@v1
+#        with:
+#          tag: '${{ steps.build.outputs.tool_name }}-${{ steps.build.outputs.tool_version }}'
+#          artifacts: './bsdtar/release/${{ steps.build.outputs.tool_name }}'
+#          allowUpdates: true
+#          token: ${{ secrets.GITHUB_TOKEN }}
 
   alpine-pcre2grep-linux:
     needs: prejob
