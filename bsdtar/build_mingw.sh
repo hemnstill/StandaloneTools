@@ -13,18 +13,7 @@ ZLIB_VERSION=1.2.11
 BZIP2_VERSION=b7a672291188a6469f71dd13ad14f2f9a7344fc8
 XZ_VERSION=5.2.5
 
-
-tool_name="bsdtar"
-tool_version="3.5.1"
-echo "::set-output name=tool_name::$tool_name"
-echo "::set-output name=tool_version::$tool_version"
-
-download_url="https://github.com/libarchive/libarchive/releases/download/v3.5.1/libarchive-$tool_version.tar.gz"
-echo "::group::prepare sources $download_url"
-
-mkdir -p "$dp0/release" && cd "$dp0/release"
-wget "$download_url" -O "libarchive-$tool_version.tar.gz"
-tar -xf "libarchive-$tool_version.tar.gz" && cd "libarchive-$tool_version"
+echo "::group::prepare deps"
 
 mkdir -p "$dp0/build_ci/libs" && cd "$dp0/build_ci/libs"
 
@@ -42,6 +31,20 @@ xz_download_url="https://github.com/libarchive/xz/archive/v$XZ_VERSION.tar.gz"
 echo Downloading "$xz_download_url"
 wget "$xz_download_url" -O "xz-$XZ_VERSION.tar.gz"
 tar -xf "xz-$XZ_VERSION.tar.gz"
+
+echo "::endgroup::"
+
+tool_name="bsdtar"
+tool_version="3.5.1"
+echo "::set-output name=tool_name::$tool_name"
+echo "::set-output name=tool_version::$tool_version"
+
+download_url="https://github.com/libarchive/libarchive/releases/download/v3.5.1/libarchive-$tool_version.tar.gz"
+echo "::group::prepare sources $download_url"
+
+mkdir -p "$dp0/release" && cd "$dp0/release"
+wget "$download_url" -O "libarchive-$tool_version.tar.gz"
+tar -xf "libarchive-$tool_version.tar.gz" && cd "libarchive-$tool_version"
 
 echo "::endgroup::"
 
