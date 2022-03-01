@@ -2,7 +2,7 @@
 dp0="$(realpath "$(dirname "$0")")"
 set -e
 
-tool_name="bsdtar"
+tool_name="bsdtar.exe"
 tool_version="3.5.1"
 echo "::set-output name=tool_name::$tool_name"
 echo "::set-output name=tool_version::$tool_version"
@@ -30,4 +30,13 @@ export BE=mingw-gcc
 echo "::endgroup::"
 
 ls "$dp0/release/libarchive-$tool_version"
-cp -f "$dp0/release/libarchive-$tool_version/bsdtar.exe" "$dp0/release/"
+cp -f "$dp0/release/libarchive-$tool_version/$tool_name" "$dp0/release/"
+
+cd "$dp0/release"
+
+{ printf 'SHA-256: %s
+%s
+%s' "$(sha256sum < $tool_name)" "$("./$tool_name" --version)" "$download_url"
+} > body.md
+
+cat body.md

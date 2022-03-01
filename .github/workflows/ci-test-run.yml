@@ -49,7 +49,7 @@ jobs:
       - uses: actions/upload-artifact@v1
         with:
           name: libarchive-windows-mingw
-          path: ./bsdtar/release/bsdtar.exe
+          path: ./bsdtar/release/${{ steps.build.outputs.tool_name }}
 
 #      - uses: ncipollo/release-action@v1
 #        with:
