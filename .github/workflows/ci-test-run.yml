@@ -35,7 +35,7 @@ jobs:
           allowUpdates: true
           token: ${{ secrets.GITHUB_TOKEN }}
 
-  mingw-bsdtar-windows:
+  windows-bsdtar:
     needs: prejob
     if: ${{ needs.prejob.outputs.tool=='bsdtar_win' }}
     runs-on: windows-2019
@@ -48,15 +48,8 @@ jobs:
 
       - uses: actions/upload-artifact@v1
         with:
-          name: libarchive-windows-mingw
+          name: bsdtar-windows-mingw
           path: ./bsdtar/release/${{ steps.build.outputs.tool_name }}
-
-#      - uses: ncipollo/release-action@v1
-#        with:
-#          tag: '${{ steps.build.outputs.tool_name }}-${{ steps.build.outputs.tool_version }}'
-#          artifacts: './bsdtar/release/${{ steps.build.outputs.tool_name }}'
-#          allowUpdates: true
-#          token: ${{ secrets.GITHUB_TOKEN }}
 
   alpine-pcre2grep-linux:
     needs: prejob
