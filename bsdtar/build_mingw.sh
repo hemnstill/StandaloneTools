@@ -5,7 +5,7 @@ set -e
 echo "::group::install deps"
 
 apk update
-apk add --no-cache mingw-w64-gcc zlib-dev bzip2-dev zlib-static bzip2-static cmake
+apk add --no-cache alpine-sdk mingw-w64-gcc zlib-dev bzip2-dev zlib-static bzip2-static cmake
 
 echo "::endgroup::"
 
