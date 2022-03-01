@@ -1,6 +1,4 @@
 @ECHO OFF
-pushd "%~dp0"
-set tool_version=3.5.1
 SET ZLIB_VERSION=1.2.11
 SET BZIP2_VERSION=b7a672291188a6469f71dd13ad14f2f9a7344fc8
 SET XZ_VERSION=5.2.5
@@ -16,20 +14,7 @@ IF "%BE%"=="mingw-gcc" (
   SET MINGWPATH=C:\WINDOWS\system32;C:\WINDOWS;C:\WINDOWS\System32\Wbem;C:\WINDOWS\System32\WindowsPowerShell\v1.0\;C:\Program Files\cmake\bin;C:\ProgramData\chocolatey\lib\mingw\tools\install\mingw64\bin
 )
 
-
-
 IF "%1"=="deplibs" (
-  mkdir release
-  cd release
-  IF NOT EXIST %tool_version%.zip (
-    echo == Downloading https://github.com/libarchive/libarchive/releases/download/v3.5.1/libarchive-%tool_version%.tar.gz
-    curl -L -o %tool_version%.zip https://github.com/libarchive/libarchive/releases/download/v3.5.1/libarchive-%tool_version%.tar.gz || EXIT /b 1
-  )
-  IF NOT EXIST %tool_version%.zip (
-    echo Unpacking %tool_version%.zip
-    C:\windows\system32\tar.exe -x -f %tool_version%.zip || EXIT /b 1
-  )
-
   IF NOT EXIST build_ci\libs (
     MKDIR build_ci\libs
   )
@@ -66,7 +51,7 @@ IF "%1"=="deplibs" (
     mingw32-make test || EXIT /b 1
     mingw32-make install || EXIT /b 1
   ) ELSE IF "%BE%"=="msvc" (
-    cmake -G "Visual Studio 17 2022" . || EXIT /b 1
+    cmake -G "Visual Studio 16 2019" . || EXIT /b 1
     cmake --build . --target ALL_BUILD --config Release || EXIT /b 1
     cmake --build . --target RUN_TESTS --config Release || EXIT /b 1
     cmake --build . --target INSTALL --config Release || EXIT /b 1
@@ -80,7 +65,7 @@ IF "%1"=="deplibs" (
     REM mingw32-make test || EXIT /b 1
     mingw32-make install || EXIT /b 1
   ) ELSE IF "%BE%"=="msvc" (
-    cmake -G "Visual Studio 17 2022" -D CMAKE_BUILD_TYPE="Release" -D ENABLE_LIB_ONLY=ON -D ENABLE_SHARED_LIB=OFF -D ENABLE_STATIC_LIB=ON . || EXIT /b 1
+    cmake -G "Visual Studio 16 2019" -D CMAKE_BUILD_TYPE="Release" -D ENABLE_LIB_ONLY=ON -D ENABLE_SHARED_LIB=OFF -D ENABLE_STATIC_LIB=ON . || EXIT /b 1
     cmake --build . --target ALL_BUILD --config Release || EXIT /b 1
     REM cmake --build . --target RUN_TESTS --config Release || EXIT /b 1
     cmake --build . --target INSTALL --config Release || EXIT /b 1
@@ -93,14 +78,11 @@ IF "%1"=="deplibs" (
     mingw32-make || EXIT /b 1
     mingw32-make install || EXIT /b 1
   ) ELSE IF "%BE%"=="msvc" (
-    cmake -G "Visual Studio 17 2022" -D CMAKE_BUILD_TYPE="Release" . || EXIT /b 1
+    cmake -G "Visual Studio 16 2019" -D CMAKE_BUILD_TYPE="Release" . || EXIT /b 1
     cmake --build . --target ALL_BUILD --config Release || EXIT /b 1
     cmake --build . --target INSTALL --config Release || EXIT /b 1
   )
 ) ELSE IF "%1%"=="configure" (
-
-  cd "%~dp0libarchive-%tool_version%"
-
   IF "%BE%"=="mingw-gcc" (
     SET PATH=%MINGWPATH%
     MKDIR build_ci\cmake
@@ -109,12 +91,9 @@ IF "%1"=="deplibs" (
   ) ELSE IF "%BE%"=="msvc" (
     MKDIR build_ci\cmake
     CD build_ci\cmake
-    cmake -G "Visual Studio 17 2022" -D CMAKE_BUILD_TYPE="Release" -D ZLIB_LIBRARY="C:/Program Files (x86)/zlib/lib/zlibstatic.lib" -D ZLIB_INCLUDE_DIR="C:/Program Files (x86)/zlib/include" -D BZIP2_LIBRARIES="C:/Program Files (x86)/bzip2/lib/bz2.lib" -D BZIP2_INCLUDE_DIR="C:/Program Files (x86)/bzip2/include" -D LIBLZMA_LIBRARY="C:/Program Files (x86)/xz/lib/liblzma.lib" -D LIBLZMA_INCLUDE_DIR="C:/Program Files (x86)/xz/include" ..\.. || EXIT /b 1
+    cmake -G "Visual Studio 16 2019" -D CMAKE_BUILD_TYPE="Release" -D ZLIB_LIBRARY="C:/Program Files (x86)/zlib/lib/zlibstatic.lib" -D ZLIB_INCLUDE_DIR="C:/Program Files (x86)/zlib/include" -D BZIP2_LIBRARIES="C:/Program Files (x86)/bzip2/lib/bz2.lib" -D BZIP2_INCLUDE_DIR="C:/Program Files (x86)/bzip2/include" -D LIBLZMA_LIBRARY="C:/Program Files (x86)/xz/lib/liblzma.lib" -D LIBLZMA_INCLUDE_DIR="C:/Program Files (x86)/xz/include" ..\.. || EXIT /b 1
   )
 ) ELSE IF "%1%"=="build" (
-
-  cd "%~dp0libarchive-%tool_version%"
-
   IF "%BE%"=="mingw-gcc" (
     SET PATH=%MINGWPATH%
     CD build_ci\cmake

@@ -2,38 +2,6 @@
 dp0="$(realpath "$(dirname "$0")")"
 set -e
 
-echo "::group::install deps"
-
-apk update
-apk add --no-cache alpine-sdk mingw-w64-gcc zlib-dev bzip2-dev zlib-static bzip2-static cmake
-
-echo "::endgroup::"
-
-ZLIB_VERSION=1.2.11
-BZIP2_VERSION=b7a672291188a6469f71dd13ad14f2f9a7344fc8
-XZ_VERSION=5.2.5
-
-echo "::group::prepare deps"
-
-mkdir -p "$dp0/build_ci/libs" && cd "$dp0/build_ci/libs"
-
-zlib_download_url="https://github.com/libarchive/zlib/archive/v$ZLIB_VERSION.tar.gz"
-echo Downloading "$zlib_download_url"
-wget "$zlib_download_url" -O "zlib-$ZLIB_VERSION.tar.gz"
-tar -xf "zlib-$ZLIB_VERSION.tar.gz"
-
-bzip_download_url="https://github.com/libarchive/bzip2/archive/$BZIP2_VERSION.tar.gz"
-echo Downloading "$bzip_download_url"
-wget "$bzip_download_url" -O "bzip-$BZIP2_VERSION.tar.gz"
-tar -xf "bzip-$BZIP2_VERSION.tar.gz"
-
-xz_download_url="https://github.com/libarchive/xz/archive/v$XZ_VERSION.tar.gz"
-echo Downloading "$xz_download_url"
-wget "$xz_download_url" -O "xz-$XZ_VERSION.tar.gz"
-tar -xf "xz-$XZ_VERSION.tar.gz"
-
-echo "::endgroup::"
-
 tool_name="bsdtar"
 tool_version="3.5.1"
 echo "::set-output name=tool_name::$tool_name"
@@ -50,6 +18,9 @@ echo "::endgroup::"
 
 echo "::group::build"
 
-cmake -G "MinGW Makefiles" -D CMAKE_BUILD_TYPE="Release" .
+"$dp0/ci.cmd" deplibs
+"$dp0/ci.cmd" configure
+"$dp0/ci.cmd" build
+"$dp0/ci.cmd" artifact
 
 echo "::endgroup::"

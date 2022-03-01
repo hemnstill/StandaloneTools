@@ -35,36 +35,16 @@ jobs:
           allowUpdates: true
           token: ${{ secrets.GITHUB_TOKEN }}
 
-  windows-bsdtar-mingw:
+  alpine-bsdtar-windows:
     needs: prejob
     if: ${{ needs.prejob.outputs.tool=='bsdtar_win' }}
     runs-on: windows-2019
     steps:
-    - uses: actions/checkout@master
-    - name: Install dependencies
-      run: ./bsdtar/ci.cmd deplibs
-      shell: cmd
-      env:
-        BE: mingw-gcc
-    - name: Configure
-      run: ./bsdtar/ci.cmd configure
-      shell: cmd
-      env:
-        BE: mingw-gcc
-    - name: Build
-      run: ./bsdtar/ci.cmd build
-      shell: cmd
-      env:
-        BE: mingw-gcc
-    - name: Artifact
-      run: ./bsdtar/ci.cmd artifact
-      shell: cmd
-      env:
-        BE: mingw-gcc
-    - uses: actions/upload-artifact@v1
-      with:
-        name: libarchive-windows-mingw-gcc-${{ github.sha }}
-        path: libarchive.zip
+      - uses: actions/checkout@v2
+      - name: build
+        id: build
+        shell: cmd
+        run: .tools\busybox64.exe bsdtar\build_mingw.sh
 
 #      - uses: ncipollo/release-action@v1
 #        with:
