@@ -35,7 +35,7 @@ jobs:
           allowUpdates: true
           token: ${{ secrets.GITHUB_TOKEN }}
 
-  alpine-bsdtar-windows:
+  mingw-bsdtar-windows:
     needs: prejob
     if: ${{ needs.prejob.outputs.tool=='bsdtar_win' }}
     runs-on: windows-2019
@@ -49,7 +49,7 @@ jobs:
       - uses: actions/upload-artifact@v1
         with:
           name: libarchive-windows-mingw
-          path: libarchive.zip
+          path: ./bsdtar/release/bsdtar.exe
 
 #      - uses: ncipollo/release-action@v1
 #        with:
