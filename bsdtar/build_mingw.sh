@@ -29,7 +29,10 @@ export BE=mingw-gcc
 
 echo "::endgroup::"
 
-cp -f "$dp0/release/build_ci/bin/$tool_name" "$dp0/release/"
+ls -l -R "$dp0/release"
+ls -l -R "$dp0/.."
+
+cp -f "$dp0/../bin/$tool_name" "$dp0/release/"
 
 cd "$dp0/release"
 
