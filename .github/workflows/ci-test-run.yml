@@ -44,7 +44,7 @@ jobs:
       - name: build
         id: build
         shell: cmd
-        run: .tools\busybox64.exe bsdtar\build_mingw.sh
+        run: .tools\busybox64.exe sh bsdtar\build_mingw.sh
 
 #      - uses: ncipollo/release-action@v1
 #        with:
