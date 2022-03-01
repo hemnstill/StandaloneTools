@@ -5,7 +5,7 @@ set -e
 echo "::group::install deps"
 
 apk update
-apk add --no-cache mingw-w64-gcc zlib-dev bzip2-dev zlib-static bzip2-static
+apk add --no-cache mingw-w64-gcc zlib-dev bzip2-dev zlib-static bzip2-static cmake
 
 echo "::endgroup::"
 
@@ -50,19 +50,6 @@ echo "::endgroup::"
 
 echo "::group::build"
 
-./configure LDFLAGS='--static' --enable-bsdtar=static --disable-shared --disable-bsdcpio --disable-bsdcat
-make -j$(nproc)
-gcc -static -o "../$tool_name" \
-  tar/bsdtar-bsdtar.o \
-  tar/bsdtar-cmdline.o \
-  tar/bsdtar-creation_set.o \
-  tar/bsdtar-read.o \
-  tar/bsdtar-subst.o \
-  tar/bsdtar-util.o \
-  tar/bsdtar-write.o \
-  .libs/libarchive.a \
-  .libs/libarchive_fe.a \
-  /lib/libz.a \
-  /usr/lib/libbz2.a
+cmake -G "MinGW Makefiles" -D CMAKE_BUILD_TYPE="Release" .
 
 echo "::endgroup::"
