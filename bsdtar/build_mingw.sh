@@ -28,7 +28,7 @@ export BE=mingw-gcc
 
 echo "::endgroup::"
 
-cp -f "./libarchive/$tool_name" "$dp0/release/"
+cp -f "$dp0/release/libarchive-$tool_version/build_ci/cmake/bin/$tool_name" "$dp0/release/"
 
 cd "$dp0/release"
 
