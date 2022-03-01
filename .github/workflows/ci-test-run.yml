@@ -39,34 +39,31 @@ jobs:
     needs: prejob
     if: ${{ needs.prejob.outputs.tool=='bsdtar_win' }}
     runs-on: windows-2019
-    strategy:
-      matrix:
-        be: [mingw-gcc]
     steps:
     - uses: actions/checkout@master
     - name: Install dependencies
       run: ./bsdtar/ci.cmd deplibs
       shell: cmd
       env:
-        BE: ${{ matrix.be }}
+        BE: mingw-gcc
     - name: Configure
       run: ./bsdtar/ci.cmd configure
       shell: cmd
       env:
-        BE: ${{ matrix.be }}
+        BE: mingw-gcc
     - name: Build
       run: ./bsdtar/ci.cmd build
       shell: cmd
       env:
-        BE: ${{ matrix.be }}
+        BE: mingw-gcc
     - name: Artifact
       run: ./bsdtar/ci.cmd artifact
       shell: cmd
       env:
-        BE: ${{ matrix.be }}
+        BE: mingw-gcc
     - uses: actions/upload-artifact@v1
       with:
-        name: libarchive-windows-${{ matrix.be }}-${{ github.sha }}
+        name: libarchive-windows-mingw-gcc-${{ github.sha }}
         path: libarchive.zip
 
 #      - uses: ncipollo/release-action@v1
