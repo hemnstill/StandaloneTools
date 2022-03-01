@@ -35,18 +35,39 @@ jobs:
           allowUpdates: true
           token: ${{ secrets.GITHUB_TOKEN }}
 
-  alpine-bsdtar-windows:
+  windows-bsdtar-mingw:
     needs: prejob
     if: ${{ needs.prejob.outputs.tool=='bsdtar_win' }}
-    runs-on: ubuntu-latest
-    container: alpine:3.15.0
+    runs-on: windows-2022
+    strategy:
+      matrix:
+        be: [mingw-gcc]
     steps:
-      - uses: actions/checkout@v2
-      - name: build
-        id: build
-        run: |
-          apk add --no-cache bash
-          ./bsdtar/build_mingw.sh
+    - uses: actions/checkout@master
+    - name: Install dependencies
+      run: ./bsdtar/ci.cmd deplibs
+      shell: cmd
+      env:
+        BE: ${{ matrix.be }}
+    - name: Configure
+      run: ./bsdtar/ci.cmd configure
+      shell: cmd
+      env:
+        BE: ${{ matrix.be }}
+    - name: Build
+      run: ./bsdtar/ci.cmd build
+      shell: cmd
+      env:
+        BE: ${{ matrix.be }}
+    - name: Artifact
+      run: ./bsdtar/ci.cmd artifact
+      shell: cmd
+      env:
+        BE: ${{ matrix.be }}
+    - uses: actions/upload-artifact@v1
+      with:
+        name: libarchive-windows-${{ matrix.be }}-${{ github.sha }}
+        path: libarchive.zip
 
 #      - uses: ncipollo/release-action@v1
 #        with:
