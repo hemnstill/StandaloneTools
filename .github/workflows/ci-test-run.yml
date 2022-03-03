@@ -5,15 +5,19 @@ on: [pull_request]
 jobs:
   prejob:
     runs-on: ubuntu-latest
+    environment: release
     outputs:
       tool: ${{ steps.setvar.outputs.envvar }}
     steps:
       - id: setvar
-        run: echo "::set-output name=envvar::$CURRENT_TOOL"
+        run: |
+          echo ${{ secrets._CURRENT_TOOL }} > CI_ENV
+          echo "::set-output name=envvar::$(sed -e 's/^_//' CI_ENV)"
+      - run: echo CURRENT_TOOL '${{ steps.setvar.outputs.envvar }}'
 
   bsdtar-alpine-musl:
     needs: prejob
-    if: ${{ secrets.CURRENT_TOOL =='bsdtar' }}
+    if: ${{ needs.prejob.outputs.tool=='bsdtar' }}
     runs-on: ubuntu-latest
     container: alpine:3.15.0
     steps:
@@ -24,7 +28,7 @@ jobs:
           apk add --no-cache bash
           ./bsdtar/build.sh
 
-      - uses: actions/upload-artifact@v1
+      - uses: actions/upload-artifact@v3
         with:
           name: bsdtar-alpine-musl
           path: |
@@ -33,7 +37,7 @@ jobs:
 
   bsdtar-windows-mingw:
     needs: prejob
-    if: ${{ secrets.CURRENT_TOOL =='bsdtar' }}
+    if: ${{ needs.prejob.outputs.tool=='bsdtar' }}
     runs-on: windows-2019
     steps:
       - uses: actions/checkout@v2
@@ -42,7 +46,7 @@ jobs:
         shell: cmd
         run: .tools\busybox64.exe sh bsdtar\build_mingw.sh
 
-      - uses: actions/upload-artifact@v1
+      - uses: actions/upload-artifact@v3
         with:
           name: bsdtar-windows-mingw
           path: |
