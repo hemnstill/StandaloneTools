@@ -13,7 +13,7 @@ jobs:
 
   bsdtar-alpine-musl:
     needs: prejob
-    if: ${{ needs.prejob.outputs.tool=='bsdtar' }}
+    if: ${{ secrets.CURRENT_TOOL =='bsdtar' }}
     runs-on: ubuntu-latest
     container: alpine:3.15.0
     steps:
@@ -33,7 +33,7 @@ jobs:
 
   bsdtar-windows-mingw:
     needs: prejob
-    if: ${{ needs.prejob.outputs.tool=='bsdtar' }}
+    if: ${{ secrets.CURRENT_TOOL =='bsdtar' }}
     runs-on: windows-2019
     steps:
       - uses: actions/checkout@v2
