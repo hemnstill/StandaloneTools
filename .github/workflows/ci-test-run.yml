@@ -2,9 +2,6 @@ name: ci build
 
 on: [pull_request]
 
-env:
-  CURRENT_TOOL: 'bsdtar_win'
-
 jobs:
   prejob:
     runs-on: ubuntu-latest
@@ -14,7 +11,7 @@ jobs:
       - id: setvar
         run: echo "::set-output name=envvar::$CURRENT_TOOL"
 
-  alpine-bsdtar-linux:
+  bsdtar-alpine-musl:
     needs: prejob
     if: ${{ needs.prejob.outputs.tool=='bsdtar' }}
     runs-on: ubuntu-latest
@@ -27,17 +24,16 @@ jobs:
           apk add --no-cache bash
           ./bsdtar/build.sh
 
-      - uses: ncipollo/release-action@v1
+      - uses: actions/upload-artifact@v1
         with:
-          tag: '${{ steps.build.outputs.tool_name }}-${{ steps.build.outputs.tool_version }}'
-          bodyFile: './bsdtar/release/body.md'
-          artifacts: './bsdtar/release/${{ steps.build.outputs.tool_name }}'
-          allowUpdates: true
-          token: ${{ secrets.GITHUB_TOKEN }}
+          name: bsdtar-alpine-musl
+          path: |
+            ./bsdtar/release/body.md
+            ./bsdtar/release/${{ steps.build.outputs.tool_name }}
 
-  windows-bsdtar:
+  bsdtar-windows-mingw:
     needs: prejob
-    if: ${{ needs.prejob.outputs.tool=='bsdtar_win' }}
+    if: ${{ needs.prejob.outputs.tool=='bsdtar' }}
     runs-on: windows-2019
     steps:
       - uses: actions/checkout@v2
@@ -49,7 +45,9 @@ jobs:
       - uses: actions/upload-artifact@v1
         with:
           name: bsdtar-windows-mingw
-          path: ./bsdtar/release/${{ steps.build.outputs.tool_name }}
+          path: |
+            ./bsdtar/release/body.md
+            ./bsdtar/release/${{ steps.build.outputs.tool_name }}
 
   alpine-pcre2grep-linux:
     needs: prejob
