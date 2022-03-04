@@ -1,6 +1,6 @@
 name: ci build
 
-on: [pull_request]
+on: [pull_request, workflow_dispatch]
 
 jobs:
   prejob:
@@ -78,7 +78,7 @@ jobs:
       - name: Test mingw build on Windows
         run: |
           (cd mingw && tar -xf ./bsdtar_mingw.tar.gz)
-          ./mingw/bsdtar --version
+          ./mingw/bsdtar.exe --version
 
   bsdtar-release:
     runs-on: ubuntu-latest
