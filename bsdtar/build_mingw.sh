@@ -28,9 +28,9 @@ export BE=mingw-gcc
 
 echo "::endgroup::"
 
-cp -f "$dp0/release/libarchive-$tool_version/build_ci/cmake/bin/$tool_name" "$dp0/release/"
+cp -f "$dp0/release/libarchive-$tool_version/build_ci/cmake/bin/$tool_name" "$dp0/release/build"
 
-cd "$dp0/release"
+cd "$dp0/release/build"
 
 { printf 'SHA-256: %s
 %s
@@ -39,4 +39,4 @@ cd "$dp0/release"
 
 cat bsdtar_mingw.md
 
-tar -czvf ./bsdtar_mingw.tar.gz .
+tar -czvf ../bsdtar_mingw.tar.gz .

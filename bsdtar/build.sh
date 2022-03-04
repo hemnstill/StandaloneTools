@@ -27,7 +27,9 @@ echo "::group::build"
 
 ./configure LDFLAGS='--static' --enable-bsdtar=static --disable-shared --disable-bsdcpio --disable-bsdcat
 make -j$(nproc)
-gcc -static -o "../$tool_name" \
+
+mkdir "$dp0/release/build"
+gcc -static -o "../build/$tool_name" \
   tar/bsdtar-bsdtar.o \
   tar/bsdtar-cmdline.o \
   tar/bsdtar-creation_set.o \
@@ -42,7 +44,7 @@ gcc -static -o "../$tool_name" \
 
 echo "::endgroup::"
 
-cd "$dp0/release"
+cd "$dp0/release/build"
 strip "$tool_name"
 chmod +x "$tool_name"
 
@@ -53,4 +55,4 @@ chmod +x "$tool_name"
 
 cat bsdtar_musl.md
 
-tar -czvf ./bsdtar_musl.tar.gz .
+tar -czvf ../bsdtar_musl.tar.gz .
