@@ -76,9 +76,11 @@ jobs:
           path: mingw
 
       - name: Test mingw build on Windows
+        shell: cmd
         run: |
-          (cd mingw && tar -xf ./bsdtar_mingw.tar.gz)
-          ./mingw/bsdtar.exe --version
+          cd mingw
+          tar -xf .\bsdtar_mingw.tar.gz
+          .\bsdtar.exe --version
 
   bsdtar-release:
     runs-on: ubuntu-latest
