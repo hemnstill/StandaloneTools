@@ -28,9 +28,8 @@ export BE=mingw-gcc
 
 echo "::endgroup::"
 
-cp -f "$dp0/release/libarchive-$tool_version/build_ci/cmake/bin/$tool_name" "$dp0/release/build/"
-
-cd "$dp0/release/build"
+mkdir "$dp0/release/build" && cd "$dp0/release/build"
+cp -f "$dp0/release/libarchive-$tool_version/build_ci/cmake/bin/$tool_name" "."
 
 { printf 'SHA-256: %s
 %s
