@@ -52,8 +52,8 @@ chmod +x "$tool_name"
 { printf 'SHA-256: %s
 %s
 ' "$(sha256sum $tool_name)" "$("./$tool_name" --version)"
-} > bsdtar_musl.md
+} > _musl.md
 
-cat bsdtar_musl.md
+cat _musl.md
 
-tar -czvf ../bsdtar_musl.tar.gz .
+tar -czvf ../_musl.tar.gz .

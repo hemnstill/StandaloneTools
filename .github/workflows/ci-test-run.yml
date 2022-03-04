@@ -32,7 +32,7 @@ jobs:
         with:
           name: bsdtar-alpine-musl
           path: |
-            ./bsdtar/release/bsdtar_musl.tar.gz
+            ./bsdtar/release/_musl.tar.gz
 
   bsdtar-windows-mingw:
     needs: prejob
@@ -49,7 +49,7 @@ jobs:
         with:
           name: bsdtar-windows-mingw
           path: |
-             ./bsdtar/release/bsdtar_mingw.tar.gz
+             ./bsdtar/release/_mingw.tar.gz
 
   bsdtar-alpine-test:
     needs: bsdtar-alpine-musl
@@ -63,7 +63,7 @@ jobs:
 
       - name: Test musl build on Alpine
         run: |
-          tar -xf ./bsdtar_musl.tar.gz
+          tar -xf ./_musl.tar.gz
           ./bsdtar --version
 
   bsdtar-windows-test:
@@ -78,7 +78,7 @@ jobs:
       - name: Test mingw build on Windows
         shell: cmd
         run: |
-          tar -xf .\bsdtar_mingw.tar.gz
+          tar -xf .\_mingw.tar.gz
           .\bsdtar.exe --version
 
   bsdtar-release:
@@ -94,10 +94,10 @@ jobs:
           name: bsdtar-windows-mingw
           path: .
       - run: |
-          tar -xf ./bsdtar_musl.tar.gz
-          tar -xf ./bsdtar_mingw.tar.gz
-          cat bsdtar_musl.md >> body.md
-          cat bsdtar_mingw.md >> body.md
+          tar -xf ./_musl.tar.gz
+          tar -xf ./_mingw.tar.gz
+          cat _musl.md >> body.md
+          cat _mingw.md >> body.md
       - uses: ncipollo/release-action@v1
         with:
           tag: 'bsdtar-3.5.1'
