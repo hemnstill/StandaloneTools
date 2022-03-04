@@ -94,6 +94,8 @@ jobs:
           name: bsdtar-windows-mingw
           path: .
       - run: |
+          tar -xf ./bsdtar_musl.tar.gz
+          tar -xf ./bsdtar_mingw.tar.gz
           cat bsdtar_musl.md >> body.md
           cat bsdtar_mingw.md >> body.md
       - uses: ncipollo/release-action@v1
