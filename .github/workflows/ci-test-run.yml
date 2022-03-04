@@ -49,8 +49,7 @@ jobs:
         with:
           name: bsdtar-windows-mingw
           path: |
-            ./bsdtar/release/body.md
-            ./bsdtar/release/${{ steps.build.outputs.tool_name }}
+             ./bsdtar/release/bsdtar_mingw.tar.gz
 
   bsdtar-alpine-test:
     needs: bsdtar-alpine-musl
