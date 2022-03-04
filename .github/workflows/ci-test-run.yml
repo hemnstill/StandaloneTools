@@ -81,6 +81,20 @@ jobs:
           (cd musl && tar -xf ./bsdtar_mingw.tar.gz)
           ./mingw/bsdtar --version
 
+  bsdtar-release:
+    runs-on: ubuntu-latest
+    needs: [bsdtar-alpine-test, bsdtar-windows-test]
+    steps:
+      - uses: actions/download-artifact@v2
+        with:
+          name: bsdtar-alpine-musl
+          path: .
+      - uses: actions/download-artifact@v2
+        with:
+          name: bsdtar-windows-mingw
+          path: .
+      - run: ls .
+
   alpine-pcre2grep-linux:
     needs: prejob
     if: ${{ needs.prejob.outputs.tool=='pcre2grep' }}
