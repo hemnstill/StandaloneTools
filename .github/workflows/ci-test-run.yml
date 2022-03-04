@@ -93,7 +93,16 @@ jobs:
         with:
           name: bsdtar-windows-mingw
           path: .
-      - run: ls .
+      - run: |
+          cat bsdtar_musl.md >> body.md
+          cat bsdtar_mingw.md >> body.md
+      - uses: ncipollo/release-action@v1
+        with:
+          tag: 'bsdtar-3.5.1'
+          artifacts: '.bsdtar,.bsdtar.exe'
+          bodyFile: './body.md'
+          allowUpdates: true
+          token: ${{ secrets.GITHUB_TOKEN }}
 
   alpine-pcre2grep-linux:
     needs: prejob
