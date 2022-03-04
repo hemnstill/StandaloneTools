@@ -59,12 +59,12 @@ jobs:
       - uses: actions/download-artifact@v2
         with:
           name: bsdtar-alpine-musl
-          path: musl
+          path: .
 
       - name: Test musl build on Alpine
         run: |
-          (cd musl && tar -xf ./bsdtar_musl.tar.gz)
-          ./musl/bsdtar --version
+          tar -xf ./bsdtar_musl.tar.gz
+          ./bsdtar --version
 
   bsdtar-windows-test:
     needs: bsdtar-windows-mingw
@@ -73,12 +73,11 @@ jobs:
       - uses: actions/download-artifact@v2
         with:
           name: bsdtar-windows-mingw
-          path: mingw
+          path: .
 
       - name: Test mingw build on Windows
         shell: cmd
         run: |
-          cd mingw
           tar -xf .\bsdtar_mingw.tar.gz
           .\bsdtar.exe --version
 
