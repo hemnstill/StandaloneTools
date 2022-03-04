@@ -32,8 +32,7 @@ jobs:
         with:
           name: bsdtar-alpine-musl
           path: |
-            ./bsdtar/release/body.md
-            ./bsdtar/release/${{ steps.build.outputs.tool_name }}
+            ./bsdtar/release/bsdtar_musl.tar.gz
 
   bsdtar-windows-mingw:
     needs: prejob
@@ -52,6 +51,35 @@ jobs:
           path: |
             ./bsdtar/release/body.md
             ./bsdtar/release/${{ steps.build.outputs.tool_name }}
+
+  bsdtar-alpine-test:
+    needs: bsdtar-alpine-musl
+    runs-on: ubuntu-latest
+    container: alpine:3.15.0
+    steps:
+      - uses: actions/download-artifact@v2
+        with:
+          name: bsdtar-alpine-musl
+          path: musl
+
+      - name: Test musl build on Alpine
+        run: |
+          (cd musl && tar -xf ./bsdtar_musl.tar.gz)
+          ./musl/bsdtar --version
+
+  bsdtar-windows-test:
+    needs: bsdtar-windows-mingw
+    runs-on: windows-2022
+    steps:
+      - uses: actions/download-artifact@v2
+        with:
+          name: bsdtar-windows-mingw
+          path: mingw
+
+      - name: Test mingw build on Windows
+        run: |
+          (cd musl && tar -xf ./bsdtar_mingw.tar.gz)
+          ./mingw/bsdtar --version
 
   alpine-pcre2grep-linux:
     needs: prejob
