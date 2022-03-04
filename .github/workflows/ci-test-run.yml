@@ -77,7 +77,7 @@ jobs:
 
       - name: Test mingw build on Windows
         run: |
-          (cd musl && tar -xf ./bsdtar_mingw.tar.gz)
+          (cd mingw && tar -xf ./bsdtar_mingw.tar.gz)
           ./mingw/bsdtar --version
 
   bsdtar-release:

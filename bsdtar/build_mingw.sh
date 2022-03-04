@@ -33,7 +33,8 @@ cp -f "$dp0/release/libarchive-$tool_version/build_ci/cmake/bin/$tool_name" "."
 
 { printf 'SHA-256: %s
 %s
-%s' "$(sha256sum $tool_name)" "$("./$tool_name" --version)" "$download_url"
+%s
+' "$(sha256sum $tool_name)" "$("./$tool_name" --version)" "$download_url"
 } > bsdtar_mingw.md
 
 cat bsdtar_mingw.md

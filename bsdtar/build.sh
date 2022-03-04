@@ -50,7 +50,8 @@ strip "$tool_name"
 chmod +x "$tool_name"
 
 { printf 'SHA-256: %s
-%s' "$(sha256sum $tool_name)" "$("./$tool_name" --version)"
+%s
+' "$(sha256sum $tool_name)" "$("./$tool_name" --version)"
 } > bsdtar_musl.md
 
 cat bsdtar_musl.md
