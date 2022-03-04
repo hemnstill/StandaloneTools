@@ -34,7 +34,7 @@ cd "$dp0/release/build"
 
 { printf 'SHA-256: %s
 %s
-%s' "$(sha256sum < $tool_name)" "$("./$tool_name" --version)" "$download_url"
+%s' "$(sha256sum $tool_name)" "$("./$tool_name" --version)" "$download_url"
 } > bsdtar_mingw.md
 
 cat bsdtar_mingw.md
