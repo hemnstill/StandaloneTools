@@ -101,7 +101,7 @@ jobs:
       - uses: ncipollo/release-action@v1
         with:
           tag: 'bsdtar-3.5.1'
-          artifacts: '.bsdtar,.bsdtar.exe'
+          artifacts: './bsdtar*'
           bodyFile: './body.md'
           allowUpdates: true
           token: ${{ secrets.GITHUB_TOKEN }}
