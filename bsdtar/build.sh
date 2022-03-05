@@ -10,11 +10,11 @@ apk add --no-cache alpine-sdk zlib-dev bzip2-dev zlib-static bzip2-static xz-dev
 echo "::endgroup::"
 
 tool_name="bsdtar"
-tool_version="3.5.1"
+tool_version="3.6.0"
 echo "::set-output name=tool_name::$tool_name"
 echo "::set-output name=tool_version::$tool_version"
 
-download_url="https://github.com/libarchive/libarchive/releases/download/v3.5.1/libarchive-$tool_version.tar.gz"
+download_url="https://github.com/libarchive/libarchive/releases/download/v$tool_version/libarchive-$tool_version.tar.gz"
 echo "::group::prepare sources $download_url"
 
 mkdir -p "$dp0/release" && cd "$dp0/release"
