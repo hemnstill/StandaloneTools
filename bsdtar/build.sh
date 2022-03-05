@@ -5,7 +5,7 @@ set -e
 echo "::group::install deps"
 
 apk update
-apk add --no-cache alpine-sdk zlib-dev bzip2-dev zlib-static bzip2-static
+apk add --no-cache alpine-sdk zlib-dev bzip2-dev zlib-static bzip2-static xz-dev
 
 echo "::endgroup::"
 
@@ -27,7 +27,9 @@ echo "::group::build"
 
 ./configure LDFLAGS='--static' --enable-bsdtar=static --disable-shared --disable-bsdcpio --disable-bsdcat
 make -j$(nproc)
-gcc -static -o "../$tool_name" \
+
+mkdir "$dp0/release/build"
+gcc -static -o "$dp0/release/build/$tool_name" \
   tar/bsdtar-bsdtar.o \
   tar/bsdtar-cmdline.o \
   tar/bsdtar-creation_set.o \
@@ -38,17 +40,20 @@ gcc -static -o "../$tool_name" \
   .libs/libarchive.a \
   .libs/libarchive_fe.a \
   /lib/libz.a \
-  /usr/lib/libbz2.a
+  /usr/lib/libbz2.a \
+  /usr/lib/liblzma.a
 
 echo "::endgroup::"
 
-cd "$dp0/release"
+cd "$dp0/release/build"
 strip "$tool_name"
 chmod +x "$tool_name"
 
 { printf 'SHA-256: %s
 %s
-%s' "$(sha256sum < $tool_name)" "$("./$tool_name" --version)" "$download_url"
-} > body.md
+' "$(sha256sum $tool_name)" "$("./$tool_name" --version)"
+} > _musl.md
 
-cat body.md
+cat _musl.md
+
+tar -czvf ../_musl.tar.gz .
