@@ -2,6 +2,13 @@
 dp0="$(realpath "$(dirname "$0")")"
 set -e
 
+echo "::group::install deps"
+
+apk update
+apk add --no-cache alpine-sdk perl make linux-headers mingw-w64-gcc
+
+echo "::endgroup::"
+
 tool_name="openssl.exe"
 tool_version="1_1_1k"
 echo "::set-output name=tool_name::$tool_name"
@@ -18,10 +25,8 @@ echo "::endgroup::"
 
 echo "::group::build"
 
-perl ./Configure mingw64 --cross-compile-prefix=x86_64-w64-mingw32- no-shared LDFLAGS='--static' no-makedepend
-perl configdata.pm --dump
-
-nmake /S
+./Configure mingw64 --cross-compile-prefix=x86_64-w64-mingw32- no-shared LDFLAGS='--static' no-makedepend
+make
 
 echo "::endgroup::"
 

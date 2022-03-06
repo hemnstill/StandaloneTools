@@ -37,21 +37,22 @@ jobs:
           path: |
              ./openssl/release/_musl.tar.gz
 
-  openssl-windows-mingw:
+  openssl-alpine-mingw:
     needs: prejob
     if: ${{ needs.prejob.outputs.tool=='openssl' }}
-    runs-on: windows-2022
+    runs-on: ubuntu-latest
+    container: alpine:3.15.0
     steps:
       - uses: actions/checkout@v2
-      - uses: msys2/setup-msys2@v2
-        with:
-          msystem: mingw64
-      - shell: msys2 {0}
+      - name: build
+        id: build
         run: |
-          .\openssl\build_mingw.sh
+          apk add --no-cache bash
+          ./openssl/build_mingw.sh
+
       - uses: actions/upload-artifact@v3
         with:
-          name: openssl-windows-mingw
+          name: openssl-alpine-mingw
           path: |
              ./openssl/release/_mingw.tar.gz
 
@@ -71,12 +72,12 @@ jobs:
           ./openssl version
 
   openssl-windows-test:
-    needs: openssl-windows-mingw
+    needs: openssl-alpine-mingw
     runs-on: windows-2022
     steps:
       - uses: actions/download-artifact@v2
         with:
-          name: openssl-windows-mingw
+          name: openssl-alpine-mingw
           path: .
       - run: tar -xf .\_mingw.tar.gz
 
