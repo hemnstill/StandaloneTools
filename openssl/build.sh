@@ -25,7 +25,7 @@ echo "::endgroup::"
 
 echo "::group::build"
 
-./Configure --banner=Configured no-shared LDFLAGS='--static' CFLAGS=-fPIC linux-x86_64
+./Configure --banner=Configured no-shared linux-x86_64
 make
 
 echo "::endgroup::"

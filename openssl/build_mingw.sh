@@ -25,7 +25,7 @@ echo "::endgroup::"
 
 echo "::group::build"
 
-./Configure --banner=Configured mingw64 --cross-compile-prefix=x86_64-w64-mingw32- no-shared LDFLAGS='--static' no-makedepend
+./Configure --banner=Configured mingw64 --cross-compile-prefix=x86_64-w64-mingw32- no-shared
 make
 
 echo "::endgroup::"
