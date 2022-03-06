@@ -5,11 +5,11 @@ set -e
 echo "::group::install deps"
 
 apk update
-apk add --no-cache alpine-sdk perl make linux-headers
+apk add --no-cache alpine-sdk perl make linux-headers mingw-w64-gcc
 
 echo "::endgroup::"
 
-tool_name="openssl"
+tool_name="openssl.exe"
 tool_version="1_1_1k"
 echo "::set-output name=tool_name::$tool_name"
 echo "::set-output name=tool_version::$tool_version"
@@ -25,7 +25,7 @@ echo "::endgroup::"
 
 echo "::group::build"
 
-./Configure no-shared LDFLAGS='--static' linux-x86_64
+./Configure mingw64 --cross-compile-prefix=x86_64-w64-mingw32- no-shared LDFLAGS='--static' no-makedepend
 make
 
 echo "::endgroup::"
@@ -33,14 +33,11 @@ echo "::endgroup::"
 mkdir "$dp0/release/build" && cd "$dp0/release/build"
 cp -f "$dp0/release/openssl-OpenSSL_$tool_version/apps/$tool_name" "$dp0/release/build/"
 
-strip "$tool_name"
-chmod +x "$tool_name"
-
 { printf 'SHA-256: %s
 %s
-' "$(sha256sum $tool_name)" "$("./$tool_name" version)"
-} > _musl.md
+' "$(sha256sum $tool_name)" "$download_url"
+} > _mingw.md
 
-cat _musl.md
+cat _mingw.md
 
-tar -czvf ../_musl.tar.gz .
+tar -czvf ../_mingw.tar.gz .
