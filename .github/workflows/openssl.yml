@@ -91,7 +91,7 @@ jobs:
         shell: cmd
         run: >
           docker container run --rm -v ${{ github.workspace }}:C:\app -w C:\app ${{ env.IMAGE_NAME }}
-          .\openssl.exe version
+          c:\app\openssl.exe version
 
   openssl-release:
     runs-on: ubuntu-latest
