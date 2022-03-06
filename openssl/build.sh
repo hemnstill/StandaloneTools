@@ -10,7 +10,7 @@ apk add --no-cache alpine-sdk perl make linux-headers
 echo "::endgroup::"
 
 tool_name="openssl"
-tool_version="1_1_1k"
+tool_version="3.0.1"
 echo "::set-output name=tool_name::$tool_name"
 echo "::set-output name=tool_version::$tool_version"
 
