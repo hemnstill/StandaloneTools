@@ -130,7 +130,7 @@ jobs:
           allowUpdates: true
           token: ${{ secrets.GITHUB_TOKEN }}
 
-  openssl-alpine-linux:
+  openssl-alpine-musl:
     needs: prejob
     if: ${{ needs.prejob.outputs.tool=='openssl' }}
     runs-on: ubuntu-latest
@@ -145,7 +145,7 @@ jobs:
 
       - uses: actions/upload-artifact@v3
         with:
-          name: openssl-alpine-linux
+          name: openssl-alpine-musl
           path: |
              ./openssl/release/_musl.tar.gz
 
