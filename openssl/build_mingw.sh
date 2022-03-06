@@ -18,7 +18,7 @@ echo "::endgroup::"
 
 echo "::group::build"
 
-perl ./Configure no-shared LDFLAGS='--static' no-makedepend VC-WIN64A-masm
+perl ./Configure mingw64 no-shared LDFLAGS='--static' no-makedepend VC-WIN64A-masm
 perl configdata.pm --dump
 
 nmake /S
