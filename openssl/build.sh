@@ -30,7 +30,8 @@ make
 
 echo "::endgroup::"
 
-cp -f "$dp0/release/openssl-OpenSSL_$tool_version/apps/$tool_name" "$dp0/release/"
+mkdir "$dp0/release/build" && cd "$dp0/release/build"
+cp -f "$dp0/release/openssl-OpenSSL_$tool_version/apps/$tool_name" "$dp0/release/build/"
 
 cd "$dp0/release"
 strip "$tool_name"
@@ -38,7 +39,9 @@ chmod +x "$tool_name"
 
 { printf 'SHA-256: %s
 %s
-%s' "$(sha256sum < $tool_name)" "$("./$tool_name" version)" "$download_url"
-} > body.md
+' "$(sha256sum < $tool_name)" "$("./$tool_name" version)"
+} > _musl.md
 
-cat body.md
+cat _musl.md
+
+tar -czvf ../_musl.tar.gz .

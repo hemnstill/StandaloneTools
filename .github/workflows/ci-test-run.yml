@@ -2,6 +2,9 @@ name: ci build
 
 on: [pull_request, workflow_dispatch]
 
+env:
+  IMAGE_NAME: mcr.microsoft.com/windows/nanoserver:ltsc2022-amd64
+
 jobs:
   prejob:
     runs-on: ubuntu-latest
@@ -140,17 +143,15 @@ jobs:
           apk add --no-cache bash
           ./openssl/build.sh
 
-      - uses: ncipollo/release-action@v1
+      - uses: actions/upload-artifact@v3
         with:
-          tag: '${{ steps.build.outputs.tool_name }}-${{ steps.build.outputs.tool_version }}'
-          bodyFile: './openssl/release/body.md'
-          artifacts: './openssl/release/${{ steps.build.outputs.tool_name }}'
-          allowUpdates: true
-          token: ${{ secrets.GITHUB_TOKEN }}
+          name: openssl-alpine-linux
+          path: |
+             ./openssl/release/_musl.tar.gz
 
   openssl-windows-mingw:
     needs: prejob
-    if: ${{ needs.prejob.outputs.tool=='openssl_win' }}
+    if: ${{ needs.prejob.outputs.tool=='openssl' }}
     runs-on: windows-2022
     steps:
       - uses: actions/checkout@v2
@@ -162,6 +163,68 @@ jobs:
           name: openssl-windows-mingw
           path: |
              ./openssl/release/_mingw.tar.gz
+
+  openssl-alpine-test:
+    needs: openssl-alpine-musl
+    runs-on: ubuntu-latest
+    container: alpine:3.15.0
+    steps:
+      - uses: actions/download-artifact@v2
+        with:
+          name: openssl-alpine-musl
+          path: .
+
+      - name: Test musl build on Alpine
+        run: |
+          tar -xf ./_musl.tar.gz
+          ./openssl --version
+
+  openssl-windows-test:
+    needs: openssl-windows-mingw
+    runs-on: windows-2022
+    steps:
+      - uses: actions/download-artifact@v2
+        with:
+          name: bsdtar-windows-mingw
+          path: .
+      - run: tar -xf .\_mingw.tar.gz
+
+      - name: pull windows container ${{ env.IMAGE_NAME }}
+        shell: cmd
+        run: |
+          docker pull ${{ env.IMAGE_NAME }}
+          docker images ${{ env.IMAGE_NAME }}
+
+      - name: Test mingw build on Nanoserver
+        shell: cmd
+        run: >
+          docker container run --rm -v ${{ github.workspace }}:C:\app -w C:\app ${{ env.IMAGE_NAME }}
+          .\bsdtar.exe --version
+
+  openssl-release:
+    runs-on: ubuntu-latest
+    needs: [openssl-alpine-test, openssl-windows-test]
+    steps:
+      - uses: actions/download-artifact@v2
+        with:
+          name: openssl-alpine-musl
+          path: .
+      - uses: actions/download-artifact@v2
+        with:
+          name: openssl-windows-mingw
+          path: .
+      - run: |
+          tar -xf ./_musl.tar.gz
+          tar -xf ./_mingw.tar.gz
+          cat _musl.md >> body.md
+          cat _mingw.md >> body.md
+      - uses: ncipollo/release-action@v1
+        with:
+          tag: 'openssl-1_1_1k'
+          artifacts: './openssl*'
+          bodyFile: './body.md'
+          allowUpdates: true
+          token: ${{ secrets.GITHUB_TOKEN }}
 
   alpine-far2l-linux:
     needs: prejob

@@ -30,7 +30,8 @@ cp -f "$dp0/release/openssl-OpenSSL_$tool_version/apps/$tool_name" "$dp0/release
 
 { printf 'SHA-256: %s
 %s
-%s' "$(sha256sum < $tool_name)" "$("./$tool_name" version)" "$download_url"
+%s
+' "$(sha256sum < $tool_name)" "$("./$tool_name" version)" "$download_url"
 } > _mingw.md
 
 cat _mingw.md
