@@ -127,7 +127,7 @@ jobs:
           allowUpdates: true
           token: ${{ secrets.GITHUB_TOKEN }}
 
-  alpine-openssl-linux:
+  openssl-alpine-linux:
     needs: prejob
     if: ${{ needs.prejob.outputs.tool=='openssl' }}
     runs-on: ubuntu-latest
@@ -147,6 +147,21 @@ jobs:
           artifacts: './openssl/release/${{ steps.build.outputs.tool_name }}'
           allowUpdates: true
           token: ${{ secrets.GITHUB_TOKEN }}
+
+  openssl-windows-mingw:
+    needs: prejob
+    if: ${{ needs.prejob.outputs.tool=='openssl_win' }}
+    runs-on: windows-2022
+    steps:
+      - uses: actions/checkout@v2
+      - uses: ilammy/msvc-dev-cmd@v1
+      - uses: shogo82148/actions-setup-perl@v1
+      - run: .tools\busybox64.exe sh openssl\build_mingw.sh
+      - uses: actions/upload-artifact@v3
+        with:
+          name: openssl-windows-mingw
+          path: |
+             ./openssl/release/_mingw.tar.gz
 
   alpine-far2l-linux:
     needs: prejob
