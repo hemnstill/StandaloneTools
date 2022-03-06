@@ -71,7 +71,7 @@ jobs:
           tar -xf ./_musl.tar.gz
           ./openssl version
 
-  openssl-windows-test:
+  openssl-nanoserver-test:
     needs: openssl-alpine-mingw
     runs-on: windows-2022
     steps:
@@ -90,12 +90,12 @@ jobs:
       - name: Test mingw build on Nanoserver
         shell: cmd
         run: >
-          docker container run --rm -v ${{ github.workspace }}:C:\app -w C:\app ${{ env.IMAGE_NAME }}
-          c:\app\openssl.exe version
+          docker container run --rm -v ${{ github.workspace }}:C:\app ${{ env.IMAGE_NAME }}
+          C:\app\openssl.exe version
 
   openssl-release:
     runs-on: ubuntu-latest
-    needs: [openssl-alpine-test, openssl-windows-test]
+    needs: [openssl-alpine-test, openssl-nanoserver-test]
     steps:
       - uses: actions/download-artifact@v2
         with:
@@ -103,7 +103,7 @@ jobs:
           path: .
       - uses: actions/download-artifact@v2
         with:
-          name: openssl-windows-mingw
+          name: openssl-alpine-mingw
           path: .
       - run: |
           tar -xf ./_musl.tar.gz
