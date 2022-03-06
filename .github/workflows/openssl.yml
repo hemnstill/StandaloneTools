@@ -65,7 +65,7 @@ jobs:
       - name: Test musl build on Alpine
         run: |
           tar -xf ./_musl.tar.gz
-          ./openssl --version
+          ./openssl version
 
   openssl-windows-test:
     needs: openssl-windows-mingw
@@ -73,7 +73,7 @@ jobs:
     steps:
       - uses: actions/download-artifact@v2
         with:
-          name: bsdtar-windows-mingw
+          name: openssl-windows-mingw
           path: .
       - run: tar -xf .\_mingw.tar.gz
 
@@ -87,7 +87,7 @@ jobs:
         shell: cmd
         run: >
           docker container run --rm -v ${{ github.workspace }}:C:\app -w C:\app ${{ env.IMAGE_NAME }}
-          .\bsdtar.exe --version
+          .\openssl.exe version
 
   openssl-release:
     runs-on: ubuntu-latest
