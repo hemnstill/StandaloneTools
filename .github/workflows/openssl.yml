@@ -112,7 +112,7 @@ jobs:
           cat _mingw.md >> body.md
       - uses: ncipollo/release-action@v1
         with:
-          tag: 'openssl-3.0.1'
+          tag: 'openssl-1_1_1m'
           artifacts: './openssl*'
           bodyFile: './body.md'
           allowUpdates: true
