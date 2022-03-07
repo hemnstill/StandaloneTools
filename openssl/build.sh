@@ -14,7 +14,7 @@ tool_version="1_1_1m"
 echo "::set-output name=tool_name::$tool_name"
 echo "::set-output name=tool_version::$tool_version"
 
-download_url="https://github.com/openssl/openssl/archive/refs/tags/openssl-$tool_version.tar.gz"
+download_url="https://github.com/openssl/openssl/archive/refs/tags/OpenSSL_$tool_version.tar.gz"
 echo "::group::prepare sources $download_url"
 
 mkdir -p "$dp0/release" && cd "$dp0/release"
@@ -25,7 +25,7 @@ echo "::endgroup::"
 
 echo "::group::build"
 
-./Configure --banner=Configured no-shared linux-x86_64
+./Configure no-shared linux-x86_64
 make
 
 echo "::endgroup::"
