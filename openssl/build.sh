@@ -25,7 +25,7 @@ echo "::endgroup::"
 
 echo "::group::build"
 
-./Configure no-shared LDFLAGS='--static -no-pie' linux-x86_64
+./Configure no-shared LDFLAGS='--static -fPIC' linux-x86_64
 make
 
 echo "::endgroup::"
