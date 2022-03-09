@@ -25,7 +25,7 @@ echo "::endgroup::"
 
 echo "::group::build"
 
-./Configure no-shared no-tests linux-x86_64
+./Configure no-shared no-tests no-legacy linux-x86_64
 make
 
 echo "::endgroup::"
