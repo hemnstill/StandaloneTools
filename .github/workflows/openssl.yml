@@ -71,6 +71,21 @@ jobs:
           tar -xf ./_musl.tar.gz
           ./openssl version
 
+  openssl-ubuntu-test:
+    needs: openssl-alpine-musl
+    runs-on: ubuntu-latest
+    container: ubuntu:20.04
+    steps:
+      - uses: actions/download-artifact@v2
+        with:
+          name: openssl-alpine-musl
+          path: .
+
+      - name: Test musl build on Ubuntu
+        run: |
+          tar -xf ./_musl.tar.gz
+          ./openssl version
+
   openssl-nanoserver-test:
     needs: openssl-alpine-mingw
     runs-on: windows-2022
@@ -95,7 +110,7 @@ jobs:
 
   openssl-release:
     runs-on: ubuntu-latest
-    needs: [openssl-alpine-test, openssl-nanoserver-test]
+    needs: [openssl-alpine-test, openssl-ubuntu-test, openssl-nanoserver-test]
     steps:
       - uses: actions/download-artifact@v2
         with:
@@ -112,7 +127,7 @@ jobs:
           cat _mingw.md >> body.md
       - uses: ncipollo/release-action@v1
         with:
-          tag: 'openssl-1_1_1m'
+          tag: 'openssl-3.0.1'
           artifacts: './openssl*'
           bodyFile: './body.md'
           allowUpdates: true
