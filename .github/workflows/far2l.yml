@@ -14,4 +14,4 @@ jobs:
     needs: test-run
     runs-on: ubuntu-latest
     steps:
-      - run: echo ${{ needs.prejob.outputs.workflow }}
+      - run: echo ${{ needs.test-run.outputs.workflow }}
