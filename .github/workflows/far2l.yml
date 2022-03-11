@@ -15,4 +15,4 @@ jobs:
     runs-on: ubuntu-latest
     container: ubuntu:18.04
     steps:
-      - run: echo ${{ needs.test-run.outputs.tool }}
+      - run: echo ${{ needs.test-run.outputs.workflow }}
