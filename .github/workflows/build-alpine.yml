@@ -1,0 +1,23 @@
+on:
+  workflow_call:
+    inputs:
+      workflow:
+        required: true
+        type: string
+
+jobs:
+  build-alpine-musl:
+    runs-on: ubuntu-latest
+    container: alpine:3.12.9
+
+    steps:
+      - uses: actions/checkout@v2
+      - name: build ${{ inputs.workflow }}-alpine-musl
+        run: |
+          apk add --no-cache bash
+          ./${{ inputs.workflow }}/build.sh
+
+      - uses: actions/upload-artifact@v1
+        with:
+          name: ${{ inputs.workflow }}-alpine-musl
+          path: ./${{ inputs.workflow }}/release/_musl.tar.gz
