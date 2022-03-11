@@ -4,19 +4,22 @@ on:
       workflow:
         required: true
         type: string
+      toolset:
+        required: true
+        type: string
 
 jobs:
-  build-alpine-musl:
+  build-alpine:
     runs-on: ubuntu-latest
     container: alpine:3.12.9
     steps:
       - uses: actions/checkout@v2
-      - name: build ${{ inputs.workflow }}-alpine-musl
+      - name: build ${{ inputs.workflow }}-alpine-${{ inputs.toolset }}
         run: |
           apk add --no-cache bash
-          ./${{ inputs.workflow }}/build_musl.sh
+          ./${{ inputs.workflow }}/build_${{ inputs.toolset }}.sh
 
       - uses: actions/upload-artifact@v1
         with:
-          name: ${{ inputs.workflow }}-alpine-musl
-          path: ./${{ inputs.workflow }}/release/_musl.tar.gz
+          name: ${{ inputs.workflow }}-alpine-${{ inputs.toolset }}
+          path: ./${{ inputs.workflow }}/release/_${{ inputs.toolset }}.tar.gz

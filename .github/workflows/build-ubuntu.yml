@@ -4,18 +4,21 @@ on:
       workflow:
         required: true
         type: string
+      toolset:
+        required: true
+        type: string
 
 jobs:
-  build-ubuntu-glibc:
+  build-ubuntu:
     runs-on: ubuntu-latest
     container: ubuntu:18.04
     steps:
       - uses: actions/checkout@v2
-      - name: build ${{ inputs.workflow }}-ubuntu-glibc
+      - name: build ${{ inputs.workflow }}-ubuntu-${{ inputs.toolset }}
         run: |
-          ./${{ inputs.workflow }}/build_glibc.sh
+          ./${{ inputs.workflow }}/build_${{ inputs.toolset }}.sh
 
       - uses: actions/upload-artifact@v1
         with:
-          name: ${{ inputs.workflow }}-ubuntu-glibc
-          path: ./${{ inputs.workflow }}/release/_glibc.tar.gz
+          name: ${{ inputs.workflow }}-ubuntu-${{ inputs.toolset }}
+          path: ./${{ inputs.workflow }}/release/_${{ inputs.toolset }}.tar.gz
