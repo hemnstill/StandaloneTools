@@ -12,7 +12,6 @@ jobs:
 
   far2l-alpine-musl-test:
     needs: prejob
-    if: ${{ needs.prejob.outputs.workflow == github.workflow }}
     runs-on: ubuntu-latest
     steps:
       - run: echo '${{ needs.prejob.outputs.workflow }}' '${{ github.workflow }}'
