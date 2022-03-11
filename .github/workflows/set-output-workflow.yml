@@ -12,7 +12,7 @@ on:
         value: ${{ jobs.prejob.outputs.workflow }}
 
 jobs:
-  prejob:
+  set-output:
     runs-on: ubuntu-latest
     environment: release
     outputs:

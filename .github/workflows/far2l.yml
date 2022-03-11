@@ -3,15 +3,15 @@ name: far2l
 on: [pull_request, workflow_dispatch]
 
 jobs:
-  test-run:
-    uses: ./.github/workflows/prejob.yml
+  prejob:
+    uses: ./.github/workflows/set-output-workflow.yml
     with:
       workflow: ${{ github.workflow }}
     secrets:
       _WORKFLOW: ${{ secrets._CURRENT_TOOL }}
 
   ubuntu-far2l-linux:
-    needs: test-run
+    needs: prejob
     runs-on: ubuntu-latest
     steps:
-      - run: echo ${{ needs.test-run.outputs.workflow }}
+      - run: echo ${{ needs.prejob.outputs.workflow }}
