@@ -9,7 +9,7 @@ on:
         required: true
     outputs:
       workflow:
-        value: ${{ jobs.prejob.outputs.workflow }}
+        value: ${{ jobs.set-output.outputs.workflow }}
 
 jobs:
   set-output:
