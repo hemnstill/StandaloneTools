@@ -1,0 +1,21 @@
+on:
+  workflow_call:
+    inputs:
+      workflow:
+        required: true
+        type: string
+
+jobs:
+  build-ubuntu-glibc:
+    runs-on: ubuntu-latest
+    container: ubuntu:18.04
+    steps:
+      - uses: actions/checkout@v2
+      - name: build ${{ inputs.workflow }}-ubuntu-glibc
+        run: |
+          ./${{ inputs.workflow }}/build_glibc.sh
+
+      - uses: actions/upload-artifact@v1
+        with:
+          name: ${{ inputs.workflow }}-ubuntu-glibc
+          path: ./${{ inputs.workflow }}/release/_glibc.tar.gz
