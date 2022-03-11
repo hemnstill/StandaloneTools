@@ -1,0 +1,22 @@
+on:
+  workflow_call:
+    inputs:
+      workflow:
+        required: true
+        type: string
+    secrets:
+      _WORKFLOW:
+        required: true
+
+jobs:
+  prejob:
+    runs-on: ubuntu-latest
+    environment: release
+    outputs:
+      workflow: ${{ steps.setvar.outputs.envvar }}
+    steps:
+      - id: setvar
+        run: |
+          echo ${{ secrets._WORKFLOW }} > CI_ENV
+          echo "::set-output name=envvar::$(sed -e 's/^_//' CI_ENV)"
+      - run: echo "workflow:" '${{ inputs.workflow }}', "OUTPUT_WORKFLOW:" '${{ steps.setvar.outputs.envvar }}'

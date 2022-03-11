@@ -1,0 +1,18 @@
+name: far2l
+
+on: [pull_request, workflow_dispatch]
+
+jobs:
+  test-run:
+    uses: ./.github/workflows/prejob.yml
+    with:
+      workflow: ${{ github.workflow }}
+    secrets:
+      _WORKFLOW: ${{ secrets._CURRENT_TOOL }}
+
+  ubuntu-far2l-linux:
+    needs: test-run
+    runs-on: ubuntu-latest
+    container: ubuntu:18.04
+    steps:
+      - run: echo ${{ needs.test-run.outputs.tool }}
