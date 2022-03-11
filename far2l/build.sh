@@ -67,12 +67,12 @@ cd "$dp0/release/build"
 strip "$tool_name"
 chmod +x "$tool_name"
 
-tar -czvf ../far2l_musl.tar.gz .
-
 { printf 'ldd: %s
 SHA-256: %s
 %s
 %s' "$(ldd $tool_name)" "$(sha256sum < $tool_name)" "$("./$tool_name" --help | head -n2)" "$download_url"
-} > body.md
+} > _musl.md
 
-cat body.md
+cat _musl.md
+
+tar -czvf ../_musl.tar.gz .
