@@ -11,8 +11,8 @@ jobs:
       _WORKFLOW: ${{ secrets._CURRENT_TOOL }}
 
   far2l-alpine-musl-test:
-    needs: prejob
     runs-on: ubuntu-latest
+    needs: prejob
     steps:
       - run: echo '${{ needs.prejob.outputs.workflow }}' '${{ github.workflow }}'
 
@@ -20,6 +20,6 @@ jobs:
     needs: prejob
     uses: ./.github/workflows/build-alpine.yml
     with:
-      if: true
+      if: false
       workflow: ${{ github.workflow }}
 
