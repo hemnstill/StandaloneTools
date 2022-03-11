@@ -1,15 +1,18 @@
 on:
   workflow_call:
     inputs:
+      if:
+        required: true
+        type: boolean
       workflow:
         required: true
         type: string
 
 jobs:
   build-alpine-musl:
+    if: ${{ inputs.if == true }}
     runs-on: ubuntu-latest
     container: alpine:3.12.9
-
     steps:
       - uses: actions/checkout@v2
       - name: build ${{ inputs.workflow }}-alpine-musl
