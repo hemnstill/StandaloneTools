@@ -74,13 +74,11 @@ jobs:
         ldd ./${{ github.workflow }}
         ./${{ github.workflow }} --help | head -n2
 
-#  far2l-release:
-#    needs: [far2l-alpine-musl-test,
-#            far2l-alpine-glibc-test,
-#            far2l-ubuntu-musl-test,
-#            far2l-ubuntu-glibc-test]
-#    uses: ./.github/workflows/release.yml
-#    with:
-#      workflow: ${{ github.workflow }}
-#    secrets:
-#      token: ${{ secrets.GITHUB_TOKEN }}
+  far2l-release:
+    needs: [far2l-alpine-musl-test,
+            far2l-alpine-glibc-test,
+            far2l-ubuntu-musl-test,
+            far2l-ubuntu-glibc-test]
+    uses: ./.github/workflows/release.yml
+    secrets:
+      token: ${{ secrets.GITHUB_TOKEN }}
