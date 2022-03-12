@@ -53,7 +53,7 @@ jobs:
   far2l-ubuntu-musl-test:
     needs: far2l-alpine-musl
     if: ${{ needs.prejob.outputs.workflow == github.workflow }}
-    uses: ./.github/workflows/test-alpine.yml
+    uses: ./.github/workflows/test-ubuntu.yml
     with:
       artifact: build-musl
       test-run: |
@@ -67,11 +67,20 @@ jobs:
   far2l-ubuntu-glibc-test:
     needs: far2l-ubuntu-glibc
     if: ${{ needs.prejob.outputs.workflow == github.workflow }}
-    uses: ./.github/workflows/test-alpine.yml
+    uses: ./.github/workflows/test-ubuntu.yml
     with:
       artifact: build-glibc
       test-run: |
         ldd ./${{ github.workflow }}
         ./${{ github.workflow }} --help | head -n2
 
-
+#  far2l-release:
+#    needs: [far2l-alpine-musl-test,
+#            far2l-alpine-glibc-test,
+#            far2l-ubuntu-musl-test,
+#            far2l-ubuntu-glibc-test]
+#    uses: ./.github/workflows/release.yml
+#    with:
+#      workflow: ${{ github.workflow }}
+#    secrets:
+#      token: ${{ secrets.GITHUB_TOKEN }}

@@ -1,0 +1,35 @@
+on:
+  workflow_call:
+    inputs:
+      workflow:
+        required: true
+        type: string
+      toolset:
+        required: false
+        type: string
+        default: 'musl'
+
+jobs:
+  release:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/download-artifact@v3
+        with:
+          name: openssl-alpine-musl
+          path: .
+      - uses: actions/download-artifact@v2
+        with:
+          name: openssl-alpine-mingw
+          path: .
+      - run: |
+          tar -xf ./_musl.tar.gz
+          tar -xf ./_mingw.tar.gz
+          cat _musl.md >> body.md
+          cat _mingw.md >> body.md
+      - uses: ncipollo/release-action@v1
+        with:
+          tag: 'openssl-3.0.1'
+          artifacts: './openssl*'
+          bodyFile: './body.md'
+          allowUpdates: true
+          token: ${{ secrets.GITHUB_TOKEN }}
