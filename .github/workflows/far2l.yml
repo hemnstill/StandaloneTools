@@ -50,4 +50,28 @@ jobs:
         ldd ./${{ github.workflow }} || true
         ./${{ github.workflow }} --help | head -n2
 
+  far2l-ubuntu-musl-test:
+    needs: far2l-alpine-musl
+    if: ${{ needs.prejob.outputs.workflow == github.workflow }}
+    uses: ./.github/workflows/test-alpine.yml
+    with:
+      artifact: build-musl
+      test-run: |
+        apt update
+        apt -y install musl
+        ln -s /usr/lib/x86_64-linux-musl/libc.so /lib/libc.musl-x86_64.so.1
+
+        ldd ./${{ github.workflow }}
+        ./${{ github.workflow }} --help | head -n2
+
+  far2l-ubuntu-glibc-test:
+    needs: far2l-ubuntu-glibc
+    if: ${{ needs.prejob.outputs.workflow == github.workflow }}
+    uses: ./.github/workflows/test-alpine.yml
+    with:
+      artifact: build-glibc
+      test-run: |
+        ldd ./${{ github.workflow }}
+        ./${{ github.workflow }} --help | head -n2
+
 
