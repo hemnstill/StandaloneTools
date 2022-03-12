@@ -71,8 +71,8 @@ chmod +x "$tool_name"
 SHA-256: %s
 %s
 %s' "$(ldd $tool_name)" "$(sha256sum < $tool_name)" "$("./$tool_name" --help | head -n2)" "$download_url"
-} > _musl.md
+} > build-musl.md
 
-cat _musl.md
+cat build-musl.md
 
-tar -czvf ../_musl.tar.gz .
+tar -czvf ../build-musl.tar.gz .

@@ -70,8 +70,8 @@ chmod +x "$tool_name"
 SHA-256: %s
 %s
 %s' "$(ldd $tool_name)" "$(sha256sum < $tool_name)" "$("./$tool_name" --help | head -n2)" "$download_url"
-} > _glibc.md
+} > build-glibc.md
 
-cat _glibc.md
+cat build-glibc.md
 
-tar -czvf ../_glibc.tar.gz .
+tar -czvf ../build-glibc.tar.gz .

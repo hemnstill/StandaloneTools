@@ -26,5 +26,5 @@ jobs:
 
       - uses: actions/upload-artifact@v1
         with:
-          name: ${{ inputs.workflow }}-alpine-${{ inputs.toolset }}
-          path: ./${{ inputs.workflow }}/release/_${{ inputs.toolset }}.tar.gz
+          name: build-${{ inputs.toolset }}
+          path: ./${{ inputs.workflow }}/release/build-${{ inputs.toolset }}.tar.gz

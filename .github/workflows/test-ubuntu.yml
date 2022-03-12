@@ -7,10 +7,6 @@ on:
       test-run:
         required: true
         type: string
-      toolset:
-        required: false
-        type: string
-        default: 'musl'
       version:
         required: false
         type: string
@@ -19,7 +15,7 @@ on:
 jobs:
   test-alpine:
     runs-on: ubuntu-latest
-    container: alpine:${{ inputs.version }}
+    container: ubuntu:${{ inputs.version }}
 
     steps:
       - uses: actions/download-artifact@v3
@@ -27,7 +23,7 @@ jobs:
           name: ${{ inputs.artifact }}
           path: .
 
-      - name: Test ${{ inputs.toolset }} build on alpine:${{ inputs.version }}
+      - name: Test ${{ inputs.artifact }} build on alpine:${{ inputs.version }}
         run: |
           tar -xf ./${{ inputs.artifact }}.tar.gz
           ${{ inputs.test-run }}

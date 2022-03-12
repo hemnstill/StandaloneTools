@@ -31,8 +31,7 @@ jobs:
     if: ${{ needs.prejob.outputs.workflow == github.workflow }}
     uses: ./.github/workflows/test-alpine.yml
     with:
-      workflow: ${{ github.workflow }}
-      artifact: far2l-alpine-musl
+      artifact: build-musl
       test-run: |
         ldd ./${{ github.workflow }}
         ./${{ github.workflow }} --help | head -n2
@@ -42,9 +41,7 @@ jobs:
     if: ${{ needs.prejob.outputs.workflow == github.workflow }}
     uses: ./.github/workflows/test-alpine.yml
     with:
-      workflow: ${{ github.workflow }}
-      artifact: far2l-ubuntu-glibc
-      toolset: glibc
+      artifact: build-glibc
       test-run: |
         wget -q -O /etc/apk/keys/sgerrand.rsa.pub https://alpine-pkgs.sgerrand.com/sgerrand.rsa.pub
         wget https://github.com/sgerrand/alpine-pkg-glibc/releases/download/2.34-r0/glibc-2.34-r0.apk
