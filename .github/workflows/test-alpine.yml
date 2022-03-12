@@ -1,0 +1,37 @@
+on:
+  workflow_call:
+    inputs:
+      workflow:
+        required: true
+        type: string
+      artifact:
+        required: true
+        type: string
+      test-run:
+        required: true
+        type: string
+      toolset:
+        required: false
+        type: string
+        default: 'musl'
+      version:
+        required: false
+        type: string
+        default: 'latest'
+
+jobs:
+  test-alpine:
+    runs-on: ubuntu-latest
+    container: alpine:${{ inputs.version }}
+
+    steps:
+      - uses: actions/download-artifact@v3
+        with:
+          name: ${{ inputs.artifact }}
+          path: .
+
+      - name: Test ${{ inputs.toolset }} build on alpine:${{ inputs.version }}
+        run: |
+          tar -xf ./_${{ inputs.toolset }}.tar.gz
+          ${{ inputs.test-run }}
+

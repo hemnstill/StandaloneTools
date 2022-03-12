@@ -5,13 +5,18 @@ on:
         required: true
         type: string
       toolset:
-        required: true
+        required: false
         type: string
+        default: 'musl'
+      version:
+        required: false
+        type: string
+        default: '3.15.0'
 
 jobs:
   build-alpine:
     runs-on: ubuntu-latest
-    container: alpine:3.12.9
+    container: alpine:${{ inputs.version }}
     steps:
       - uses: actions/checkout@v2
       - name: build ${{ inputs.workflow }}-alpine-${{ inputs.toolset }}

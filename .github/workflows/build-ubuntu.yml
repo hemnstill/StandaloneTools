@@ -5,13 +5,18 @@ on:
         required: true
         type: string
       toolset:
-        required: true
+        required: false
         type: string
+        default: 'glibc'
+      version:
+        required: false
+        type: string
+        default: '20.04'
 
 jobs:
   build-ubuntu:
     runs-on: ubuntu-latest
-    container: ubuntu:18.04
+    container: ubuntu:${{ inputs.version }}
     steps:
       - uses: actions/checkout@v2
       - name: build ${{ inputs.workflow }}-ubuntu-${{ inputs.toolset }}
