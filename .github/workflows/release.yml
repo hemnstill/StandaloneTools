@@ -19,10 +19,11 @@ on:
 jobs:
   release:
     runs-on: ubuntu-latest
+    container: ubuntu:latest
     steps:
       - run: |
-          sudo apt update -y
-          sudo apt install -y bsdtar
+          apt update -y
+          apt install -y bsdtar
       - uses: actions/download-artifact@v3
       - run: ${{ inputs.prepare_body }}
       - uses: ncipollo/release-action@v1
