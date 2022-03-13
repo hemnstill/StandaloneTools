@@ -70,8 +70,7 @@ chmod +x "$tool_name"
 { printf 'ldd: %s
 SHA-256: %s
 %s
-%s
-' "$(ldd $tool_name)" "$(sha256sum < $tool_name)" "$("./$tool_name" --help | head -n2)" "$download_url"
+' "$(ldd $tool_name)" "$(sha256sum < $tool_name)" "$("./$tool_name" --help | head -n2)"
 } > build-musl.md
 
 cat build-musl.md
