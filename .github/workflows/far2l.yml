@@ -84,8 +84,8 @@ jobs:
       workflow: ${{ github.workflow }}
       tool_version: '2.4.0-beta'
       prepare_body: |
-        tar -xf ./build-musl/build-musl.tar.gz build-musl.md >> body.md
-        tar -xf ./build-glibc/build-glibc.tar.gz build-glibc.md >> body.md
+        tar -Oxf ./build-musl/build-musl.tar.gz build-musl.md >> body.md
+        tar -Oxf ./build-glibc/build-glibc.tar.gz build-glibc.md >> body.md
       artifacts: ./build-musl/*.tar.gz;./build-glibc/*.tar.gz
     secrets:
       token: ${{ secrets.GITHUB_TOKEN }}
