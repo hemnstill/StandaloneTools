@@ -86,6 +86,6 @@ jobs:
       prepare_body: |
         bsdtar -Oxf ./build-musl/build-musl.tar.gz build-musl.md >> body.md
         bsdtar -Oxf ./build-glibc/build-glibc.tar.gz build-glibc.md >> body.md
-      artifacts: ./build-musl/*.tar.gz;./build-glibc/*.tar.gz
+      artifacts: ./build-musl/build-musl.tar.gz,./build-glibc/build-glibc.tar.gz
     secrets:
       token: ${{ secrets.GITHUB_TOKEN }}
