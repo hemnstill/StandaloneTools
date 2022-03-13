@@ -21,8 +21,8 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - run: |
-          apt update -y
-          apt install -y bsdtar
+          sudo apt update -y
+          sudo apt install -y bsdtar
       - uses: actions/download-artifact@v3
       - run: ${{ inputs.prepare_body }}
       - uses: ncipollo/release-action@v1
