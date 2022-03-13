@@ -67,7 +67,9 @@ cd "$dp0/release/build"
 strip "$tool_name"
 chmod +x "$tool_name"
 
-{ printf 'ldd: %s
+{ printf '### musl version:
+
+ldd: %s
 SHA-256: %s
 %s
 ' "$(ldd $tool_name)" "$(sha256sum < $tool_name)" "$("./$tool_name" --help | head -n2)"
