@@ -1,0 +1,29 @@
+on:
+  workflow_call:
+    inputs:
+      workflow:
+        required: true
+        type: string
+      toolset:
+        required: false
+        type: string
+        default: 'glibc'
+      version:
+        required: false
+        type: string
+        default: '20.04'
+
+jobs:
+  build-ubuntu:
+    runs-on: ubuntu-latest
+    container: ubuntu:${{ inputs.version }}
+    steps:
+      - uses: actions/checkout@v2
+      - name: build ${{ inputs.workflow }}-ubuntu-${{ inputs.toolset }}
+        run: |
+          ./${{ inputs.workflow }}/build_${{ inputs.toolset }}.sh
+
+      - uses: actions/upload-artifact@v3
+        with:
+          name: build-${{ inputs.toolset }}
+          path: ./${{ inputs.workflow }}/release/build-${{ inputs.toolset }}.tar.gz

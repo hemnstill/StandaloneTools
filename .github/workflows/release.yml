@@ -1,0 +1,35 @@
+on:
+  workflow_call:
+    inputs:
+      workflow:
+        required: true
+        type: string
+      tool_version:
+        required: true
+        type: string
+      prepare_body:
+        required: true
+        type: string
+      artifacts:
+        required: true
+        type: string
+    secrets:
+      token:
+        required: true
+jobs:
+  release:
+    runs-on: ubuntu-latest
+    container: ubuntu:latest
+    steps:
+      - run: |
+          apt update -y
+          apt install -y libarchive-tools
+      - uses: actions/download-artifact@v3
+      - run: ${{ inputs.prepare_body }}
+      - uses: ncipollo/release-action@v1
+        with:
+          tag: ${{ inputs.workflow }}-${{ inputs.tool_version }}
+          bodyFile: './body.md'
+          artifacts: ${{ inputs.artifacts }}
+          allowUpdates: true
+          token: ${{ secrets.GITHUB_TOKEN }}

@@ -1,0 +1,30 @@
+on:
+  workflow_call:
+    inputs:
+      workflow:
+        required: true
+        type: string
+      toolset:
+        required: false
+        type: string
+        default: 'musl'
+      version:
+        required: false
+        type: string
+        default: '3.15.0'
+
+jobs:
+  build-alpine:
+    runs-on: ubuntu-latest
+    container: alpine:${{ inputs.version }}
+    steps:
+      - uses: actions/checkout@v2
+      - name: build ${{ inputs.workflow }}-alpine-${{ inputs.toolset }}
+        run: |
+          apk add --no-cache bash
+          ./${{ inputs.workflow }}/build_${{ inputs.toolset }}.sh
+
+      - uses: actions/upload-artifact@v3
+        with:
+          name: build-${{ inputs.toolset }}
+          path: ./${{ inputs.workflow }}/release/build-${{ inputs.toolset }}.tar.gz

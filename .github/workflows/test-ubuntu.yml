@@ -1,0 +1,30 @@
+on:
+  workflow_call:
+    inputs:
+      artifact:
+        required: true
+        type: string
+      test-run:
+        required: true
+        type: string
+      version:
+        required: false
+        type: string
+        default: 'latest'
+
+jobs:
+  test-alpine:
+    runs-on: ubuntu-latest
+    container: ubuntu:${{ inputs.version }}
+
+    steps:
+      - uses: actions/download-artifact@v3
+        with:
+          name: ${{ inputs.artifact }}
+          path: .
+
+      - name: Test ${{ inputs.artifact }} build on ubuntu:${{ inputs.version }}
+        run: |
+          tar -xf ./${{ inputs.artifact }}.tar.gz
+          ${{ inputs.test-run }}
+

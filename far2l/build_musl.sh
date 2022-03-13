@@ -67,12 +67,14 @@ cd "$dp0/release/build"
 strip "$tool_name"
 chmod +x "$tool_name"
 
-tar -czvf ../far2l_musl.tar.gz .
+{ printf '### musl version (without plugins):
 
-{ printf 'ldd: %s
+ldd: %s
 SHA-256: %s
 %s
-%s' "$(ldd $tool_name)" "$(sha256sum < $tool_name)" "$("./$tool_name" --help | head -n2)" "$download_url"
-} > body.md
+' "$(ldd $tool_name)" "$(sha256sum < $tool_name)" "$("./$tool_name" --help | head -n2)"
+} > build-musl.md
 
-cat body.md
+cat build-musl.md
+
+tar -czvf ../build-musl.tar.gz .
