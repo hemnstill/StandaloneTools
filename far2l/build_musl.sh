@@ -67,7 +67,7 @@ cd "$dp0/release/build"
 strip "$tool_name"
 chmod +x "$tool_name"
 
-{ printf '### musl version:
+{ printf '### musl version (without plugins):
 
 ldd: %s
 SHA-256: %s

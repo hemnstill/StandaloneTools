@@ -66,7 +66,7 @@ cd "$dp0/release/build"
 strip "$tool_name"
 chmod +x "$tool_name"
 
-{ printf '### glibc version:
+{ printf '### glibc version (without plugins):
 
 ldd: %s
 SHA-256: %s
