@@ -100,7 +100,7 @@ jobs:
           cat _mingw.md >> body.md
       - uses: ncipollo/release-action@v1
         with:
-          tag: 'bsdtar-3.6.0'
+          tag: 'bsdtar-3.6.0-zstd'
           artifacts: './bsdtar*'
           bodyFile: './body.md'
           allowUpdates: true
