@@ -91,7 +91,7 @@ rem    cmake -G "Visual Studio 17 2022" -D CMAKE_BUILD_TYPE="Release" . || EXIT 
 rem    cmake --build . --target ALL_BUILD --config Release || EXIT /b 1
 rem    cmake --build . --target INSTALL --config Release || EXIT /b 1
 rem  )
-  CD zstd-%ZSTD_VERSION%
+  CD zstd-%ZSTD_VERSION%\build\cmake
   IF "%BE%"=="mingw-gcc" (
     SET PATH=%MINGWPATH%
     cmake -G "MinGW Makefiles" -D CMAKE_BUILD_TYPE="Release" . || EXIT /b 1
