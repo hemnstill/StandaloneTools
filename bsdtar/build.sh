@@ -5,7 +5,7 @@ set -e
 echo "::group::install deps"
 
 apk update
-apk add --no-cache alpine-sdk zlib-dev zlib-static bzip2-dev bzip2-static xz-dev zstd-dev zstd-static
+apk add --no-cache alpine-sdk zlib-dev zlib-static xz-dev zstd-dev zstd-static
 
 echo "::endgroup::"
 
@@ -40,7 +40,6 @@ gcc -static -o "$dp0/release/build/$tool_name" \
   .libs/libarchive.a \
   .libs/libarchive_fe.a \
   /lib/libz.a \
-  /usr/lib/libbz2.a \
   /usr/lib/liblzma.a \
   /usr/lib/libzstd.a
 
