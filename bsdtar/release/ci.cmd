@@ -1,6 +1,5 @@
 @ECHO OFF
 SET ZLIB_VERSION=1.2.11
-SET BZIP2_VERSION=b7a672291188a6469f71dd13ad14f2f9a7344fc8
 SET XZ_VERSION=5.2.5
 SET ZSTD_VERSION=1.5.0
 IF NOT "%BE%"=="mingw-gcc" (
@@ -27,14 +26,6 @@ IF "%1"=="deplibs" (
   IF NOT EXIST zlib-%ZLIB_VERSION% (
     ECHO Unpacking zlib-%ZLIB_VERSION%.zip
     C:\windows\system32\tar.exe -x -f zlib-%ZLIB_VERSION%.zip || EXIT /b 1
-  )
-  IF NOT EXIST bzip2-%BZIP2_VERSION%.zip (
-    echo Downloading https://github.com/libarchive/bzip2/archive/%BZIP2_VERSION%.zip
-    curl -L -o bzip2-%BZIP2_VERSION%.zip https://github.com/libarchive/bzip2/archive/%BZIP2_VERSION%.zip || EXIT /b 1
-  )
-  IF NOT EXIST bzip2-%BZIP2_VERSION% (
-    echo Unpacking bzip2-%BZIP2_VERSION%.zip
-    C:\windows\system32\tar.exe -x -f bzip2-%BZIP2_VERSION%.zip || EXIT /b 1
   )
   IF NOT EXIST xz-%XZ_VERSION%.zip (
     echo Downloading https://github.com/libarchive/xz/archive/%XZ_VERSION%.zip
@@ -66,20 +57,6 @@ IF "%1"=="deplibs" (
     cmake --build . --target INSTALL --config Release || EXIT /b 1
   )
   CD ..
-  CD bzip2-%BZIP2_VERSION%
-  IF "%BE%"=="mingw-gcc" (
-    SET PATH=%MINGWPATH%
-    cmake -G "MinGW Makefiles" -D CMAKE_BUILD_TYPE="Release" -D ENABLE_LIB_ONLY=ON -D ENABLE_SHARED_LIB=OFF -D ENABLE_STATIC_LIB=ON . || EXIT /b 1
-    mingw32-make || EXIT /b 1
-    REM mingw32-make test || EXIT /b 1
-    mingw32-make install || EXIT /b 1
-  ) ELSE IF "%BE%"=="msvc" (
-    cmake -G "Visual Studio 17 2022" -D CMAKE_BUILD_TYPE="Release" -D ENABLE_LIB_ONLY=ON -D ENABLE_SHARED_LIB=OFF -D ENABLE_STATIC_LIB=ON . || EXIT /b 1
-    cmake --build . --target ALL_BUILD --config Release || EXIT /b 1
-    REM cmake --build . --target RUN_TESTS --config Release || EXIT /b 1
-    cmake --build . --target INSTALL --config Release || EXIT /b 1
-  )
-  CD ..
   CD xz-%XZ_VERSION%
   IF "%BE%"=="mingw-gcc" (
     SET PATH=%MINGWPATH%
@@ -91,6 +68,7 @@ IF "%1"=="deplibs" (
     cmake --build . --target ALL_BUILD --config Release || EXIT /b 1
     cmake --build . --target INSTALL --config Release || EXIT /b 1
   )
+  CD ..
   CD zstd-%ZSTD_VERSION%\build\cmake
   IF "%BE%"=="mingw-gcc" (
     SET PATH=%MINGWPATH%
@@ -107,11 +85,11 @@ IF "%1"=="deplibs" (
     SET PATH=%MINGWPATH%
     MKDIR build_ci\cmake
     CD build_ci\cmake
-    cmake -G "MinGW Makefiles" -D ZLIB_LIBRARY="C:/Program Files (x86)/zlib/lib/libzlibstatic.a" -D ZLIB_INCLUDE_DIR="C:/Program Files (x86)/zlib/include" -D BZIP2_LIBRARIES="C:/Program Files (x86)/bzip2/lib/libbz2.a" -D BZIP2_INCLUDE_DIR="C:/Program Files (x86)/bzip2/include" -D LIBLZMA_LIBRARY="C:/Program Files (x86)/xz/lib/liblzma.a" -D LIBLZMA_INCLUDE_DIR="C:/Program Files (x86)/xz/include" -D ZSTD_LIBRARY="C:/Program Files (x86)/zstd/lib/libzstd.a" -D ZSTD_INCLUDE_DIR="C:/Program Files (x86)/zstd/include" ..\.. || EXIT /b 1
+    cmake -G "MinGW Makefiles" -D ZLIB_LIBRARY="C:/Program Files (x86)/zlib/lib/libzlibstatic.a" -D ZLIB_INCLUDE_DIR="C:/Program Files (x86)/zlib/include" -D LIBLZMA_LIBRARY="C:/Program Files (x86)/xz/lib/liblzma.a" -D LIBLZMA_INCLUDE_DIR="C:/Program Files (x86)/xz/include" -D ZSTD_LIBRARY="C:/Program Files (x86)/zstd/lib/libzstd.a" -D ZSTD_INCLUDE_DIR="C:/Program Files (x86)/zstd/include" ..\.. || EXIT /b 1
   ) ELSE IF "%BE%"=="msvc" (
     MKDIR build_ci\cmake
     CD build_ci\cmake
-    cmake -G "Visual Studio 17 2022" -D CMAKE_BUILD_TYPE="Release" -D ZLIB_LIBRARY="C:/Program Files (x86)/zlib/lib/zlibstatic.lib" -D ZLIB_INCLUDE_DIR="C:/Program Files (x86)/zlib/include" -D BZIP2_LIBRARIES="C:/Program Files (x86)/bzip2/lib/bz2.lib" -D BZIP2_INCLUDE_DIR="C:/Program Files (x86)/bzip2/include" -D LIBLZMA_LIBRARY="C:/Program Files (x86)/xz/lib/liblzma.lib" -D LIBLZMA_INCLUDE_DIR="C:/Program Files (x86)/xz/include" -D ZSTD_LIBRARY="C:/Program Files (x86)/zstd/lib/libzstd.a" -D ZSTD_INCLUDE_DIR="C:/Program Files (x86)/zstd/include" ..\.. || EXIT /b 1
+    cmake -G "Visual Studio 17 2022" -D CMAKE_BUILD_TYPE="Release" -D ZLIB_LIBRARY="C:/Program Files (x86)/zlib/lib/zlibstatic.lib" -D ZLIB_INCLUDE_DIR="C:/Program Files (x86)/zlib/include" -D LIBLZMA_LIBRARY="C:/Program Files (x86)/xz/lib/liblzma.lib" -D LIBLZMA_INCLUDE_DIR="C:/Program Files (x86)/xz/include" -D ZSTD_LIBRARY="C:/Program Files (x86)/zstd/lib/libzstd.a" -D ZSTD_INCLUDE_DIR="C:/Program Files (x86)/zstd/include" ..\.. || EXIT /b 1
   )
 ) ELSE IF "%1%"=="build" (
   IF "%BE%"=="mingw-gcc" (
