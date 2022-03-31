@@ -107,7 +107,7 @@ rem  )
     SET PATH=%MINGWPATH%
     MKDIR build_ci\cmake
     CD build_ci\cmake
-    cmake -G "MinGW Makefiles" -D ZLIB_LIBRARY="C:/Program Files (x86)/zlib/lib/libzlibstatic.a" -D ZLIB_INCLUDE_DIR="C:/Program Files (x86)/zlib/include" -D BZIP2_LIBRARIES="C:/Program Files (x86)/bzip2/lib/libbz2.a" -D BZIP2_INCLUDE_DIR="C:/Program Files (x86)/bzip2/include" -D LIBLZMA_LIBRARY="C:/Program Files (x86)/xz/lib/liblzma.a" -D LIBLZMA_INCLUDE_DIR="C:/Program Files (x86)/xz/include" ..\.. || EXIT /b 1
+    cmake -G "MinGW Makefiles" -D ZSTD_LIBRARY="C:/Program Files (x86)/zstd/lib/libzstd.a" -D ZSTD_INCLUDE_DIR="C:/Program Files (x86)/zstd/include" ..\.. || EXIT /b 1
   ) ELSE IF "%BE%"=="msvc" (
     MKDIR build_ci\cmake
     CD build_ci\cmake
