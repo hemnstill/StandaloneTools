@@ -35,13 +35,13 @@ IF "%1"=="deplibs" (
     echo Unpacking xz-%XZ_VERSION%.zip
     C:\windows\system32\tar.exe -x -f xz-%XZ_VERSION%.zip || EXIT /b 1
   )
-  IF NOT EXIST zstd-%ZSTD_VERSION%.tar.gz (
-    echo Downloading https://github.com/facebook/zstd/archive/refs/tags/v%ZSTD_VERSION%.tar.gz
-    curl -L -o zstd-%ZSTD_VERSION%.tar.gz https://github.com/facebook/zstd/archive/refs/tags/v%ZSTD_VERSION%.tar.gz || EXIT /b 1
+  IF NOT EXIST zstd-%ZSTD_VERSION%.zip (
+    echo Downloading https://github.com/facebook/zstd/archive/refs/tags/v%ZSTD_VERSION%.zip
+    curl -L -o zstd-%ZSTD_VERSION%.zip https://github.com/facebook/zstd/archive/refs/tags/v%ZSTD_VERSION%.zip || EXIT /b 1
   )
   IF NOT EXIST zstd-%ZSTD_VERSION% (
-    echo Unpacking zstd-%ZSTD_VERSION%.tar.gz
-    C:\windows\system32\tar.exe -x -f zstd-%ZSTD_VERSION%.tar.gz || EXIT /b 1
+    echo Unpacking zstd-%ZSTD_VERSION%.zip
+    C:\windows\system32\tar.exe -x -f zstd-%ZSTD_VERSION%.zip || EXIT /b 1
   )
   CD zlib-%ZLIB_VERSION%
   IF "%BE%"=="mingw-gcc" (
@@ -89,7 +89,7 @@ IF "%1"=="deplibs" (
   ) ELSE IF "%BE%"=="msvc" (
     MKDIR build_ci\cmake
     CD build_ci\cmake
-    cmake -G "Visual Studio 17 2022" -D CMAKE_BUILD_TYPE="Release" -D ZLIB_LIBRARY="C:/Program Files (x86)/zlib/lib/zlibstatic.lib" -D ZLIB_INCLUDE_DIR="C:/Program Files (x86)/zlib/include" -D LIBLZMA_LIBRARY="C:/Program Files (x86)/xz/lib/liblzma.lib" -D LIBLZMA_INCLUDE_DIR="C:/Program Files (x86)/xz/include" -D ZSTD_LIBRARY="C:/Program Files (x86)/zstd/lib/libzstd.a" -D ZSTD_INCLUDE_DIR="C:/Program Files (x86)/zstd/include" ..\.. || EXIT /b 1
+    cmake -G "Visual Studio 17 2022" -D CMAKE_BUILD_TYPE="Release" -D ZLIB_LIBRARY="C:/Program Files (x86)/zlib/lib/zlibstatic.lib" -D ZLIB_INCLUDE_DIR="C:/Program Files (x86)/zlib/include" -D LIBLZMA_LIBRARY="C:/Program Files (x86)/xz/lib/liblzma.lib" -D LIBLZMA_INCLUDE_DIR="C:/Program Files (x86)/xz/include" -D ZSTD_LIBRARY="C:/Program Files (x86)/zstd/lib/zstd_static.lib" -D ZSTD_INCLUDE_DIR="C:/Program Files (x86)/zstd/include" ..\.. || EXIT /b 1
   )
 ) ELSE IF "%1%"=="build" (
   IF "%BE%"=="mingw-gcc" (
