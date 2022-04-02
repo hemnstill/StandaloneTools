@@ -31,7 +31,6 @@ jobs:
     with:
       artifact: build-musl
       test-run: |
-        ldd ./${{ github.workflow }}
         ./${{ github.workflow }} --version
 
   release:
