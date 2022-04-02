@@ -56,4 +56,4 @@ chmod +x "$tool_name"
 
 cat _musl.md
 
-tar -czvf ../_musl.tar.gz .
+tar -czvf ../build-musl.tar.gz .
