@@ -1,0 +1,38 @@
+name: pcre2grep
+
+on: [pull_request, workflow_dispatch]
+
+jobs:
+  prejob:
+    runs-on: ubuntu-latest
+    environment: release
+    outputs:
+      tool: ${{ steps.setvar.outputs.envvar }}
+    steps:
+      - id: setvar
+        run: |
+          echo ${{ secrets._CURRENT_TOOL }} > CI_ENV
+          echo "::set-output name=envvar::$(sed -e 's/^_//' CI_ENV)"
+      - run: echo CURRENT_TOOL '${{ steps.setvar.outputs.envvar }}'
+
+  alpine-pcre2grep-linux:
+    needs: prejob
+    if: ${{ needs.prejob.outputs.tool=='pcre2grep' }}
+    runs-on: ubuntu-latest
+    container: alpine:3.15.0
+    steps:
+      - uses: actions/checkout@v2
+      - name: build
+        id: build
+        run: |
+          apk add --no-cache bash
+          ./pcre2grep/build.sh
+
+      - uses: ncipollo/release-action@v1
+        with:
+          tag: '${{ steps.build.outputs.tool_name }}-${{ steps.build.outputs.tool_version }}'
+          bodyFile: './pcre2grep/release/body.md'
+          artifacts: './pcre2grep/release/${{ steps.build.outputs.tool_name }}'
+          allowUpdates: true
+          token: ${{ secrets.GITHUB_TOKEN }}
+
