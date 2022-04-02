@@ -1,0 +1,24 @@
+on:
+  workflow_call:
+    inputs:
+      artifact:
+        required: true
+        type: string
+      test-run:
+        required: true
+        type: string
+
+jobs:
+  test-windows:
+    runs-on: windows-latest
+    steps:
+      - uses: actions/download-artifact@v3
+        with:
+          name: ${{ inputs.artifact }}
+          path: .
+
+      - name: Test ${{ inputs.artifact }} build on windows-latest
+        run: |
+          tar -xf ./${{ inputs.artifact }}.tar.gz
+          ${{ inputs.test-run }}
+

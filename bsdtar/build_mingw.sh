@@ -14,7 +14,7 @@ mkdir -p "$dp0/release" && cd "$dp0/release"
 wget "$download_url" -O "libarchive-$tool_version.tar.gz"
 tar -xf "libarchive-$tool_version.tar.gz" && cd "libarchive-$tool_version"
 
-wget "https://github.com/libarchive/libarchive/raw/v$tool_version/build/ci/github_actions/ci.cmd" -O "$dp0/ci.cmd"
+cp -f "../ci.cmd" "../../"
 
 echo "::endgroup::"
 
@@ -35,8 +35,8 @@ cp -f "$dp0/release/libarchive-$tool_version/build_ci/cmake/bin/$tool_name" "."
 %s
 %s
 ' "$(sha256sum $tool_name)" "$("./$tool_name" --version)" "$download_url"
-} > _mingw.md
+} > build-mingw.md
 
-cat _mingw.md
+cat build-mingw.md
 
-tar -czvf ../_mingw.tar.gz .
+tar -czvf ../build-mingw.tar.gz .

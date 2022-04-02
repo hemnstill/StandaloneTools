@@ -5,7 +5,7 @@ set -e
 echo "::group::install deps"
 
 apk update
-apk add --no-cache alpine-sdk zlib-dev bzip2-dev zlib-static bzip2-static xz-dev
+apk add --no-cache alpine-sdk zlib-dev zlib-static xz-dev zstd-dev zstd-static
 
 echo "::endgroup::"
 
@@ -40,8 +40,8 @@ gcc -static -o "$dp0/release/build/$tool_name" \
   .libs/libarchive.a \
   .libs/libarchive_fe.a \
   /lib/libz.a \
-  /usr/lib/libbz2.a \
-  /usr/lib/liblzma.a
+  /usr/lib/liblzma.a \
+  /usr/lib/libzstd.a
 
 echo "::endgroup::"
 
@@ -52,8 +52,8 @@ chmod +x "$tool_name"
 { printf 'SHA-256: %s
 %s
 ' "$(sha256sum $tool_name)" "$("./$tool_name" --version)"
-} > _musl.md
+} > build-musl.md
 
-cat _musl.md
+cat build-musl.md
 
-tar -czvf ../_musl.tar.gz .
+tar -czvf ../build-musl.tar.gz .
