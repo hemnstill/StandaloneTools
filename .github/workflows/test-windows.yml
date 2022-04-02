@@ -9,7 +9,7 @@ on:
         type: string
 
 jobs:
-  test-alpine:
+  test-windows:
     runs-on: windows-latest
     steps:
       - uses: actions/download-artifact@v3
