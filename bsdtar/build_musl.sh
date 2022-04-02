@@ -52,8 +52,8 @@ chmod +x "$tool_name"
 { printf 'SHA-256: %s
 %s
 ' "$(sha256sum $tool_name)" "$("./$tool_name" --version)"
-} > _musl.md
+} > build-musl.md
 
-cat _musl.md
+cat build-musl.md
 
 tar -czvf ../build-musl.tar.gz .
