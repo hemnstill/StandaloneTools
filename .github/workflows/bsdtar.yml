@@ -33,8 +33,18 @@ jobs:
       test-run: |
         ./${{ github.workflow }} --version
 
+  alpine-mingw-test:
+    needs: windows-mingw
+    if: ${{ needs.prejob.outputs.workflow == github.workflow }}
+    uses: ./.github/workflows/test-windows.yml
+    with:
+      artifact: build-mingw
+      test-run: |
+        ./${{ github.workflow }} --version
+
   release:
-    needs: [alpine-musl-test]
+    needs: [alpine-musl-test,
+            alpine-mingw-test]
     uses: ./.github/workflows/release.yml
     with:
       workflow: ${{ github.workflow }}
