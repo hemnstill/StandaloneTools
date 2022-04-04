@@ -11,7 +11,7 @@ apt install -y build-essential libspdlog-dev patchelf wget gawk m4 libx11-dev li
 echo "::endgroup::"
 
 tool_name="far2l"
-tool_version="2.4.0"
+tool_version="master"
 echo "::set-output name=tool_name::$tool_name"
 echo "::set-output name=tool_version::$tool_version"
 
@@ -22,7 +22,7 @@ echo "::group::prepare sources $download_url"
 # Download release
 mkdir -p "$dp0/release" && cd "$dp0/release"
 wget "$download_url" -O "$tool_version.tar.gz"
-tar -xf "$tool_version.tar.gz" && cd "far2l-v_$tool_version"
+tar -xf "$tool_version.tar.gz" && cd "far2l-$tool_version"
 
 #cp -f "../SafeMMap.cpp" "./far2l/src/base/"
 #cp -f "../sort_r.h" "./far2l/src/base/"
@@ -61,7 +61,7 @@ cmake --build . --config Release
 
 echo "::endgroup::"
 
-cp -rf "$dp0/release/far2l-v_$tool_version/install/." "$dp0/release/build/"
+cp -rf "$dp0/release/far2l-$tool_version/install/." "$dp0/release/build/"
 
 cd "$dp0/release/build"
 strip "$tool_name"
