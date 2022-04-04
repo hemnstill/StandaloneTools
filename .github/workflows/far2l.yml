@@ -16,7 +16,6 @@ jobs:
     uses: ./.github/workflows/build-alpine.yml
     with:
       workflow: ${{ github.workflow }}
-      version: 3.12.9
 
   far2l-ubuntu-glibc:
     needs: prejob
