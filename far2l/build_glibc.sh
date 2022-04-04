@@ -15,7 +15,8 @@ tool_version="2.4.0"
 echo "::set-output name=tool_name::$tool_name"
 echo "::set-output name=tool_version::$tool_version"
 
-download_url="https://github.com/elfmz/far2l/archive/refs/tags/v_$tool_version.tar.gz"
+# download_url="https://github.com/elfmz/far2l/archive/refs/tags/v_$tool_version.tar.gz"
+download_url="https://github.com/elfmz/far2l/archive/refs/heads/master.tar.gz"
 echo "::group::prepare sources $download_url"
 
 # Download release
@@ -23,9 +24,9 @@ mkdir -p "$dp0/release" && cd "$dp0/release"
 wget "$download_url" -O "$tool_version.tar.gz"
 tar -xf "$tool_version.tar.gz" && cd "far2l-v_$tool_version"
 
-cp -f "../SafeMMap.cpp" "./far2l/src/base/"
-cp -f "../sort_r.h" "./far2l/src/base/"
-cp -f "../farrtl.cpp" "./far2l/src/base/"
+#cp -f "../SafeMMap.cpp" "./far2l/src/base/"
+#cp -f "../sort_r.h" "./far2l/src/base/"
+#cp -f "../farrtl.cpp" "./far2l/src/base/"
 
 echo "::endgroup::"
 
