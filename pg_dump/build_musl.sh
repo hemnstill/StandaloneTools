@@ -17,7 +17,7 @@ echo "::set-output name=tool_version::$tool_version"
 download_url="https://github.com/postgres/postgres/archive/refs/tags/$tool_version.tar.gz"
 echo "::group::prepare sources $download_url"
 
-mkdir -p "$dp0/release" && cd "$dp0/release"
+mkdir -p "$dp0/release/build" && cd "$dp0/release"
 wget "$download_url" -O "tool-$tool_version.tar.gz" && tar -xf "tool-$tool_version.tar.gz"
 cd "postgres-$tool_version"
 
@@ -25,22 +25,14 @@ echo "::endgroup::"
 
 echo "::group::build"
 
-mkdir -p "$dp0/release/build"
-cd "$dp0/release/build"
-"$dp0/release/postgres-$tool_version/configure" --without-readline --without-zlib CFLAGS="-fPIC" CXXFLAGS="-fPIC" CPPFLAGS="-fPIC" --enable-static
+./configure --without-readline --without-zlib CFLAGS="-fPIC" CXXFLAGS="-fPIC" CPPFLAGS="-fPIC" --enable-static
 make -j$(nproc)
 
 echo "::endgroup::"
 
-#mkdir "$dp0/release/build"
-#
-#cp -rf "$dp0/release/postgres-$tool_version/src/bin/pg_dump/." "$dp0/release/build/"
-#
-#cd "$dp0/release/build"
+cp -rf "$dp0/release/postgres-$tool_version/src/bin/pg_dump/." "$dp0/release/build/"
 
 cd "$dp0/release/build"
-
-ls -R
 
 strip "$tool_name"
 chmod +x "$tool_name"
