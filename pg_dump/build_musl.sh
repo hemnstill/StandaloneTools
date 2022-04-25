@@ -5,7 +5,7 @@ set -e
 echo "::group::install deps"
 
 apk update
-apk add --no-cache alpine-sdk zlib-dev zlib-static postgresql-dev
+apk add --no-cache alpine-sdk zlib-dev zlib-static postgresql-dev perl-dev bison flex
 
 echo "::endgroup::"
 
@@ -25,7 +25,7 @@ echo "::endgroup::"
 
 echo "::group::build"
 
-./configure
+./configure --without-readline
 make -j$(nproc)
 
 echo "::endgroup::"
