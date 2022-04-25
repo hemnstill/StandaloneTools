@@ -25,7 +25,7 @@ echo "::endgroup::"
 
 echo "::group::build"
 
-./configure --without-readline --with-system-tzdata=/usr/share/zoneinfo --host=x86_64-w64-mingw32 CFLAGS="-O3 -fPIC" CXXFLAGS="-fPIC" CPPFLAGS="-fPIC"
+./configure --without-readline --without-zlib --with-system-tzdata=/usr/share/zoneinfo --host=x86_64-w64-mingw32 CFLAGS="-O3 -fPIC" CXXFLAGS="-fPIC" CPPFLAGS="-fPIC"
 make -j$(nproc)
 
 echo "::endgroup::"
