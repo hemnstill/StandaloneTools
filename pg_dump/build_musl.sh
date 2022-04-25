@@ -25,7 +25,7 @@ echo "::endgroup::"
 
 echo "::group::build"
 
-./configure --without-readline CFLAGS="-O3 -fPIC" CXXFLAGS="-fPIC" CPPFLAGS="-fPIC"
+./configure --without-readline --without-zlib CFLAGS="-O3 -fPIC -static" CXXFLAGS="-fPIC -static" CPPFLAGS="-fPIC" LDFLAGS="-Wl,-Bstatic"
 make -j$(nproc)
 
 echo "::endgroup::"
