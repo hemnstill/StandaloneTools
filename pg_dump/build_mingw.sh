@@ -25,15 +25,15 @@ echo "::endgroup::"
 
 echo "::group::build"
 
-./configure --without-readline --without-zlib --with-system-tzdata=/usr/share/zoneinfo --host=x86_64-w64-mingw32 CFLAGS="-O3 -fPIC" CXXFLAGS="-fPIC" CPPFLAGS="-fPIC"
+./configure --without-readline --without-zlib --with-system-tzdata=/usr/share/zoneinfo --host=x86_64-w64-mingw32
 make -j$(nproc)
 
 echo "::endgroup::"
 
 mkdir "$dp0/release/build"
 
-cp -rf "$dp0/release/postgres-$tool_version/src/bin/pg_dump/*.exe" "$dp0/release/build/"
-cp -rf "$dp0/release/postgres-$tool_version/src/interfaces/libpq/*.dll" "$dp0/release/build/"
+cd "$dp0/release/postgres-$tool_version/src/bin/pg_dump" && cp "*.exe" "$dp0/release/build/"
+cd "$dp0/release/postgres-$tool_version/src/interfaces/libpq" && cp "*.dll" "$dp0/release/build/"
 
 cd "$dp0/release/build"
 
