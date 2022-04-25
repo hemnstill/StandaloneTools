@@ -25,17 +25,12 @@ echo "::endgroup::"
 
 echo "::group::build"
 
-./configure --without-readline --without-zlib --with-system-tzdata=/usr/share/zoneinfo --host=x86_64-w64-mingw32
+mkdir -p "$dp0/release/build"
+cd "$dp0/release/build"
+"$dp0/release/postgres-$tool_version/configure" --without-readline --without-zlib --with-system-tzdata=/usr/share/zoneinfo --host=x86_64-w64-mingw32
 make -j$(nproc)
 
 echo "::endgroup::"
-
-mkdir "$dp0/release/build"
-
-cd "$dp0/release/postgres-$tool_version/src/bin/pg_dump" && cp "*.exe" "$dp0/release/build/"
-cd "$dp0/release/postgres-$tool_version/src/interfaces/libpq" && cp "*.dll" "$dp0/release/build/"
-
-cd "$dp0/release/build"
 
 { printf 'SHA-256: %s
 ' "$(sha256sum $tool_name)"
