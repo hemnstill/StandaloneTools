@@ -29,3 +29,21 @@ echo "::group::build"
 make -j$(nproc)
 
 echo "::endgroup::"
+
+mkdir "$dp0/release/build"
+
+cp -rf "$dp0/release/postgres-$tool_version/src/bin/pg_dump/." "$dp0/release/build/"
+
+cd "$dp0/release/build"
+
+strip "$tool_name"
+chmod +x "$tool_name"
+
+{ printf 'SHA-256: %s
+%s
+' "$(sha256sum $tool_name)" "$("./$tool_name" --version)"
+} > build-musl.md
+
+cat build-musl.md
+
+tar -czvf ../build-musl.tar.gz .
