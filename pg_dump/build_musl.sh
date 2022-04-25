@@ -38,6 +38,8 @@ echo "::endgroup::"
 #
 #cd "$dp0/release/build"
 
+cd "$dp0/release/build"
+
 ls -R
 
 strip "$tool_name"
