@@ -19,7 +19,8 @@ echo "::group::prepare sources $download_url"
 
 mkdir -p "$dp0/release/build" && cd "$dp0/release"
 wget "$download_url" -O "tool-$tool_version.tar.gz" && tar -xf "tool-$tool_version.tar.gz"
-cd "postgres-$tool_version"
+tool_root_path="$dp0/release/postgres-$tool_version"
+cd "$tool_root_path"
 
 echo "::endgroup::"
 
@@ -30,7 +31,9 @@ make -j$(nproc)
 
 echo "::endgroup::"
 
-cp -rf "$dp0/release/postgres-$tool_version/src/bin/pg_dump/." "$dp0/release/build/"
+cp -rf "$tool_root_path/src/bin/pg_dump/pg_dump" "$dp0/release/build/"
+cp -rf "$tool_root_path/src/bin/pg_dump/pg_dumpall" "$dp0/release/build/"
+cp -rf "$tool_root_path/src/bin/pg_dump/pg_restore" "$dp0/release/build/"
 
 cd "$dp0/release/build"
 
