@@ -31,9 +31,9 @@ make -j$(nproc)
 
 echo "::endgroup::"
 
-cp -rf "$tool_root_path/src/bin/pg_dump/pg_dump" "$dp0/release/build/"
-cp -rf "$tool_root_path/src/bin/pg_dump/pg_dumpall" "$dp0/release/build/"
-cp -rf "$tool_root_path/src/bin/pg_dump/pg_restore" "$dp0/release/build/"
+cp "$tool_root_path/src/bin/pg_dump/pg_dump" "$dp0/release/build/"
+cp "$tool_root_path/src/bin/pg_dump/pg_dumpall" "$dp0/release/build/"
+cp "$tool_root_path/src/bin/pg_dump/pg_restore" "$dp0/release/build/"
 
 cd "$dp0/release/build"
 

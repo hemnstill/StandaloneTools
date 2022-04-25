@@ -31,10 +31,10 @@ make -j$(nproc)
 
 echo "::endgroup::"
 
-cp -rf "$tool_root_path/src/bin/pg_dump/pg_dump.exe" "$dp0/release/build/"
-cp -rf "$tool_root_path/src/bin/pg_dump/pg_dumpall.exe" "$dp0/release/build/"
-cp -rf "$tool_root_path/src/bin/pg_dump/pg_restore.exe" "$dp0/release/build/"
-cp -rf "$tool_root_path/src/interfaces/libpq/libpq.dll" "$dp0/release/build/"
+cp "$tool_root_path/src/bin/pg_dump/pg_dump.exe" "$dp0/release/build/"
+cp "$tool_root_path/src/bin/pg_dump/pg_dumpall.exe" "$dp0/release/build/"
+cp "$tool_root_path/src/bin/pg_dump/pg_restore.exe" "$dp0/release/build/"
+cp "$tool_root_path/src/interfaces/libpq/libpq.dll" "$dp0/release/build/"
 
 cd "$dp0/release/build"
 
