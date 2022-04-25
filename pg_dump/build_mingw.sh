@@ -32,7 +32,8 @@ echo "::endgroup::"
 
 mkdir "$dp0/release/build"
 
-cp -rf "$dp0/release/postgres-$tool_version/src/bin/pg_dump/." "$dp0/release/build/"
+cp -rf "$dp0/release/postgres-$tool_version/src/bin/pg_dump/*.exe" "$dp0/release/build/"
+cp -rf "$dp0/release/postgres-$tool_version/src/interfaces/libpq/*.dll" "$dp0/release/build/"
 
 cd "$dp0/release/build"
 
