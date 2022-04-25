@@ -27,6 +27,8 @@ echo "::endgroup::"
 echo "::group::build"
 
 ./configure --without-readline --without-zlib CFLAGS="-fPIC" CXXFLAGS="-fPIC" CPPFLAGS="-fPIC" LDFLAGS='--static' --enable-static --disable-shared
+
+cd "$tool_root_path/src/bin/pg_dump"
 make -j$(nproc)
 
 echo "::endgroup::"
