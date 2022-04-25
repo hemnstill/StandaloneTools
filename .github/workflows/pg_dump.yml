@@ -17,10 +17,10 @@ jobs:
     with:
       workflow: ${{ github.workflow }}
 
-#  alpine-mingw:
-#    needs: prejob
-#    if: ${{ needs.prejob.outputs.workflow == github.workflow }}
-#    uses: ./.github/workflows/build-alpine.yml
-#    with:
-#      workflow: ${{ github.workflow }}
-#      toolset: mingw
+  alpine-mingw:
+    needs: prejob
+    if: ${{ needs.prejob.outputs.workflow == github.workflow }}
+    uses: ./.github/workflows/build-alpine.yml
+    with:
+      workflow: ${{ github.workflow }}
+      toolset: mingw
