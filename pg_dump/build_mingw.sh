@@ -9,7 +9,7 @@ apk add --no-cache alpine-sdk linux-headers zlib-dev zlib-static postgresql-dev 
 
 echo "::endgroup::"
 
-tool_name="pg_dump"
+tool_name="pg_dump.exe"
 tool_version="REL_14_2"
 echo "::set-output name=tool_name::$tool_name"
 echo "::set-output name=tool_version::$tool_version"
@@ -35,8 +35,6 @@ mkdir "$dp0/release/build"
 cp -rf "$dp0/release/postgres-$tool_version/src/bin/pg_dump/." "$dp0/release/build/"
 
 cd "$dp0/release/build"
-
-strip "$tool_name"
 
 { printf 'SHA-256: %s
 ' "$(sha256sum $tool_name)"
