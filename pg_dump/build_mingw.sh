@@ -25,7 +25,7 @@ echo "::endgroup::"
 
 echo "::group::build"
 
-./configure --without-readline --host=x86_64-w64-mingw32
+./configure --without-readline --host=x86_64-w64-mingw32 CFLAGS="-O3 -fPIC" CXXFLAGS="-fPIC" CPPFLAGS="-fPIC"
 make -j$(nproc)
 
 echo "::endgroup::"
