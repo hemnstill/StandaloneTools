@@ -26,12 +26,8 @@ echo "::endgroup::"
 
 echo "::group::build"
 
-./configure --without-readline --without-zlib CFLAGS="-fPIC" CXXFLAGS="-fPIC" CPPFLAGS="-fPIC" --enable-static --disable-shared
+./configure --without-readline --without-zlib
 
-#cd "$tool_root_path/src/interfaces/libpq"
-#make -j$(nproc)
-
-cd "$tool_root_path/src/bin/pg_dump"
 make -j$(nproc)
 
 echo "::endgroup::"
