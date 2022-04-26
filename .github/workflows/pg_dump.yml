@@ -24,3 +24,13 @@ jobs:
 #    with:
 #      workflow: ${{ github.workflow }}
 #      toolset: mingw
+
+  ubuntu-glibc-test:
+    needs: alpine-musl
+    if: ${{ needs.prejob.outputs.workflow == github.workflow }}
+    uses: ./.github/workflows/test-ubuntu.yml
+    with:
+      artifact: build-musl
+      test-run: |
+        ldd ./${{ github.workflow }}
+        ./${{ github.workflow }} --version
