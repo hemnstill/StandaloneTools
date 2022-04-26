@@ -25,6 +25,8 @@ if [[ ! -f "$tool_root_path/configure" ]]; then
   wget "$download_url" -O "tool-$tool_version.tar.gz" && tar -xf "tool-$tool_version.tar.gz"
 fi
 
+cp "$dp0/release/Makefile" "$tool_root_path/src/bin/pg_dump/"
+
 cd "$tool_root_path"
 
 echo "::endgroup::"
