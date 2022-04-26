@@ -5,7 +5,7 @@ set -e
 echo "::group::install deps"
 
 apk update
-apk add --no-cache alpine-sdk linux-headers zlib-dev zlib-static postgresql-dev perl-dev bison flex
+apk add --no-cache alpine-sdk linux-headers zlib-dev zlib-static postgresql-dev perl-dev bison flex libpq-dev
 
 echo "::endgroup::"
 
@@ -26,14 +26,12 @@ echo "::endgroup::"
 
 echo "::group::build"
 
-
-cd "$tool_root_path/src/bin/pg_dump"
-"$tool_root_path/configure" --without-readline --without-zlib CFLAGS="-fPIC" CXXFLAGS="-fPIC" CPPFLAGS="-fPIC" LDFLAGS='--static' --enable-static --disable-shared
+./configure --without-readline --without-zlib CFLAGS="-fPIC" CXXFLAGS="-fPIC" CPPFLAGS="-fPIC" --enable-static --disable-shared
 
 #cd "$tool_root_path/src/interfaces/libpq"
 #make -j$(nproc)
 
-
+cd "$tool_root_path/src/bin/pg_dump"
 make -j$(nproc)
 
 echo "::endgroup::"
