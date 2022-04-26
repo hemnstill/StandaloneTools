@@ -26,7 +26,7 @@ echo "::endgroup::"
 
 echo "::group::build"
 
-./configure --without-readline --without-zlib --host=x86_64-unknown-linux-musl
+./configure no-shared  --without-readline --without-zlib
 
 make -j$(nproc)
 
