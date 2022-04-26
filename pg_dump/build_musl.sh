@@ -26,7 +26,7 @@ echo "::endgroup::"
 
 echo "::group::build"
 
-./configure no-shared  --without-readline --without-zlib
+./configure LDFLAGS=-static  --without-readline --without-zlib
 
 make -j$(nproc)
 
