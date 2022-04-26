@@ -46,7 +46,12 @@ cp "$tool_root_path/src/bin/pg_dump/pg_restore" "$dp0/release/build/"
 cd "$dp0/release/build"
 
 strip "$tool_name"
+strip "pg_dumpall"
+strip "pg_restore"
+
 chmod +x "$tool_name"
+chmod +x "pg_dumpall"
+chmod +x "pg_restore"
 
 { printf 'SHA-256: %s
 %s
