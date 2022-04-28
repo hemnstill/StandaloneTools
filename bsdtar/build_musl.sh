@@ -5,12 +5,17 @@ set -e
 echo "::group::install deps"
 
 apk update
-apk add --no-cache alpine-sdk zlib-dev zlib-static xz-dev zstd-dev zstd-static
+apk add --no-cache alpine-sdk zlib-dev zlib-static xz-dev
+
+wget https://dl-cdn.alpinelinux.org/alpine/edge/main/x86_64/zstd-libs-1.5.2-r1.apk
+wget https://dl-cdn.alpinelinux.org/alpine/edge/main/x86_64/zstd-dev-1.5.2-r1.apk
+wget https://dl-cdn.alpinelinux.org/alpine/edge/main/x86_64/zstd-static-1.5.2-r1.apk
+apk add --allow-untrusted zstd-libs-1.5.2-r1.apk zstd-dev-1.5.2-r1.apk zstd-static-1.5.2-r1.apk
 
 echo "::endgroup::"
 
 tool_name="bsdtar"
-tool_version="3.6.0"
+tool_version="3.6.1"
 echo "::set-output name=tool_name::$tool_name"
 echo "::set-output name=tool_version::$tool_version"
 
