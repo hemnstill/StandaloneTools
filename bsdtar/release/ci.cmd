@@ -1,7 +1,7 @@
 @ECHO OFF
-SET ZLIB_VERSION=1.2.11
+SET ZLIB_VERSION=1.2.12
 SET XZ_VERSION=5.2.5
-SET ZSTD_VERSION=1.5.0
+SET ZSTD_VERSION=1.5.2
 IF NOT "%BE%"=="mingw-gcc" (
   IF NOT "%BE%"=="msvc" (
     ECHO Environment variable BE must be mingw-gcc or msvc

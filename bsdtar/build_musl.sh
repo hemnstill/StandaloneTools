@@ -10,7 +10,7 @@ apk add --no-cache alpine-sdk zlib-dev zlib-static xz-dev zstd-dev zstd-static
 echo "::endgroup::"
 
 tool_name="bsdtar"
-tool_version="3.6.0"
+tool_version="3.6.1"
 echo "::set-output name=tool_name::$tool_name"
 echo "::set-output name=tool_version::$tool_version"
 
