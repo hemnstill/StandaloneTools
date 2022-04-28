@@ -44,7 +44,8 @@ cp "$tool_root_path/src/interfaces/libpq/libpq.dll" "$dp0/release/build/"
 cd "$dp0/release/build"
 
 { printf 'SHA-256: %s
-' "$(sha256sum $tool_name)"
+%s
+' "$(sha256sum $tool_name)" "$download_url"
 } > build-mingw.md
 
 cat build-mingw.md
