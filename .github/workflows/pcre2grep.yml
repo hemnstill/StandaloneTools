@@ -17,14 +17,23 @@ jobs:
     with:
       workflow: ${{ github.workflow }}
 
+  alpine-mingw:
+    needs: prejob
+    if: ${{ needs.prejob.outputs.workflow == github.workflow }}
+    uses: ./.github/workflows/build-alpine.yml
+    with:
+      workflow: ${{ github.workflow }}
+      toolset: mingw
+
   release:
-    needs: [alpine-musl]
+    needs: [alpine-musl, alpine-mingw]
     uses: ./.github/workflows/release.yml
     with:
       workflow: ${{ github.workflow }}
       tool_version: '10.40'
       prepare_body: |
         bsdtar -Oxf ./build-musl/build-musl.tar.gz build-musl.md >> body.md
-      artifacts: ./build-musl/build-musl.tar.gz
+        bsdtar -Oxf ./build-musl/build-mingw.tar.gz build-mingw.md >> body.md
+      artifacts: ./build-musl/build-musl.tar.gz, ./build-musl/build-mingw.tar.gz
     secrets:
       token: ${{ secrets.GITHUB_TOKEN }}
