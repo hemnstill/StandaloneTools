@@ -25,8 +25,26 @@ jobs:
       workflow: ${{ github.workflow }}
       toolset: mingw
 
+  ubuntu-glibc-test:
+    needs: alpine-musl
+    if: ${{ needs.prejob.outputs.workflow == github.workflow }}
+    uses: ./.github/workflows/test-ubuntu.yml
+    with:
+      artifact: build-musl
+      test-run: |
+        ./${{ github.workflow }} --version
+
+  windows-mingw-test:
+    needs: alpine-mingw
+    if: ${{ needs.prejob.outputs.workflow == github.workflow }}
+    uses: ./.github/workflows/test-windows.yml
+    with:
+      artifact: build-mingw
+      test-run: |
+        ./${{ github.workflow }} --version
+
   release:
-    needs: [alpine-musl, alpine-mingw]
+    needs: [ubuntu-glibc-test, windows-mingw-test]
     uses: ./.github/workflows/release.yml
     with:
       workflow: ${{ github.workflow }}
