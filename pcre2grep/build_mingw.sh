@@ -27,11 +27,11 @@ echo "::group::build"
 
 cmake -DPCRE2_SUPPORT_JIT=ON -DPCRE2_BUILD_PCRE2_16=ON -DPCRE2_BUILD_PCRE2_32=ON -B build -A Win32
 
-cmake --build build
+cmake --build . --config Release
 
 echo "::endgroup::"
 
-cp -f "$dp0/release/pcre2-$tool_version/$tool_name" "$dp0/release/build"
+cp -f "$dp0/release/pcre2-$tool_version/Release/$tool_name" "$dp0/release/build"
 
 cd "$dp0/release/build"
 
