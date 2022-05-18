@@ -10,7 +10,7 @@ apk add --no-cache alpine-sdk linux-headers pcre2-dev mingw-w64-gcc
 echo "::endgroup::"
 
 tool_name="pcre2grep.exe"
-tool_version="10.40"
+tool_version="10.39"
 echo "::set-output name=tool_name::$tool_name"
 echo "::set-output name=tool_version::$tool_version"
 
