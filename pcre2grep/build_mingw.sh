@@ -4,8 +4,8 @@ set -e
 
 echo "::group::install deps"
 
-apk update
-apk add --no-cache alpine-sdk linux-headers pcre2-dev mingw-w64-gcc
+#apk update
+#apk add --no-cache alpine-sdk linux-headers pcre2-dev mingw-w64-gcc
 
 echo "::endgroup::"
 
@@ -25,9 +25,9 @@ echo "::endgroup::"
 
 echo "::group::build"
 
-./configure LDFLAGS='--static' --disable-shared --enable-jit --enable-pcre2-8 --enable-pcre2-16 --enable-pcre2-32 --host=x86_64-w64-mingw32
+cmake -DPCRE2_SUPPORT_JIT=ON -DPCRE2_BUILD_PCRE2_16=ON -DPCRE2_BUILD_PCRE2_32=ON -B build -A Win32
 
-make -j$(nproc)
+cmake --build build
 
 echo "::endgroup::"
 
