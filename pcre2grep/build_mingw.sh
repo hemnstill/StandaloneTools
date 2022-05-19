@@ -25,7 +25,7 @@ echo "::endgroup::"
 
 echo "::group::build"
 
-cmake -DPCRE2_SUPPORT_JIT=ON -DPCRE2_BUILD_PCRE2_16=ON -DPCRE2_BUILD_PCRE2_32=ON -B build -A Win32
+cmake -DPCRE2_SUPPORT_JIT=ON -DPCRE2_BUILD_PCRE2_16=ON -DPCRE2_BUILD_PCRE2_32=ON -B build -DPCRE2_STATIC_RUNTIME=ON
 
 cmake --build build --config Release
 
