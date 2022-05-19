@@ -2,13 +2,6 @@
 dp0="$(realpath "$(dirname "$0")")"
 set -e
 
-echo "::group::install deps"
-
-#apk update
-#apk add --no-cache alpine-sdk linux-headers pcre2-dev mingw-w64-gcc
-
-echo "::endgroup::"
-
 tool_name="pcre2grep.exe"
 tool_version="10.39"
 echo "::set-output name=tool_name::$tool_name"
@@ -37,8 +30,8 @@ cd "$dp0/release/build"
 
 { printf 'SHA-256: %s
 %s' "$(sha256sum $tool_name)" "$download_url"
-} > build-mingw.md
+} > build-msvc.md
 
-cat build-mingw.md
+cat build-msvc.md
 
-tar -czvf ../build-mingw.tar.gz .
+tar -czvf ../build-msvc.tar.gz .

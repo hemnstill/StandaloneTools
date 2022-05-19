@@ -17,13 +17,13 @@ jobs:
     with:
       workflow: ${{ github.workflow }}
 
-  windows-mingw:
+  windows-msvc:
     needs: prejob
     if: ${{ needs.prejob.outputs.workflow == github.workflow }}
     uses: ./.github/workflows/build-windows.yml
     with:
       workflow: ${{ github.workflow }}
-      toolset: mingw
+      toolset: msvc
 
   ubuntu-glibc-test:
     needs: alpine-musl
@@ -34,24 +34,24 @@ jobs:
       test-run: |
         ./${{ github.workflow }} --version
 
-  windows-mingw-test:
-    needs: windows-mingw
+  windows-msvc-test:
+    needs: windows-msvc
     if: ${{ needs.prejob.outputs.workflow == github.workflow }}
     uses: ./.github/workflows/test-windows.yml
     with:
-      artifact: build-mingw
+      artifact: build-msvc
       test-run: |
         ./${{ github.workflow }} --version
 
   release:
-    needs: [ubuntu-glibc-test, windows-mingw-test]
+    needs: [ubuntu-glibc-test, windows-msvc-test]
     uses: ./.github/workflows/release.yml
     with:
       workflow: ${{ github.workflow }}
       tool_version: '10.39-mingw'
       prepare_body: |
         bsdtar -Oxf ./build-musl/build-musl.tar.gz build-musl.md >> body.md
-        bsdtar -Oxf ./build-mingw/build-mingw.tar.gz build-mingw.md >> body.md
-      artifacts: ./build-musl/build-musl.tar.gz, ./build-mingw/build-mingw.tar.gz
+        bsdtar -Oxf ./build-msvc/build-msvc.tar.gz build-msvc.md >> body.md
+      artifacts: ./build-musl/build-musl.tar.gz, ./build-msvc/build-msvc.tar.gz
     secrets:
       token: ${{ secrets.GITHUB_TOKEN }}
