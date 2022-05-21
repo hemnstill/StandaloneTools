@@ -26,6 +26,6 @@ jobs:
 
       - name: Test ${{ inputs.artifact }} build on alpine:${{ inputs.version }}
         run: |
-          tar -xf ./${{ inputs.artifact }}.tar.gz
+          tar -xf ./${{ inputs.artifact }}.tar.gz -C ./bin
           ./${{ inputs.workflow }}/test.sh
 
