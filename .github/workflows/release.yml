@@ -32,4 +32,5 @@ jobs:
           bodyFile: './body.md'
           artifacts: ${{ inputs.artifacts }}
           allowUpdates: true
+          removeArtifacts: true
           token: ${{ secrets.GITHUB_TOKEN }}
