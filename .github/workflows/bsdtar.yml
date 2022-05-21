@@ -29,9 +29,8 @@ jobs:
     if: ${{ needs.prejob.outputs.workflow == github.workflow }}
     uses: ./.github/workflows/test-alpine.yml
     with:
+      workflow: ${{ github.workflow }}
       artifact: build-musl
-      test-run: |
-        ./${{ github.workflow }} --version
 
   windows-mingw-test:
     needs: windows-mingw
