@@ -29,5 +29,5 @@ jobs:
           apk add --no-cache bash
           tar -xf ./${{ inputs.artifact }}.tar.gz -C ./bin
           cd ./${{ inputs.workflow }}
-          ./test.sh
+          ./test-linux.sh
 

@@ -1,10 +1,10 @@
 on:
   workflow_call:
     inputs:
-      artifact:
+      workflow:
         required: true
         type: string
-      test-run:
+      artifact:
         required: true
         type: string
 
@@ -19,6 +19,7 @@ jobs:
 
       - name: Test ${{ inputs.artifact }} build on windows-latest
         run: |
-          tar -xf ./${{ inputs.artifact }}.tar.gz
-          ${{ inputs.test-run }}
+          tar -xf ./${{ inputs.artifact }}.tar.gz -C ./bin
+          cd ./${{ inputs.workflow }}
+          ./.tools/busybox64.exe bash ./test-windows.sh
 
