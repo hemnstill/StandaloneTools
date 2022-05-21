@@ -21,5 +21,5 @@ jobs:
         run: |
           tar -xf ./${{ inputs.artifact }}.tar.gz -C ./bin
           cd ./${{ inputs.workflow }}
-          ./.tools/busybox64.exe bash ./test_windows.sh
+          ../.tools/busybox64.exe bash ./test_windows.sh
 
