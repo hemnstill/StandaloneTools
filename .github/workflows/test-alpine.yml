@@ -26,6 +26,7 @@ jobs:
 
       - name: Test ${{ inputs.artifact }} build on alpine:${{ inputs.version }}
         run: |
+          apk add --no-cache bash
           tar -xf ./${{ inputs.artifact }}.tar.gz -C ./bin
           ./${{ inputs.workflow }}/test.sh
 
