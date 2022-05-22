@@ -31,8 +31,8 @@ cp -f "$dp0/release/pcre2-$tool_version/build/Release/$tool_name" "$dp0/release/
 
 cd "$dp0/release/build"
 
-{ printf 'SHA-256: %s
-%s' "$(sha256sum $tool_name)" "$download_url"
+{ printf 'SHA-256: %s (msvc)
+' "$(sha256sum $tool_name)"
 } > build-msvc.md
 
 cat build-msvc.md
