@@ -27,7 +27,6 @@ jobs:
 
   test-ubuntu:
     needs: alpine-musl
-    if: ${{ needs.prejob.outputs.workflow == github.workflow }}
     uses: ./.github/workflows/test-ubuntu.yml
     with:
       workflow: ${{ github.workflow }}
@@ -35,7 +34,6 @@ jobs:
 
   test-windows:
     needs: windows-msvc
-    if: ${{ needs.prejob.outputs.workflow == github.workflow }}
     uses: ./.github/workflows/test-windows.yml
     with:
       workflow: ${{ github.workflow }}
