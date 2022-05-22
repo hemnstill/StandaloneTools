@@ -21,6 +21,8 @@ mkdir -p "$dp0/release/build" && cd "$dp0/release"
 wget "$download_url" -O "pcre2-$tool_version.tar.gz"
 tar -xf "pcre2-$tool_version.tar.gz" && cd "pcre2-$tool_version"
 
+cp "$dp0/release/pcre2grep.c" "$dp0/release/pcre2-$tool_version/src/"
+
 echo "::endgroup::"
 
 echo "::group::build"
