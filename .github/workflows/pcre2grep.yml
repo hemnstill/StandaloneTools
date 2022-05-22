@@ -40,14 +40,14 @@ jobs:
       workflow: ${{ github.workflow }}
       artifact: build-musl
 
-  test-windows:
+  test-windows-msvc:
     needs: windows-msvc
     uses: ./.github/workflows/test-windows.yml
     with:
       workflow: ${{ github.workflow }}
       artifact: build-msvc
 
-  test-nanoserver:
+  test-nanoserver-msvc:
     needs: windows-msvc
     uses: ./.github/workflows/test-nanoserver.yml
     with:
@@ -69,7 +69,7 @@ jobs:
       artifact: build-mingw
 
   release:
-    needs: [test-ubuntu, test-windows, test-nanoserver, test-windows-mingw, test-nanoserver-mingw]
+    needs: [test-ubuntu, test-windows-msvc, test-nanoserver-msvc, test-windows-mingw, test-nanoserver-mingw]
     uses: ./.github/workflows/release.yml
     with:
       workflow: ${{ github.workflow }}
