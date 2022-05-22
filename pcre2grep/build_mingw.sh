@@ -25,7 +25,7 @@ echo "::endgroup::"
 
 echo "::group::build"
 
-./configure LDFLAGS='--static' --disable-shared --enable-jit --enable-pcre2-16 --enable-pcre2-32 --host=x86_64-w64-mingw32 --build=x86_64-w64-mingw32
+./configure LDFLAGS='--static' --disable-shared --enable-jit --enable-pcre2-16 --enable-pcre2-32 --host=x86_64-w64-mingw32 --host-os=mingw
 
 make -j$(nproc)
 
