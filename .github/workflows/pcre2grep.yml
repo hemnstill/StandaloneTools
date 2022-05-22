@@ -25,26 +25,24 @@ jobs:
       workflow: ${{ github.workflow }}
       toolset: msvc
 
-  ubuntu-glibc-test:
+  test-ubuntu:
     needs: alpine-musl
     if: ${{ needs.prejob.outputs.workflow == github.workflow }}
     uses: ./.github/workflows/test-ubuntu.yml
     with:
+      workflow: ${{ github.workflow }}
       artifact: build-musl
-      test-run: |
-        ./${{ github.workflow }} --version
 
-  windows-msvc-test:
+  test-windows:
     needs: windows-msvc
     if: ${{ needs.prejob.outputs.workflow == github.workflow }}
     uses: ./.github/workflows/test-windows.yml
     with:
+      workflow: ${{ github.workflow }}
       artifact: build-msvc
-      test-run: |
-        ./${{ github.workflow }} --version
 
   release:
-    needs: [ubuntu-glibc-test, windows-msvc-test]
+    needs: [test-ubuntu, test-windows]
     uses: ./.github/workflows/release.yml
     with:
       workflow: ${{ github.workflow }}
