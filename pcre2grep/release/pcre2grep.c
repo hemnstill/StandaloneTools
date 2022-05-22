@@ -4154,7 +4154,7 @@ NULL to pcre2_maketables() means that malloc() is used to get the memory. */
 
 if (locale != NULL)
   {
-  if (setlocale(LC_ALL, "") == NULL)
+  if (setlocale(LC_CTYPE, "") == NULL)
     {
     fprintf(stderr, "pcre2grep: Failed to set locale %s (obtained from %s)\n",
       locale, locale_from);
