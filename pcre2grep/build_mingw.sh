@@ -38,7 +38,7 @@ cp -f "$dp0/release/pcre2-$tool_version/$tool_name" "$dp0/release/build"
 
 cd "$dp0/release/build"
 
-{ printf 'SHA-256: %s(mingw)
+{ printf 'SHA-256: %s (mingw)
 %s' "$(sha256sum $tool_name)" "$download_url"
 } > build-mingw.md
 

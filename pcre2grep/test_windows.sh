@@ -6,12 +6,20 @@ testVersion() {
   assertEquals "pcre2grep version 10.40 2022-04-14" "$("$grep" --version)"
 }
 
-testDoubleQuotes() {
+testDoubleQuotesWithSpaces() {
    assertEquals "test-quotes.zip" "$(echo "test-quotes.zip" | "$grep" --only-matching "[^"" ]*quotes\.zip")"
 }
 
-testParenthesesBraces() {
-   assertEquals "a1" "$(echo """sha"": ""a1""," | "$grep" --only-matching "(?<=""sha"":\s"")[^,]+(?="")")"
+testParenthesesBracesEscapeDoubleQuotes() {
+  assertEquals "a1" "$(printf ' "sha": "a1",' | "$grep" --only-matching "(?<=\"sha\":\s\")[^,]+(?=\")")"
+}
+
+testParenthesesBracesSingleQuotes() {
+  assertEquals "a1" "$(printf ' "sha": "a1",' | "$grep" --only-matching '(?<="sha":\s")[^,]+(?=")')"
+}
+
+testParenthesesBracesCmd() {
+  assertEquals "b1" "$(cmd.exe /c test_cmd.bat)"
 }
 
 testUtf8Smile() {
