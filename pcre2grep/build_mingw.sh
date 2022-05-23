@@ -14,7 +14,7 @@ tool_version="10.40"
 echo "::set-output name=tool_name::$tool_name"
 echo "::set-output name=tool_version::$tool_version"
 
-download_url="https://github.com/PhilipHazel/pcre2/releases/download/pcre2-$tool_version/pcre2-$tool_version.tar.gz"
+download_url="https://github.com/PCRE2Project/pcre2/releases/download/pcre2-$tool_version/pcre2-$tool_version.tar.gz"
 echo "::group::prepare sources $download_url"
 
 mkdir -p "$dp0/release/build" && cd "$dp0/release"
@@ -38,7 +38,7 @@ cp -f "$dp0/release/pcre2-$tool_version/$tool_name" "$dp0/release/build"
 
 cd "$dp0/release/build"
 
-{ printf 'SHA-256: %s
+{ printf 'SHA-256: %s(mingw)
 %s' "$(sha256sum $tool_name)" "$download_url"
 } > build-mingw.md
 

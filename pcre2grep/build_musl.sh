@@ -37,9 +37,9 @@ cd "$dp0/release/build"
 strip "$tool_name"
 chmod +x "$tool_name"
 
-{ printf 'SHA-256: %s
-%s
-' "$(sha256sum $tool_name)" "$("./$tool_name" --version)"
+{ printf '%s
+SHA-256: %s
+' "$("./$tool_name" --version)" "$(sha256sum $tool_name)"
 } > build-musl.md
 
 cat build-musl.md
