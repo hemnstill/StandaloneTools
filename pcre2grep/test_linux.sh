@@ -10,6 +10,10 @@ testDoubleQuotes() {
    assertEquals "test-quotes.zip" "$(echo "test-quotes.zip" | "$grep" --only-matching "[^"" ]*quotes\.zip")"
 }
 
+testParenthesesBraces() {
+   assertEquals "a1" "$(echo """sha"": ""a1""," | "$grep" --only-matching "(?<=""sha"":\s"")[^,]+(?="")")"
+}
+
 testUtf8Smile() {
   assertEquals "test-utf8-😃.zip" "$(echo "test-utf8-😃.zip" | "$grep" "utf8-😃\.zip")"
 }
