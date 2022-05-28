@@ -25,14 +25,6 @@ jobs:
       workflow: ${{ github.workflow }}
       toolset: msvc
 
-  alpine-mingw:
-    needs: prejob
-    if: ${{ needs.prejob.outputs.workflow == github.workflow }}
-    uses: ./.github/workflows/build-alpine.yml
-    with:
-      workflow: ${{ github.workflow }}
-      toolset: mingw
-
   test-ubuntu:
     needs: alpine-musl
     uses: ./.github/workflows/test-ubuntu.yml
@@ -54,22 +46,8 @@ jobs:
       workflow: ${{ github.workflow }}
       artifact: build-msvc
 
-  test-windows-mingw:
-    needs: alpine-mingw
-    uses: ./.github/workflows/test-windows.yml
-    with:
-      workflow: ${{ github.workflow }}
-      artifact: build-mingw
-
-  test-nanoserver-mingw:
-    needs: alpine-mingw
-    uses: ./.github/workflows/test-nanoserver.yml
-    with:
-      workflow: ${{ github.workflow }}
-      artifact: build-mingw
-
   release:
-    needs: [test-ubuntu, test-windows-msvc, test-nanoserver-msvc, test-windows-mingw, test-nanoserver-mingw]
+    needs: [test-ubuntu, test-windows-msvc, test-nanoserver-msvc]
     uses: ./.github/workflows/release.yml
     with:
       workflow: ${{ github.workflow }}
@@ -77,7 +55,6 @@ jobs:
       prepare_body: |
         bsdtar -Oxf ./build-musl/build-musl.tar.gz build-musl.md >> body.md
         bsdtar -Oxf ./build-msvc/build-msvc.tar.gz build-msvc.md >> body.md
-        bsdtar -Oxf ./build-mingw/build-mingw.tar.gz build-mingw.md >> body.md
-      artifacts: ./build-musl/build-musl.tar.gz, ./build-msvc/build-msvc.tar.gz, ./build-mingw/build-mingw.tar.gz
+      artifacts: ./build-musl/build-musl.tar.gz, ./build-msvc/build-msvc.tar.gz
     secrets:
       token: ${{ secrets.GITHUB_TOKEN }}
