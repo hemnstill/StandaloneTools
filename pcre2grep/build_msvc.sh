@@ -2,14 +2,7 @@
 dp0="$(realpath "$(dirname "$0")")"
 set -e
 
-echo "::group::install deps"
-
-apk update
-apk add --no-cache alpine-sdk pcre2-dev
-
-echo "::endgroup::"
-
-tool_name="pcre2grep"
+tool_name="pcre2grep.exe"
 tool_version="10.40"
 echo "::set-output name=tool_name::$tool_name"
 echo "::set-output name=tool_version::$tool_version"
@@ -25,23 +18,20 @@ echo "::endgroup::"
 
 echo "::group::build"
 
-./configure LDFLAGS='--static' --disable-shared --enable-jit --enable-pcre2-8 --enable-pcre2-16 --enable-pcre2-32
+cmake -DPCRE2_SUPPORT_JIT=ON -DPCRE2_BUILD_PCRE2_16=ON -DPCRE2_BUILD_PCRE2_32=ON -B build -DPCRE2_STATIC_RUNTIME=ON
 
-make -j$(nproc)
+cmake --build build --config Release
 
 echo "::endgroup::"
 
-cp -f "$dp0/release/pcre2-$tool_version/$tool_name" "$dp0/release/build"
+cp -f "$dp0/release/pcre2-$tool_version/build/Release/$tool_name" "$dp0/release/build"
 
 cd "$dp0/release/build"
-strip "$tool_name"
-chmod +x "$tool_name"
 
-{ printf '%s
-SHA-256: %s
-' "$("./$tool_name" --version)" "$(sha256sum $tool_name)"
-} > build-musl.md
+{ printf 'SHA-256: %s (msvc)
+' "$(sha256sum $tool_name)"
+} > build-msvc.md
 
-cat build-musl.md
+cat build-msvc.md
 
-tar -czvf ../build-musl.tar.gz .
+tar -czvf ../build-msvc.tar.gz .
