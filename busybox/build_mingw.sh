@@ -12,7 +12,7 @@ echo "::group::prepare sources $download_url"
 
 mkdir -p "$dp0/release" && cd "$dp0/release"
 wget "$download_url" -O "tool-$tool_version.tar.gz"
-tar -xf "tool-$tool_version.tar.gz" && cd "busybox-$tool_version"
+tar -xf "tool-$tool_version.tar.gz" && cd "busybox-w32-$tool_version"
 
 echo "::endgroup::"
 
@@ -24,6 +24,7 @@ make -j$(nproc) AR=x86_64-w64-mingw32-gcc-ar STRIP=strip WINDRES=windres busybox
 echo "::endgroup::"
 
 mkdir "$dp0/release/build" && cd "$dp0/release/build"
+cp -f "$dp0/release/$tool_name" "$dp0/release/build/"
 
 { printf 'SHA-256: %s
 %s
