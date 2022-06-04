@@ -25,13 +25,13 @@ jobs:
       workflow: ${{ github.workflow }}
       toolset: mingw
 
-#  test-alpine:
-#    needs: alpine-musl
-#    if: ${{ needs.prejob.outputs.workflow == github.workflow }}
-#    uses: ./.github/workflows/test-alpine.yml
-#    with:
-#      workflow: ${{ github.workflow }}
-#      artifact: build-musl
+  test-alpine:
+    needs: alpine-musl
+    if: ${{ needs.prejob.outputs.workflow == github.workflow }}
+    uses: ./.github/workflows/test-alpine.yml
+    with:
+      workflow: ${{ github.workflow }}
+      artifact: build-musl
 
   test-ubuntu:
     needs: alpine-musl
@@ -50,7 +50,8 @@ jobs:
       artifact: build-mingw
 
   release:
-    needs: [test-ubuntu,
+    needs: [test-alpine,
+            test-ubuntu,
             test-windows]
     uses: ./.github/workflows/release.yml
     with:
