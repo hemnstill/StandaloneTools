@@ -17,7 +17,7 @@ jobs:
       - uses: git-for-windows/setup-git-for-windows-sdk@v1
       - name: build ${{ inputs.workflow }}-windows-${{ inputs.toolset }}
         run: |
-          choco install wget --no-progress
+          choco install wget bzip2 --no-progress
           bash.exe ${{ inputs.workflow }}\build_${{ inputs.toolset }}.sh
 
       - uses: actions/upload-artifact@v3
