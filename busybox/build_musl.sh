@@ -26,7 +26,8 @@ echo "::endgroup::"
 echo "::group::build"
 
 make -j$(nproc) defconfig
-sed -e 's/.CONFIG_STATIC.*/CONFIG_STATIC=y/' -i .config
+sed -e 's/.*STATIC_LIBGCC.*/CONFIG_STATIC_LIBGCC=y/' -i .config
+sed -e 's/.*STATIC.*/CONFIG_STATIC=y/' -i .config
 make -j$(nproc) busybox
 
 echo "::endgroup::"
