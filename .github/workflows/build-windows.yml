@@ -18,9 +18,9 @@ jobs:
         with:
           flavor: full
       - name: build ${{ inputs.workflow }}-windows-${{ inputs.toolset }}
+        shell: bash
         run: |
-          choco install wget bzip2 --no-progress
-          bash.exe ${{ inputs.workflow }}\build_${{ inputs.toolset }}.sh
+          ./${{ inputs.workflow }}/build_${{ inputs.toolset }}.sh
 
       - uses: actions/upload-artifact@v3
         with:
