@@ -2,7 +2,7 @@
 dp0="$(realpath "$(dirname "$0")")"
 set -e
 
-tool_name="busybox_unstripped.exe"
+tool_name="busybox.exe"
 tool_version="FRP-4621-gf3c5e8bc3"
 tool_version="add-ci-with-msys2-bash-wip"
 echo "::set-output name=tool_name::$tool_name"
@@ -25,10 +25,9 @@ make -j$(nproc) AR=x86_64-w64-mingw32-gcc-ar STRIP=strip WINDRES=windres busybox
 
 echo "::endgroup::"
 
-ls -r
+cp -f "./$tool_name" "$dp0/release/build/"
 
 cd "$dp0/release/build"
-
 
 { printf 'SHA-256: %s
 %s
