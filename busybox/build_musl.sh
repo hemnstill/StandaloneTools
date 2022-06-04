@@ -37,8 +37,8 @@ cd "$dp0/release/build"
 { printf 'SHA-256: %s
 %s
 ' "$(sha256sum $tool_name)" "$download_url"
-} > build-mingw.md
+} > build-musl.md
 
-cat build-mingw.md
+cat build-musl.md
 
-tar -czvf ../build-mingw.tar.gz .
+tar -czvf ../build-musl.tar.gz .
