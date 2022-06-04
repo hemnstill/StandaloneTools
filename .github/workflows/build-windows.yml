@@ -15,6 +15,8 @@ jobs:
     steps:
       - uses: actions/checkout@v2
       - uses: git-for-windows/setup-git-for-windows-sdk@v1
+        with:
+          flavor: full
       - name: build ${{ inputs.workflow }}-windows-${{ inputs.toolset }}
         run: |
           choco install wget bzip2 --no-progress
