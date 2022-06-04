@@ -2,7 +2,7 @@
 dp0="$(realpath "$(dirname "$0")")"
 set -e
 
-tool_name="busybox.exe"
+tool_name="busybox_unstripped.exe"
 tool_version="FRP-4621-gf3c5e8bc3"
 tool_version="add-ci-with-msys2-bash-wip"
 echo "::set-output name=tool_name::$tool_name"
