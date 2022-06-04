@@ -35,9 +35,12 @@ cp -f "./$tool_name" "$dp0/release/build/"
 
 cd "$dp0/release/build"
 
-{ printf 'SHA-256: %s
+strip "./$tool_name"
+
+{ printf '%s
+SHA-256: %s
 %s
-' "$(sha256sum $tool_name)" "$download_url"
+' "./$tool_name" "$(sha256sum $tool_name)" "$download_url"
 } > build-musl.md
 
 cat build-musl.md
