@@ -4,10 +4,12 @@ set -e
 
 tool_name="busybox.exe"
 tool_version="FRP-4621-gf3c5e8bc3"
+tool_version="add-ci-with-msys2-bash-wip"
 echo "::set-output name=tool_name::$tool_name"
 echo "::set-output name=tool_version::$tool_version"
 
 download_url="https://github.com/rmyorston/busybox-w32/archive/refs/tags/$tool_version.tar.gz"
+download_url="https://github.com/dscho/busybox-w32/archive/refs/tags/$tool_version.tar.gz"
 echo "::group::prepare sources $download_url"
 
 mkdir -p "$dp0/release" && cd "$dp0/release"
