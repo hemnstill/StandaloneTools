@@ -23,6 +23,7 @@ jobs:
     uses: ./.github/workflows/build-alpine.yml
     with:
       workflow: ${{ github.workflow }}
+      toolset: mingw
 
 #  test-alpine:
 #    needs: alpine-musl
