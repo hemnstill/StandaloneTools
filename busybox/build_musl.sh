@@ -43,7 +43,7 @@ strip "./$tool_name"
 
 SHA-256: %s
 %s
-' "./$tool_name" "$(sha256sum $tool_name)" "$download_url"
+' "$(./$tool_name)" "$(sha256sum $tool_name)" "$download_url"
 } > build-musl.md
 
 cat build-musl.md
