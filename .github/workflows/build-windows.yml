@@ -11,15 +11,12 @@ on:
 
 jobs:
   build-windows:
-    runs-on: windows-2022
+    runs-on: windows-2019
     steps:
       - uses: actions/checkout@v2
-      - uses: git-for-windows/setup-git-for-windows-sdk@v1
       - name: build ${{ inputs.workflow }}-windows-${{ inputs.toolset }}
-        shell: bash
         run: |
-          choco install wget --no-progress
-          ./${{ inputs.workflow }}/build_${{ inputs.toolset }}.sh
+          .tools\busybox64.exe sh ${{ inputs.workflow }}\build_${{ inputs.toolset }}.sh
 
       - uses: actions/upload-artifact@v3
         with:
