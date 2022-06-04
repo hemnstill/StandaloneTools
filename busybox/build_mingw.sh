@@ -2,6 +2,13 @@
 dp0="$(realpath "$(dirname "$0")")"
 set -e
 
+echo "::group::install deps"
+
+apk update
+apk add --no-cache alpine-sdk make linux-headers mingw-w64-gcc
+
+echo "::endgroup::"
+
 tool_name="busybox.exe"
 tool_version="FRP-4621-gf3c5e8bc3"
 tool_version="add-ci"
@@ -21,7 +28,7 @@ echo "::endgroup::"
 echo "::group::build"
 
 make -j$(nproc) mingw64_defconfig
-make -j$(nproc) AR=x86_64-w64-mingw32-gcc-ar STRIP=strip WINDRES=windres busybox.exe
+make -j$(nproc) busybox.exe
 
 echo "::endgroup::"
 
@@ -31,8 +38,7 @@ cd "$dp0/release/build"
 
 { printf 'SHA-256: %s
 %s
-%s
-' "$(sha256sum $tool_name)" "$("./$tool_name" --version)" "$download_url"
+' "$(sha256sum $tool_name)" "$download_url"
 } > build-mingw.md
 
 cat build-mingw.md
