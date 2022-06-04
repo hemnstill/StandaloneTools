@@ -15,8 +15,6 @@ jobs:
     steps:
       - uses: actions/checkout@v2
       - uses: git-for-windows/setup-git-for-windows-sdk@v1
-        with:
-          flavor: build-installers
       - name: build ${{ inputs.workflow }}-windows-${{ inputs.toolset }}
         shell: bash
         run: |
