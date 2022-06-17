@@ -10,7 +10,7 @@ apk add --no-cache alpine-sdk make linux-headers mingw-w64-gcc
 echo "::endgroup::"
 
 tool_name="busybox.exe"
-tool_version="FRP-4487-gd239d2d52"
+tool_version="FRP-4716-g31467ddfc"
 echo "::set-output name=tool_name::$tool_name"
 echo "::set-output name=tool_version::$tool_version"
 
