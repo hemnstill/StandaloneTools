@@ -10,7 +10,7 @@ apk add --no-cache alpine-sdk linux-headers zlib-dev zlib-static postgresql-dev 
 echo "::endgroup::"
 
 tool_name="pg_dump.exe"
-tool_version="REL_14_2"
+tool_version="REL_14_4"
 echo "::set-output name=tool_name::$tool_name"
 echo "::set-output name=tool_version::$tool_version"
 

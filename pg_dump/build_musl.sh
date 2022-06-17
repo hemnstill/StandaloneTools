@@ -10,7 +10,7 @@ apk add --no-cache alpine-sdk linux-headers zlib-dev zlib-static postgresql-dev 
 echo "::endgroup::"
 
 tool_name="pg_dump"
-tool_version="REL_14_2"
+tool_version="REL_14_4"
 echo "::set-output name=tool_name::$tool_name"
 echo "::set-output name=tool_version::$tool_version"
 
@@ -25,7 +25,7 @@ if [[ ! -f "$tool_root_path/configure" ]]; then
   wget "$download_url" -O "tool-$tool_version.tar.gz" && tar -xf "tool-$tool_version.tar.gz"
 fi
 
-cp "$dp0/release/Makefile" "$tool_root_path/src/bin/pg_dump/"
+patch "$tool_root_path/src/bin/pg_dump/Makefile" "$dp0/static_patch.diff"
 
 cd "$tool_root_path"
 
