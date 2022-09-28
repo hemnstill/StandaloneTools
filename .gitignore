@@ -2,6 +2,7 @@
 
 release/
 bin/
+.tmp/
 
 *.tar.gz
 
