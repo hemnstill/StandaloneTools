@@ -4,3 +4,5 @@ release/
 bin/
 
 *.tar.gz
+
+install-poetry*.py
