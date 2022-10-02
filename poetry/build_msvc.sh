@@ -70,4 +70,5 @@ fi;
 cd "$dp0/release"
 
 echo "install poetry ..."
+export POETRY_HOME="$dp0/.tmp/poetry"
 "$cpython_bin" $poetry_install_script
