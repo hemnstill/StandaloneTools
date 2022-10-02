@@ -33,7 +33,6 @@ bsdtar_tar_gz="bsdtar-3.6.1_build-mingw.tar.gz"
 tar -xf "$bsdtar_tar_gz"
 
 bsdtar="$dp0/release/bsdtar.exe"
-
 cpython_bin="$dp0/.tmp/python/install/python.exe"
 if [[ ! -f "$cpython_bin" ]]; then
   echo extract "$cpython_zip" to "$cpython_bin" ...
@@ -60,18 +59,29 @@ if [[ ! -f "$cpython_bin" ]]; then
   --exclude="python/install/tcl" \
   --exclude="python/install/share" \
   -xf "$cpython_zip" python/install
-
 fi;
 
-cd "$dp0/release"
 
 echo "install poetry ..."
 export POETRY_HOME="$dp0/.tmp/poetry"
-"$cpython_bin" $poetry_install_script
+"$cpython_bin" "$dp0/release/$poetry_install_script" --version "$tool_version"
 
-mv "$dp0/.tmp/python/install" "$POETRY_HOME/venv/Python"
+echo "prepare build artifacts ..."
+rm -rf "$dp0/release/build" && mkdir -p "$dp0/release/build"
+cp -rf "$dp0/.tmp/poetry/venv/Lib" "$dp0/release/build/"
+cp -rf "$dp0/.tmp/python/install" "$dp0/release/build/Python/"
+cp -f "$dp0/release/poetry.bat" "$dp0/release/build/"
+cp -f "$dp0/release/__main__.py" "$dp0/release/build/"
 
-cp -f "$dp0/release/poetry.bat" "$POETRY_HOME/venv"
-cp -f "$dp0/release/__main__.py" "$POETRY_HOME/venv"
+makeself_tool_version=release-2.4.5-cmd
+makeself_download_url="https://github.com/hemnstill/makeself/archive/refs/tags/$makeself_tool_version.tar.gz"
 
+makeself_version_path="$dp0/tool-$makeself_tool_version.tar.gz"
+makeself_target_path="$dp0/makeself-$makeself_tool_version"
+makeself_sh_path="$makeself_target_path/makeself.sh"
 
+[[ ! -f "$makeself_version_path" ]] && {
+  echo "::group::prepare sources $makeself_download_url"
+  wget "$makeself_download_url" -O "$makeself_version_path"
+  tar -xf "$makeself_version_path"
+}
