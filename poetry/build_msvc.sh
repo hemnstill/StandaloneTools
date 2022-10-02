@@ -73,11 +73,12 @@ cp -rf "$dp0/.tmp/python/install" "$dp0/release/build/Python/"
 cp -f "$dp0/release/poetry.bat" "$dp0/release/build/"
 cp -f "$dp0/release/__main__.py" "$dp0/release/build/"
 
+cd "$dp0/release/"
 makeself_tool_version=release-2.4.5-cmd
 makeself_download_url="https://github.com/hemnstill/makeself/archive/refs/tags/$makeself_tool_version.tar.gz"
 
-makeself_version_path="$dp0/tool-$makeself_tool_version.tar.gz"
-makeself_target_path="$dp0/makeself-$makeself_tool_version"
+makeself_version_path="$dp0/release/tool-$makeself_tool_version.tar.gz"
+makeself_target_path="$dp0/release/makeself-$makeself_tool_version"
 makeself_sh_path="$makeself_target_path/makeself.sh"
 
 [[ ! -f "$makeself_version_path" ]] && {
@@ -85,3 +86,25 @@ makeself_sh_path="$makeself_target_path/makeself.sh"
   wget "$makeself_download_url" -O "$makeself_version_path"
   tar -xf "$makeself_version_path"
 }
+
+self_name="poetry-$tool_version"
+self_version="$tool_version"
+temp_dir_path="$dp0/.tmp"
+export BB_OVERRIDE_APPLETS=tar
+export TMPDIR="$temp_dir_path"
+
+artifact_file_path="$dp0/$self_name.sh" && $is_windows_os && artifact_file_path="$dp0/$self_name.sh.bat"
+header_arg="" && $is_windows_os && {
+  "$makeself_target_path/cmd-header.sh"
+  header_arg="--header $makeself_target_path/makeself-cmd-header.sh"
+}
+
+release_version_dirpath="$dp0/release/build"
+"$makeself_sh_path" $header_arg \
+  --notemp --sha256 --nomd5 --nocrc \
+  "$release_version_dirpath" \
+  "$artifact_file_path" \
+  "$self_name" \
+  echo "$self_version has extracted itself"
+
+echo version "'$self_version'" created.
