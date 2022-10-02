@@ -34,7 +34,7 @@ tar -xf "$bsdtar_tar_gz"
 
 bsdtar="$dp0/release/bsdtar.exe"
 
-cpython_bin="$dp0/.tmp/Python/install/python.exe"
+cpython_bin="$dp0/.tmp/python/install/python.exe"
 if [[ ! -f "$cpython_bin" ]]; then
   echo extract "$cpython_zip" to "$cpython_bin" ...
   rm -rf "$dp0/.tmp/"* && mkdir -p "$dp0/.tmp" && cd "$dp0/.tmp" || exit 1
@@ -61,10 +61,6 @@ if [[ ! -f "$cpython_bin" ]]; then
   --exclude="python/install/share" \
   -xf "$cpython_zip" python/install
 
-
-  # rename twice.
-  mv python _python
-  mv _python Python
 fi;
 
 cd "$dp0/release"
@@ -72,3 +68,10 @@ cd "$dp0/release"
 echo "install poetry ..."
 export POETRY_HOME="$dp0/.tmp/poetry"
 "$cpython_bin" $poetry_install_script
+
+mv "$dp0/.tmp/python/install" "$POETRY_HOME/venv/Python"
+
+cp -f "$dp0/release/poetry.bat" "$POETRY_HOME/venv"
+cp -f "$dp0/release/__main__.py" "$POETRY_HOME/venv"
+
+
