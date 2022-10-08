@@ -4,12 +4,13 @@ set -e
 
 is_windows_os=false && [[ $(uname) == Windows_NT* ]] && is_windows_os=true
 
-tool_name="poetry.exe"
+tool_name="poetry"
 tool_version="1.2.1"
+self_name="$tool_name-$tool_version"
 echo "::set-output name=tool_name::$tool_name"
 echo "::set-output name=tool_version::$tool_version"
 
-mkdir -p "$dp0/release/build" && cd "$dp0/release"
+mkdir -p "$dp0/release/$tool_name-$tool_version" && cd "$dp0/release"
 
 echo "download poetry install script ..."
 poetry_download_url="https://raw.githubusercontent.com/python-poetry/install.python-poetry.org/main/install-poetry.py"
@@ -67,11 +68,11 @@ export POETRY_HOME="$dp0/.tmp/poetry"
 "$cpython_bin" "$dp0/release/$poetry_install_script" --version "$tool_version"
 
 echo "prepare build artifacts ..."
-rm -rf "$dp0/release/build" && mkdir -p "$dp0/release/build"
-cp -rf "$dp0/.tmp/poetry/venv/Lib" "$dp0/release/build/"
-cp -rf "$dp0/.tmp/python/install" "$dp0/release/build/Python/"
-cp -f "$dp0/release/poetry.bat" "$dp0/release/build/"
-cp -f "$dp0/release/__main__.py" "$dp0/release/build/"
+rm -rf "$dp0/release/$self_name" && mkdir -p "$dp0/release/$self_name"
+cp -rf "$dp0/.tmp/poetry/venv/Lib" "$dp0/release/$self_name/"
+cp -rf "$dp0/.tmp/python/install" "$dp0/release/$self_name/Scripts/"
+cp -f "$dp0/release/poetry.bat" "$dp0/release/$self_name/"
+cp -f "$dp0/release/__main__.py" "$dp0/release/$self_name/"
 
 cd "$dp0/release/"
 makeself_tool_version=release-2.4.5-cmd
@@ -87,8 +88,7 @@ makeself_sh_path="$makeself_target_path/makeself.sh"
   tar -xf "$makeself_version_path"
 }
 
-self_name="poetry-$tool_version"
-self_version="$tool_version"
+
 temp_dir_path="$dp0/.tmp"
 export BB_OVERRIDE_APPLETS=tar
 export TMPDIR="$temp_dir_path"
@@ -99,12 +99,12 @@ header_arg="" && $is_windows_os && {
   header_arg="--header $makeself_target_path/makeself-cmd-header.sh"
 }
 
-release_version_dirpath="$dp0/release/build"
+release_version_dirpath="$dp0/release/$self_name"
 "$makeself_sh_path" $header_arg \
   --notemp --sha256 --nomd5 --nocrc \
   "$release_version_dirpath" \
   "$artifact_file_path" \
   "$self_name" \
-  echo "$self_version has extracted itself"
+  echo "$tool_version has extracted itself"
 
-echo version "'$self_version'" created.
+echo version "'$tool_version'" created.

@@ -7,3 +7,4 @@ bin/
 *.tar.gz
 
 install-poetry*.py
+poetry/poetry-*
