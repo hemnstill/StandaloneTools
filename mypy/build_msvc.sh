@@ -5,7 +5,7 @@ set -e
 is_windows_os=false && [[ $(uname) == Windows_NT* ]] && is_windows_os=true
 
 tool_name="pylint"
-tool_version="2.15.3"
+tool_version="0.982"
 poetry_name_version="poetry-1.2.1"
 echo "::set-output name=tool_name::$tool_name"
 
