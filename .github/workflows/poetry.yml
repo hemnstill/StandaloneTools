@@ -1,0 +1,45 @@
+name: poetry
+
+on: [pull_request, workflow_dispatch]
+
+jobs:
+  prejob:
+    uses: ./.github/workflows/set-output-workflow.yml
+    with:
+      workflow: ${{ github.workflow }}
+    secrets:
+      _WORKFLOW: ${{ secrets._CURRENT_TOOL }}
+
+  windows-msvc:
+    needs: prejob
+    if: ${{ needs.prejob.outputs.workflow == github.workflow }}
+    uses: ./.github/workflows/build-windows.yml
+    with:
+      workflow: ${{ github.workflow }}
+      toolset: msvc
+
+  test-windows-msvc:
+    needs: windows-msvc
+    uses: ./.github/workflows/test-windows.yml
+    with:
+      workflow: ${{ github.workflow }}
+      artifact: build-msvc
+
+  test-nanoserver-msvc:
+    needs: windows-msvc
+    uses: ./.github/workflows/test-nanoserver.yml
+    with:
+      workflow: ${{ github.workflow }}
+      artifact: build-msvc
+
+  release:
+    needs: [test-windows-msvc, test-nanoserver-msvc]
+    uses: ./.github/workflows/release.yml
+    with:
+      workflow: ${{ github.workflow }}
+      tool_version: '1.2.1'
+      prepare_body: |
+        bsdtar -Oxf ./build-msvc/build-msvc.tar.gz build-msvc.md >> body.md
+      artifacts: ./build-msvc/build-msvc.tar.gz
+    secrets:
+      token: ${{ secrets.GITHUB_TOKEN }}
