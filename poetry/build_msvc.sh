@@ -65,7 +65,8 @@ fi;
 
 echo "install poetry ..."
 export POETRY_HOME="$dp0/.tmp/poetry"
-"$cpython_bin" "$dp0/release/$poetry_install_script" --version "$tool_version"
+"pipx" install poetry=="$tool_version"
+# "$cpython_bin" "$dp0/release/$poetry_install_script" --version "$tool_version"
 
 echo "prepare build artifacts ..."
 rm -rf "$dp0/release/$self_name" && mkdir -p "$dp0/release/$self_name"
@@ -87,7 +88,6 @@ makeself_sh_path="$makeself_target_path/makeself.sh"
   wget "$makeself_download_url" -O "$makeself_version_path"
   tar -xf "$makeself_version_path"
 }
-
 
 temp_dir_path="$dp0/.tmp"
 export BB_OVERRIDE_APPLETS=tar
