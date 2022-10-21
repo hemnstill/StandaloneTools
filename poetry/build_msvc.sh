@@ -12,6 +12,11 @@ echo "::set-output name=tool_version::$tool_version"
 
 mkdir -p "$dp0/release/$tool_name-$tool_version" && cd "$dp0/release"
 
+echo "download pip install script ..."
+pip_download_url="https://bootstrap.pypa.io/get-pip.py"
+pip_install_script="get-pip.py"
+[[ ! -f "$pip_install_script" ]] && wget "$pip_download_url" -O "$pip_install_script"
+
 echo "download poetry install script ..."
 poetry_download_url="https://raw.githubusercontent.com/python-poetry/install.python-poetry.org/main/install-poetry.py"
 poetry_install_script="install-poetry-$tool_version.py"
@@ -45,6 +50,7 @@ if [[ ! -f "$cpython_bin" ]]; then
   --exclude="tests" \
   --exclude="idle_test" \
   --exclude="site-packages" \
+  --exclude="venv" \
   --exclude="Scripts" \
   --exclude="*.pdb" \
   --exclude="*.whl" \
@@ -64,6 +70,8 @@ fi;
 
 echo "install poetry ..."
 export POETRY_HOME="$dp0/.tmp/poetry"
+"$cpython_bin" "$dp0/release/$pip_install_script"
+exit
 "$cpython_bin" "$dp0/release/$poetry_install_script" --version "$tool_version"
 
 echo "prepare build artifacts ..."
