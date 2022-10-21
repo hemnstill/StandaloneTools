@@ -37,7 +37,7 @@ jobs:
     uses: ./.github/workflows/release.yml
     with:
       workflow: ${{ github.workflow }}
-      tool_version: '1.2.1'
+      tool_version: '1.2.2'
       prepare_body: |
         bsdtar -Oxf ./build-msvc/build-msvc.tar.gz build-msvc.md >> body.md
       artifacts: ./build-msvc/build-msvc.tar.gz

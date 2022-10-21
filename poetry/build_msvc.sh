@@ -5,7 +5,7 @@ set -e
 is_windows_os=false && [[ $(uname) == Windows_NT* ]] && is_windows_os=true
 
 tool_name="poetry"
-tool_version="1.2.1"
+tool_version="1.2.2"
 self_name="$tool_name-$tool_version"
 echo "::set-output name=tool_name::$tool_name"
 echo "::set-output name=tool_version::$tool_version"
