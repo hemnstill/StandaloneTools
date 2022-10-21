@@ -86,11 +86,7 @@ find "$python_scripts_path" -mindepth 1 -maxdepth 1 \
   -exec echo rm -rf "{}" \; \
   -exec rm -rf "{}" \; -prune
 
-
-
-cd "$dp0/release/"
-#echo creating "$self_name.tar.gz" ...
-#$bsdtar -cf "$self_name.tar.gz" "$self_name"
+#cd "$dp0/release/"
 
 #makeself_tool_version=release-2.4.5-cmd
 #makeself_download_url="https://github.com/hemnstill/makeself/archive/refs/tags/$makeself_tool_version.tar.gz"
@@ -125,4 +121,15 @@ cd "$dp0/release/"
 #echo version "'$tool_version'" created.
 
 cd "$release_version_dirpath"
+
+{ printf '```
+%s
+```
+
+SHA-256: %s
+' "$(./$tool_name)" "$(sha256sum $tool_name)"
+} > build-msvc.md
+
+cat build-msvc.md
+
 tar -czvf ../build-msvc.tar.gz .
