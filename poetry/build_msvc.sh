@@ -63,7 +63,6 @@ if [[ ! -f "$cpython_bin" ]]; then
   -xf "$cpython_zip" python/install
 fi;
 
-
 echo "install poetry ..."
 export POETRY_HOME="$dp0/.tmp/poetry"
 "$cpython_bin" "$dp0/release/$pip_install_script"
@@ -76,52 +75,9 @@ cp -rf "$dp0/.tmp/python/install" "$python_scripts_path/"
 cp -f "$dp0/release/poetry.bat" "$dp0/release/$self_name/"
 cp -f "$dp0/release/__main__.py" "$dp0/release/$self_name/"
 
-#find "$python_scripts_path" \
-#  -name "__pycache__" -type d \
-#  -exec echo rm -rf "{}" \; \
-#  -exec rm -rf "{}" \; -prune
-#
-#find "$python_scripts_path" -mindepth 1 -maxdepth 1 \
-#  -name "Scripts" -type d \
-#  -exec echo rm -rf "{}" \; \
-#  -exec rm -rf "{}" \; -prune
-
-#cd "$dp0/release/"
-
-#makeself_tool_version=release-2.4.5-cmd
-#makeself_download_url="https://github.com/hemnstill/makeself/archive/refs/tags/$makeself_tool_version.tar.gz"
-#
-#makeself_version_path="$dp0/release/tool-$makeself_tool_version.tar.gz"
-#makeself_target_path="$dp0/release/makeself-$makeself_tool_version"
-#makeself_sh_path="$makeself_target_path/makeself.sh"
-#
-#[[ ! -f "$makeself_version_path" ]] && {
-#  echo "::group::prepare makeself sources $makeself_download_url"
-#  wget "$makeself_download_url" -O "$makeself_version_path"
-#  tar -xf "$makeself_version_path"
-#}
-#
-#temp_dir_path="$dp0/.tmp"
-#export BB_OVERRIDE_APPLETS=tar
-#export TMPDIR="$temp_dir_path"
-#
-#artifact_file_path="$dp0/$self_name.sh" && $is_windows_os && artifact_file_path="$dp0/$self_name.sh.bat"
-#header_arg="" && $is_windows_os && {
-#  "$makeself_target_path/cmd-header.sh"
-#  header_arg="--header $makeself_target_path/makeself-cmd-header.sh"
-#}
-#
-#"$makeself_sh_path" $header_arg \
-#  --notemp --sha256 --nomd5 --nocrc \
-#  "$release_version_dirpath" \
-#  "$artifact_file_path" \
-#  "$self_name" \
-#  echo "$tool_version has extracted itself"
-#
-#echo version "'$tool_version'" created.
+echo "creating archive ..."
 
 cd "$release_version_dirpath"
-
 { printf '%s
 
 %s
