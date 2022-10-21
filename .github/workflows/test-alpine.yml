@@ -18,7 +18,7 @@ jobs:
     container: alpine:${{ inputs.version }}
 
     steps:
-      - uses: actions/checkout@v2
+      - uses: actions/checkout@v3
       - uses: actions/download-artifact@v3
         with:
           name: ${{ inputs.artifact }}
