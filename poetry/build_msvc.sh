@@ -7,10 +7,11 @@ is_windows_os=false && [[ $(uname) == Windows_NT* ]] && is_windows_os=true
 tool_name="poetry"
 tool_version="1.2.2"
 self_name="$tool_name-$tool_version"
+release_version_dirpath="$dp0/release/$self_name"
 echo "::set-output name=tool_name::$tool_name"
 echo "::set-output name=tool_version::$tool_version"
 
-mkdir -p "$dp0/release/$tool_name-$tool_version" && cd "$dp0/release"
+mkdir -p "$release_version_dirpath" && cd "$dp0/release"
 
 echo "download pip install script ..."
 pip_download_url="https://bootstrap.pypa.io/get-pip.py"
@@ -85,36 +86,43 @@ find "$python_scripts_path" -mindepth 1 -maxdepth 1 \
   -exec echo rm -rf "{}" \; \
   -exec rm -rf "{}" \; -prune
 
+
+
 cd "$dp0/release/"
-makeself_tool_version=release-2.4.5-cmd
-makeself_download_url="https://github.com/hemnstill/makeself/archive/refs/tags/$makeself_tool_version.tar.gz"
+#echo creating "$self_name.tar.gz" ...
+#$bsdtar -cf "$self_name.tar.gz" "$self_name"
 
-makeself_version_path="$dp0/release/tool-$makeself_tool_version.tar.gz"
-makeself_target_path="$dp0/release/makeself-$makeself_tool_version"
-makeself_sh_path="$makeself_target_path/makeself.sh"
+#makeself_tool_version=release-2.4.5-cmd
+#makeself_download_url="https://github.com/hemnstill/makeself/archive/refs/tags/$makeself_tool_version.tar.gz"
+#
+#makeself_version_path="$dp0/release/tool-$makeself_tool_version.tar.gz"
+#makeself_target_path="$dp0/release/makeself-$makeself_tool_version"
+#makeself_sh_path="$makeself_target_path/makeself.sh"
+#
+#[[ ! -f "$makeself_version_path" ]] && {
+#  echo "::group::prepare makeself sources $makeself_download_url"
+#  wget "$makeself_download_url" -O "$makeself_version_path"
+#  tar -xf "$makeself_version_path"
+#}
+#
+#temp_dir_path="$dp0/.tmp"
+#export BB_OVERRIDE_APPLETS=tar
+#export TMPDIR="$temp_dir_path"
+#
+#artifact_file_path="$dp0/$self_name.sh" && $is_windows_os && artifact_file_path="$dp0/$self_name.sh.bat"
+#header_arg="" && $is_windows_os && {
+#  "$makeself_target_path/cmd-header.sh"
+#  header_arg="--header $makeself_target_path/makeself-cmd-header.sh"
+#}
+#
+#"$makeself_sh_path" $header_arg \
+#  --notemp --sha256 --nomd5 --nocrc \
+#  "$release_version_dirpath" \
+#  "$artifact_file_path" \
+#  "$self_name" \
+#  echo "$tool_version has extracted itself"
+#
+#echo version "'$tool_version'" created.
 
-[[ ! -f "$makeself_version_path" ]] && {
-  echo "::group::prepare sources $makeself_download_url"
-  wget "$makeself_download_url" -O "$makeself_version_path"
-  tar -xf "$makeself_version_path"
-}
-
-temp_dir_path="$dp0/.tmp"
-export BB_OVERRIDE_APPLETS=tar
-export TMPDIR="$temp_dir_path"
-
-artifact_file_path="$dp0/$self_name.sh" && $is_windows_os && artifact_file_path="$dp0/$self_name.sh.bat"
-header_arg="" && $is_windows_os && {
-  "$makeself_target_path/cmd-header.sh"
-  header_arg="--header $makeself_target_path/makeself-cmd-header.sh"
-}
-
-release_version_dirpath="$dp0/release/$self_name"
-"$makeself_sh_path" $header_arg \
-  --notemp --sha256 --nomd5 --nocrc \
-  "$release_version_dirpath" \
-  "$artifact_file_path" \
-  "$self_name" \
-  echo "$tool_version has extracted itself"
-
-echo version "'$tool_version'" created.
+cd "$release_version_dirpath"
+tar -czvf ../build-msvc.tar.gz .
