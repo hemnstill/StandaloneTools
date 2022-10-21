@@ -71,8 +71,7 @@ fi;
 echo "install poetry ..."
 export POETRY_HOME="$dp0/.tmp/poetry"
 "$cpython_bin" "$dp0/release/$pip_install_script"
-exit
-"$cpython_bin" "$dp0/release/$poetry_install_script" --version "$tool_version"
+"$cpython_bin" -m pip install poetry=="$tool_version"
 
 echo "prepare build artifacts ..."
 rm -rf "$dp0/release/$self_name" && mkdir -p "$dp0/release/$self_name"
