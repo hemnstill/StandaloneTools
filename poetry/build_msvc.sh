@@ -76,15 +76,15 @@ cp -rf "$dp0/.tmp/python/install" "$python_scripts_path/"
 cp -f "$dp0/release/poetry.bat" "$dp0/release/$self_name/"
 cp -f "$dp0/release/__main__.py" "$dp0/release/$self_name/"
 
-find "$python_scripts_path" \
-  -name "__pycache__" -type d \
-  -exec echo rm -rf "{}" \; \
-  -exec rm -rf "{}" \; -prune
-
-find "$python_scripts_path" -mindepth 1 -maxdepth 1 \
-  -name "Scripts" -type d \
-  -exec echo rm -rf "{}" \; \
-  -exec rm -rf "{}" \; -prune
+#find "$python_scripts_path" \
+#  -name "__pycache__" -type d \
+#  -exec echo rm -rf "{}" \; \
+#  -exec rm -rf "{}" \; -prune
+#
+#find "$python_scripts_path" -mindepth 1 -maxdepth 1 \
+#  -name "Scripts" -type d \
+#  -exec echo rm -rf "{}" \; \
+#  -exec rm -rf "{}" \; -prune
 
 #cd "$dp0/release/"
 
@@ -125,9 +125,13 @@ cd "$release_version_dirpath"
 { printf '%s
 
 %s
-' "$(./$tool_name) --version" "$(./"$cpython_bin") --version"
+' "$(./"$tool_name" --version)" "$("$cpython_bin" --version)"
 } > build-msvc.md
 
 cat build-msvc.md
 
-tar -czvf ../build-msvc.tar.gz .
+"$bsdtar" \
+  --exclude="__pycache__" \
+  --exclude="Scripts/Scripts" \
+  --exclude="*.whl" \
+  -czvf ../build-msvc.tar.gz .
