@@ -122,12 +122,10 @@ find "$python_scripts_path" -mindepth 1 -maxdepth 1 \
 
 cd "$release_version_dirpath"
 
-{ printf '```
-%s
-```
+{ printf '%s
 
-SHA-256: %s
-' "$(./$tool_name)" "$(sha256sum $tool_name)"
+%s
+' "$(./$tool_name) --version" "$(./"$cpython_bin") --version"
 } > build-msvc.md
 
 cat build-msvc.md
