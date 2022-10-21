@@ -17,11 +17,6 @@ pip_download_url="https://bootstrap.pypa.io/get-pip.py"
 pip_install_script="get-pip.py"
 [[ ! -f "$pip_install_script" ]] && wget "$pip_download_url" -O "$pip_install_script"
 
-echo "download poetry install script ..."
-poetry_download_url="https://raw.githubusercontent.com/python-poetry/install.python-poetry.org/main/install-poetry.py"
-poetry_install_script="install-poetry-$tool_version.py"
-[[ ! -f "$poetry_install_script" ]] && wget "$poetry_download_url" -O "$poetry_install_script"
-
 echo "download python ..."
 python_version=3.10.5
 python_runtime_name="cpython-$python_version-linux-musl-noopt" && $is_windows_os && python_runtime_name="cpython-$python_version-windows-msvc"
@@ -75,9 +70,20 @@ export POETRY_HOME="$dp0/.tmp/poetry"
 
 echo "prepare build artifacts ..."
 rm -rf "$dp0/release/$self_name" && mkdir -p "$dp0/release/$self_name"
-cp -rf "$dp0/.tmp/python/install" "$dp0/release/$self_name/Scripts/"
+python_scripts_path="$dp0/release/$self_name/Scripts"
+cp -rf "$dp0/.tmp/python/install" "$python_scripts_path/"
 cp -f "$dp0/release/poetry.bat" "$dp0/release/$self_name/"
 cp -f "$dp0/release/__main__.py" "$dp0/release/$self_name/"
+
+find "$python_scripts_path" \
+  -name "__pycache__" -type d \
+  -exec echo rm -rf "{}" \; \
+  -exec rm -rf "{}" \; -prune
+
+find "$python_scripts_path" -mindepth 1 -maxdepth 1 \
+  -name "Scripts" -type d \
+  -exec echo rm -rf "{}" \; \
+  -exec rm -rf "{}" \; -prune
 
 cd "$dp0/release/"
 makeself_tool_version=release-2.4.5-cmd
