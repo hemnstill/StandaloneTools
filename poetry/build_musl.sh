@@ -51,6 +51,8 @@ if [[ ! -f "$cpython_bin" ]]; then
   --exclude="python/install/tcl" \
   --exclude="python/install/share" \
   -xf "$cpython_zip" python/install
+
+  strip "$cpython_bin"
 fi;
 
 echo "install poetry ..."
