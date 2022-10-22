@@ -3,7 +3,7 @@ dp0="$(realpath "$(dirname "$0")")"
 set -e
 
 apk update
-apk add --no-cache build-essential libssl-dev libffi-dev python-dev
+apk add --no-cache alpine-sdk make linux-headers build-base musl clang py3-cffi libressl-dev libffi-dev python3-dev
 
 tool_name="poetry"
 tool_version="1.2.2"
