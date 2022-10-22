@@ -27,6 +27,7 @@ tar -xf "$bsdtar_tar_gz"
 
 bsdtar="$dp0/release/bsdtar"
 cpython_bin="$dp0/.tmp/python/install/bin/python3"
+cpython_site_packages="$dp0/.tmp/python/install/lib/python3.10/site-packages"
 if [[ ! -f "$cpython_bin" ]]; then
   echo extract "$cpython_zip" to "$cpython_bin" ...
   rm -rf "$dp0/.tmp/"* && mkdir -p "$dp0/.tmp" && cd "$dp0/.tmp" || exit 1
@@ -54,6 +55,11 @@ export POETRY_HOME="$dp0/.tmp/poetry"
 "python3" -m ensurepip
 "python3" -m pip install wheel
 "python3" -m pip install "$dp0/release/cryptography-38.0.1-cp36-abi3-musllinux_1_1_x86_64.whl"
+
+ls -r /usr/lib/python3.10/dist-packages/
+ls -r /usr/local/lib/python3.10/dist-packages/
+
+cp -rf "/usr/lib/python3.10/dist-packages/cryptography" "$cpython_site_packages/"
 
 echo "$cpython_bin ..."
 "$cpython_bin" --version
