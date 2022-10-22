@@ -51,7 +51,14 @@ fi;
 
 echo "install poetry ..."
 export POETRY_HOME="$dp0/.tmp/poetry"
-echo "$($cpython_bin --version) (alpine)"
+installed_python_version="$("python3" --version)"
+echo "$installed_python_version (alpine)"
+
+if [[ "$installed_python_version" != "Python 3.10.5" ]]; then
+  echo "required: Python 3.10.5, found: $installed_python_version"
+  exit 1
+fi;
+
 "python3" -m ensurepip
 "python3" -m pip install --target="$cpython_lib_path" poetry
 
