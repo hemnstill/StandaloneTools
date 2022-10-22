@@ -2,6 +2,9 @@
 dp0="$(realpath "$(dirname "$0")")"
 set -e
 
+apk update
+apk add --no-cache alpine-sdk make linux-headers clang
+
 tool_name="poetry"
 tool_version="1.2.2"
 self_name="$tool_name-$tool_version"
