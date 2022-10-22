@@ -15,7 +15,7 @@ echo "::set-output name=tool_version::$tool_version"
 mkdir -p "$release_version_dirpath" && cd "$dp0/release"
 
 echo "download python ..."
-download_url="https://github.com/indygreg/python-build-standalone/releases/download/20220630/cpython-3.10.5+20220630-x86_64-unknown-linux-musl-noopt-full.tar.zst"
+download_url="https://github.com/indygreg/python-build-standalone/releases/download/20221002/cpython-3.9.14+20221002-x86_64-unknown-linux-musl-noopt-full.tar.zst"
 cpython_zip="$dp0/release/raw_cpython-linux.tar.zst"
 [[ ! -f "$cpython_zip" ]] && wget "$download_url" -O "$cpython_zip"
 
