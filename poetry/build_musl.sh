@@ -31,7 +31,7 @@ bsdtar_tar_gz="bsdtar-3.6.1_build-musl.tar.gz"
 tar -xf "$bsdtar_tar_gz"
 
 bsdtar="$dp0/release/bsdtar"
-cpython_bin="$dp0/.tmp/python/install/python"
+cpython_bin="$dp0/.tmp/python/install/bin/python3"
 if [[ ! -f "$cpython_bin" ]]; then
   echo extract "$cpython_zip" to "$cpython_bin" ...
   rm -rf "$dp0/.tmp/"* && mkdir -p "$dp0/.tmp" && cd "$dp0/.tmp" || exit 1
