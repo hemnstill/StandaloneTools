@@ -3,7 +3,7 @@ dp0="$(realpath "$(dirname "$0")")"
 set -e
 
 apk update
-apk add --no-cache alpine-sdk make linux-headers clang
+apk add --no-cache alpine-sdk make linux-headers musl clang
 
 tool_name="poetry"
 tool_version="1.2.2"
@@ -54,7 +54,6 @@ fi;
 
 echo "install poetry ..."
 export POETRY_HOME="$dp0/.tmp/poetry"
-"$cpython_bin" -m pip install --upgrade pip
 "$cpython_bin" -m pip install poetry=="$tool_version"
 
 echo "prepare build artifacts ..."
