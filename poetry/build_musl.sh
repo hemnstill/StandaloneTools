@@ -39,16 +39,12 @@ if [[ ! -f "$cpython_bin" ]]; then
   --exclude="venv" \
   --exclude="Scripts" \
   --exclude="*.pdb" \
-  --exclude="*.a" \
-  --exclude="*.lib" \
   --exclude="*.pickle" \
-  --exclude="python/install/include" \
   --exclude="tcl*.dll" \
   --exclude="lib/tcl*" \
   --exclude="tk*.dll" \
   --exclude="lib/tk*" \
   --exclude="python/install/tcl" \
-  --exclude="python/install/share" \
   -xf "$cpython_zip" python/install
 fi;
 
