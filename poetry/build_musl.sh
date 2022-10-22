@@ -37,32 +37,37 @@ if [[ ! -f "$cpython_bin" ]]; then
   --exclude="test" \
   --exclude="tests" \
   --exclude="idle_test" \
-  --exclude="venv" \
   --exclude="Scripts" \
   --exclude="*.pdb" \
+  --exclude="*.whl" \
+  --exclude="*.a" \
+  --exclude="*.lib" \
   --exclude="*.pickle" \
+  --exclude="python/install/include" \
   --exclude="tcl*.dll" \
   --exclude="lib/tcl*" \
   --exclude="tk*.dll" \
   --exclude="lib/tk*" \
   --exclude="python/install/tcl" \
+  --exclude="python/install/share" \
   -xf "$cpython_zip" python/install
 fi;
 
 echo "install poetry ..."
 export POETRY_HOME="$dp0/.tmp/poetry"
-installed_python_version="$("python3" --version)"
-echo "$installed_python_version (alpine)"
 
-if [[ "$installed_python_version" != "Python 3.10.5" ]]; then
-  echo "required: Python 3.10.5, found: $installed_python_version"
+installed_python_version="$("python3" --version)"
+standalone_python_version="$("$cpython_bin" --version)"
+echo "$installed_python_version (alpine)"
+echo "$standalone_python_version (standalone)"
+if [[ "$installed_python_version" != "$standalone_python_version" ]]; then
+  echo "required same python versions."
   exit 1
 fi;
 
 "python3" -m ensurepip
 "python3" -m pip install --target="$cpython_lib_path" poetry
 
-echo "$($cpython_bin --version) (standalone)"
 "$cpython_bin" -m pip install poetry=="$tool_version"
 
 echo "prepare build artifacts ..."
