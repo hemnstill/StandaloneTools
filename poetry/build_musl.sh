@@ -27,7 +27,7 @@ tar -xf "$bsdtar_tar_gz"
 
 bsdtar="$dp0/release/bsdtar"
 cpython_bin="$dp0/.tmp/python/install/bin/python3"
-cpython_lib_path="$dp0/.tmp/python/install/lib/python3.10"
+cpython_lib_path="$dp0/.tmp/python/install/lib/python3.10/site-packages"
 if [[ ! -f "$cpython_bin" ]]; then
   echo extract "$cpython_zip" to "$cpython_bin" ...
   rm -rf "$dp0/.tmp/"* && mkdir -p "$dp0/.tmp" && cd "$dp0/.tmp" || exit 1
