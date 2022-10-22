@@ -55,6 +55,7 @@ echo "$($cpython_bin --version) (alpine)"
 "python3" -m ensurepip
 "python3" -m pip install cffi
 "python3" -m pip install --target="$cpython_lib_path" cffi
+"python3" -m pip install --target="$cpython_lib_path" cryptography
 
 ls "$cpython_lib_path"
 
