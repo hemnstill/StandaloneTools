@@ -50,11 +50,11 @@ fi;
 
 echo "install poetry ..."
 export POETRY_HOME="$dp0/.tmp/poetry"
-export CRYPTOGRAPHY_DONT_BUILD_RUST=1
 #"python3" -m ensurepip
 #"python3" -m pip install poetry=="$tool_version"
 "$cpython_bin" -m pip install wheel
-"$cpython_bin" -m pip install poetry=="$tool_version"
+"$cpython_bin" -m pip install cffi
+# "$cpython_bin" -m pip install poetry=="$tool_version"
 
 echo "prepare build artifacts ..."
 rm -rf "$dp0/release/$self_name" && mkdir -p "$dp0/release/$self_name"
