@@ -37,8 +37,7 @@ echo "creating archive ..."
 
 cd "$release_version_dirpath"
 { printf '%s
-Python %s
-' "$(./"$tool_name.sh" --version)" "$("$cpython_bin" -c "import sys; print(sys.version)")"
+' "$(./"$tool_name.sh" --version)"
 } > build-musl.md
 
 cat build-musl.md
