@@ -39,11 +39,9 @@ if [[ ! -f "$cpython_bin" ]]; then
   --exclude="test" \
   --exclude="tests" \
   --exclude="idle_test" \
-  --exclude="site-packages" \
   --exclude="venv" \
   --exclude="Scripts" \
   --exclude="*.pdb" \
-  --exclude="*.whl" \
   --exclude="*.a" \
   --exclude="*.lib" \
   --exclude="*.pickle" \
@@ -59,7 +57,7 @@ fi;
 
 echo "install poetry ..."
 export POETRY_HOME="$dp0/.tmp/poetry"
-"$cpython_bin" "$dp0/release/$pip_install_script"
+# "$cpython_bin" "$dp0/release/$pip_install_script"
 "$cpython_bin" -m pip install poetry=="$tool_version"
 
 echo "prepare build artifacts ..."
