@@ -53,7 +53,7 @@ echo "install poetry ..."
 export POETRY_HOME="$dp0/.tmp/poetry"
 echo "$($cpython_bin --version) (alpine)"
 "python3" -m ensurepip
-"python3" -m pip install poetry=="$tool_version"
+"python3" -m pip install cffi
 
 cp -rf "/usr/lib/python3.10/site-packages" "$cpython_site_packages"
 
