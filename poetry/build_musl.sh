@@ -54,7 +54,9 @@ export POETRY_HOME="$dp0/.tmp/poetry"
 echo "$($cpython_bin --version) (alpine)"
 "python3" -m ensurepip
 "python3" -m pip install cffi
-"python3" -m pip install --target="$cpython_lib_path/site-packages" cffi
+"python3" -m pip install --target="$cpython_lib_path" cffi
+
+ls "$cpython_lib_path"
 
 echo "$($cpython_bin --version) (standalone)"
 "$cpython_bin" -m pip install poetry=="$tool_version"
