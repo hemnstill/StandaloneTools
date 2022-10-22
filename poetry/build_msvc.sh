@@ -74,8 +74,8 @@ echo "creating archive ..."
 cd "$release_version_dirpath"
 { printf '%s
 
-%s
-' "$(./"$tool_name" --version)" "$("$cpython_bin" --version)"
+Python %s
+' "$(./"$tool_name" --version)" "$("$cpython_bin" -c "import sys; print(sys.version)")"
 } > build-msvc.md
 
 cat build-msvc.md

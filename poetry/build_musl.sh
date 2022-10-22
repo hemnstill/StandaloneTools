@@ -80,8 +80,8 @@ cp -f "$dp0/release/__main__.py" "$dp0/release/$self_name/"
 echo "creating archive ..."
 
 cd "$release_version_dirpath"
-{ printf '%s
-' "$("$cpython_bin" --version)"
+{ printf 'Python %s
+' "$("$cpython_bin" -c "import sys; print(sys.version)")"
 } > build-musl.md
 
 cat build-musl.md
