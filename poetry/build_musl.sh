@@ -3,7 +3,7 @@ dp0="$(realpath "$(dirname "$0")")"
 set -e
 
 apk update
-apk add --no-cache python3-dev
+apk add --no-cache alpine-sdk python3-dev
 
 tool_name="poetry"
 tool_version="1.2.2"
