@@ -2,8 +2,6 @@
 dp0="$(realpath "$(dirname "$0")")"
 set -e
 
-is_windows_os=false && [[ $(uname) == Windows_NT* ]] && is_windows_os=true
-
 tool_name="poetry"
 tool_version="1.2.2"
 self_name="$tool_name-$tool_version"
@@ -75,9 +73,7 @@ echo "creating archive ..."
 
 cd "$release_version_dirpath"
 { printf '%s
-
-%s
-' "$(./"$tool_name" --version)" "$("$cpython_bin" --version)"
+' "$("$cpython_bin" --version)"
 } > build-msvc.md
 
 cat build-musl.md
