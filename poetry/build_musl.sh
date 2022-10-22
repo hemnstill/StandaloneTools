@@ -65,7 +65,7 @@ echo "creating archive ..."
 cd "$release_version_dirpath"
 { printf '%s
 ' "$("$cpython_bin" --version)"
-} > build-msvc.md
+} > build-musl.md
 
 cat build-musl.md
 
