@@ -54,6 +54,7 @@ fi;
 
 echo "install poetry ..."
 export POETRY_HOME="$dp0/.tmp/poetry"
+"$cpython_bin" -m pip install "$dp0/release/cffi-1.15.1-cp310-cp310-musllinux_1_1_x86_64.whl"
 "$cpython_bin" -m pip install poetry=="$tool_version"
 
 echo "prepare build artifacts ..."
