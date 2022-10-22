@@ -2,5 +2,9 @@
 
 release/
 bin/
+.tmp/
 
 *.tar.gz
+
+install-poetry*.py
+poetry/poetry-*

@@ -13,7 +13,7 @@ jobs:
   build-windows:
     runs-on: windows-2019
     steps:
-      - uses: actions/checkout@v2
+      - uses: actions/checkout@v3
       - name: build ${{ inputs.workflow }}-windows-${{ inputs.toolset }}
         run: |
           .tools\busybox64.exe sh ${{ inputs.workflow }}\build_${{ inputs.toolset }}.sh
