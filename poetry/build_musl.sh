@@ -55,7 +55,7 @@ echo "$($cpython_bin --version) (alpine)"
 "python3" -m ensurepip
 "python3" -m pip install cffi
 
-cp -rf "/usr/lib/python3.10/site-packages" "$cpython_site_packages"
+cp -rf "/usr/lib/python3.10/site-packages" "$cpython_site_packages/"
 
 echo "$($cpython_bin --version) (standalone)"
 "$cpython_bin" -m pip install poetry=="$tool_version"
