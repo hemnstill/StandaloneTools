@@ -3,7 +3,7 @@ dp0="$(realpath "$(dirname "$0")")"
 set -e
 
 apk update
-apk add --no-cache alpine-sdk make linux-headers build-base musl-dev clang libressl-dev libffi-dev python3-dev ncurses-dev cargo
+apk add --no-cache python3-dev
 
 tool_name="poetry"
 tool_version="1.2.2"
@@ -53,7 +53,6 @@ echo "install poetry ..."
 export POETRY_HOME="$dp0/.tmp/poetry"
 echo "$($cpython_bin --version) (alpine)"
 "python3" -m ensurepip
-"python3" -m pip install cffi
 "python3" -m pip install --target="$cpython_lib_path" poetry
 
 echo "$($cpython_bin --version) (standalone)"
