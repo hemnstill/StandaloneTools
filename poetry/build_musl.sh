@@ -51,19 +51,13 @@ fi;
 
 echo "install poetry ..."
 export POETRY_HOME="$dp0/.tmp/poetry"
-"python3" --version
+echo "$($cpython_bin --version) (alpine)"
 "python3" -m ensurepip
-"python3" -m pip install wheel
-"python3" -m pip install "$dp0/release/cryptography-38.0.1-cp36-abi3-musllinux_1_1_x86_64.whl"
+"python3" -m pip install poetry=="$tool_version"
 
-python3 -m site --user-site
+cp -rf "/usr/lib/python3.10/site-packages" "$cpython_site_packages"
 
-ls /usr/lib/python3.10/site-packages
-
-"$bsdtar" -xf "$dp0/release/cryptography-38.0.1-cp36-abi3-musllinux_1_1_x86_64.whl" -C "$cpython_site_packages"
-
-echo "$cpython_bin ..."
-"$cpython_bin" --version
+echo "$($cpython_bin --version) (standalone)"
 "$cpython_bin" -m pip install poetry=="$tool_version"
 
 echo "prepare build artifacts ..."
