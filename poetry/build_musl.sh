@@ -3,7 +3,7 @@ dp0="$(realpath "$(dirname "$0")")"
 set -e
 
 apk update
-apk add --no-cache alpine-sdk make linux-headers musl clang libffi-dev
+apk add --no-cache alpine-sdk make linux-headers musl clang libffi-dev py3-cffi
 
 tool_name="poetry"
 tool_version="1.2.2"
