@@ -52,7 +52,8 @@ echo "install poetry ..."
 export POETRY_HOME="$dp0/.tmp/poetry"
 "python3" --version
 "python3" -m ensurepip
-"$cpython_bin" -m wheel install "$dp0/release/cryptography-38.0.1-cp36-abi3-musllinux_1_1_x86_64.whl"
+"python3" -m pip install wheel
+"python3" -m wheel install "$dp0/release/cryptography-38.0.1-cp36-abi3-musllinux_1_1_x86_64.whl"
 
 "$cpython_bin" -m pip install wheel
 "$cpython_bin" -m wheel install "$dp0/release/cryptography-38.0.1-cp36-abi3-musllinux_1_1_x86_64.whl"
