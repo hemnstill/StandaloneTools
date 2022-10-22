@@ -14,13 +14,7 @@ echo "::set-output name=tool_version::$tool_version"
 
 mkdir -p "$release_version_dirpath" && cd "$dp0/release"
 
-echo "download pip install script ..."
-pip_download_url="https://bootstrap.pypa.io/get-pip.py"
-pip_install_script="get-pip.py"
-[[ ! -f "$pip_install_script" ]] && wget "$pip_download_url" -O "$pip_install_script"
-
 echo "download python ..."
-python_version=3.10.5
 download_url="https://github.com/indygreg/python-build-standalone/releases/download/20220630/cpython-3.10.5+20220630-x86_64-unknown-linux-musl-noopt-full.tar.zst"
 cpython_zip="$dp0/release/raw_cpython-linux.tar.zst"
 [[ ! -f "$cpython_zip" ]] && wget "$download_url" -O "$cpython_zip"
@@ -60,7 +54,7 @@ fi;
 
 echo "install poetry ..."
 export POETRY_HOME="$dp0/.tmp/poetry"
-# "$cpython_bin" "$dp0/release/$pip_install_script"
+"$cpython_bin" -m pip install --upgrade pip
 "$cpython_bin" -m pip install poetry=="$tool_version"
 
 echo "prepare build artifacts ..."
