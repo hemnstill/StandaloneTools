@@ -9,7 +9,7 @@ apk add --no-cache alpine-sdk make linux-headers mingw-w64-gcc
 
 echo "::endgroup::"
 
-tool_name="busybox.exe"
+tool_name="busybox64.exe"
 tool_version="FRP-4487-gd239d2d52"
 echo "::set-output name=tool_name::$tool_name"
 echo "::set-output name=tool_version::$tool_version"
@@ -26,7 +26,7 @@ echo "::endgroup::"
 echo "::group::build"
 
 make -j$(nproc) mingw64_defconfig
-make -j$(nproc) busybox.exe
+make -j$(nproc) busybox64.exe
 
 echo "::endgroup::"
 
