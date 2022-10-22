@@ -1,3 +1,4 @@
-@echo off
-"%~dp0Scripts\python.exe" "%~dp0__main__pylint.py" %*
-exit /b %errorlevel%
+#!/bin/bash
+dp0="$(realpath "$(dirname "$0")")"
+"$dp0/Scripts/bin/python3" "$dp0/__main__pylint.py" "$@"
+

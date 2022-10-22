@@ -29,9 +29,7 @@ cpython_bin="$release_version_dirpath/Scripts/bin/python3"
 "$cpython_bin" -m pip install "$tool_name==$tool_version"
 
 cp -f "$dp0/release/pylint.sh" "$release_version_dirpath/"
-cp -f "$dp0/release/pylint_config.sh" "$release_version_dirpath/"
 cp -f "$dp0/release/__main__pylint.py" "$release_version_dirpath/"
-cp -f "$dp0/release/__main__pylint_config.py" "$release_version_dirpath/"
 
 echo "creating archive ..."
 
