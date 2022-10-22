@@ -56,6 +56,9 @@ export POETRY_HOME="$dp0/.tmp/poetry"
 "python3" -m pip install wheel
 "python3" -m pip install "$dp0/release/cryptography-38.0.1-cp36-abi3-musllinux_1_1_x86_64.whl"
 
+ls /usr/local/lib/python3.10/site-packages
+ls /usr/lib/python3.10/site-packages
+
 "$bsdtar" -xf "$dp0/release/cryptography-38.0.1-cp36-abi3-musllinux_1_1_x86_64.whl" -C "$cpython_site_packages"
 
 echo "$cpython_bin ..."
