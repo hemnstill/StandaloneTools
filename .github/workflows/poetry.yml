@@ -53,7 +53,7 @@ jobs:
       workflow: ${{ github.workflow }}
       tool_version: '1.2.2'
       prepare_body: |
-         bsdtar -Oxf ./build-musl/build-musl.tar.gz build-musl.md >> body.md
+        bsdtar -Oxf ./build-musl/build-musl.tar.gz build-musl.md >> body.md
         bsdtar -Oxf ./build-msvc/build-msvc.tar.gz build-msvc.md >> body.md
       artifacts: ./build-musl/build-musl.tar.gz, ./build-msvc/build-msvc.tar.gz
     secrets:

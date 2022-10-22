@@ -20,10 +20,7 @@ pip_install_script="get-pip.py"
 
 echo "download python ..."
 python_version=3.10.5
-python_runtime_name="cpython-$python_version-linux-musl-noopt" && $is_windows_os && python_runtime_name="cpython-$python_version-windows-msvc"
-
-linux_download_url="https://github.com/indygreg/python-build-standalone/releases/download/20220630/cpython-3.10.5+20220630-x86_64-unknown-linux-musl-noopt-full.tar.zst"
-download_url="$linux_download_url"
+download_url="https://github.com/indygreg/python-build-standalone/releases/download/20220630/cpython-3.10.5+20220630-x86_64-unknown-linux-musl-noopt-full.tar.zst"
 cpython_zip="$dp0/release/raw_cpython-linux.tar.zst"
 [[ ! -f "$cpython_zip" ]] && wget "$download_url" -O "$cpython_zip"
 
@@ -83,10 +80,10 @@ cd "$release_version_dirpath"
 ' "$(./"$tool_name" --version)" "$("$cpython_bin" --version)"
 } > build-msvc.md
 
-cat build-msvc.md
+cat build-musl.md
 
 "$bsdtar" \
   --exclude="__pycache__" \
   --exclude="Scripts/Scripts" \
   --exclude="*.whl" \
-  -czvf ../build-msvc.tar.gz .
+  -czvf ../build-musl.tar.gz .
