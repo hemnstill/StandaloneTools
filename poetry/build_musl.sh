@@ -3,7 +3,7 @@ dp0="$(realpath "$(dirname "$0")")"
 set -e
 
 apk update
-apk add --no-cache alpine-sdk make linux-headers build-base rust clang musl-dev libressl-dev libffi-dev python3-dev ncurses-dev
+apk add --no-cache alpine-sdk make linux-headers build-base rust clang libressl-dev libffi-dev python3-dev ncurses-dev
 
 tool_name="poetry"
 tool_version="1.2.2"
@@ -50,8 +50,9 @@ fi;
 
 echo "install poetry ..."
 export POETRY_HOME="$dp0/.tmp/poetry"
-"python3" -m ensurepip
-# "python3" -m pip install poetry=="$tool_version"
+#"python3" -m ensurepip
+#"python3" -m pip install poetry=="$tool_version"
+"$cpython_bin" -m pip install wheel
 "$cpython_bin" -m pip install poetry=="$tool_version"
 
 echo "prepare build artifacts ..."
