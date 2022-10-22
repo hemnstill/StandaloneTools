@@ -39,8 +39,6 @@ if [[ ! -f "$cpython_bin" ]]; then
   --exclude="test" \
   --exclude="tests" \
   --exclude="idle_test" \
-  --exclude="site-packages" \
-  --exclude="venv" \
   --exclude="Scripts" \
   --exclude="*.pdb" \
   --exclude="*.whl" \
