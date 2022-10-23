@@ -3,7 +3,7 @@ dp0="$(realpath "$(dirname "$0")")"
 set -e
 
 tool_name="mypy"
-tool_version="0.982"
+tool_version="0.942"
 self_name="poetry-1.2.2"
 echo "::set-output name=tool_name::$tool_name"
 
