@@ -57,7 +57,9 @@ cp -rf "$dp0/.tmp/python/install" "$python_scripts_path/"
 echo "creating archive ..."
 cd "$release_version_dirpath"
 { printf 'Python %s
-' "$("$cpython_bin" -c "import sys; print(sys.version)")"
+%s
+%s
+' "$("$cpython_bin" -c "import sys; print(sys.version)")" "$("$cpython_bin" -m pip --version)" "$download_url"
 } > build-msvc.md
 
 cat build-msvc.md
