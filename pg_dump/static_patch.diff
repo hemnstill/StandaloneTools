@@ -1,11 +1,11 @@
---- old
-+++ new
-@@ -17,7 +17,7 @@
- include $(top_builddir)/src/Makefile.global
- 
+--- a/Makefile
++++ b/Makefile
+@@ -20,7 +20,7 @@ export GZIP_PROGRAM=$(GZIP)
+ export with_icu
+
  override CPPFLAGS := -I$(libpq_srcdir) $(CPPFLAGS)
 -LDFLAGS_INTERNAL += -L$(top_builddir)/src/fe_utils -lpgfeutils $(libpq_pgport)
 +LDFLAGS_INTERNAL += -L$(top_builddir)/src/fe_utils -lpgfeutils $(libpq_pgport) -static
- 
+
  OBJS = \
  	$(WIN32RES) \
