@@ -25,7 +25,7 @@ if [[ ! -f "$tool_root_path/configure" ]]; then
   wget "$download_url" -O "tool-$tool_version.tar.gz" && tar -xf "tool-$tool_version.tar.gz"
 fi
 
-patch "$tool_root_path/src/bin/pg_dump/Makefile" "$dp0/static_patch.diff"
+patch "$tool_root_path/src/bin/pg_dump/Makefile" "$dp0/pg_dump_static_patch.diff"
 patch "$tool_root_path/src/bin/psql/Makefile" "$dp0/psql_static_patch.diff"
 
 cd "$tool_root_path"
