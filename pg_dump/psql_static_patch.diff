@@ -1,0 +1,11 @@
+--- a/Makefile
++++ b/Makefile
+@@ -22,7 +22,7 @@ export with_readline
+ REFDOCDIR= $(top_srcdir)/doc/src/sgml/ref
+
+ override CPPFLAGS := -I. -I$(srcdir) -I$(libpq_srcdir) $(CPPFLAGS)
+-LDFLAGS_INTERNAL += -L$(top_builddir)/src/fe_utils -lpgfeutils $(libpq_pgport)
++LDFLAGS_INTERNAL += -L$(top_builddir)/src/fe_utils -lpgfeutils $(libpq_pgport) -static
+
+ OBJS = \
+ 	$(WIN32RES) \
