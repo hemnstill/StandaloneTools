@@ -57,9 +57,9 @@ chmod +x "pg_dumpall"
 chmod +x "pg_restore"
 chmod +x "psql"
 
-{ printf 'SHA-256: %s
+{ printf '%s
 %s
-' "$(sha256sum $tool_name)" "$("./$tool_name" --version)"
+' "$("./$tool_name" --version)" "$(sha256sum ./**)"
 } > build-musl.md
 
 cat build-musl.md
