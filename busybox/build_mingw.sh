@@ -34,11 +34,9 @@ cp -f "./$tool_name" "$dp0/release/build/"
 
 cd "$dp0/release/build"
 
-{ printf '
+{ printf 'SHA-256: %s
 %s
-SHA-256: %s
-%s
-' "$(./$tool_name | head -2)" "$(sha256sum $tool_name)" "$download_url"
+' "$(sha256sum $tool_name)" "$download_url"
 } > build-mingw.md
 
 cat build-mingw.md
