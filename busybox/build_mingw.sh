@@ -10,7 +10,7 @@ apk add --no-cache alpine-sdk make linux-headers mingw-w64-gcc
 echo "::endgroup::"
 
 tool_name="busybox.exe"
-tool_version="FRP-4487-gd239d2d52"
+tool_version="FRP-4784-g5507c8744"
 echo "::set-output name=tool_name::$tool_name"
 echo "::set-output name=tool_version::$tool_version"
 
@@ -34,7 +34,8 @@ cp -f "./$tool_name" "$dp0/release/build/"
 
 cd "$dp0/release/build"
 
-{ printf 'SHA-256: %s
+{ printf '
+SHA-256: %s
 %s
 ' "$(sha256sum $tool_name)" "$download_url"
 } > build-mingw.md
