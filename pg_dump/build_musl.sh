@@ -10,7 +10,7 @@ apk add --no-cache alpine-sdk linux-headers zlib-dev zlib-static postgresql-dev 
 echo "::endgroup::"
 
 tool_name="pg_dump"
-tool_version="REL_14_4"
+tool_version="REL_15_0"
 echo "::set-output name=tool_name::$tool_name"
 echo "::set-output name=tool_version::$tool_version"
 
@@ -25,7 +25,8 @@ if [[ ! -f "$tool_root_path/configure" ]]; then
   wget "$download_url" -O "tool-$tool_version.tar.gz" && tar -xf "tool-$tool_version.tar.gz"
 fi
 
-patch "$tool_root_path/src/bin/pg_dump/Makefile" "$dp0/static_patch.diff"
+patch "$tool_root_path/src/bin/pg_dump/Makefile" "$dp0/pg_dump_static_patch.diff"
+patch "$tool_root_path/src/bin/psql/Makefile" "$dp0/psql_static_patch.diff"
 
 cd "$tool_root_path"
 
@@ -42,20 +43,23 @@ echo "::endgroup::"
 cp "$tool_root_path/src/bin/pg_dump/pg_dump" "$dp0/release/build/"
 cp "$tool_root_path/src/bin/pg_dump/pg_dumpall" "$dp0/release/build/"
 cp "$tool_root_path/src/bin/pg_dump/pg_restore" "$dp0/release/build/"
+cp "$tool_root_path/src/bin/psql/psql" "$dp0/release/build/"
 
 cd "$dp0/release/build"
 
 strip "$tool_name"
 strip "pg_dumpall"
 strip "pg_restore"
+strip "psql"
 
 chmod +x "$tool_name"
 chmod +x "pg_dumpall"
 chmod +x "pg_restore"
+chmod +x "psql"
 
-{ printf 'SHA-256: %s
+{ printf '%s
 %s
-' "$(sha256sum $tool_name)" "$("./$tool_name" --version)"
+' "$("./$tool_name" --version)" "$(sha256sum *)"
 } > build-musl.md
 
 cat build-musl.md

@@ -10,7 +10,7 @@ apk add --no-cache alpine-sdk linux-headers zlib-dev zlib-static postgresql-dev 
 echo "::endgroup::"
 
 tool_name="pg_dump.exe"
-tool_version="REL_14_4"
+tool_version="REL_15_0"
 echo "::set-output name=tool_name::$tool_name"
 echo "::set-output name=tool_version::$tool_version"
 
@@ -39,13 +39,16 @@ echo "::endgroup::"
 cp "$tool_root_path/src/bin/pg_dump/pg_dump.exe" "$dp0/release/build/"
 cp "$tool_root_path/src/bin/pg_dump/pg_dumpall.exe" "$dp0/release/build/"
 cp "$tool_root_path/src/bin/pg_dump/pg_restore.exe" "$dp0/release/build/"
+cp "$tool_root_path/src/bin/psql/psql.exe" "$dp0/release/build/"
 cp "$tool_root_path/src/interfaces/libpq/libpq.dll" "$dp0/release/build/"
 
 cd "$dp0/release/build"
 
-{ printf 'SHA-256: %s
+{ printf '
 %s
-' "$(sha256sum $tool_name)" "$download_url"
+%s
+%s
+' "$("./$tool_name" --version)" "$(sha256sum *)" "$download_url"
 } > build-mingw.md
 
 cat build-mingw.md

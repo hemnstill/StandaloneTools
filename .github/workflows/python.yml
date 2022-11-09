@@ -1,0 +1,67 @@
+name: python
+
+on: [pull_request, workflow_dispatch]
+
+jobs:
+  prejob:
+    uses: ./.github/workflows/set-output-workflow.yml
+    with:
+      workflow: ${{ github.workflow }}
+    secrets:
+      _WORKFLOW: ${{ secrets._CURRENT_TOOL }}
+
+  alpine-musl:
+    needs: prejob
+    if: ${{ needs.prejob.outputs.workflow == github.workflow }}
+    uses: ./.github/workflows/build-alpine.yml
+    with:
+      workflow: ${{ github.workflow }}
+
+  windows-msvc:
+    needs: prejob
+    if: ${{ needs.prejob.outputs.workflow == github.workflow }}
+    uses: ./.github/workflows/build-windows.yml
+    with:
+      workflow: ${{ github.workflow }}
+      toolset: msvc
+
+  test-ubuntu:
+    needs: alpine-musl
+    uses: ./.github/workflows/test-ubuntu.yml
+    with:
+      workflow: ${{ github.workflow }}
+      artifact: build-musl
+
+  test-alpine:
+    needs: alpine-musl
+    uses: ./.github/workflows/test-alpine.yml
+    with:
+      workflow: ${{ github.workflow }}
+      artifact: build-musl
+
+  test-windows-msvc:
+    needs: windows-msvc
+    uses: ./.github/workflows/test-windows.yml
+    with:
+      workflow: ${{ github.workflow }}
+      artifact: build-msvc
+
+  test-nanoserver-msvc:
+    needs: windows-msvc
+    uses: ./.github/workflows/test-nanoserver.yml
+    with:
+      workflow: ${{ github.workflow }}
+      artifact: build-msvc
+
+  release:
+    needs: [test-alpine, test-ubuntu, test-windows-msvc, test-nanoserver-msvc]
+    uses: ./.github/workflows/release.yml
+    with:
+      workflow: ${{ github.workflow }}
+      tool_version: '3.10.7'
+      prepare_body: |
+        bsdtar -Oxf ./build-musl/build-musl.tar.gz build-musl.md >> body.md
+        bsdtar -Oxf ./build-msvc/build-msvc.tar.gz build-msvc.md >> body.md
+      artifacts: ./build-musl/build-musl.tar.gz, ./build-msvc/build-msvc.tar.gz
+    secrets:
+      token: ${{ secrets.GITHUB_TOKEN }}
