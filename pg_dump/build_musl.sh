@@ -10,7 +10,7 @@ apk add --no-cache alpine-sdk linux-headers zlib-dev zlib-static postgresql-dev 
 echo "::endgroup::"
 
 tool_name="pg_dump"
-tool_version="REL_15_0"
+tool_version="REL_15_1"
 echo "::set-output name=tool_name::$tool_name"
 echo "::set-output name=tool_version::$tool_version"
 
@@ -59,7 +59,10 @@ chmod +x "psql"
 
 { printf '%s
 %s
-' "$("./$tool_name" --version)" "$(sha256sum *)"
+%s
+
+%s
+' "$("./$tool_name" --version)" "$("./pg_restore" --version)" "$("./psql" --version)" "$(sha256sum ./*)"
 } > build-musl.md
 
 cat build-musl.md
