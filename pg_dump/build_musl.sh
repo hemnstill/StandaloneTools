@@ -59,7 +59,10 @@ chmod +x "psql"
 
 { printf '%s
 %s
-' "$("./$tool_name" --version)" "$(sha256sum *)"
+%s
+
+%s
+' "$("./$tool_name" --version)" "$("./pg_restore" --version)" "$("./psql" --version)" "$(sha256sum ./*)"
 } > build-musl.md
 
 cat build-musl.md
