@@ -17,6 +17,8 @@ tar -xf "libarchive-$tool_version.tar.gz" && cd "libarchive-$tool_version"
 ci_download_url="https://raw.githubusercontent.com/libarchive/libarchive/v$tool_version/build/ci/github_actions/ci.cmd"
 wget "$ci_download_url" -O "$dp0/ci.cmd"
 
+patch "$dp0/ci.cmd" "$dp0/release/bdstar_remove_bzip2.diff"
+
 echo "::endgroup::"
 
 echo "::group::build"
