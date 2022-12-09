@@ -3,7 +3,7 @@ dp0="$(realpath "$(dirname "$0")")"
 set -e
 
 tool_name="bsdtar.exe"
-tool_version="3.6.1"
+tool_version="3.6.2"
 echo "::set-output name=tool_name::$tool_name"
 echo "::set-output name=tool_version::$tool_version"
 
@@ -14,7 +14,10 @@ mkdir -p "$dp0/release" && cd "$dp0/release"
 wget "$download_url" -O "libarchive-$tool_version.tar.gz"
 tar -xf "libarchive-$tool_version.tar.gz" && cd "libarchive-$tool_version"
 
-cp -f "../ci.cmd" "../../"
+ci_download_url="https://raw.githubusercontent.com/libarchive/libarchive/v$tool_version/build/ci/github_actions/ci.cmd"
+wget "$ci_download_url" -O "$dp0/ci.cmd"
+
+patch "$dp0/ci.cmd" "$dp0/release/bdstar_remove_bzip2.diff"
 
 echo "::endgroup::"
 
