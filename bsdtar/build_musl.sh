@@ -15,7 +15,7 @@ apk add --allow-untrusted zstd-libs-1.5.2-r1.apk zstd-dev-1.5.2-r1.apk zstd-stat
 echo "::endgroup::"
 
 tool_name="bsdtar"
-tool_version="3.6.1"
+tool_version="3.6.2"
 echo "::set-output name=tool_name::$tool_name"
 echo "::set-output name=tool_version::$tool_version"
 
@@ -56,6 +56,7 @@ chmod +x "$tool_name"
 
 { printf 'SHA-256: %s
 %s
+
 ' "$(sha256sum $tool_name)" "$("./$tool_name" --version)"
 } > build-musl.md
 
