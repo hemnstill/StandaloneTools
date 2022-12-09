@@ -14,6 +14,9 @@ mkdir -p "$dp0/release" && cd "$dp0/release"
 wget "$download_url" -O "libarchive-$tool_version.tar.gz"
 tar -xf "libarchive-$tool_version.tar.gz" && cd "libarchive-$tool_version"
 
+ci_download_url="https://raw.githubusercontent.com/libarchive/libarchive/v$tool_version/build/ci/github_actions/ci.cmd"
+wget "$ci_download_url" -O "$dp0/ci.cmd"
+
 echo "::endgroup::"
 
 echo "::group::build"
