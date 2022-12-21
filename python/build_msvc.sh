@@ -3,22 +3,23 @@ dp0="$(realpath "$(dirname "$0")")"
 set -e
 
 tool_name="python"
-tool_version="3.10.7"
+tool_version="3.10.9"
+release_date="20221220"
 self_name="$tool_name-$tool_version"
 release_version_dirpath="$dp0/release/$self_name"
 echo "::set-output name=tool_name::$tool_name"
 echo "::set-output name=tool_version::$tool_version"
 
 mkdir -p "$release_version_dirpath" && cd "$dp0/release"
-
-echo "download python ..."
-download_url="https://github.com/indygreg/python-build-standalone/releases/download/20221002/cpython-3.10.7+20221002-x86_64-pc-windows-msvc-shared-pgo-full.tar.zst"
+download_url="https://github.com/indygreg/python-build-standalone/releases/download/$release_date/cpython-$tool_version+$release_date-x86_64-pc-windows-msvc-shared-pgo-full.tar.zst"
 cpython_zip="$dp0/release/raw_cpython-win.tar.zst"
+echo "download python from $download_url ..."
 [[ ! -f "$cpython_zip" ]] && wget "$download_url" -O "$cpython_zip"
 
 echo "download bsdtar ..."
-bsdtar_download_url="https://github.com/hemnstill/StandaloneTools/releases/download/bsdtar-3.6.1/build-mingw.tar.gz"
-bsdtar_tar_gz="bsdtar-3.6.1_build-mingw.tar.gz"
+bsdtar_version=3.6.2
+bsdtar_download_url="https://github.com/hemnstill/StandaloneTools/releases/download/bsdtar-$bsdtar_version/build-mingw.tar.gz"
+bsdtar_tar_gz="bsdtar-$bsdtar_version-build-mingw.tar.gz"
 [[ ! -f "$bsdtar_tar_gz" ]] && wget "$bsdtar_download_url" -O "$bsdtar_tar_gz"
 tar -xf "$bsdtar_tar_gz"
 

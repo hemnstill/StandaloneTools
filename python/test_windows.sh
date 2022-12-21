@@ -1,7 +1,7 @@
 #!/bin/bash
 
 test_version() {
-  assertEquals "Python 3.10.7" "$(../bin/Scripts/python.exe --version)"
+  assertEquals "Python 3.10.9" "$(../bin/Scripts/python.exe --version)"
 }
 
 # Load and run shUnit2.
