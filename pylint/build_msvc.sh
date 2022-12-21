@@ -3,8 +3,8 @@ dp0="$(realpath "$(dirname "$0")")"
 set -e
 
 tool_name="pylint"
-tool_version="2.15.3"
-self_name="poetry-1.2.2"
+tool_version="2.15.9"
+self_name="python-3.10.9"
 echo "::set-output name=tool_name::$tool_name"
 
 release_version_dirpath="$dp0/release/$tool_name-$tool_version"
@@ -26,7 +26,6 @@ bsdtar="$dp0/release/bsdtar.exe"
 cpython_bin="$release_version_dirpath/Scripts/python.exe"
 [[ ! -f "$cpython_bin" ]] && tar -xf "$poetry_download_zip" -C "$release_version_dirpath"
 
-"$cpython_bin" -m pip install "astroid==2.12.12"
 "$cpython_bin" -m pip install "$tool_name==$tool_version"
 
 cp -f "$dp0/release/pylint.bat" "$release_version_dirpath/"
