@@ -3,7 +3,7 @@ dp0="$(realpath "$(dirname "$0")")"
 set -e
 
 tool_name="pylint"
-tool_version="2.15.3"
+tool_version="2.15.9"
 self_name="python-3.10.9"
 echo "::set-output name=tool_name::$tool_name"
 
@@ -26,7 +26,7 @@ bsdtar="$dp0/release/bsdtar"
 cpython_bin="$release_version_dirpath/Scripts/bin/python3"
 [[ ! -f "$cpython_bin" ]] && tar -xf "$poetry_download_zip" -C "$release_version_dirpath"
 
-"$cpython_bin" -m pip install "astroid==2.12.12" --force-reinstall --no-binary :all:
+"$cpython_bin" -m pip install "astroid==2.12.13" --force-reinstall --no-binary :all:
 "$cpython_bin" -m pip install "$tool_name==$tool_version"
 
 cp -f "$dp0/release/pylint.sh" "$release_version_dirpath/"
