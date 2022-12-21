@@ -26,7 +26,8 @@ bsdtar="$dp0/release/bsdtar"
 cpython_bin="$release_version_dirpath/Scripts/bin/python3"
 [[ ! -f "$cpython_bin" ]] && tar -xf "$poetry_download_zip" -C "$release_version_dirpath"
 
-"$cpython_bin" -m pip install "lazy-object-proxy==1.8.0" --force-reinstall --no-binary :all:
+"$cpython_bin" -m pip install "astroid==2.12.12" --force-reinstall --no-binary :all:
+"$cpython_bin" -m pip install "dill==0.3.5.1" --force-reinstall --no-binary :all:
 "$cpython_bin" -m pip install "$tool_name==$tool_version"
 
 cp -f "$dp0/release/pylint.sh" "$release_version_dirpath/"
