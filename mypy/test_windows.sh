@@ -1,7 +1,7 @@
 #!/bin/bash
 
 test_version() {
-  assertEquals "mypy 0.942" "$(../bin/mypy.bat --version | dos2unix )"
+  assertEquals "mypy 0.991 (compiled: yes)" "$(../bin/mypy.bat --version | dos2unix )"
 }
 
 # Load and run shUnit2.
