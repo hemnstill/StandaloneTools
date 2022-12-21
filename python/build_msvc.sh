@@ -3,7 +3,8 @@ dp0="$(realpath "$(dirname "$0")")"
 set -e
 
 tool_name="python"
-tool_version="3.10.7"
+tool_version="3.10.9"
+release_url="https://github.com/indygreg/python-build-standalone/releases/tag/20221220"
 self_name="$tool_name-$tool_version"
 release_version_dirpath="$dp0/release/$self_name"
 echo "::set-output name=tool_name::$tool_name"
@@ -12,7 +13,8 @@ echo "::set-output name=tool_version::$tool_version"
 mkdir -p "$release_version_dirpath" && cd "$dp0/release"
 
 echo "download python ..."
-download_url="https://github.com/indygreg/python-build-standalone/releases/download/20221002/cpython-3.10.7+20221002-x86_64-pc-windows-msvc-shared-pgo-full.tar.zst"
+release_date="$(basename "$release_url")"
+download_url="$release_url/cpython-$tool_version+$release_date-x86_64-pc-windows-msvc-shared-pgo-full.tar.zst"
 cpython_zip="$dp0/release/raw_cpython-win.tar.zst"
 [[ ! -f "$cpython_zip" ]] && wget "$download_url" -O "$cpython_zip"
 
