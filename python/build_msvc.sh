@@ -12,10 +12,10 @@ echo "::set-output name=tool_version::$tool_version"
 
 mkdir -p "$release_version_dirpath" && cd "$dp0/release"
 
-echo "download python ..."
 release_date="$(basename "$release_url")"
 download_url="$release_url/cpython-$tool_version+$release_date-x86_64-pc-windows-msvc-shared-pgo-full.tar.zst"
 cpython_zip="$dp0/release/raw_cpython-win.tar.zst"
+echo "download python from $download_url ..."
 [[ ! -f "$cpython_zip" ]] && wget "$download_url" -O "$cpython_zip"
 
 echo "download bsdtar ..."
