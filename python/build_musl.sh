@@ -66,6 +66,7 @@ cd "$release_version_dirpath"
 { printf 'Python %s
 %s
 %s
+
 ' "$("$cpython_bin" -c "import sys; print(sys.version)")" "$("$cpython_bin" -m pip --version)" "$download_url"
 } > build-musl.md
 
