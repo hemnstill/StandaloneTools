@@ -19,8 +19,9 @@ echo "download python from $download_url ..."
 [[ ! -f "$cpython_zip" ]] && wget "$download_url" -O "$cpython_zip"
 
 echo "download bsdtar ..."
-bsdtar_download_url="https://github.com/hemnstill/StandaloneTools/releases/download/bsdtar-3.6.1/build-mingw.tar.gz"
-bsdtar_tar_gz="bsdtar-3.6.1_build-mingw.tar.gz"
+bsdtar_version=3.6.2
+bsdtar_download_url="https://github.com/hemnstill/StandaloneTools/releases/download/bsdtar-$bsdtar_version/build-mingw.tar.gz"
+bsdtar_tar_gz="bsdtar-$bsdtar_version-build-mingw.tar.gz"
 [[ ! -f "$bsdtar_tar_gz" ]] && wget "$bsdtar_download_url" -O "$bsdtar_tar_gz"
 tar -xf "$bsdtar_tar_gz"
 
