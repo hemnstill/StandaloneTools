@@ -32,7 +32,6 @@ cpython_bin="$release_version_dirpath/Scripts/bin/python3"
 [[ ! -f "$cpython_bin" ]] && tar -xf "$python_download_zip" -C "$release_version_dirpath"
 
 echo "install poetry ..."
-export POETRY_HOME="$dp0/.tmp/poetry"
 cpython_lib_path="$release_version_dirpath/Scripts/lib/python3.10/site-packages"
 
 installed_python_version="$("python3" --version)"
