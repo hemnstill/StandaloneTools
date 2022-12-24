@@ -29,7 +29,6 @@ cpython_bin="$release_version_dirpath/Scripts/python.exe"
 [[ ! -f "$cpython_bin" ]] && tar -xf "$python_download_zip" -C "$release_version_dirpath"
 
 echo "install poetry ..."
-export POETRY_HOME="$dp0/.tmp/poetry"
 
 "$cpython_bin" -m pip install poetry=="$tool_version"
 
