@@ -51,7 +51,7 @@ fi;
 echo "prepare build artifacts ..."
 
 cp -f "$dp0/release/poetry.sh" "$release_version_dirpath/"
-cp -f "$dp0/release/__main__.py" "$release_version_dirpath/"
+cp -f "$dp0/release/__main__poetry.py" "$release_version_dirpath/"
 
 echo "creating archive ..."
 
