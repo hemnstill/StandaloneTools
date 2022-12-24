@@ -6,7 +6,8 @@ apk update
 apk add --no-cache alpine-sdk python3-dev
 
 tool_name="poetry"
-tool_version="1.2.2"
+tool_version="1.3.1"
+python_self_name="3.10.9"
 self_name="$tool_name-$tool_version"
 release_version_dirpath="$dp0/release/$self_name"
 echo "::set-output name=tool_name::$tool_name"
@@ -14,46 +15,22 @@ echo "::set-output name=tool_version::$tool_version"
 
 mkdir -p "$release_version_dirpath" && cd "$dp0/release"
 
-echo "download python ..."
-download_url="https://github.com/indygreg/python-build-standalone/releases/download/20220630/cpython-3.10.5+20220630-x86_64-unknown-linux-musl-noopt-full.tar.zst"
-cpython_zip="$dp0/release/raw_cpython-linux.tar.zst"
-[[ ! -f "$cpython_zip" ]] && wget "$download_url" -O "$cpython_zip"
+echo "download python install script ..."
+python_bin_download_url="https://github.com/hemnstill/StandaloneTools/releases/download/$python_self_name/build-musl.tar.gz"
+python_download_zip="$dp0/release/$python_self_name.tar.gz"
+[[ ! -f "$python_download_zip" ]] && wget "$python_bin_download_url" -O "$python_download_zip"
 
 echo "download bsdtar ..."
-bsdtar_download_url="https://github.com/hemnstill/StandaloneTools/releases/download/bsdtar-3.6.1/build-musl.tar.gz"
-bsdtar_tar_gz="bsdtar-3.6.1_build-musl.tar.gz"
+bsdtar_version=3.6.2
+bsdtar_download_url="https://github.com/hemnstill/StandaloneTools/releases/download/bsdtar-$bsdtar_version/build-musl.tar.gz"
+bsdtar_tar_gz="bsdtar-$bsdtar_version-build-musl.tar.gz"
 [[ ! -f "$bsdtar_tar_gz" ]] && wget "$bsdtar_download_url" -O "$bsdtar_tar_gz"
 tar -xf "$bsdtar_tar_gz"
 
 bsdtar="$dp0/release/bsdtar"
-cpython_bin="$dp0/.tmp/python/install/bin/python3"
+cpython_bin="$release_version_dirpath/Scripts/bin/python3"
 cpython_lib_path="$dp0/.tmp/python/install/lib/python3.10/site-packages"
-if [[ ! -f "$cpython_bin" ]]; then
-  echo extract "$cpython_zip" to "$cpython_bin" ...
-  rm -rf "$dp0/.tmp/"* && mkdir -p "$dp0/.tmp" && cd "$dp0/.tmp" || exit 1
-
-  "$bsdtar" \
-  --exclude="__pycache__" \
-  --exclude="test" \
-  --exclude="tests" \
-  --exclude="idle_test" \
-  --exclude="Scripts" \
-  --exclude="*.pdb" \
-  --exclude="*.whl" \
-  --exclude="*.a" \
-  --exclude="*.lib" \
-  --exclude="*.pickle" \
-  --exclude="python/install/include" \
-  --exclude="tcl*.dll" \
-  --exclude="lib/tcl*" \
-  --exclude="tk*.dll" \
-  --exclude="lib/tk*" \
-  --exclude="python/install/tcl" \
-  --exclude="python/install/share" \
-  -xf "$cpython_zip" python/install
-
-  strip "$cpython_bin"
-fi;
+[[ ! -f "$cpython_bin" ]] && tar -xf "$python_download_zip" -C "$release_version_dirpath"
 
 echo "install poetry ..."
 export POETRY_HOME="$dp0/.tmp/poetry"
@@ -67,8 +44,8 @@ if [[ "$installed_python_version" != "$standalone_python_version" ]]; then
   exit 1
 fi;
 
-"python3" -m ensurepip
-"python3" -m pip install --target="$cpython_lib_path" poetry
+#"python3" -m ensurepip
+#"python3" -m pip install --target="$cpython_lib_path" poetry
 
 "$cpython_bin" -m pip install poetry=="$tool_version"
 
