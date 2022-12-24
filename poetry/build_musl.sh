@@ -3,7 +3,7 @@ dp0="$(realpath "$(dirname "$0")")"
 set -e
 
 apk update
-apk add --no-cache alpine-sdk python3-dev libffi-dev
+apk add --no-cache alpine-sdk python3-dev
 
 tool_name="poetry"
 tool_version="1.3.1"
@@ -32,10 +32,22 @@ cpython_bin="$release_version_dirpath/Scripts/bin/python3"
 [[ ! -f "$cpython_bin" ]] && tar -xf "$python_download_zip" -C "$release_version_dirpath"
 
 echo "install poetry ..."
+export POETRY_HOME="$dp0/.tmp/poetry"
+cpython_lib_path="$release_version_dirpath/Scripts/lib/python3.10/site-packages"
 
-"$cpython_bin" -m pip install "cffi==1.15.1" --no-binary :all:
+installed_python_version="$("python3" --version)"
+standalone_python_version="$("$cpython_bin" --version)"
+echo "$installed_python_version (alpine)"
+echo "$standalone_python_version (standalone)"
+if [[ "$installed_python_version" != "$standalone_python_version" ]]; then
+  echo "required same python versions."
+  exit 1
+fi;
 
-"$cpython_bin" -m pip install poetry=="$tool_version"
+"python3" -m ensurepip
+"python3" -m pip install --target="$cpython_lib_path" "poetry==$tool_version"
+
+"$cpython_bin" -m pip install "poetry==$tool_version"
 
 echo "prepare build artifacts ..."
 
