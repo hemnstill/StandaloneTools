@@ -48,11 +48,9 @@ fi;
 "$cpython_bin" -m pip install poetry=="$tool_version"
 
 echo "prepare build artifacts ..."
-rm -rf "$dp0/release/$self_name" && mkdir -p "$dp0/release/$self_name"
-python_scripts_path="$dp0/release/$self_name/Scripts"
-cp -rf "$dp0/.tmp/Scripts" "$python_scripts_path/"
-cp -f "$dp0/release/poetry.sh" "$dp0/release/$self_name/"
-cp -f "$dp0/release/__main__.py" "$dp0/release/$self_name/"
+
+cp -f "$dp0/release/poetry.sh" "$release_version_dirpath/"
+cp -f "$dp0/release/__main__.py" "$release_version_dirpath/"
 
 echo "creating archive ..."
 
