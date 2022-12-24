@@ -29,7 +29,6 @@ tar -xf "$bsdtar_tar_gz"
 
 bsdtar="$dp0/release/bsdtar"
 cpython_bin="$release_version_dirpath/Scripts/bin/python3"
-cpython_lib_path="$dp0/.tmp/python/install/lib/python3.10/site-packages"
 [[ ! -f "$cpython_bin" ]] && tar -xf "$python_download_zip" -C "$release_version_dirpath"
 
 echo "install poetry ..."
@@ -44,15 +43,14 @@ if [[ "$installed_python_version" != "$standalone_python_version" ]]; then
   exit 1
 fi;
 
-#"python3" -m ensurepip
-#"python3" -m pip install --target="$cpython_lib_path" poetry
+"$cpython_bin" -m pip install "cffi==1.15.1" --no-binary :all:
 
 "$cpython_bin" -m pip install poetry=="$tool_version"
 
 echo "prepare build artifacts ..."
 rm -rf "$dp0/release/$self_name" && mkdir -p "$dp0/release/$self_name"
 python_scripts_path="$dp0/release/$self_name/Scripts"
-cp -rf "$dp0/.tmp/python/install" "$python_scripts_path/"
+cp -rf "$dp0/.tmp/Scripts" "$python_scripts_path/"
 cp -f "$dp0/release/poetry.sh" "$dp0/release/$self_name/"
 cp -f "$dp0/release/__main__.py" "$dp0/release/$self_name/"
 

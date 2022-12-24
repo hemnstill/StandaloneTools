@@ -36,7 +36,7 @@ export POETRY_HOME="$dp0/.tmp/poetry"
 echo "prepare build artifacts ..."
 rm -rf "$dp0/release/$self_name" && mkdir -p "$dp0/release/$self_name"
 python_scripts_path="$dp0/release/$self_name/Scripts"
-cp -rf "$dp0/.tmp/python/install" "$python_scripts_path/"
+cp -rf "$dp0/.tmp/Scripts" "$python_scripts_path/"
 cp -f "$dp0/release/poetry.bat" "$dp0/release/$self_name/"
 cp -f "$dp0/release/__main__.py" "$dp0/release/$self_name/"
 
