@@ -4,7 +4,7 @@ set -e
 
 tool_name="poetry"
 tool_version="1.3.1"
-python_self_name="3.10.9"
+python_self_name="python-3.10.9"
 self_name="$tool_name-$tool_version"
 release_version_dirpath="$dp0/release/$self_name"
 echo "::set-output name=tool_name::$tool_name"
