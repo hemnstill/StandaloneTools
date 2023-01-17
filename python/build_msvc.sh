@@ -3,8 +3,8 @@ dp0="$(realpath "$(dirname "$0")")"
 set -e
 
 tool_name="python"
-tool_version="3.10.9"
-release_date="20221220"
+tool_version="3.11.1"
+release_date="20230116"
 self_name="$tool_name-$tool_version"
 release_version_dirpath="$dp0/release/$self_name"
 echo "::set-output name=tool_name::$tool_name"
