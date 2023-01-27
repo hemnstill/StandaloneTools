@@ -30,7 +30,7 @@ jobs:
     uses: ./.github/workflows/test-alpine.yml
     with:
       workflow: ${{ github.workflow }}
-      artifact: build-musl
+      artifact: build-gnu
 
   release:
     needs: [test-alpine, test-ubuntu]
