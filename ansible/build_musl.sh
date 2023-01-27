@@ -62,6 +62,9 @@ echo "prepare build artifacts ..."
 cp -f "$dp0/release/ansible.sh" "$release_version_dirpath/"
 cp -f "$dp0/release/__main__ansible.py" "$release_version_dirpath/"
 
+cp -f "$dp0/release/ansible-config.sh" "$release_version_dirpath/"
+cp -f "$dp0/release/__main__ansible-config.py" "$release_version_dirpath/"
+
 echo "creating archive ..."
 
 cd "$release_version_dirpath"
@@ -70,9 +73,11 @@ cd "$release_version_dirpath"
 
 { printf '%s
 
+%s
+
 Python %s
 
-' "$(./"$tool_name.sh" --version)" "$("$cpython_bin" -c "import sys; print(sys.version)")"
+' "$(./"$tool_name.sh" --version)" "$("./ansible-config.sh" --version)" "$("$cpython_bin" -c "import sys; print(sys.version)")"
 } > build-musl.md
 
 cat build-musl.md
