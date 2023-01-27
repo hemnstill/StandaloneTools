@@ -16,8 +16,7 @@ echo "::set-output name=tool_version::$tool_version"
 mkdir -p "$release_version_dirpath" && cd "$dp0/release"
 
 echo "download python install script ..."
-release_date="20221220"
-python_bin_download_url="https://github.com/indygreg/python-build-standalone/releases/download/$release_date/cpython-3.10.9+$release_date-x86_64-unknown-linux-musl-noopt-full.tar.zst"
+python_bin_download_url="https://github.com/hemnstill/StandaloneTools/releases/download/$self_name/build-musl.tar.gz"
 python_download_zip="$dp0/release/$python_self_name.tar.gz"
 [[ ! -f "$python_download_zip" ]] && wget "$python_bin_download_url" -O "$python_download_zip"
 
@@ -29,8 +28,8 @@ bsdtar_tar_gz="bsdtar-$bsdtar_version-build-musl.tar.gz"
 tar -xf "$bsdtar_tar_gz"
 
 bsdtar="$dp0/release/bsdtar"
-cpython_bin="$release_version_dirpath/python/install/bin/python3"
-cpython_lib_path="$release_version_dirpath/python/install/lib/python3.10/site-packages"
+cpython_bin="$release_version_dirpath/Scripts/bin/python3"
+cpython_lib_path="$release_version_dirpath/Scripts/lib/python3.10/site-packages"
 [[ ! -f "$cpython_bin" ]] && "$bsdtar" -xf "$python_download_zip" -C "$release_version_dirpath"
 
 echo "install ansbile ..."
