@@ -3,6 +3,7 @@
 is_alpine_os=false && [[ -f "/etc/alpine-release" ]] && is_alpine_os=true
 if [[ "$is_alpine_os" == true ]]; then
   apk update
+  apk add --no-cache gcompat
 
   { printf '%s' "-----BEGIN PUBLIC KEY-----
 MIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKCAQEApZ2u1KJKUu/fW4A25y9m
