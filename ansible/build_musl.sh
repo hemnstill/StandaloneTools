@@ -3,7 +3,11 @@ dp0="$(realpath "$(dirname "$0")")"
 set -e
 
 apk update
-apk add --no-cache alpine-sdk python3-dev gcompat
+apk add --no-cache alpine-sdk python3-dev
+
+wget -q -O /etc/apk/keys/sgerrand.rsa.pub https://alpine-pkgs.sgerrand.com/sgerrand.rsa.pub
+wget https://github.com/sgerrand/alpine-pkg-glibc/releases/download/2.35-r0/glibc-2.35-r0.apk
+apk add glibc-2.35-r0.apk
 
 tool_name="ansible"
 tool_version="7.1.0"
@@ -34,7 +38,6 @@ cpython_lib_path="$release_version_dirpath/python/install/lib/python3.10/site-pa
 
 echo "install ansbile ..."
 
-export CFLAGS="-Dffi_call=cffistatic_ffi_call"
 "python3" -m ensurepip
 "python3" -m pip install --target="$cpython_lib_path" cffi
 
