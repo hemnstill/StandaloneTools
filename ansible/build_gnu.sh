@@ -77,7 +77,9 @@ cd "$release_version_dirpath"
 
 Python %s
 
-' "$(./"$tool_name.sh" --version)" "$("./ansible-config.sh" --version)" "$("$cpython_bin" -c "import sys; print(sys.version)")"
+' "$(./"$tool_name.sh" --version)" \
+  "$("./ansible-config.sh" --version | head -1)" \
+  "$("$cpython_bin" -c "import sys; print(sys.version)")"
 } > build-gnu.md
 
 cat build-gnu.md
