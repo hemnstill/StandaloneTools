@@ -1,4 +1,5 @@
 #!/bin/bash
+dp0="$(realpath "$(dirname "$0")")"
 
 test_version() {
   assertEquals "ansible [core 2.14.1]
