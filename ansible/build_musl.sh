@@ -6,7 +6,7 @@ apk update
 apk add --no-cache alpine-sdk python3-dev
 
 tool_name="ansible"
-tool_version="2.14"
+tool_version="7.1.0"
 python_self_name="python-3.10.9"
 self_name="$tool_name-$tool_version"
 release_version_dirpath="$dp0/release/$self_name"
