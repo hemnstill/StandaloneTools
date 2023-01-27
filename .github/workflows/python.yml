@@ -41,7 +41,7 @@ jobs:
       artifact: build-musl
 
   test-ubuntu-gnu:
-    needs: alpine-musl
+    needs: alpine-gnu
     uses: ./.github/workflows/test-ubuntu.yml
     with:
       workflow: ${{ github.workflow }}
