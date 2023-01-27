@@ -3,7 +3,7 @@ dp0="$(realpath "$(dirname "$0")")"
 set -e
 
 apk update
-apk add --no-cache alpine-sdk python3-dev libffi-dev openssl-dev libedit-dev ncurses-dev cmake musl-dev
+apk add --no-cache alpine-sdk python3-dev gcompat
 
 tool_name="ansible"
 tool_version="7.1.0"
