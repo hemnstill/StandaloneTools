@@ -36,7 +36,7 @@ echo "install ansbile ..."
 
 export CFLAGS="-Dffi_call=cffistatic_ffi_call"
 
-"$cpython_bin" -m pip install "$tool_name==$tool_version" --no-binary :all:
+"$cpython_bin" -m pip install "$tool_name==$tool_version"
 
 echo "prepare build artifacts ..."
 
