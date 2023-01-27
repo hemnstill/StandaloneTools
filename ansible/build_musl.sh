@@ -37,8 +37,8 @@ echo "install ansbile ..."
 
 echo "prepare build artifacts ..."
 
-cp -f "$dp0/release/ansbile.sh" "$release_version_dirpath/"
-cp -f "$dp0/release/__main__ansbile.py" "$release_version_dirpath/"
+cp -f "$dp0/release/ansible.sh" "$release_version_dirpath/"
+cp -f "$dp0/release/__main__ansible.py" "$release_version_dirpath/"
 
 echo "creating archive ..."
 
