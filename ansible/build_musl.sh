@@ -30,7 +30,7 @@ tar -xf "$bsdtar_tar_gz"
 
 bsdtar="$dp0/release/bsdtar"
 cpython_bin="$release_version_dirpath/python/install/bin/python3"
-[[ ! -f "$cpython_bin" ]] && tar -xf "$python_download_zip" -C "$release_version_dirpath"
+[[ ! -f "$cpython_bin" ]] && "$bsdtar" -xf "$python_download_zip" -C "$release_version_dirpath"
 
 echo "install ansbile ..."
 
