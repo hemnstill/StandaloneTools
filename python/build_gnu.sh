@@ -21,7 +21,7 @@ echo "download python from $download_url ..."
 
 echo "download bsdtar ..."
 bsdtar_version=3.6.2
-bsdtar_download_url="https://github.com/hemnstill/StandaloneTools/releases/download/bsdtar-$bsdtar_version/build-gnu.tar.gz"
+bsdtar_download_url="https://github.com/hemnstill/StandaloneTools/releases/download/bsdtar-$bsdtar_version/build-musl.tar.gz"
 bsdtar_tar_gz="bsdtar-$bsdtar_version-build-gnu.tar.gz"
 [[ ! -f "$bsdtar_tar_gz" ]] && wget "$bsdtar_download_url" -O "$bsdtar_tar_gz"
 tar -xf "$bsdtar_tar_gz"
