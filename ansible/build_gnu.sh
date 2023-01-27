@@ -34,7 +34,7 @@ echo "::set-output name=tool_version::$tool_version"
 mkdir -p "$release_version_dirpath" && cd "$dp0/release"
 
 echo "download python install script ..."
-python_bin_download_url="https://github.com/indygreg/python-build-standalone/releases/download/20221220/cpython-3.10.9+20221220-x86_64-unknown-linux-gnu-pgo-full.tar.zst"
+python_bin_download_url="https://github.com/hemnstill/StandaloneTools/releases/download/$python_self_name/build-gnu.tar.gz"
 python_download_zip="$dp0/release/$python_self_name.tar.gz"
 [[ ! -f "$python_download_zip" ]] && wget "$python_bin_download_url" -O "$python_download_zip"
 
@@ -46,8 +46,8 @@ bsdtar_tar_gz="bsdtar-$bsdtar_version-build-musl.tar.gz"
 tar -xf "$bsdtar_tar_gz"
 
 bsdtar="$dp0/release/bsdtar"
-cpython_bin="$release_version_dirpath/python/install/bin/python3"
-cpython_lib_path="$release_version_dirpath/python/install/lib/python3.10/site-packages"
+cpython_bin="$release_version_dirpath/Scripts/bin/python3"
+cpython_lib_path="$release_version_dirpath/Scripts/lib/python3.10/site-packages"
 [[ ! -f "$cpython_bin" ]] && "$bsdtar" -xf "$python_download_zip" -C "$release_version_dirpath"
 
 echo "install ansbile ..."
@@ -78,12 +78,12 @@ cd "$release_version_dirpath"
 Python %s
 
 ' "$(./"$tool_name.sh" --version)" "$("./ansible-config.sh" --version)" "$("$cpython_bin" -c "import sys; print(sys.version)")"
-} > build-musl.md
+} > build-gnu.md
 
-cat build-musl.md
+cat build-gnu.md
 
 "$bsdtar" \
   --exclude="__pycache__" \
   --exclude="Scripts/Scripts" \
   --exclude="*.whl" \
-  -czvf ../build-musl.tar.gz .
+  -czvf ../build-gnu.tar.gz .
