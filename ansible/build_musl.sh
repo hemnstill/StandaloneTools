@@ -47,7 +47,7 @@ cd "$release_version_dirpath"
 
 Python %s
 
-' "$(./"$tool_name.sh" about)" "$("$cpython_bin" -c "import sys; print(sys.version)")"
+' "$(./"$tool_name.sh" --version)" "$("$cpython_bin" -c "import sys; print(sys.version)")"
 } > build-musl.md
 
 cat build-musl.md
