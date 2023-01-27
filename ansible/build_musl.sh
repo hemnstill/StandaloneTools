@@ -16,7 +16,7 @@ echo "::set-output name=tool_version::$tool_version"
 mkdir -p "$release_version_dirpath" && cd "$dp0/release"
 
 echo "download python install script ..."
-release_date="20230116"
+release_date="20221220"
 python_bin_download_url="https://github.com/indygreg/python-build-standalone/releases/download/$release_date/cpython-3.10.9+$release_date-x86_64-pc-windows-msvc-shared-pgo-full.tar.zst"
 python_download_zip="$dp0/release/$python_self_name.tar.gz"
 [[ ! -f "$python_download_zip" ]] && wget "$python_bin_download_url" -O "$python_download_zip"
