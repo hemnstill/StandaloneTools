@@ -25,7 +25,7 @@ export LC_ALL=en_US.UTF-8
 
 tool_name="ansible"
 tool_version="7.1.0"
-python_self_name="python-3.10.9"
+python_self_name="python-3.11.1"
 self_name="$tool_name-$tool_version"
 release_version_dirpath="$dp0/release/$self_name"
 echo "::set-output name=tool_name::$tool_name"
