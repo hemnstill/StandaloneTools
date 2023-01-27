@@ -13,7 +13,7 @@ Zvo9GI2e2MaZyo9/lvb+LbLEJZKEQckqRj4P26gmASrZEPStwc+yqy1ShHLA0j6m
 -----END PUBLIC KEY-----"
 } > "/etc/apk/keys/sgerrand.rsa.pub"
 wget https://github.com/sgerrand/alpine-pkg-glibc/releases/download/2.35-r0/glibc-2.35-r0.apk
-apk add --force-overwrite glibc-2.35-r0.apk
+apk add --force-overwrite gcompat glibc-2.35-r0.apk
 fi
 
 test_version() {
