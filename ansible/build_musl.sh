@@ -35,6 +35,7 @@ cpython_bin="$release_version_dirpath/python/install/bin/python3"
 echo "install ansbile ..."
 
 export CFLAGS="-Dffi_call=cffistatic_ffi_call"
+"$cpython_bin" -m pip install cffi
 
 "$cpython_bin" -m pip install "$tool_name==$tool_version"
 
