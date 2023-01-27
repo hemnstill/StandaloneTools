@@ -14,15 +14,15 @@ echo "::set-output name=tool_name::$tool_name"
 echo "::set-output name=tool_version::$tool_version"
 
 mkdir -p "$release_version_dirpath" && cd "$dp0/release"
-download_url="https://github.com/indygreg/python-build-standalone/releases/download/$release_date/cpython-$tool_version+$release_date-x86_64-unknown-linux-musl-noopt-full.tar.zst"
+download_url="https://github.com/indygreg/python-build-standalone/releases/download/$release_date/cpython-$tool_version+$release_date-x86_64-unknown-linux-gnu-pgo-full.tar.zst"
 cpython_zip="$dp0/release/raw_cpython-linux.tar.zst"
 echo "download python from $download_url ..."
 [[ ! -f "$cpython_zip" ]] && wget "$download_url" -O "$cpython_zip"
 
 echo "download bsdtar ..."
 bsdtar_version=3.6.2
-bsdtar_download_url="https://github.com/hemnstill/StandaloneTools/releases/download/bsdtar-$bsdtar_version/build-musl.tar.gz"
-bsdtar_tar_gz="bsdtar-$bsdtar_version-build-musl.tar.gz"
+bsdtar_download_url="https://github.com/hemnstill/StandaloneTools/releases/download/bsdtar-$bsdtar_version/build-gnu.tar.gz"
+bsdtar_tar_gz="bsdtar-$bsdtar_version-build-gnu.tar.gz"
 [[ ! -f "$bsdtar_tar_gz" ]] && wget "$bsdtar_download_url" -O "$bsdtar_tar_gz"
 tar -xf "$bsdtar_tar_gz"
 
@@ -67,12 +67,12 @@ cd "$release_version_dirpath"
 %s
 
 ' "$("$cpython_bin" -c "import sys; print(sys.version)")" "$("$cpython_bin" -m pip --version)" "$download_url"
-} > build-musl.md
+} > build-gnu.md
 
-cat build-musl.md
+cat build-gnu.md
 
 "$bsdtar" \
   --exclude="__pycache__" \
   --exclude="Scripts/Scripts" \
   --exclude="*.whl" \
-  -czvf ../build-musl.tar.gz .
+  -czvf ../build-gnu.tar.gz .
