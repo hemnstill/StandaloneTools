@@ -30,12 +30,13 @@ tar -xf "$bsdtar_tar_gz"
 
 bsdtar="$dp0/release/bsdtar"
 cpython_bin="$release_version_dirpath/python/install/bin/python3"
+cpython_lib_path="$release_version_dirpath/python/install/lib/python3.10/site-packages"
 [[ ! -f "$cpython_bin" ]] && "$bsdtar" -xf "$python_download_zip" -C "$release_version_dirpath"
 
 echo "install ansbile ..."
 
 export CFLAGS="-Dffi_call=cffistatic_ffi_call"
-"$cpython_bin" -m pip install cffi --no-binary :all:
+"python3" -m pip install --target="$cpython_lib_path" cffi
 
 "$cpython_bin" -m pip install "$tool_name==$tool_version"
 
