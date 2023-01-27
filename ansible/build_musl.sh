@@ -36,7 +36,7 @@ echo "install ansbile ..."
 
 export CFLAGS="-Dffi_call=cffistatic_ffi_call"
 "python3" -m ensurepip
-"python3" -m pip install --target="$cpython_lib_path" cffi --no-binary :all:
+"python3" -m pip install --target="$cpython_lib_path" cffi --no-binary :all: --no-cache-dir
 
 "$cpython_bin" -m pip install "$tool_name==$tool_version"
 
