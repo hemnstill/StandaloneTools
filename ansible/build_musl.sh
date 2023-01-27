@@ -33,7 +33,7 @@ cpython_bin="$release_version_dirpath/Scripts/bin/python3"
 
 echo "install ansbile ..."
 
-"$cpython_bin" -m pip install "ansbile==$tool_version"
+"$cpython_bin" -m pip install "$tool_name==$tool_version"
 
 echo "prepare build artifacts ..."
 
