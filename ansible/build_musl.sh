@@ -21,7 +21,7 @@ wget https://github.com/sgerrand/alpine-pkg-glibc/releases/download/2.35-r0/glib
 wget https://github.com/sgerrand/alpine-pkg-glibc/releases/download/2.35-r0/glibc-i18n-2.35-r0.apk
 apk add --force-overwrite glibc-2.35-r0.apk glibc-bin-2.35-r0.apk glibc-i18n-2.35-r0.apk
 /usr/glibc-compat/bin/localedef -i en_US -f UTF-8 en_US.UTF-8
-
+export LC_ALL=en_US.UTF-8
 
 tool_name="ansible"
 tool_version="7.1.0"
@@ -65,6 +65,9 @@ cp -f "$dp0/release/__main__ansible.py" "$release_version_dirpath/"
 echo "creating archive ..."
 
 cd "$release_version_dirpath"
+
+./"$tool_name.sh" --version
+
 { printf '%s
 
 Python %s
