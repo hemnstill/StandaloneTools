@@ -3,11 +3,11 @@ dp0="$(realpath "$(dirname "$0")")"
 set -e
 
 apk update
-apk add --no-cache alpine-sdk python3-dev
+apk add --no-cache alpine-sdk python3-dev libffi-dev openssl-dev
 
 tool_name="ansible"
 tool_version="7.1.0"
-python_self_name="poetry-1.3.1"
+python_self_name="python-3.10.9"
 self_name="$tool_name-$tool_version"
 release_version_dirpath="$dp0/release/$self_name"
 echo "::set-output name=tool_name::$tool_name"
