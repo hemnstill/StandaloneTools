@@ -14,9 +14,10 @@ Zvo9GI2e2MaZyo9/lvb+LbLEJZKEQckqRj4P26gmASrZEPStwc+yqy1ShHLA0j6m
 1QIDAQAB
 -----END PUBLIC KEY-----"
 } > "/etc/apk/keys/sgerrand.rsa.pub"
+  wget https://github.com/sgerrand/alpine-pkg-glibc/releases/download/2.35-r0/glibc-2.35-r0.apk
   wget https://github.com/sgerrand/alpine-pkg-glibc/releases/download/2.35-r0/glibc-bin-2.35-r0.apk
   wget https://github.com/sgerrand/alpine-pkg-glibc/releases/download/2.35-r0/glibc-i18n-2.35-r0.apk
-  apk add --force-overwrite glibc-bin-2.35-r0.apk glibc-i18n-2.35-r0.apk
+  apk add --force-overwrite glibc-2.35-r0.apk glibc-bin-2.35-r0.apk glibc-i18n-2.35-r0.apk
   /usr/glibc-compat/bin/localedef -i en_US -f UTF-8 en_US.UTF-8
 fi
 
