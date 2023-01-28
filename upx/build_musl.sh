@@ -28,7 +28,7 @@ cp ./upx "$dp0/release/build/upx"
 cp ./upx "$dp0/release/build/upx_packed"
 # repacking
 ./upx -d "$dp0/release/build/upx_packed"
-./upx --brute "$dp0/release/build/upx_packed"
+./upx --ultra-brute "$dp0/release/build/upx_packed"
 
 echo "::endgroup::"
 
