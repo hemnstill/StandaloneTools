@@ -9,7 +9,7 @@ testPackedVersion() {
 }
 
 testPackedBsdtarVersion() {
-  assertEquals "bsdtar" "$(../bin/bsdtar --version | head -1)"
+  assertEquals "bsdtar 3.6.2 - libarchive 3.6.2 zlib/1.2.12 liblzma/5.2.5 libzstd/1.5.2 " "$(../bin/bsdtar --version | head -1)"
 }
 
 # Load and run shUnit2.
