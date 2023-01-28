@@ -35,7 +35,7 @@ cd "$dp0/release/build"
 SHA-256: %s
 %s
 
-' "$("./$tool_name" --version | head -1)" "$download_url"
+' "$(sha256sum "./$tool_name")" "$download_url"
 } > build-mingw.md
 
 cat build-mingw.md
