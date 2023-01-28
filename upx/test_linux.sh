@@ -1,7 +1,7 @@
 #!/bin/bash
 
 testVersion() {
-  assertEquals "upx" "$(../bin/upx --version)"
+  assertEquals "upx 3.96" "$(../bin/upx --version | head -1)"
 }
 
 # Load and run shUnit2.
