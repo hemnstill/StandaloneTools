@@ -24,7 +24,7 @@ testPackedBsdtarVersion() {
 }
 
 testPackedBsdtarCreateArchive() {
-  assertEquals "a bsdtar" "$(../bin/bsdtar -cvf bsdtar.tar.gz ../bin/bsdtar)"
+  assertEquals "" "$(../bin/bsdtar -cvf bsdtar.tar.gz ../bin/bsdtar)"
 }
 
 # Load and run shUnit2.
