@@ -30,12 +30,13 @@ echo "::endgroup::"
 
 cd "$dp0/release/build"
 
-{ printf 'SHA-256: %s
-
-%s
+{ printf '
 %s
 
-' "$(sha256sum "./$tool_name")" "$("./$tool_name" --version)" "$download_url"
+SHA-256: %s
+%s
+
+' "$("./$tool_name" --version)" "$(sha256sum "./$tool_name")" "$download_url"
 } > build-musl.md
 
 cat build-musl.md

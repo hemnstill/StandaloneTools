@@ -31,12 +31,11 @@ echo "::endgroup::"
 
 cd "$dp0/release/build"
 
-{ printf 'SHA-256: %s
-
+{ printf '
+SHA-256: %s
 %s
-%s
 
-' "$(sha256sum "$tool_name.exe")" "$("./$tool_name" --version)" "$download_url"
+' "$("./$tool_name" --version | head -1)" "$download_url"
 } > build-mingw.md
 
 cat build-mingw.md
