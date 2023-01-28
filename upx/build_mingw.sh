@@ -10,9 +10,6 @@ tool_name="upx"
 tool_version="3.96"
 self_name="$tool_name-$tool_version"
 
-echo "::set-output name=tool_name::$tool_name"
-echo "::set-output name=tool_version::$tool_version"
-
 download_url="https://github.com/upx/upx/releases/download/v$tool_version/$self_name-win64.zip"
 echo "::group::prepare sources $download_url"
 
