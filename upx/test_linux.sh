@@ -3,11 +3,11 @@
 is_fedora_os=false && [[ -f "/etc/fedora-release" ]] && is_fedora_os=true
 is_rockylinux_os=false && [[ -f "/etc/rockylinux-release" ]] && is_rockylinux_os=true
 
-if [[ "is_fedora_os" == true ]]; then
+if [[ "$is_fedora_os" == true ]]; then
   yum -y install findutils
 fi
 
-if [[ "is_rockylinux_os" == true ]]; then
+if [[ "$is_rockylinux_os" == true ]]; then
   yum -y install findutils
 fi
 
