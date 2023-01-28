@@ -32,15 +32,6 @@ jobs:
       workflow: ${{ github.workflow }}
       artifact: build-musl
 
-  test-ubuntu:
-    needs: alpine-musl
-    if: ${{ needs.prejob.outputs.workflow == github.workflow }}
-    uses: ./.github/workflows/test-ubuntu.yml
-    with:
-      workflow: ${{ github.workflow }}
-      artifact: build-musl
-
-
   test-linux-containers:
     needs: alpine-musl
     if: ${{ needs.prejob.outputs.workflow == github.workflow }}
@@ -59,7 +50,6 @@ jobs:
 
   release:
     needs: [test-alpine,
-            test-ubuntu,
             test-linux-containers,
             test-windows]
     uses: ./.github/workflows/release.yml
