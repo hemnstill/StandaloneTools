@@ -2,7 +2,14 @@
 dp0="$(realpath "$(dirname "$0")")"
 set -e
 
+is_rockylinux_os=false && [[ -f "/etc/rockylinux-release" ]] && is_rockylinux_os=true
+
 echo "::group::install deps"
+
+if [[ "$is_rockylinux_os" == true ]]; then
+  yum -y install tar
+fi
+
 
 echo "::endgroup::"
 
