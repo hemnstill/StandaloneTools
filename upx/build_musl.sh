@@ -31,8 +31,6 @@ cp ./upx "$dp0/release/build/upx_packed"
 ./upx -d "$dp0/release/build/upx_packed"
 ./upx -9 "$dp0/release/build/upx_packed"
 
-cp "$dp0/release/bsdtar" "$dp0/release/build/"
-
 echo "::endgroup::"
 
 cd "$dp0/release/build"

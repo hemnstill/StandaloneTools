@@ -23,9 +23,13 @@ echo "::endgroup::"
 
 echo "::group::build"
 
-cp ./upx.exe "$dp0/release/build/upx_packed.exe"
 cp ./upx.exe "$dp0/release/build/upx.exe"
-./upx -d "$dp0/release/build/upx.exe"
+./upx.exe -d "$dp0/release/build/upx.exe"
+
+cp ./upx.exe "$dp0/release/build/upx_packed.exe"
+# repacking
+./upx.exe -d "$dp0/release/build/upx_packed.exe"
+./upx.exe -9 "$dp0/release/build/upx_packed.exe"
 
 echo "::endgroup::"
 
@@ -35,7 +39,7 @@ cd "$dp0/release/build"
 SHA-256: %s
 %s
 
-' "$(sha256sum "./$tool_name")" "$download_url"
+' "$(sha256sum "./$tool_name.exe")" "$download_url"
 } > build-mingw.md
 
 cat build-mingw.md
