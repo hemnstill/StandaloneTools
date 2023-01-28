@@ -18,7 +18,7 @@ jobs:
     strategy:
       matrix:
         container: [
-          "ubuntu:16.04", "ubuntu:18.04", "ubuntu:20.04", "ubuntu:22.04", "ubuntu:latest"
+          "ubuntu:16.04", "ubuntu:18.04", "ubuntu:20.04", "ubuntu:22.04", "ubuntu:latest",
           "fedora:35", "fedora:36", "fedora:37", "fedora:latest",
           "rockylinux:8-minimal", "rockylinux:9-minimal", "rockylinux:latest"
         ]
