@@ -1,0 +1,37 @@
+on:
+  workflow_call:
+    inputs:
+      workflow:
+        required: true
+        type: string
+      artifact:
+        required: true
+        type: string
+      version:
+        required: false
+        type: string
+        default: 'latest'
+
+jobs:
+  test-ubuntu:
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        container: [ "ubuntu:bionic", "fedora:31", "opensuse/leap:42.3", "centos8" ]
+
+    container:
+      image: ${{ matrix.container }}
+
+    steps:
+      - uses: actions/checkout@v3
+      - uses: actions/download-artifact@v3
+        with:
+          name: ${{ inputs.artifact }}
+          path: .
+
+      - name: Test ${{ inputs.artifact }} build on ${{ matrix.container }}
+        run: |
+          tar -xf ./${{ inputs.artifact }}.tar.gz -C ./bin
+          cd ./${{ inputs.workflow }}
+          ./test_linux.sh
+
