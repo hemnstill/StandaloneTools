@@ -20,7 +20,7 @@ Zvo9GI2e2MaZyo9/lvb+LbLEJZKEQckqRj4P26gmASrZEPStwc+yqy1ShHLA0j6m
 fi
 
 test_version() {
-  assertEquals "Python 3.11.1" "$(../bin/Scripts/bin/python3 --version)"
+  assertEquals "Python 3.7.9" "$(../bin/Scripts/bin/python3 --version)"
 }
 
 # Load and run shUnit2.
