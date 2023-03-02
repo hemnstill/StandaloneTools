@@ -4,14 +4,14 @@ set -e
 
 tool_name="playwright"
 tool_version="1.31.1"
-self_name="python-3.10.9"
+self_name="python-3.11.1"
 echo "::set-output name=tool_name::$tool_name"
 
 release_version_dirpath="$dp0/release/$tool_name-$tool_version"
 mkdir -p "$release_version_dirpath" && cd "$dp0/release"
 
 echo "download python install script ..."
-python_bin_download_url="https://github.com/hemnstill/StandaloneTools/releases/download/$self_name/build-musl.tar.gz"
+python_bin_download_url="https://github.com/hemnstill/StandaloneTools/releases/download/$self_name/build-gnu.tar.gz"
 python_download_zip="$dp0/release/$self_name.tar.gz"
 [[ ! -f "$python_download_zip" ]] && wget "$python_bin_download_url" -O "$python_download_zip"
 
