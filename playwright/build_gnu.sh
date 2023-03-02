@@ -38,8 +38,11 @@ cp -f "$dp0/release/__main__playwright.py" "$release_version_dirpath/"
 echo "creating archive ..."
 
 cd "$release_version_dirpath"
-{ printf '%s
-' "$(./"$tool_name.sh" --version)"
+{ printf '### build-gnu.tar.gz
+playwright %s
+%s
+
+' "$(./"$tool_name.sh" --version)" "$("$cpython_bin" -c "import sys; print(sys.version)")"
 } > build-gnu.md
 
 cat build-gnu.md

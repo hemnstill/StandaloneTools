@@ -4,7 +4,7 @@ set -e
 
 tool_name="playwright"
 tool_version="1.31.1"
-self_name="python-3.10.9"
+self_name="python-3.11.1"
 echo "::set-output name=tool_name::$tool_name"
 
 release_version_dirpath="$dp0/release/$tool_name-$tool_version"
@@ -35,8 +35,11 @@ cp -f "$dp0/release/__main__playwright.py" "$release_version_dirpath/"
 echo "creating archive ..."
 
 cd "$release_version_dirpath"
-{ printf '%s
-' "$(./"$tool_name.bat" --version)"
+{ printf '### build-msvc.tar.gz
+playwright %s
+%s
+
+' "$(./"$tool_name.sh" --version)" "$("$cpython_bin" -c "import sys; print(sys.version)")"
 } > build-msvc.md
 
 cat build-msvc.md
