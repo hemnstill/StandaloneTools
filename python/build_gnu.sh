@@ -19,15 +19,15 @@ wget https://github.com/sgerrand/alpine-pkg-glibc/releases/download/2.35-r0/glib
 apk add --force-overwrite glibc-2.35-r0.apk
 
 tool_name="python"
-tool_version="3.7.9"
-release_date="20200822"
+tool_version="3.11.1"
+release_date="20230116"
 self_name="$tool_name-$tool_version"
 release_version_dirpath="$dp0/release/$self_name"
 echo "::set-output name=tool_name::$tool_name"
 echo "::set-output name=tool_version::$tool_version"
 
 mkdir -p "$release_version_dirpath" && cd "$dp0/release"
-download_url="https://github.com/indygreg/python-build-standalone/releases/download/$release_date/cpython-$tool_version-x86_64-unknown-linux-gnu-pgo-20200823T0036.tar.zst"
+download_url="https://github.com/indygreg/python-build-standalone/releases/download/$release_date/cpython-$tool_version+$release_date-x86_64-unknown-linux-gnu-pgo-full.tar.zst"
 cpython_zip="$dp0/release/raw_cpython-linux.tar.zst"
 echo "download python from $download_url ..."
 [[ ! -f "$cpython_zip" ]] && wget "$download_url" -O "$cpython_zip"
@@ -41,7 +41,7 @@ tar -xf "$bsdtar_tar_gz"
 
 bsdtar="$dp0/release/bsdtar"
 cpython_bin="$dp0/.tmp/python/install/bin/python3"
-cpython_dll="$dp0/.tmp/python/install/lib/libpython3.7m.so.1.0"
+cpython_dll="$dp0/.tmp/python/install/lib/libpython3.11m.so.1.0"
 if [[ ! -f "$cpython_bin" ]]; then
   echo extract "$cpython_zip" to "$cpython_bin" ...
   rm -rf "$dp0/.tmp/"* && mkdir -p "$dp0/.tmp" && cd "$dp0/.tmp" || exit 1
@@ -77,7 +77,8 @@ cp -rf "$dp0/.tmp/python/install" "$python_scripts_path/"
 
 echo "creating archive ..."
 cd "$release_version_dirpath"
-{ printf 'Python %s
+{ printf '### build-gnu.tar.gz
+Python %s
 %s
 %s
 
