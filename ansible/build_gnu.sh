@@ -25,13 +25,15 @@ export LC_ALL=en_US.UTF-8
 
 tool_name="ansible"
 tool_version="7.1.0"
+tool_core_version="2.14.1"
+tool_lint_version="6.13.1"
 python_self_name="python-3.11.1"
 self_name="$tool_name-$tool_version"
 release_version_dirpath="$dp0/release/$self_name"
 echo "::set-output name=tool_name::$tool_name"
 echo "::set-output name=tool_version::$tool_version"
 
-mkdir -p "$release_version_dirpath" && cd "$dp0/release"
+mkdir -p "$release_version_dirpath/Scripts/bin" && cd "$dp0/release"
 
 echo "download python install script ..."
 python_bin_download_url="https://github.com/hemnstill/StandaloneTools/releases/download/$python_self_name/build-gnu.tar.gz"
@@ -55,15 +57,22 @@ echo "install ansbile ..."
 "python3" -m ensurepip
 "python3" -m pip install --target="$cpython_lib_path" cffi
 
+"$cpython_bin" -m pip install "ansible-core==$tool_core_version"
 "$cpython_bin" -m pip install "$tool_name==$tool_version"
+"$cpython_bin" -m pip install "ansible-lint==$tool_lint_version"
 
 echo "prepare build artifacts ..."
 
 cp -f "$dp0/release/ansible.sh" "$release_version_dirpath/"
 cp -f "$dp0/release/__main__ansible.py" "$release_version_dirpath/"
+# ansible entrypoint is required for ansible-lint
+cp --verbose -f "$dp0/release/_ansible" "$release_version_dirpath/Scripts/bin/ansible"
 
 cp -f "$dp0/release/ansible-config.sh" "$release_version_dirpath/"
 cp -f "$dp0/release/__main__ansible-config.py" "$release_version_dirpath/"
+
+cp -f "$dp0/release/ansible-lint.sh" "$release_version_dirpath/"
+cp -f "$dp0/release/__main__ansible-lint.py" "$release_version_dirpath/"
 
 echo "creating archive ..."
 
@@ -71,12 +80,16 @@ cd "$release_version_dirpath"
 
 ./"$tool_name.sh" --version
 
-{ printf '%s
+{ printf '### build-gnu.tar.gz
+%s
+
+%s
 
 %s
 
 ' "$(./"$tool_name.sh" --version)" \
-  "$("./ansible-config.sh" --version | head -1)"
+  "$(./"ansible-config.sh" --version | head -1)" \
+  "$(./"ansible-lint.sh" --version)"
 } > build-gnu.md
 
 cat build-gnu.md

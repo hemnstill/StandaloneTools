@@ -1,9 +1,11 @@
 #!/bin/bash
 
 is_alpine_os=false && [[ -f "/etc/alpine-release" ]] && is_alpine_os=true
+is_ubuntu_os=false && [[ -f "/etc/lsb-release" ]] && is_ubuntu_os=true
+
 if [[ "$is_alpine_os" == true ]]; then
   apk update
-  apk add --no-cache gcompat
+  apk add --no-cache gcompat git
 
   { printf '%s' "-----BEGIN PUBLIC KEY-----
 MIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKCAQEApZ2u1KJKUu/fW4A25y9m
@@ -23,6 +25,11 @@ Zvo9GI2e2MaZyo9/lvb+LbLEJZKEQckqRj4P26gmASrZEPStwc+yqy1ShHLA0j6m
   export LC_ALL=en_US.UTF-8
 fi
 
+if [[ "$is_ubuntu_os" == true ]]; then
+  apt update
+  apt install -y git
+fi
+
 test_version() {
   assertEquals "ansible [core 2.14.1]
   config file = None
@@ -33,6 +40,11 @@ test_version() {
   python version = 3.11.1 (main, Jan 16 2023, 22:40:32) [Clang 15.0.7 ] (/__w/StandaloneTools/StandaloneTools/bin/Scripts/bin/python3)
   jinja version = 3.1.2
   libyaml = True" "$(../bin/ansible.sh --version)"
+}
+
+
+test_ansible_lint_version() {
+  assertEquals "ansible-lint 6.13.1 using ansible 2.14.1" "$(../bin/ansible-lint.sh --version | head -1)"
 }
 
 # Load and run shUnit2.
