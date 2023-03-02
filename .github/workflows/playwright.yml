@@ -8,7 +8,7 @@ jobs:
     with:
       workflow: ${{ github.workflow }}
     secrets:
-      _WORKFLOW: ${{ secrets._CURRENT_TOOL }}
+      _WORKFLOW: _playwright
 
   windows-msvc:
     needs: prejob
