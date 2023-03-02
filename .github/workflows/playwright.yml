@@ -8,7 +8,7 @@ jobs:
     with:
       workflow: ${{ github.workflow }}
     secrets:
-      _WORKFLOW: _playwright
+      _WORKFLOW: ${{ secrets._CURRENT_TOOL }}
 
   ubuntu-gnu:
     needs: prejob
