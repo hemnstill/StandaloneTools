@@ -27,11 +27,6 @@ bsdtar="$dp0/release/bsdtar"
 cpython_bin="$release_version_dirpath/Scripts/bin/python3"
 [[ ! -f "$cpython_bin" ]] && tar -xf "$python_download_zip" -C "$release_version_dirpath"
 
-#   File "/lib/python3.10/site-packages/dill/_dill.py", line 1854, in <module>
-#     _PyCapsule_New = ctypes.pythonapi.PyCapsule_New
-# AttributeError: 'NoneType' object has no attribute 'PyCapsule_New'
-# "$cpython_bin" -m pip install "dill==0.3.5.1" --no-binary :all:
-
 "$cpython_bin" -m pip install "$tool_name==$tool_version"
 
 cp -f "$dp0/release/playwright.sh" "$release_version_dirpath/"
