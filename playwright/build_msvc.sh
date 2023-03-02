@@ -36,10 +36,10 @@ echo "creating archive ..."
 
 cd "$release_version_dirpath"
 { printf '### build-msvc.tar.gz
-playwright %s
-%s
+Playwright %s
+Python %s
 
-' "$(./"$tool_name.sh" --version)" "$("$cpython_bin" -c "import sys; print(sys.version)")"
+' "$(./"$tool_name.bat" --version)" "$("$cpython_bin" -c "import sys; print(sys.version)")"
 } > build-msvc.md
 
 cat build-msvc.md
