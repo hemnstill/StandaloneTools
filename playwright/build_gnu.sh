@@ -37,12 +37,12 @@ echo "creating archive ..."
 cd "$release_version_dirpath"
 { printf '%s
 ' "$(./"$tool_name.sh" --version)"
-} > build-musl.md
+} > build-gnu.md
 
-cat build-musl.md
+cat build-gnu.md
 
 "$bsdtar" \
   --exclude="__pycache__" \
   --exclude="Scripts/Scripts" \
   --exclude="*.whl" \
-  -czvf ../build-musl.tar.gz .
+  -czvf ../build-gnu.tar.gz .
