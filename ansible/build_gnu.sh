@@ -70,6 +70,8 @@ cp --verbose -f "$dp0/release/_ansible" "$release_version_dirpath/Scripts/bin/an
 
 cp -f "$dp0/release/ansible-config.sh" "$release_version_dirpath/"
 cp -f "$dp0/release/__main__ansible-config.py" "$release_version_dirpath/"
+# ansible-config entrypoint is required for ansible-lint
+cp --verbose -f "$dp0/release/_ansible-config" "$release_version_dirpath/Scripts/bin/ansible-config"
 
 cp -f "$dp0/release/ansible-lint.sh" "$release_version_dirpath/"
 cp -f "$dp0/release/__main__ansible-lint.py" "$release_version_dirpath/"
