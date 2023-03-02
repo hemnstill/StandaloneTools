@@ -7,6 +7,9 @@ tool_version="1.31.1"
 self_name="python-3.11.1"
 echo "::set-output name=tool_name::$tool_name"
 
+apt update
+apt install -y wget
+
 release_version_dirpath="$dp0/release/$tool_name-$tool_version"
 mkdir -p "$release_version_dirpath" && cd "$dp0/release"
 
