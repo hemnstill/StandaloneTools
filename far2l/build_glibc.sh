@@ -6,7 +6,24 @@ export DEBIAN_FRONTEND=noninteractive
 echo "::group::install deps"
 
 apt update
-apt install -y build-essential libspdlog-dev patchelf wget gawk m4 libx11-dev libxi-dev libxerces-c-dev libuchardet-dev libssh-dev libssl-dev libnfs-dev libneon27-dev libarchive-dev libpcre3-dev cmake git
+apt install -y \
+  build-essential \
+  libspdlog-dev \
+  patchelf \
+  wget \
+  gawk \
+  m4 \
+  libx11-dev \
+  libxi-dev \
+  libxerces-c-dev \
+  libuchardet-dev \
+  libssl-dev \
+  libnfs-dev \
+  libneon27-dev \
+  libarchive-dev \
+  libpcre3-dev \
+  libsmbclient-dev \
+  cmake git
 
 echo "::endgroup::"
 
