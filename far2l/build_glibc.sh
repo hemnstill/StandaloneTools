@@ -14,8 +14,7 @@ tool_name="far2l"
 tool_version="2.5.0"
 self_name="$tool_name-$tool_version"
 self_toolset_name="build-glibc"
-self_archive_name="$self_toolset_name.tar.gz"
-self_url="https://github.com/hemnstill/StandaloneTools/releases/download/$self_name/$self_archive_name"
+self_url="https://github.com/hemnstill/StandaloneTools/releases/download/$self_name/$self_toolset_name.tar.gz"
 
 echo "::set-output name=tool_name::$tool_name"
 echo "::set-output name=tool_version::$tool_version"
@@ -54,9 +53,9 @@ SHA-256: %s
 %s
 %s
 
-' "$self_archive_name" "$self_url" "$(ldd $tool_name)" "$(sha256sum < $tool_name)" "$("./$tool_name" --help | head -n2)" "$download_url"
+' "$self_toolset_name.tar.gz" "$self_url" "$(ldd $tool_name)" "$(sha256sum < $tool_name)" "$("./$tool_name" --help | head -n2)" "$download_url"
 } > "$self_toolset_name.md"
 
 cat "$self_toolset_name.md"
 
-tar -czvf "../$self_archive_name" .
+tar -czvf "../$self_toolset_name.tar.gz" .
