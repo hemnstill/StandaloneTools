@@ -34,7 +34,7 @@ jobs:
 
   test-alpine:
     needs: alpine-musl
-    uses: ./.github/workflows/test-ubuntu.yml
+    uses: ./.github/workflows/test-alpine.yml
     with:
       workflow: ${{ github.workflow }}
       artifact: build-musl
