@@ -61,7 +61,7 @@ cmake --build . --config Release
 
 echo "::endgroup::"
 
-cp -rf "$dp0/release/far2l-$tool_version/install/." "$dp0/release/build/"
+cp -rf "$dp0/release/far2l-v_$tool_version/install/." "$dp0/release/build/"
 
 cd "$dp0/release/build"
 strip "$tool_name"
