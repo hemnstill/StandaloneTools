@@ -32,9 +32,14 @@ cpython_bin="$release_version_dirpath/Scripts/python.exe"
 cp -f "$dp0/release/playwright.bat" "$release_version_dirpath/"
 cp -f "$dp0/release/__main__playwright.py" "$release_version_dirpath/"
 
+
+export PLAYWRIGHT_BROWSERS_PATH="$release_version_dirpath/ms-playwright"
+echo "download browsers to '$PLAYWRIGHT_BROWSERS_PATH' ..."
+cd "$release_version_dirpath"
+./"$tool_name.bat" install
+
 echo "creating archive ..."
 
-cd "$release_version_dirpath"
 { printf '### build-msvc.tar.gz
 Playwright %s
 Python %s
