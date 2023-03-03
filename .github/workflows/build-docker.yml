@@ -1,0 +1,31 @@
+on:
+  workflow_call:
+    inputs:
+      workflow:
+        required: true
+        type: string
+      toolset:
+        required: false
+        type: string
+        default: 'docker'
+      version:
+        required: false
+        type: string
+        default: '22.04'
+
+jobs:
+  build-ubuntu:
+    runs-on: ubuntu-latest
+    container: ubuntu:${{ inputs.version }}
+    steps:
+      - uses: actions/checkout@v3
+      - name: build ${{ inputs.workflow }}-ubuntu-${{ inputs.toolset }}
+        run: |
+          apt update
+          apt install -y docker.io
+          ./${{ inputs.workflow }}/build_${{ inputs.toolset }}.sh
+
+      - uses: actions/upload-artifact@v3
+        with:
+          name: build-${{ inputs.toolset }}
+          path: ./${{ inputs.workflow }}/release/build-${{ inputs.toolset }}.tar.gz

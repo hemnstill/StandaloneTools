@@ -1,0 +1,34 @@
+on:
+  workflow_call:
+    inputs:
+      workflow:
+        required: true
+        type: string
+      artifact:
+        required: true
+        type: string
+      version:
+        required: false
+        type: string
+        default: 'latest'
+
+jobs:
+  test-docker:
+    runs-on: ubuntu-latest
+    container: ubuntu:${{ inputs.version }}
+
+    steps:
+      - uses: actions/checkout@v3
+      - uses: actions/download-artifact@v3
+        with:
+          name: ${{ inputs.artifact }}
+          path: .
+
+      - name: Test ${{ inputs.artifact }} build on ubuntu:${{ inputs.version }}
+        run: |
+          apt update
+          apt install -y docker.io
+          tar -xf ./${{ inputs.artifact }}.tar.gz -C ./bin
+          cd ./${{ inputs.workflow }}
+          ./test_docker.sh
+
