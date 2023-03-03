@@ -13,16 +13,21 @@ echo "::endgroup::"
 
 tool_name="far2l"
 tool_version="2.5.0"
+self_name="$tool_name-$tool_version"
+self_toolset_name="build-musl"
+self_archive_name="$self_toolset_name.tar.gz"
+self_url="https://github.com/hemnstill/StandaloneTools/releases/download/$self_name/$self_archive_name"
+
 echo "::set-output name=tool_name::$tool_name"
 echo "::set-output name=tool_version::$tool_version"
 
-download_url="https://github.com/elfmz/far2l/archive/$tool_version.tar.gz"
+download_url="https://github.com/elfmz/far2l/archive/v_$tool_version.tar.gz"
 echo "::group::prepare sources $download_url"
 
 # Download release
 mkdir -p "$dp0/release/build" && cd "$dp0/release"
 wget "$download_url" -O "$tool_version.tar.gz"
-tar -xf "$tool_version.tar.gz" && cd "far2l-$tool_version"
+tar -xf "$tool_version.tar.gz" && cd "far2l-v_$tool_version"
 
 echo "::endgroup::"
 
@@ -63,15 +68,16 @@ cd "$dp0/release/build"
 strip "$tool_name"
 chmod +x "$tool_name"
 
-{ printf '### build-musl.tar.gz
-(without plugins)
-
+{ printf '### %s (without plugins)
+`wget -qO- %s | tar -xz`
 ldd: %s
 SHA-256: %s
 %s
-' "$(ldd $tool_name)" "$(sha256sum < $tool_name)" "$("./$tool_name" --help | head -n2)"
-} > build-musl.md
+%s
 
-cat build-musl.md
+' "$self_archive_name" "$self_url" "$(ldd $tool_name)" "$(sha256sum < $tool_name)" "$("./$tool_name" --help | head -n2)" "$download_url"
+} > "$self_toolset_name.md"
 
-tar -czvf ../build-musl.tar.gz .
+cat "$self_toolset_name.md"
+
+tar -czvf "../$self_archive_name" .

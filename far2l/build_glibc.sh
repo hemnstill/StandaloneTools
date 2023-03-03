@@ -55,8 +55,8 @@ SHA-256: %s
 %s
 
 ' "$self_archive_name" "$self_url" "$(ldd $tool_name)" "$(sha256sum < $tool_name)" "$("./$tool_name" --help | head -n2)" "$download_url"
-} > build-glibc.md
+} > "$self_toolset_name.md"
 
-cat build-glibc.md
+cat "$self_toolset_name.md"
 
 tar -czvf "../$self_archive_name" .
