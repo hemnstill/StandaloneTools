@@ -24,6 +24,7 @@ apt install -y \
   libpcre3-dev \
   libsmbclient-dev \
   libfmt-dev \
+  libssh-dev \
   cmake git
 
 echo "::endgroup::"
