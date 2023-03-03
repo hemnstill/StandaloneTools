@@ -20,13 +20,13 @@ self_url="https://github.com/hemnstill/StandaloneTools/releases/download/$self_n
 echo "::set-output name=tool_name::$tool_name"
 echo "::set-output name=tool_version::$tool_version"
 
-download_url="https://github.com/elfmz/far2l/archive/$tool_version.tar.gz"
+download_url="https://github.com/elfmz/far2l/archive/v_$tool_version.tar.gz"
 echo "::group::prepare sources $download_url"
 
 # Download release
 mkdir -p "$dp0/release/build" && cd "$dp0/release"
 wget "$download_url" -O "$tool_version.tar.gz"
-tar -xf "$tool_version.tar.gz" && cd "far2l-$tool_version"
+tar -xf "$tool_version.tar.gz" && cd "far2l-v_$tool_version"
 
 echo "::endgroup::"
 
