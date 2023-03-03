@@ -12,7 +12,7 @@ apk add --no-cache uchardet-static libexecinfo-static
 echo "::endgroup::"
 
 tool_name="far2l"
-tool_version="694878351f8201fa8682e68110ebef1cd9f5ad4b"
+tool_version="2.5.0"
 echo "::set-output name=tool_name::$tool_name"
 echo "::set-output name=tool_version::$tool_version"
 
@@ -20,7 +20,7 @@ download_url="https://github.com/elfmz/far2l/archive/$tool_version.tar.gz"
 echo "::group::prepare sources $download_url"
 
 # Download release
-mkdir -p "$dp0/release" && cd "$dp0/release"
+mkdir -p "$dp0/release/build" && cd "$dp0/release"
 wget "$download_url" -O "$tool_version.tar.gz"
 tar -xf "$tool_version.tar.gz" && cd "far2l-$tool_version"
 
@@ -63,7 +63,8 @@ cd "$dp0/release/build"
 strip "$tool_name"
 chmod +x "$tool_name"
 
-{ printf '### musl version (without plugins):
+{ printf '### build-musl.tar.gz
+(without plugins)
 
 ldd: %s
 SHA-256: %s

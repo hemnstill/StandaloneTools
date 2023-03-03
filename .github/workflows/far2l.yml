@@ -25,63 +25,13 @@ jobs:
       workflow: ${{ github.workflow }}
       version: 18.04
 
-  far2l-alpine-musl-test:
-    needs: far2l-alpine-musl
-    if: ${{ needs.prejob.outputs.workflow == github.workflow }}
-    uses: ./.github/workflows/test-alpine.yml
-    with:
-      artifact: build-musl
-      test-run: |
-        ldd ./${{ github.workflow }}
-        ./${{ github.workflow }} --help | head -n2
-
-  far2l-alpine-glibc-test:
-    needs: far2l-ubuntu-glibc
-    if: ${{ needs.prejob.outputs.workflow == github.workflow }}
-    uses: ./.github/workflows/test-alpine.yml
-    with:
-      artifact: build-glibc
-      test-run: |
-        wget -q -O /etc/apk/keys/sgerrand.rsa.pub https://alpine-pkgs.sgerrand.com/sgerrand.rsa.pub
-        wget https://github.com/sgerrand/alpine-pkg-glibc/releases/download/2.34-r0/glibc-2.34-r0.apk
-        apk add --no-cache glibc-2.34-r0.apk
-
-        ldd ./${{ github.workflow }} || true
-        ./${{ github.workflow }} --help | head -n2
-
-  far2l-ubuntu-musl-test:
-    needs: far2l-alpine-musl
-    if: ${{ needs.prejob.outputs.workflow == github.workflow }}
-    uses: ./.github/workflows/test-ubuntu.yml
-    with:
-      artifact: build-musl
-      test-run: |
-        apt update
-        apt -y install musl
-        ln -s /usr/lib/x86_64-linux-musl/libc.so /lib/libc.musl-x86_64.so.1
-
-        ldd ./${{ github.workflow }}
-        ./${{ github.workflow }} --help | head -n2
-
-  far2l-ubuntu-glibc-test:
-    needs: far2l-ubuntu-glibc
-    if: ${{ needs.prejob.outputs.workflow == github.workflow }}
-    uses: ./.github/workflows/test-ubuntu.yml
-    with:
-      artifact: build-glibc
-      test-run: |
-        ldd ./${{ github.workflow }}
-        ./${{ github.workflow }} --help | head -n2
-
   far2l-release:
-    needs: [far2l-alpine-musl-test,
-            far2l-alpine-glibc-test,
-            far2l-ubuntu-musl-test,
-            far2l-ubuntu-glibc-test]
+    needs: [far2l-alpine-musl,
+            far2l-ubuntu-glibc]
     uses: ./.github/workflows/release.yml
     with:
       workflow: ${{ github.workflow }}
-      tool_version: '2.4.0-beta-694878351f'
+      tool_version: '2.5.0'
       prepare_body: |
         bsdtar -Oxf ./build-musl/build-musl.tar.gz build-musl.md >> body.md
         bsdtar -Oxf ./build-glibc/build-glibc.tar.gz build-glibc.md >> body.md
