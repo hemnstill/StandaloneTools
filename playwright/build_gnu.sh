@@ -38,7 +38,7 @@ cp -f "$dp0/release/__main__playwright.py" "$release_version_dirpath/"
 export PLAYWRIGHT_BROWSERS_PATH="$release_version_dirpath/ms-playwright"
 echo "download browsers to '$PLAYWRIGHT_BROWSERS_PATH' ..."
 cd "$release_version_dirpath"
-./"$tool_name.sh" install
+./"$tool_name.sh" install chromium
 
 echo "creating archive ..."
 
