@@ -50,9 +50,7 @@ echo "::endgroup::"
 
 echo "::group::build"
 
-export CXXFLAGS=-DXERCES_STATIC_LIBRARY
-
-cmake_command=$(printf 'cmake -DUSEWX=no -DUSEUCD=no -DCMAKE_EXE_LINKER_FLAGS="%s" -DCMAKE_BUILD_TYPE=Release .' \
+cmake_command=$(printf 'cmake -DCMAKE_CXX_FLAGS="-DXERCES_STATIC_LIBRARY" -DUSEWX=no -DUSEUCD=no -DCMAKE_EXE_LINKER_FLAGS="%s" -DCMAKE_BUILD_TYPE=Release .' \
 "-l:libuchardet.a")
 echo ">> $cmake_command"
 eval "$cmake_command"
