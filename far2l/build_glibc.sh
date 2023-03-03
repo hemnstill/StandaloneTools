@@ -50,8 +50,28 @@ echo "::endgroup::"
 
 echo "::group::build"
 
-cmake_command=$(printf 'cmake -DCMAKE_CXX_FLAGS="-DXERCES_STATIC_LIBRARY" -DUSEWX=no -DUSEUCD=no -DCMAKE_EXE_LINKER_FLAGS="%s" -DCMAKE_BUILD_TYPE=Release .' \
-"-l:libuchardet.a")
+without_plugins="\
+-DALIGN=no \
+-DAUTOWRAP=no \
+-DCALC=no \
+-DCOLORER=no \
+-DCOMPARE=no \
+-DDRAWLINE=no \
+-DEDITCASE=no \
+-DEDITORCOMP=no \
+-DFARFTP=no \
+-DFILECASE=no \
+-DINCSRCH=no \
+-DINSIDE=no \
+-DMULTIARC=no \
+-DNETROCKS=no \
+-DSIMPLEINDENT=no \
+-DTMPPANEL=no \
+"
+
+cmake_command=$(printf 'cmake -DCMAKE_CXX_FLAGS="-DXERCES_STATIC_LIBRARY" -DUSEWX=no %s -DUSEUCD=no -DCMAKE_EXE_LINKER_FLAGS="%s" -DCMAKE_BUILD_TYPE=Release .' \
+  "$without_plugins" \
+  "-l:libuchardet.a -static-libstdc++ -static-libgcc")
 echo ">> $cmake_command"
 eval "$cmake_command"
 
