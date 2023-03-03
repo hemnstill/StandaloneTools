@@ -65,13 +65,15 @@ echo "prepare build artifacts ..."
 
 cp -f "$dp0/release/ansible.sh" "$release_version_dirpath/"
 cp -f "$dp0/release/__main__ansible.py" "$release_version_dirpath/"
-# ansible entrypoint is required for ansible-lint
-cp --verbose -f "$dp0/release/_ansible" "$release_version_dirpath/Scripts/bin/ansible"
+cp -f "$dp0/release/_ansible" "$release_version_dirpath/Scripts/bin/ansible"
 
 cp -f "$dp0/release/ansible-config.sh" "$release_version_dirpath/"
 cp -f "$dp0/release/__main__ansible-config.py" "$release_version_dirpath/"
-# ansible-config entrypoint is required for ansible-lint
-cp --verbose -f "$dp0/release/_ansible-config" "$release_version_dirpath/Scripts/bin/ansible-config"
+cp -f "$dp0/release/_ansible-config" "$release_version_dirpath/Scripts/bin/ansible-config"
+
+cp -f "$dp0/release/ansible-playbook.sh" "$release_version_dirpath/"
+cp -f "$dp0/release/__main__ansible-playbook.py" "$release_version_dirpath/"
+cp -f "$dp0/release/_ansible-playbook" "$release_version_dirpath/Scripts/bin/ansible-playbook"
 
 cp -f "$dp0/release/ansible-lint.sh" "$release_version_dirpath/"
 cp -f "$dp0/release/__main__ansible-lint.py" "$release_version_dirpath/"
@@ -89,8 +91,11 @@ cd "$release_version_dirpath"
 
 %s
 
+%s
+
 ' "$(./"$tool_name.sh" --version)" \
   "$(./"ansible-config.sh" --version | head -1)" \
+  "$(./"ansible-playbook.sh" --version | head -1)" \
   "$(./"ansible-lint.sh" --version)"
 } > build-gnu.md
 

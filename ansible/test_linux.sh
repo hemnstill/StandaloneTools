@@ -46,12 +46,16 @@ test_bin_version() {
   assertEquals "ansible [core 2.14.1]" "$(../bin/Scripts/bin/ansible --version | head -1)"
 }
 
-test_ansible_lint_version() {
-  assertEquals "ansible-lint 6.13.1 using ansible 2.14.1" "$(../bin/ansible-lint.sh --version | head -1)"
+test_ansible_config_version() {
+  assertEquals "ansible-config [core 2.14.1]" "$(../bin/Scripts/bin/ansible-config --version | head -1)"
 }
 
-test_ansible_lint_bin_version() {
-  assertEquals "ansible-config [core 2.14.1]" "$(../bin/Scripts/bin/ansible-config --version | head -1)"
+test_ansible_playbook_version() {
+  assertEquals "ansible-playbook [core 2.14.1]" "$(../bin/Scripts/bin/ansible-playbook --version | head -1)"
+}
+
+test_ansible_lint_version() {
+  assertEquals "ansible-lint 6.13.1 using ansible 2.14.1" "$(../bin/ansible-lint.sh --version | head -1)"
 }
 
 # Load and run shUnit2.
