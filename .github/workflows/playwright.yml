@@ -1,0 +1,54 @@
+name: playwright
+
+on: [pull_request, workflow_dispatch]
+
+jobs:
+  prejob:
+    uses: ./.github/workflows/set-output-workflow.yml
+    with:
+      workflow: ${{ github.workflow }}
+    secrets:
+      _WORKFLOW: ${{ secrets._CURRENT_TOOL }}
+
+  ubuntu-gnu:
+    needs: prejob
+    if: ${{ needs.prejob.outputs.workflow == github.workflow }}
+    uses: ./.github/workflows/build-ubuntu.yml
+    with:
+      workflow: ${{ github.workflow }}
+      toolset: gnu
+
+  windows-msvc:
+    needs: prejob
+    if: ${{ needs.prejob.outputs.workflow == github.workflow }}
+    uses: ./.github/workflows/build-windows.yml
+    with:
+      workflow: ${{ github.workflow }}
+      toolset: msvc
+
+  test-ubuntu:
+    needs: ubuntu-gnu
+    uses: ./.github/workflows/test-ubuntu.yml
+    with:
+      workflow: ${{ github.workflow }}
+      artifact: build-gnu
+
+  test-windows-msvc:
+    needs: windows-msvc
+    uses: ./.github/workflows/test-windows.yml
+    with:
+      workflow: ${{ github.workflow }}
+      artifact: build-msvc
+
+  release:
+    needs: [test-windows-msvc, test-ubuntu]
+    uses: ./.github/workflows/release.yml
+    with:
+      workflow: ${{ github.workflow }}
+      tool_version: '1.31.1'
+      prepare_body: |
+        bsdtar -Oxf ./build-gnu/build-gnu.tar.gz build-gnu.md >> body.md
+        bsdtar -Oxf ./build-msvc/build-msvc.tar.gz build-msvc.md >> body.md
+      artifacts: ./build-msvc/build-msvc.tar.gz, ./build-gnu/build-gnu.tar.gz
+    secrets:
+      token: ${{ secrets.GITHUB_TOKEN }}
