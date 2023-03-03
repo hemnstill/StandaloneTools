@@ -32,8 +32,15 @@ jobs:
       workflow: ${{ github.workflow }}
       artifact: build-glibc
 
+  test-alpine:
+    needs: alpine-musl
+    uses: ./.github/workflows/test-ubuntu.yml
+    with:
+      workflow: ${{ github.workflow }}
+      artifact: build-musl
+
   far2l-release:
-    needs: [far2l-alpine-musl,
+    needs: [test-alpine,
             test-ubuntu]
     uses: ./.github/workflows/release.yml
     with:
