@@ -42,7 +42,7 @@ jobs:
       artifact: build-glibc
 
   test-ubuntu-p:
-    needs: ubuntu-glibc
+    needs: ubuntu-glibc-p
     uses: ./.github/workflows/test-ubuntu.yml
     with:
       workflow: ${{ github.workflow }}
