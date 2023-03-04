@@ -90,7 +90,7 @@ SHA-256: %s
 %s
 
 <details>
-  <summary>far2l ldd</summary>
+  <summary>ldd far2l</summary>
 
 ```
 %s

@@ -50,8 +50,8 @@ echo "::endgroup::"
 
 echo "::group::build"
 
-cmake_command=$(printf 'cmake -DCMAKE_CXX_FLAGS="-DXERCES_STATIC_LIBRARY" -DUSEWX=no -DUSEUCD=no -DCMAKE_EXE_LINKER_FLAGS="%s" -DCMAKE_BUILD_TYPE=Release .' \
-  "-l:libuchardet.a -l:libxerces-c.a -static-libstdc++ -static-libgcc")
+cmake_command=$(printf 'cmake -DUSEWX=no -DUSEUCD=no -DCMAKE_EXE_LINKER_FLAGS="%s" -DCMAKE_BUILD_TYPE=Release .' \
+  "-l:libuchardet.a -static-libstdc++ -static-libgcc")
 echo ">> $cmake_command"
 eval "$cmake_command"
 
@@ -72,7 +72,7 @@ SHA-256: %s
 %s
 
 <details>
-  <summary>far2l ldd</summary>
+  <summary>ldd far2l</summary>
 
 ```
 %s
@@ -80,7 +80,7 @@ SHA-256: %s
 </details>
 
 <details>
-  <summary>colorer.far-plug-wide ldd</summary>
+  <summary>ldd colorer.far-plug-wide</summary>
 
 ```
 %s
