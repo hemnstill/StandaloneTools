@@ -70,9 +70,18 @@ chmod +x "$tool_name"
 ldd: %s
 SHA-256: %s
 %s
+
+colorer.far-plug-wide: %s
+
 %s
 
-' "$self_toolset_name.tar.gz" "$self_url" "$(ldd $tool_name)" "$(sha256sum < $tool_name)" "$("./$tool_name" --help | head -n2)" "$download_url"
+' "$self_toolset_name.tar.gz" \
+  "$self_url" \
+  "$(ldd $tool_name)" \
+  "$(sha256sum < $tool_name)" \
+  "$("./$tool_name" --help | head -n2)" \
+  "$(ldd "./Plugins/colorer/plug/colorer.far-plug-wide")" \
+  "$download_url"
 } > "$self_toolset_name.md"
 
 cat "$self_toolset_name.md"
