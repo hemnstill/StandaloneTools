@@ -89,10 +89,13 @@ chmod +x "$tool_name"
 SHA-256: %s
 %s
 
-far2l ldd:
+<details>
+  <summary>far2l ldd</summary>
+
 ```
 %s
 ```
+</details>
 
 %s
 

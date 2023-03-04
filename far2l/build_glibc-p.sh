@@ -71,15 +71,21 @@ chmod +x "$tool_name"
 SHA-256: %s
 %s
 
-far2l ldd:
-```
-%s
-```
+<details>
+  <summary>far2l ldd</summary>
 
-colorer.far-plug-wide ldd:
 ```
 %s
 ```
+</details>
+
+<details>
+  <summary>colorer.far-plug-wide ldd</summary>
+
+```
+%s
+```
+</details>
 
 %s
 
