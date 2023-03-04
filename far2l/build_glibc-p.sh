@@ -32,7 +32,7 @@ echo "::endgroup::"
 tool_name="far2l"
 tool_version="2.5.0"
 self_name="$tool_name-$tool_version"
-self_toolset_name="build-glibc"
+self_toolset_name="build-glibc-p"
 self_url="https://github.com/hemnstill/StandaloneTools/releases/download/$self_name/$self_toolset_name.tar.gz"
 
 echo "::set-output name=tool_name::$tool_name"
@@ -50,27 +50,7 @@ echo "::endgroup::"
 
 echo "::group::build"
 
-without_plugins="\
--DALIGN=no \
--DAUTOWRAP=no \
--DCALC=no \
--DCOLORER=no \
--DCOMPARE=no \
--DDRAWLINE=no \
--DEDITCASE=no \
--DEDITORCOMP=no \
--DFARFTP=no \
--DFILECASE=no \
--DINCSRCH=no \
--DINSIDE=no \
--DMULTIARC=no \
--DNETROCKS=no \
--DSIMPLEINDENT=no \
--DTMPPANEL=no \
-"
-
-cmake_command=$(printf 'cmake -DUSEWX=no %s -DUSEUCD=no -DCMAKE_EXE_LINKER_FLAGS="%s" -DCMAKE_BUILD_TYPE=Release .' \
-  "$without_plugins" \
+cmake_command=$(printf 'cmake -DUSEWX=no -DUSEUCD=no -DCMAKE_EXE_LINKER_FLAGS="%s" -DCMAKE_BUILD_TYPE=Release .' \
   "-l:libuchardet.a -static-libstdc++ -static-libgcc")
 echo ">> $cmake_command"
 eval "$cmake_command"
@@ -85,7 +65,7 @@ cd "$dp0/release/build"
 strip "$tool_name"
 chmod +x "$tool_name"
 
-{ printf '### %s (without plugins)
+{ printf '### %s
 `wget -qO- %s | tar -xz`
 
 SHA-256: %s
@@ -99,6 +79,14 @@ SHA-256: %s
 ```
 </details>
 
+<details>
+  <summary>ldd colorer.far-plug-wide</summary>
+
+```
+%s
+```
+</details>
+
 %s
 
 ' "$self_toolset_name.tar.gz" \
@@ -106,6 +94,7 @@ SHA-256: %s
   "$(sha256sum < $tool_name)" \
   "$("./$tool_name" --help | head -n2)" \
   "$(ldd $tool_name)" \
+  "$(ldd "./Plugins/colorer/plug/colorer.far-plug-wide")" \
   "$download_url"
 } > "$self_toolset_name.md"
 
