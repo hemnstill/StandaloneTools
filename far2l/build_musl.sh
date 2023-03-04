@@ -85,12 +85,23 @@ chmod +x "$tool_name"
 
 { printf '### %s (without plugins)
 `wget -qO- %s | tar -xz`
-ldd: %s
+
 SHA-256: %s
 %s
+
+far2l ldd:
+```
+%s
+```
+
 %s
 
-' "$self_toolset_name.tar.gz" "$self_url" "$(ldd $tool_name)" "$(sha256sum < $tool_name)" "$("./$tool_name" --help | head -n2)" "$download_url"
+' "$self_toolset_name.tar.gz" \
+  "$self_url" \
+  "$(sha256sum < $tool_name)" \
+  "$("./$tool_name" --help | head -n2)" \
+  "$(ldd $tool_name)" \
+  "$download_url"
 } > "$self_toolset_name.md"
 
 cat "$self_toolset_name.md"
