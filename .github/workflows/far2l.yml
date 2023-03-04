@@ -25,12 +25,28 @@ jobs:
       workflow: ${{ github.workflow }}
       version: 18.04
 
+  ubuntu-glibc-p:
+    needs: prejob
+    if: ${{ needs.prejob.outputs.workflow == github.workflow }}
+    uses: ./.github/workflows/build-ubuntu.yml
+    with:
+      workflow: ${{ github.workflow }}
+      version: 18.04
+      toolset: glibc-p
+
   test-ubuntu:
     needs: ubuntu-glibc
     uses: ./.github/workflows/test-ubuntu.yml
     with:
       workflow: ${{ github.workflow }}
       artifact: build-glibc
+
+  test-ubuntu-p:
+    needs: ubuntu-glibc
+    uses: ./.github/workflows/test-ubuntu.yml
+    with:
+      workflow: ${{ github.workflow }}
+      artifact: build-glibc-p
 
   test-alpine:
     needs: alpine-musl
@@ -41,7 +57,8 @@ jobs:
 
   far2l-release:
     needs: [test-alpine,
-            test-ubuntu]
+            test-ubuntu,
+            test-ubuntu-p]
     uses: ./.github/workflows/release.yml
     with:
       workflow: ${{ github.workflow }}
@@ -49,6 +66,7 @@ jobs:
       prepare_body: |
         bsdtar -Oxf ./build-musl/build-musl.tar.gz build-musl.md >> body.md
         bsdtar -Oxf ./build-glibc/build-glibc.tar.gz build-glibc.md >> body.md
-      artifacts: ./build-musl/build-musl.tar.gz,./build-glibc/build-glibc.tar.gz
+        bsdtar -Oxf ./build-glibc-p/build-glibc-p.tar.gz build-glibc-p.md >> body.md
+      artifacts: ./build-musl/build-musl.tar.gz,./build-glibc/build-glibc.tar.gz,./build-glibc-p/build-glibc-p.tar.gz
     secrets:
       token: ${{ secrets.GITHUB_TOKEN }}
