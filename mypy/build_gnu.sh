@@ -2,6 +2,9 @@
 dp0="$(realpath "$(dirname "$0")")"
 set -e
 
+apt update
+apt install -y wget
+
 tool_name="mypy"
 tool_version="1.0.1"
 self_name="python-3.11.1"
