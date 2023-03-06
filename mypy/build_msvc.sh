@@ -39,7 +39,7 @@ cd "$release_version_dirpath"
 { printf '### %s
 %s
 Python %s
-' "$self_toolset_name.tar.gz" "$(./"$tool_name.sh" --version)" "$("$cpython_bin" -c "import sys; print(sys.version)")"
+' "$self_toolset_name.tar.gz" "$(./"$tool_name.bat" --version)" "$("$cpython_bin" -c "import sys; print(sys.version)")"
 } > $self_toolset_name.md
 
 cat $self_toolset_name.md
