@@ -31,7 +31,7 @@ cpython_bin="$release_version_dirpath/Scripts/bin/python3"
 #   File "/lib/python3.10/site-packages/dill/_dill.py", line 1854, in <module>
 #     _PyCapsule_New = ctypes.pythonapi.PyCapsule_New
 # AttributeError: 'NoneType' object has no attribute 'PyCapsule_New'
-"$cpython_bin" -m pip install "https://github.com/uqfoundation/dill/releases/download/dill-0.3.6/dill-0.3.6-py3-none-any.whl"
+# "$cpython_bin" -m pip install "https://github.com/uqfoundation/dill/releases/download/dill-0.3.6/dill-0.3.6-py3-none-any.whl"
 
 "$cpython_bin" -m pip install "$tool_name==$tool_version"
 
