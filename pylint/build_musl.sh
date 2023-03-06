@@ -3,7 +3,7 @@ dp0="$(realpath "$(dirname "$0")")"
 set -e
 
 tool_name="pylint"
-tool_version="2.15.9"
+tool_version="2.16.4"
 self_name="python-3.11.1"
 self_toolset_name="build-musl"
 echo "::set-output name=tool_name::$tool_name"
