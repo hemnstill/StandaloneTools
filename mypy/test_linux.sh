@@ -1,9 +1,9 @@
 #!/bin/bash
 
-is_alpine_os=false && [[ -f "/etc/alpine-release" ]] && is_alpine_os=true
+is_musl_build=false && [[ -f "../build-musl.tar.gz" ]] && is_musl_build=true
 
 test_version() {
-  if [[ "$is_alpine_os" == true ]]; then
+  if [[ "$is_musl_build" == true ]]; then
     assertEquals "mypy 1.0.1 (compiled: no)" "$(../bin/mypy.sh --version)"
   else
     assertEquals "mypy 1.0.1 (compiled: yes)" "$(../bin/mypy.sh --version)"
