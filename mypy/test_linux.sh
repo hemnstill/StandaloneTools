@@ -1,7 +1,13 @@
 #!/bin/bash
 
+is_musl_build=false && [[ -f "../build-musl.tar.gz" ]] && is_musl_build=true
+
 test_version() {
-  assertEquals "mypy 0.991 (compiled: no)" "$(../bin/mypy.sh --version)"
+  if [[ "$is_musl_build" == true ]]; then
+    assertEquals "mypy 1.0.1 (compiled: no)" "$(../bin/mypy.sh --version)"
+  else
+    assertEquals "mypy 1.0.1 (compiled: yes)" "$(../bin/mypy.sh --version)"
+  fi
 }
 
 # Load and run shUnit2.

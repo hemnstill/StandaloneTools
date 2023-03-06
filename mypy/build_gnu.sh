@@ -2,10 +2,13 @@
 dp0="$(realpath "$(dirname "$0")")"
 set -e
 
+apt update
+apt install -y wget binutils
+
 tool_name="mypy"
 tool_version="1.0.1"
 self_name="python-3.11.1"
-self_toolset_name="build-musl"
+self_toolset_name="build-gnu"
 echo "::set-output name=tool_name::$tool_name"
 
 release_version_dirpath="$dp0/release/$tool_name-$tool_version"
@@ -32,6 +35,10 @@ cpython_bin="$release_version_dirpath/Scripts/bin/python3"
 
 cp -f "$dp0/release/$tool_name.sh" "$release_version_dirpath/"
 cp -f "$dp0/release/__main__$tool_name.py" "$release_version_dirpath/"
+
+find "$release_version_dirpath/Scripts/lib/python3.11/site-packages/" \
+  -mindepth 1 -maxdepth 1 -name '*-linux-gnu.so' \
+  -exec echo strip "{}" \; -exec strip "{}" \;
 
 echo "creating archive ..."
 
