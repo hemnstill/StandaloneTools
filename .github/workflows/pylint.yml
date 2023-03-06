@@ -16,7 +16,6 @@ jobs:
     uses: ./.github/workflows/build-ubuntu.yml
     with:
       workflow: ${{ github.workflow }}
-      toolset: gnu
 
   windows-msvc:
     needs: prejob
@@ -54,8 +53,8 @@ jobs:
       workflow: ${{ github.workflow }}
       tool_version: '2.16.4'
       prepare_body: |
-        bsdtar -Oxf ./build-musl/build-musl.tar.gz build-musl.md >> body.md
+        bsdtar -Oxf ./build-gnu/build-gnu.tar.gz build-gnu.md >> body.md
         bsdtar -Oxf ./build-msvc/build-msvc.tar.gz build-msvc.md >> body.md
-      artifacts: ./build-musl/build-musl.tar.gz, ./build-msvc/build-msvc.tar.gz
+      artifacts: ./build-gnu/build-gnu.tar.gz, ./build-msvc/build-msvc.tar.gz
     secrets:
       token: ${{ secrets.GITHUB_TOKEN }}

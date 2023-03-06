@@ -7,7 +7,7 @@ on:
       toolset:
         required: false
         type: string
-        default: 'glibc'
+        default: 'gnu'
       version:
         required: false
         type: string
