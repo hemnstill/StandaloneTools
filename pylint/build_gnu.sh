@@ -2,6 +2,9 @@
 dp0="$(realpath "$(dirname "$0")")"
 set -e
 
+apt update
+apt install -y wget
+
 tool_name="pylint"
 tool_version="2.16.4"
 self_name="python-3.11.1"
