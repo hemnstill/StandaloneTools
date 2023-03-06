@@ -31,11 +31,6 @@ bsdtar="$dp0/release/bsdtar"
 cpython_bin="$release_version_dirpath/Scripts/bin/python3"
 [[ ! -f "$cpython_bin" ]] && tar -xf "$python_download_zip" -C "$release_version_dirpath"
 
-#   File "/lib/python3.10/site-packages/dill/_dill.py", line 1854, in <module>
-#     _PyCapsule_New = ctypes.pythonapi.PyCapsule_New
-# AttributeError: 'NoneType' object has no attribute 'PyCapsule_New'
-# "$cpython_bin" -m pip install "https://github.com/uqfoundation/dill/releases/download/dill-0.3.6/dill-0.3.6-py3-none-any.whl"
-
 "$cpython_bin" -m pip install "$tool_name==$tool_version"
 
 cp -f "$dp0/release/pylint.sh" "$release_version_dirpath/"
@@ -46,7 +41,8 @@ echo "creating archive ..."
 cd "$release_version_dirpath"
 { printf '### %s
 %s
-' "$self_toolset_name" "$(./"$tool_name.sh" --version)"
+Python %s
+' "$self_toolset_name" "$(./"$tool_name.sh" --version)" "$("$cpython_bin" -c "import sys; print(sys.version)")"
 } > $self_toolset_name.md
 
 cat $self_toolset_name.md
