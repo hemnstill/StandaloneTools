@@ -3,15 +3,16 @@ dp0="$(realpath "$(dirname "$0")")"
 set -e
 
 tool_name="mypy"
-tool_version="0.991"
-self_name="python-3.10.9"
+tool_version="1.0.1"
+self_name="python-3.11.1"
+self_toolset_name="build-msvc"
 echo "::set-output name=tool_name::$tool_name"
 
 release_version_dirpath="$dp0/release/$tool_name-$tool_version"
 mkdir -p "$release_version_dirpath" && cd "$dp0/release"
 
 echo "download poetry install script ..."
-python_bin_download_url="https://github.com/hemnstill/StandaloneTools/releases/download/$self_name/build-msvc.tar.gz"
+python_bin_download_url="https://github.com/hemnstill/StandaloneTools/releases/download/$self_name/$self_toolset_name.tar.gz"
 python_download_zip="$dp0/release/$self_name.tar.gz"
 [[ ! -f "$python_download_zip" ]] && wget "$python_bin_download_url" -O "$python_download_zip"
 
@@ -35,14 +36,15 @@ cp -f "$dp0/release/__main__$tool_name.py" "$release_version_dirpath/"
 echo "creating archive ..."
 
 cd "$release_version_dirpath"
-{ printf 'Python %s
-' "$("$cpython_bin" -c "import sys; print(sys.version)")"
-} > build-msvc.md
+{ printf '### %s
+%s
+' "$self_toolset_name.tar.gz" "$(./"$tool_name.sh" --version)"
+} > $self_toolset_name.md
 
-cat build-msvc.md
+cat $self_toolset_name.md
 
 "$bsdtar" \
   --exclude="__pycache__" \
   --exclude="Scripts/Scripts" \
   --exclude="*.whl" \
-  -czvf ../build-msvc.tar.gz .
+  -czvf ../$self_toolset_name.tar.gz .
