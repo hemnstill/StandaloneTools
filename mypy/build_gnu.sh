@@ -36,6 +36,9 @@ cpython_bin="$release_version_dirpath/Scripts/bin/python3"
 cp -f "$dp0/release/$tool_name.sh" "$release_version_dirpath/"
 cp -f "$dp0/release/__main__$tool_name.py" "$release_version_dirpath/"
 
+
+find "$release_version_dirpath/Scripts/lib/python3.11/site-packages/" -mindepth 1 -maxdepth 1 -name '*-linux-gnu.so' -exec strip "{}" \;
+
 echo "creating archive ..."
 
 cd "$release_version_dirpath"
