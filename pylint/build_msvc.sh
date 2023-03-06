@@ -3,15 +3,16 @@ dp0="$(realpath "$(dirname "$0")")"
 set -e
 
 tool_name="pylint"
-tool_version="2.15.9"
-self_name="python-3.10.9"
+tool_version="2.16.3"
+self_name="python-3.11.1"
+self_toolset_name="build-msvc"
 echo "::set-output name=tool_name::$tool_name"
 
 release_version_dirpath="$dp0/release/$tool_name-$tool_version"
 mkdir -p "$release_version_dirpath" && cd "$dp0/release"
 
 echo "download python install script ..."
-python_bin_download_url="https://github.com/hemnstill/StandaloneTools/releases/download/$self_name/build-msvc.tar.gz"
+python_bin_download_url="https://github.com/hemnstill/StandaloneTools/releases/download/$self_name/$self_toolset_name.tar.gz"
 python_download_zip="$dp0/release/$self_name.tar.gz"
 [[ ! -f "$python_download_zip" ]] && wget "$python_bin_download_url" -O "$python_download_zip"
 
@@ -35,14 +36,15 @@ cp -f "$dp0/release/__main__pylint.py" "$release_version_dirpath/"
 echo "creating archive ..."
 
 cd "$release_version_dirpath"
-{ printf 'Python %s
-' "$("$cpython_bin" -c "import sys; print(sys.version)")"
-} > build-msvc.md
+{ printf '### %s
+Python %s
+' "$self_toolset_name" "$("$cpython_bin" -c "import sys; print(sys.version)")"
+} > $self_toolset_name.md
 
-cat build-msvc.md
+cat $self_toolset_name.md
 
 "$bsdtar" \
   --exclude="__pycache__" \
   --exclude="Scripts/Scripts" \
   --exclude="*.whl" \
-  -czvf ../build-msvc.tar.gz .
+  -czvf ../$self_toolset_name.tar.gz .
