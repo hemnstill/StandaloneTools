@@ -1,5 +1,7 @@
 #!/bin/bash
 
+../.tools/install_alpine_glibc.sh
+
 test_version() {
   assertEquals "pylint 2.16.4
 astroid 2.15.0
