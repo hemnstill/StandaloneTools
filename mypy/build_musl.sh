@@ -3,7 +3,7 @@ dp0="$(realpath "$(dirname "$0")")"
 set -e
 
 tool_name="mypy"
-tool_version="1.0.1"
+tool_version="1.1.1"
 self_name="python-3.11.1"
 self_toolset_name="build-musl"
 echo "::set-output name=tool_name::$tool_name"
