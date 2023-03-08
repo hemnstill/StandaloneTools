@@ -6,7 +6,7 @@ apt update
 apt install -y wget
 
 tool_name="pylint"
-tool_version="2.16.4"
+tool_version="2.17.0"
 self_name="python-3.11.1"
 self_toolset_name="build-gnu"
 echo "::set-output name=tool_name::$tool_name"
