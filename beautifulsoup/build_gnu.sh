@@ -31,17 +31,16 @@ bsdtar="$dp0/release/bsdtar"
 cpython_bin="$release_version_dirpath/Scripts/bin/python3"
 [[ ! -f "$cpython_bin" ]] && tar -xf "$python_download_zip" -C "$release_version_dirpath"
 
+"$cpython_bin" -m pip install "lxml==4.9.2"
+"$cpython_bin" -m pip install "html5lib==1.1"
 "$cpython_bin" -m pip install "$tool_name==$tool_version"
-
-cp -f "$dp0/release/beautifulsoup.sh" "$release_version_dirpath/"
-cp -f "$dp0/release/__main__beautifulsoup.py" "$release_version_dirpath/"
 
 echo "creating archive ..."
 
 cd "$release_version_dirpath"
 { printf '### %s
 %s
-' "$self_toolset_name.tar.gz" "$(./"$tool_name.sh" --version)"
+' "$self_toolset_name.tar.gz" "$("$cpython_bin" -c "import bs4; print(bs4.__version__)")"
 } > $self_toolset_name.md
 
 cat $self_toolset_name.md
