@@ -10,5 +10,9 @@ test_lxml_version() {
   assertEquals "4.9.2" "$(../bin/Scripts/bin/python3 -c "import lxml; print(lxml.__version__)")"
 }
 
+test_lxml_version() {
+  assertEquals "1.1" "$(../bin/Scripts/bin/python3 -c "import html5lib; print(html5lib.__version__)")"
+}
+
 # Load and run shUnit2.
 source "../.tests/shunit2/shunit2"

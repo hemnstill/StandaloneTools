@@ -39,8 +39,13 @@ echo "creating archive ..."
 
 cd "$release_version_dirpath"
 { printf '### %s
-%s
-' "$self_toolset_name.tar.gz" "$("$cpython_bin" -c "import bs4; print(bs4.__version__)")"
+bs4 %s
+lxml %s
+html5lib %s
+' "$self_toolset_name.tar.gz" \
+  "$("$cpython_bin" -c "import bs4; print(bs4.__version__)")" \
+  "$("$cpython_bin" -c "import lxml; print(lxml.__version__)")" \
+  "$("$cpython_bin" -c "import html5lib; print(html5lib.__version__)")"
 } > $self_toolset_name.md
 
 cat $self_toolset_name.md
