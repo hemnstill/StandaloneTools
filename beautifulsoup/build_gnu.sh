@@ -5,7 +5,7 @@ set -e
 apt update
 apt install -y wget
 
-tool_name="beautifulsoup"
+tool_name="beautifulsoup4"
 tool_version="4.11.2"
 self_name="python-3.11.1"
 self_toolset_name="build-gnu"
@@ -33,8 +33,8 @@ cpython_bin="$release_version_dirpath/Scripts/bin/python3"
 
 "$cpython_bin" -m pip install "$tool_name==$tool_version"
 
-cp -f "$dp0/release/pylint.sh" "$release_version_dirpath/"
-cp -f "$dp0/release/__main__pylint.py" "$release_version_dirpath/"
+cp -f "$dp0/release/beautifulsoup.sh" "$release_version_dirpath/"
+cp -f "$dp0/release/__main__beautifulsoup.py" "$release_version_dirpath/"
 
 echo "creating archive ..."
 

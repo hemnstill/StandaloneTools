@@ -3,7 +3,7 @@
 ../.tools/install_alpine_glibc.sh
 
 test_version() {
-  assertEquals "beautifulsoup 4.11.2" "$(../bin/pylint.sh --version)"
+  assertEquals "beautifulsoup4 4.11.2" "$(../bin/pylint.sh --version)"
 }
 
 # Load and run shUnit2.
