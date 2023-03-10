@@ -1,7 +1,7 @@
 #!/bin/bash
 
 test_version() {
-  assertEquals "beautifulsoup4 4.11.2" "$(../bin/pylint.bat --version | dos2unix )"
+  assertEquals "4.11.2" "$(../bin/Scripts/python.exe -c "import bs4; print(bs4.__version__)")"
 }
 
 # Load and run shUnit2.
