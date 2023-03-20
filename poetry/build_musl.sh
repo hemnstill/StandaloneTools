@@ -31,7 +31,7 @@ echo "install poetry ..."
 cpython_lib_path="$release_version_dirpath/Scripts/lib/python3.11/site-packages"
 
 "python3" -m ensurepip
-"python3" -m pip install --target="$cpython_lib_path" cffi
+"python3" -m pip install --target="$cpython_lib_path" "poetry==$tool_version"
 
 "$cpython_bin" -m pip install "poetry==$tool_version"
 
