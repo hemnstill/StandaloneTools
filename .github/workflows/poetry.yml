@@ -16,6 +16,7 @@ jobs:
     uses: ./.github/workflows/build-alpine.yml
     with:
       workflow: ${{ github.workflow }}
+      version: 3.17.2
 
   windows-msvc:
     needs: prejob
