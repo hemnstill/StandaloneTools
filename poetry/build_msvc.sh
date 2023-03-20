@@ -17,14 +17,9 @@ python_bin_download_url="https://github.com/hemnstill/StandaloneTools/releases/d
 python_download_zip="$dp0/release/$python_self_name.tar.gz"
 [[ ! -f "$python_download_zip" ]] && wget "$python_bin_download_url" -O "$python_download_zip"
 
-echo "download bsdtar ..."
-bsdtar_version=3.6.2
-bsdtar_download_url="https://github.com/hemnstill/StandaloneTools/releases/download/bsdtar-$bsdtar_version/build-mingw.tar.gz"
-bsdtar_tar_gz="bsdtar-$bsdtar_version-build-mingw.tar.gz"
-[[ ! -f "$bsdtar_tar_gz" ]] && wget "$bsdtar_download_url" -O "$bsdtar_tar_gz"
-tar -xf "$bsdtar_tar_gz"
+"$dp0/../.tools/download_bsdtar.sh"
+bsdtar="$dp0/release/bsdtar"
 
-bsdtar="$dp0/release/bsdtar.exe"
 cpython_bin="$release_version_dirpath/Scripts/python.exe"
 [[ ! -f "$cpython_bin" ]] && tar -xf "$python_download_zip" -C "$release_version_dirpath"
 
