@@ -2,11 +2,14 @@
 dp0="$(realpath "$(dirname "$0")")"
 set -e
 
+apt update
+apt install -y wget binutils
+
 tool_name="poetry"
 tool_version="1.4.1"
 python_self_name="python-3.11.1"
 self_name="$tool_name-$tool_version"
-self_toolset_name="build-msvc"
+self_toolset_name="build-gnu"
 release_version_dirpath="$dp0/release/$self_name"
 echo "::set-output name=tool_name::$tool_name"
 echo "::set-output name=tool_version::$tool_version"
@@ -21,15 +24,15 @@ python_download_zip="$dp0/release/$python_self_name.tar.gz"
 "$dp0/../.tools/download_bsdtar.sh"
 bsdtar="$dp0/release/bsdtar"
 
-cpython_bin="$release_version_dirpath/Scripts/python.exe"
+cpython_bin="$release_version_dirpath/Scripts/bin/python3"
 [[ ! -f "$cpython_bin" ]] && tar -xf "$python_download_zip" -C "$release_version_dirpath"
 
 echo "install poetry ..."
-
-"$cpython_bin" -m pip install poetry=="$tool_version"
+"$cpython_bin" -m pip install "poetry==$tool_version"
 
 echo "prepare build artifacts ..."
-cp -f "$dp0/release/poetry.bat" "$release_version_dirpath/"
+
+cp -f "$dp0/release/poetry.sh" "$release_version_dirpath/"
 cp -f "$dp0/release/__main__poetry.py" "$release_version_dirpath/"
 
 echo "creating archive ..."
@@ -39,7 +42,7 @@ cd "$release_version_dirpath"
 %s
 Python %s
 
-' "$self_toolset_name.tar.gz" "$(./"$tool_name.bat" about)" "$("$cpython_bin" -c "import sys; print(sys.version)")"
+' "$self_toolset_name.tar.gz" "$(./"$tool_name.sh" about)" "$("$cpython_bin" -c "import sys; print(sys.version)")"
 } > $self_toolset_name.md
 
 cat $self_toolset_name.md

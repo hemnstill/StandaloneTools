@@ -16,6 +16,14 @@ jobs:
     uses: ./.github/workflows/build-alpine.yml
     with:
       workflow: ${{ github.workflow }}
+      version: 3.17.2
+
+  ubuntu-gnu:
+    needs: prejob
+    if: ${{ needs.prejob.outputs.workflow == github.workflow }}
+    uses: ./.github/workflows/build-ubuntu.yml
+    with:
+      workflow: ${{ github.workflow }}
 
   windows-msvc:
     needs: prejob
@@ -25,12 +33,19 @@ jobs:
       workflow: ${{ github.workflow }}
       toolset: msvc
 
-  test-ubuntu:
+  test-ubuntu-musl:
     needs: alpine-musl
     uses: ./.github/workflows/test-ubuntu.yml
     with:
       workflow: ${{ github.workflow }}
       artifact: build-musl
+
+  test-ubuntu-gnu:
+    needs: ubuntu-gnu
+    uses: ./.github/workflows/test-ubuntu.yml
+    with:
+      workflow: ${{ github.workflow }}
+      artifact: build-gnu
 
   test-alpine:
     needs: alpine-musl
@@ -54,14 +69,15 @@ jobs:
       artifact: build-msvc
 
   release:
-    needs: [test-alpine, test-ubuntu, test-windows-msvc, test-nanoserver-msvc]
+    needs: [test-alpine, test-ubuntu-musl, test-ubuntu-gnu, test-windows-msvc, test-nanoserver-msvc]
     uses: ./.github/workflows/release.yml
     with:
       workflow: ${{ github.workflow }}
-      tool_version: '1.3.1'
+      tool_version: '1.4.1'
       prepare_body: |
         bsdtar -Oxf ./build-musl/build-musl.tar.gz build-musl.md >> body.md
+        bsdtar -Oxf ./build-gnu/build-gnu.tar.gz build-gnu.md >> body.md
         bsdtar -Oxf ./build-msvc/build-msvc.tar.gz build-msvc.md >> body.md
-      artifacts: ./build-musl/build-musl.tar.gz, ./build-msvc/build-msvc.tar.gz
+      artifacts: ./build-musl/build-musl.tar.gz, ./build-gnu/build-gnu.tar.gz, ./build-msvc/build-msvc.tar.gz
     secrets:
       token: ${{ secrets.GITHUB_TOKEN }}
