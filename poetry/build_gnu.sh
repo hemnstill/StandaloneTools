@@ -2,8 +2,8 @@
 dp0="$(realpath "$(dirname "$0")")"
 set -e
 
-apk update
-apk add --no-cache alpine-sdk python3-dev
+apt update
+apt install -y wget binutils
 
 tool_name="poetry"
 tool_version="1.4.1"
