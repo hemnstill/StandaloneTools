@@ -28,19 +28,10 @@ cpython_bin="$release_version_dirpath/Scripts/bin/python3"
 [[ ! -f "$cpython_bin" ]] && tar -xf "$python_download_zip" -C "$release_version_dirpath"
 
 echo "install poetry ..."
-#cpython_lib_path="$release_version_dirpath/Scripts/lib/python3.11/site-packages"
-#
-#installed_python_version="$("python3" --version)"
-#standalone_python_version="$("$cpython_bin" --version)"
-#echo "$installed_python_version (alpine)"
-#echo "$standalone_python_version (standalone)"
-#if [[ "$installed_python_version" != "$standalone_python_version" ]]; then
-#  echo "required same python versions."
-#  exit 1
-#fi;
+cpython_lib_path="$release_version_dirpath/Scripts/lib/python3.11/site-packages"
 
-#"python3" -m ensurepip
-#"python3" -m pip install --target="$cpython_lib_path" "poetry==$tool_version"
+"python3" -m ensurepip
+"python3" -m pip install --target="$cpython_lib_path" cffi
 
 "$cpython_bin" -m pip install "poetry==$tool_version"
 
