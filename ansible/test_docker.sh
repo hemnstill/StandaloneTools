@@ -22,5 +22,9 @@ test_ansible_lint_version() {
   assertEquals "ansible-lint 6.9.1 using ansible 2.13.6" "$(docker run --rm $image_name ansible-lint --version | head -1)"
 }
 
+test_ansible_galaxy_version() {
+  assertEquals "ansible-glaxy [core 2.13.6]" "$(docker run --rm $image_name ansible-galaxy --version | head -1)"
+}
+
 # Load and run shUnit2.
 source "../.tests/shunit2/shunit2"
