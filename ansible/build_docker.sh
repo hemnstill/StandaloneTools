@@ -13,7 +13,7 @@ full_archive_path="$release_version_dirpath/$self_name.tar.gz"
 
 echo "generating Dockerfile ..."
 { printf 'FROM alpine:%s
-RUN apk add --no-cache git ansible ansible-lint
+RUN apk add --no-cache ansible ansible-lint
 ' "$alpine_version"
 } > "$dp0/Dockerfile"
 
