@@ -101,8 +101,8 @@ cd "$release_version_dirpath"
 ' "$(./"$tool_name.sh" --version)" \
   "$(./"ansible-config.sh" --version | head -1)" \
   "$(./"ansible-playbook.sh" --version | head -1)" \
-  "$(./"ansible-lint.sh" --version)" \
-  "$(./"ansible-galaxy.sh" --version)"
+  "$(./"ansible-galaxy.sh" --version | head -1)" \
+  "$(./"ansible-lint.sh" --version | head -1)"
 } > build-gnu.md
 
 cat build-gnu.md

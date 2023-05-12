@@ -35,8 +35,8 @@ docker image: %s
 
 ' "$image_name" \
   "$(docker run --rm "$image_name" ansible --version)" \
-  "$(docker run --rm "$image_name" ansible-lint --version)" \
-  "$(docker run --rm "$image_name" ansible-galaxy --version)"
+  "$(docker run --rm "$image_name" ansible-galaxy --version | head -1)" \
+  "$(docker run --rm "$image_name" ansible-lint --version | head -1)"
 } > build-docker.md
 
 cat build-docker.md
