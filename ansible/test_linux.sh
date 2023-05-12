@@ -59,7 +59,7 @@ test_ansible_lint_version() {
 }
 
 test_ansible_lint_version() {
-  assertEquals "ansible-galaxy [core 2.14.5]" "$(../bin/ansible-lint.sh --version | head -1)"
+  assertEquals "ansible-galaxy [core 2.14.5]" "$(../bin/ansible-galaxy.sh --version | head -1)"
 }
 
 # Load and run shUnit2.
