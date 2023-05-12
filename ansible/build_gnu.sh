@@ -3,9 +3,9 @@ dp0="$(realpath "$(dirname "$0")")"
 set -e
 
 apk update
-apk add --no-cache alpine-sdk python3-dev
+apk add --no-cache alpine-sdk python3-dev bash
 
-../.tools/install_alpine_glibc.sh
+"$dp0/../.tools/install_alpine_glibc.sh"
 
 export LC_ALL=en_US.UTF-8
 
