@@ -24,9 +24,9 @@ apk add --force-overwrite glibc-2.35-r0.apk glibc-bin-2.35-r0.apk glibc-i18n-2.3
 export LC_ALL=en_US.UTF-8
 
 tool_name="ansible"
-tool_version="7.1.0"
-tool_core_version="2.14.1"
-tool_lint_version="6.13.1"
+tool_version="7.5.0"
+tool_core_version="2.14.5"
+tool_lint_version="6.16.0"
 python_self_name="python-3.11.1"
 self_name="$tool_name-$tool_version"
 release_version_dirpath="$dp0/release/$self_name"
@@ -78,6 +78,9 @@ cp -f "$dp0/release/_ansible-playbook" "$release_version_dirpath/Scripts/bin/ans
 cp -f "$dp0/release/ansible-lint.sh" "$release_version_dirpath/"
 cp -f "$dp0/release/__main__ansible-lint.py" "$release_version_dirpath/"
 
+cp -f "$dp0/release/ansible-galaxy.sh" "$release_version_dirpath/"
+cp -f "$dp0/release/__main__ansible-galaxy.py" "$release_version_dirpath/"
+
 echo "creating archive ..."
 
 cd "$release_version_dirpath"
@@ -93,10 +96,13 @@ cd "$release_version_dirpath"
 
 %s
 
+%s
+
 ' "$(./"$tool_name.sh" --version)" \
   "$(./"ansible-config.sh" --version | head -1)" \
   "$(./"ansible-playbook.sh" --version | head -1)" \
-  "$(./"ansible-lint.sh" --version)"
+  "$(./"ansible-lint.sh" --version)" \
+  "$(./"ansible-galaxy.sh" --version)"
 } > build-gnu.md
 
 cat build-gnu.md
