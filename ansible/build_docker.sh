@@ -13,7 +13,7 @@ full_archive_path="$release_version_dirpath/$self_name.tar.gz"
 
 echo "generating Dockerfile ..."
 { printf 'FROM alpine:%s
-RUN apk add --no-cache git ansible ansible-lint ansible-galaxy
+RUN apk add --no-cache git ansible ansible-lint
 ' "$alpine_version"
 } > "$dp0/Dockerfile"
 
@@ -31,9 +31,12 @@ docker image: %s
 
 %s
 
+%s
+
 ' "$image_name" \
   "$(docker run --rm "$image_name" ansible --version)" \
-  "$(docker run --rm "$image_name" ansible-lint --version)"
+  "$(docker run --rm "$image_name" ansible-lint --version)" \
+  "$(docker run --rm "$image_name" ansible-galaxy --version)"
 } > build-docker.md
 
 cat build-docker.md
