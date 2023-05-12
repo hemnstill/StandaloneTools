@@ -23,7 +23,7 @@ test_ansible_lint_version() {
 }
 
 test_ansible_galaxy_version() {
-  assertEquals "ansible-glaxy [core 2.13.6]" "$(docker run --rm $image_name ansible-galaxy --version | head -1)"
+  assertEquals "ansible-galaxy [core 2.13.6]" "$(docker run --rm $image_name ansible-galaxy --version | head -1)"
 }
 
 # Load and run shUnit2.
