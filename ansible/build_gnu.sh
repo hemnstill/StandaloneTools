@@ -75,11 +75,12 @@ cp -f "$dp0/release/ansible-playbook.sh" "$release_version_dirpath/"
 cp -f "$dp0/release/__main__ansible-playbook.py" "$release_version_dirpath/"
 cp -f "$dp0/release/_ansible-playbook" "$release_version_dirpath/Scripts/bin/ansible-playbook"
 
-cp -f "$dp0/release/ansible-lint.sh" "$release_version_dirpath/"
-cp -f "$dp0/release/__main__ansible-lint.py" "$release_version_dirpath/"
-
 cp -f "$dp0/release/ansible-galaxy.sh" "$release_version_dirpath/"
 cp -f "$dp0/release/__main__ansible-galaxy.py" "$release_version_dirpath/"
+cp -f "$dp0/release/_ansible-galaxy" "$release_version_dirpath/Scripts/bin/ansible-galaxy"
+
+cp -f "$dp0/release/ansible-lint.sh" "$release_version_dirpath/"
+cp -f "$dp0/release/__main__ansible-lint.py" "$release_version_dirpath/"
 
 echo "creating archive ..."
 
