@@ -24,7 +24,7 @@ test_version() {
   ansible python module location = /__w/StandaloneTools/StandaloneTools/bin/Scripts/lib/python3.11/site-packages/ansible
   ansible collection location = /github/home/.ansible/collections:/usr/share/ansible/collections
   executable location = /__w/StandaloneTools/StandaloneTools/bin/__main__ansible.py
-  python version = 3.11.1 (main, Jan 16 2023, 22:40:32) [Clang 15.0.7 ] (/__w/StandaloneTools/StandaloneTools/bin/Scripts/bin/python3)
+  python version = 3.11.3 (main, May  7 2023, 19:33:53) [Clang 16.0.3 ] (/__w/StandaloneTools/StandaloneTools/bin/Scripts/bin/python3)
   jinja version = 3.1.2
   libyaml = True" "$(../bin/ansible.sh --version)"
 }
