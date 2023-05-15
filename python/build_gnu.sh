@@ -3,24 +3,14 @@ dp0="$(realpath "$(dirname "$0")")"
 set -e
 
 apk update
-apk add --no-cache alpine-sdk python3-dev gcompat
+apk add --no-cache alpine-sdk python3-dev
 
-{ printf '%s' "-----BEGIN PUBLIC KEY-----
-MIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKCAQEApZ2u1KJKUu/fW4A25y9m
-y70AGEa/J3Wi5ibNVGNn1gT1r0VfgeWd0pUybS4UmcHdiNzxJPgoWQhV2SSW1JYu
-tOqKZF5QSN6X937PTUpNBjUvLtTQ1ve1fp39uf/lEXPpFpOPL88LKnDBgbh7wkCp
-m2KzLVGChf83MS0ShL6G9EQIAUxLm99VpgRjwqTQ/KfzGtpke1wqws4au0Ab4qPY
-KXvMLSPLUp7cfulWvhmZSegr5AdhNw5KNizPqCJT8ZrGvgHypXyiFvvAH5YRtSsc
-Zvo9GI2e2MaZyo9/lvb+LbLEJZKEQckqRj4P26gmASrZEPStwc+yqy1ShHLA0j6m
-1QIDAQAB
------END PUBLIC KEY-----"
-} > "/etc/apk/keys/sgerrand.rsa.pub"
-wget https://github.com/sgerrand/alpine-pkg-glibc/releases/download/2.35-r0/glibc-2.35-r0.apk
-apk add --force-overwrite glibc-2.35-r0.apk
+"$dp0/../.tools/install_alpine_glibc.sh"
+export LC_ALL=en_US.UTF-8
 
 tool_name="python"
-tool_version="3.11.1"
-release_date="20230116"
+tool_version="3.11.3"
+release_date="20230507"
 self_name="$tool_name-$tool_version"
 release_version_dirpath="$dp0/release/$self_name"
 echo "::set-output name=tool_name::$tool_name"
@@ -32,14 +22,9 @@ cpython_zip="$dp0/release/raw_cpython-linux.tar.zst"
 echo "download python from $download_url ..."
 [[ ! -f "$cpython_zip" ]] && wget "$download_url" -O "$cpython_zip"
 
-echo "download bsdtar ..."
-bsdtar_version=3.6.2
-bsdtar_download_url="https://github.com/hemnstill/StandaloneTools/releases/download/bsdtar-$bsdtar_version/build-musl.tar.gz"
-bsdtar_tar_gz="bsdtar-$bsdtar_version-build-gnu.tar.gz"
-[[ ! -f "$bsdtar_tar_gz" ]] && wget "$bsdtar_download_url" -O "$bsdtar_tar_gz"
-tar -xf "$bsdtar_tar_gz"
-
+"$dp0/../.tools/download_bsdtar.sh"
 bsdtar="$dp0/release/bsdtar"
+
 cpython_bin="$dp0/.tmp/python/install/bin/python3"
 cpython_dll="$dp0/.tmp/python/install/lib/libpython3.11.so.1.0"
 if [[ ! -f "$cpython_bin" ]]; then

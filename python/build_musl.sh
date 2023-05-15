@@ -6,8 +6,8 @@ apk update
 apk add --no-cache alpine-sdk python3-dev
 
 tool_name="python"
-tool_version="3.11.1"
-release_date="20230116"
+tool_version="3.11.3"
+release_date="20230507"
 self_name="$tool_name-$tool_version"
 release_version_dirpath="$dp0/release/$self_name"
 echo "::set-output name=tool_name::$tool_name"
@@ -19,14 +19,9 @@ cpython_zip="$dp0/release/raw_cpython-linux.tar.zst"
 echo "download python from $download_url ..."
 [[ ! -f "$cpython_zip" ]] && wget "$download_url" -O "$cpython_zip"
 
-echo "download bsdtar ..."
-bsdtar_version=3.6.2
-bsdtar_download_url="https://github.com/hemnstill/StandaloneTools/releases/download/bsdtar-$bsdtar_version/build-musl.tar.gz"
-bsdtar_tar_gz="bsdtar-$bsdtar_version-build-musl.tar.gz"
-[[ ! -f "$bsdtar_tar_gz" ]] && wget "$bsdtar_download_url" -O "$bsdtar_tar_gz"
-tar -xf "$bsdtar_tar_gz"
-
+"$dp0/../.tools/download_bsdtar.sh"
 bsdtar="$dp0/release/bsdtar"
+
 cpython_bin="$dp0/.tmp/python/install/bin/python3"
 if [[ ! -f "$cpython_bin" ]]; then
   echo extract "$cpython_zip" to "$cpython_bin" ...
