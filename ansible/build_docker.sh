@@ -2,7 +2,7 @@
 dp0="$(realpath "$(dirname "$0")")"
 set -e
 
-alpine_version="3.17.2"
+alpine_version="3.18.0"
 self_name="ansible-alpine-$alpine_version"
 image_name="$self_name:latest"
 
@@ -31,9 +31,12 @@ docker image: %s
 
 %s
 
+%s
+
 ' "$image_name" \
   "$(docker run --rm "$image_name" ansible --version)" \
-  "$(docker run --rm "$image_name" ansible-lint --version)"
+  "$(docker run --rm "$image_name" ansible-galaxy --version | head -1)" \
+  "$(docker run --rm "$image_name" ansible-lint --version | head -1)"
 } > build-docker.md
 
 cat build-docker.md
