@@ -1,7 +1,7 @@
 #!/bin/bash
 
 test_version() {
-  assertEquals "Poetry (version 1.4.1)" "$(../bin/poetry.sh --version)"
+  assertEquals "Poetry (version 1.4.2)" "$(../bin/poetry.sh --version)"
 }
 
 # Load and run shUnit2.
