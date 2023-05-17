@@ -3,8 +3,8 @@ dp0="$(realpath "$(dirname "$0")")"
 set -e
 
 tool_name="poetry"
-tool_version="1.4.1"
-python_self_name="python-3.11.1"
+tool_version="1.4.2"
+python_self_name="python-3.11.3"
 self_name="$tool_name-$tool_version"
 self_toolset_name="build-msvc"
 release_version_dirpath="$dp0/release/$self_name"
@@ -47,5 +47,4 @@ cat $self_toolset_name.md
 "$bsdtar" \
   --exclude="__pycache__" \
   --exclude="Scripts/Scripts" \
-  --exclude="*.whl" \
   -czvf ../$self_toolset_name.tar.gz .
