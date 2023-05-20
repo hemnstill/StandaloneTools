@@ -6,7 +6,7 @@ apk update
 apk add --no-cache alpine-sdk python3-dev
 
 tool_name="poetry"
-tool_version="1.4.2"
+tool_version="1.5.0"
 python_self_name="python-3.11.3"
 self_name="$tool_name-$tool_version"
 self_toolset_name="build-musl"
