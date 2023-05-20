@@ -55,5 +55,4 @@ cat $self_toolset_name.md
 "$bsdtar" \
   --exclude="__pycache__" \
   --exclude="Scripts/Scripts" \
-  --exclude="*.whl" \
   -czvf ../$self_toolset_name.tar.gz .
