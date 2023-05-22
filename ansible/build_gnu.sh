@@ -97,5 +97,6 @@ cat build-gnu.md
 "$bsdtar" \
   --exclude="__pycache__" \
   --exclude="Scripts/Scripts" \
+  --exclude="Scripts/lib/python3.10" \
   --exclude="*.whl" \
   -czvf ../build-gnu.tar.gz .
