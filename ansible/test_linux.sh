@@ -42,11 +42,11 @@ test_ansible_playbook_version() {
 }
 
 test_ansible_galaxy_version() {
-  assertEquals "ansible-galaxy [core 2.14.5]" "$(../bin/ansible-galaxy.sh --version | head -1)"
+  assertEquals "ansible-galaxy [core 2.14.5]" "$(../bin/Scripts/bin/ansible-galaxy --version | head -1)"
 }
 
 test_ansible_lint_version() {
-  assertEquals "ansible-lint 6.16.0 using ansible 2.14.5" "$(../bin/ansible-lint.sh --version | head -1)"
+  assertEquals "ansible-lint 6.16.0 using ansible 2.14.5" "$(../bin/Scripts/bin/ansible-lint --version | head -1)"
 }
 
 # Load and run shUnit2.
