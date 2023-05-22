@@ -71,7 +71,7 @@ echo "creating archive ..."
 
 cd "$release_version_dirpath"
 
-./"$tool_name.sh" --version
+"./Scripts/bin/$tool_name" --version
 
 { printf '### build-gnu.tar.gz
 %s
@@ -86,7 +86,7 @@ cd "$release_version_dirpath"
 
 %s
 
-' "$("./Scripts/bin/$tool_name.sh" --version)" \
+' "$("./Scripts/bin/$tool_name" --version)" \
   "$("./Scripts/bin/ansible-config" --version | head -1)" \
   "$("./Scripts/bin/ansible-playbook" --version | head -1)" \
   "$("./Scripts/bin/ansible-galaxy" --version | head -1)" \
