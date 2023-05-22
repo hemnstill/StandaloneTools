@@ -49,24 +49,20 @@ echo "install ansbile ..."
 
 echo "prepare build artifacts ..."
 
-cp -f "$dp0/release/ansible.sh" "$release_version_dirpath/"
 cp -f "$dp0/release/__main__ansible.py" "$release_version_dirpath/"
 cp -f "$dp0/release/_ansible" "$release_version_dirpath/Scripts/bin/ansible"
 
-cp -f "$dp0/release/ansible-config.sh" "$release_version_dirpath/"
 cp -f "$dp0/release/__main__ansible-config.py" "$release_version_dirpath/"
-cp -f "$dp0/release/_ansible-config" "$release_version_dirpath/Scripts/bin/ansible-config"
+cp -f "$dp0/release/ansible-config" "$release_version_dirpath/Scripts/bin/"
 
-cp -f "$dp0/release/ansible-playbook.sh" "$release_version_dirpath/"
 cp -f "$dp0/release/__main__ansible-playbook.py" "$release_version_dirpath/"
-cp -f "$dp0/release/_ansible-playbook" "$release_version_dirpath/Scripts/bin/ansible-playbook"
+cp -f "$dp0/release/ansible-playbook" "$release_version_dirpath/Scripts/bin/"
 
-cp -f "$dp0/release/ansible-galaxy.sh" "$release_version_dirpath/"
 cp -f "$dp0/release/__main__ansible-galaxy.py" "$release_version_dirpath/"
-cp -f "$dp0/release/_ansible-galaxy" "$release_version_dirpath/Scripts/bin/ansible-galaxy"
+cp -f "$dp0/release/ansible-galaxy" "$release_version_dirpath/Scripts/bin/"
 
-cp -f "$dp0/release/ansible-lint.sh" "$release_version_dirpath/"
 cp -f "$dp0/release/__main__ansible-lint.py" "$release_version_dirpath/"
+cp -f "$dp0/release/ansible-lint" "$release_version_dirpath/Scripts/bin/"
 
 echo "creating archive ..."
 
