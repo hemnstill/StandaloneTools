@@ -84,11 +84,14 @@ cd "$release_version_dirpath"
 
 %s
 
-' "$(./"$tool_name.sh" --version)" \
-  "$(./"ansible-config.sh" --version | head -1)" \
-  "$(./"ansible-playbook.sh" --version | head -1)" \
-  "$(./"ansible-galaxy.sh" --version | head -1)" \
-  "$(./"ansible-lint.sh" --version | head -1)"
+%s
+
+' "$("./Scripts/bin/$tool_name.sh" --version)" \
+  "$("./Scripts/bin/ansible-config" --version | head -1)" \
+  "$("./Scripts/bin/ansible-playbook" --version | head -1)" \
+  "$("./Scripts/bin/ansible-galaxy" --version | head -1)" \
+  "$("./Scripts/bin/ansible-lint" --version | head -1)" \
+  "$("./Scripts/bin/ansible-test" --version | head -1)"
 } > build-gnu.md
 
 cat build-gnu.md
