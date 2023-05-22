@@ -17,6 +17,7 @@ jobs:
     with:
       workflow: ${{ github.workflow }}
       toolset: gnu
+      version: 3.18.0
 
   ubuntu-docker:
     needs: prejob

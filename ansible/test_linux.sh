@@ -46,7 +46,7 @@ test_ansible_galaxy_version() {
 }
 
 test_ansible_lint_version() {
-  assertEquals "ansible-lint 6.16.0 using ansible 2.15.0" "$(../bin/Scripts/bin/ansible-lint --version | head -1)"
+  assertEquals "ansible-lint 6.16.2 using ansible 2.15.0" "$(../bin/Scripts/bin/ansible-lint --version | head -1)"
 }
 
 test_ansible_test_version() {
