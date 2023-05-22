@@ -26,7 +26,7 @@ test_version() {
   executable location = /__w/StandaloneTools/StandaloneTools/bin/__main__ansible.py
   python version = 3.11.3 (main, May  7 2023, 19:33:53) [Clang 16.0.3 ] (/__w/StandaloneTools/StandaloneTools/bin/Scripts/bin/python3)
   jinja version = 3.1.2
-  libyaml = True" "$(../bin/ansible.sh --version)"
+  libyaml = True" "$(../bin/Scripts/bin/ansible --version)"
 }
 
 test_bin_version() {
