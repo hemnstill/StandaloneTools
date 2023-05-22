@@ -43,9 +43,9 @@ echo "install ansbile ..."
 "python3" -m ensurepip
 "python3" -m pip install --target="$cpython_lib_path" cffi
 
-"$cpython_bin" -m pip install "ansible-core==$tool_core_version"
 "$cpython_bin" -m pip install "$tool_name==$tool_version"
 "$cpython_bin" -m pip install "ansible-lint==$tool_lint_version"
+"$cpython_bin" -m pip install "ansible-core==$tool_core_version"
 
 echo "prepare build artifacts ..."
 
