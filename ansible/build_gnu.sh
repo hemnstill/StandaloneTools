@@ -11,7 +11,6 @@ export LC_ALL=en_US.UTF-8
 
 tool_name="ansible"
 tool_version="7.5.0"
-tool_core_version="2.15.0"
 tool_lint_version="6.16.2"
 python_self_name="python-3.11.3"
 self_name="$tool_name-$tool_version"
@@ -45,7 +44,6 @@ echo "install ansbile ..."
 
 "$cpython_bin" -m pip install "$tool_name==$tool_version"
 "$cpython_bin" -m pip install "ansible-lint==$tool_lint_version"
-"$cpython_bin" -m pip install "ansible-core==$tool_core_version"
 
 echo "prepare build artifacts ..."
 
