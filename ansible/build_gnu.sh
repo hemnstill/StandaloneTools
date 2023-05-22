@@ -64,6 +64,9 @@ cp -f "$dp0/release/ansible-galaxy" "$release_version_dirpath/Scripts/bin/"
 cp -f "$dp0/release/__main__ansible-lint.py" "$release_version_dirpath/"
 cp -f "$dp0/release/ansible-lint" "$release_version_dirpath/Scripts/bin/"
 
+cp -f "$dp0/release/__main__ansible-test.py" "$release_version_dirpath/"
+cp -f "$dp0/release/ansible-test" "$release_version_dirpath/Scripts/bin/"
+
 echo "creating archive ..."
 
 cd "$release_version_dirpath"

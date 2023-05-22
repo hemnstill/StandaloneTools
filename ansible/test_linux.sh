@@ -49,5 +49,9 @@ test_ansible_lint_version() {
   assertEquals "ansible-lint 6.16.0 using ansible 2.14.5" "$(../bin/Scripts/bin/ansible-lint --version | head -1)"
 }
 
+test_ansible_test_version() {
+  assertEquals "ansible-test [core 2.14.5]" "$(../bin/Scripts/bin/ansible-test --version | head -1)"
+}
+
 # Load and run shUnit2.
 source "../.tests/shunit2/shunit2"
