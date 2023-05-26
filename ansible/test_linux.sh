@@ -46,7 +46,7 @@ test_ansible_galaxy_version() {
 }
 
 test_ansible_lint_version() {
-  assertEquals "ansible-lint 6.16.2 using ansible-core:2.14.6 ruamel-yaml:0.17.26 ruamel-yaml-clib:0.2.7" "$(../bin/Scripts/bin/ansible-lint --version | head -1)"
+  assertEquals "ansible-lint 6.16.2 using ansible-core:2.14.6 ruamel-yaml:0.17.27 ruamel-yaml-clib:0.2.7" "$(../bin/Scripts/bin/ansible-lint --version | head -1)"
 }
 
 test_ansible_test_version() {
