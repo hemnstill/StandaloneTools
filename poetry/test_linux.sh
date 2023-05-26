@@ -1,11 +1,6 @@
 #!/bin/bash
 
-test_version() {
-  assertEquals "Poetry (version 1.5.0)" "$(../bin/poetry.sh --version)"
-}
-
-test_install() {
-  { printf '
+pyproject_content='
 [tool.poetry]
 name = "StandaloneTools"
 version = "1.0.0"
@@ -21,9 +16,8 @@ requests = "2.28.2"
 requires = ["poetry-core"]
 build-backend = "poetry.core.masonry.api"
 '
-  } > pyproject.toml
 
-  assertEquals "Updating dependencies
+poetry_install_stdout='Updating dependencies
 Resolving dependencies...
 
 Package operations: 5 installs, 0 updates, 0 removals
@@ -34,7 +28,26 @@ Package operations: 5 installs, 0 updates, 0 removals
   • Installing urllib3 (1.26.16)
   • Installing requests (2.28.2)
 
-Writing lock file" "$(../bin/poetry.sh install)"
+Writing lock file'
+
+test_version() {
+  assertEquals "Poetry (version 1.5.0)" "$(../bin/poetry.sh --version)"
+}
+
+test_install_from_sh() {
+  { printf '%s' "$pyproject_content"
+  } > pyproject.toml
+
+  assertEquals "$poetry_install_stdout" "$(../bin/poetry.sh install)"
+}
+
+test_install_from_symlink() {
+  { printf '%s' "$pyproject_content"
+  } > pyproject.toml
+
+  ln -sf "$(readlink -f ../bin/poetry.sh)" /usr/local/bin/poetry
+
+  assertEquals "$poetry_install_stdout" "$(poetry install)"
 }
 
 # Load and run shUnit2.
