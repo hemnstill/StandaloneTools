@@ -23,7 +23,18 @@ build-backend = "poetry.core.masonry.api"
 '
   } > pyproject.toml
 
-  assertEquals "Poetry (version 1.5.0)" "$(../bin/poetry.sh install)"
+  assertEquals "Updating dependencies
+Resolving dependencies...
+
+Package operations: 5 installs, 0 updates, 0 removals
+
+  • Installing certifi (2023.5.7)
+  • Installing charset-normalizer (3.1.0)
+  • Installing idna (3.4)
+  • Installing urllib3 (1.26.16)
+  • Installing requests (2.28.2)
+
+Writing lock file" "$(../bin/poetry.sh install)"
 }
 
 # Load and run shUnit2.
