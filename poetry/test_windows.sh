@@ -41,7 +41,7 @@ test_install_from_path() {
   path_with_poetry="$PATH;$(readlink -f ../bin)"
   export PATH="$path_with_poetry"
 
-  assertEquals "$poetry_install_stdout" "$(poetry install)"
+  assertEquals "$poetry_install_stdout" "$(poetry install | dos2unix)"
 }
 
 test_install_from_bat() {
@@ -50,7 +50,7 @@ test_install_from_bat() {
 
   assertEquals "Installing dependencies from lock file
 
-No dependencies to install or update" "$(../bin/poetry.bat install)"
+No dependencies to install or update" "$(../bin/poetry.bat install | dos2unix)"
 }
 
 # Load and run shUnit2.
