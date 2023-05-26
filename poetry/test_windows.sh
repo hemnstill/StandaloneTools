@@ -38,7 +38,8 @@ test_install_from_path() {
   { printf '%s' "$pyproject_content"
   } > pyproject.toml
 
-  setx /M path "%path%;$(readlink -f ../bin/poetry.bat)"
+  path_with_poetry="$PATH;$(readlink -f ../bin)"
+  export PATH="$path_with_poetry"
 
   assertEquals "$poetry_install_stdout" "$(poetry install)"
 }
