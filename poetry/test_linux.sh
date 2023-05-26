@@ -34,13 +34,6 @@ test_version() {
   assertEquals "Poetry (version 1.5.0)" "$(../bin/poetry.sh --version)"
 }
 
-test_install_from_sh() {
-  { printf '%s' "$pyproject_content"
-  } > pyproject.toml
-
-  assertEquals "$poetry_install_stdout" "$(../bin/poetry.sh install)"
-}
-
 test_install_from_symlink() {
   { printf '%s' "$pyproject_content"
   } > pyproject.toml
@@ -48,6 +41,15 @@ test_install_from_symlink() {
   ln -sf "$(readlink -f ../bin/poetry.sh)" /usr/local/bin/poetry
 
   assertEquals "$poetry_install_stdout" "$(poetry install)"
+}
+
+test_install_from_sh() {
+  { printf '%s' "$pyproject_content"
+  } > pyproject.toml
+
+  assertEquals "Installing dependencies from lock file
+
+No dependencies to install or update" "$(../bin/poetry.sh install)"
 }
 
 # Load and run shUnit2.
