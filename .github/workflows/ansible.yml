@@ -52,7 +52,7 @@ jobs:
     uses: ./.github/workflows/release.yml
     with:
       workflow: ${{ github.workflow }}
-      tool_version: '7.5.0'
+      tool_version: '7.6.0'
       prepare_body: |
         bsdtar -Oxf ./build-docker/build-docker.tar.gz build-docker.md >> body.md
         bsdtar -Oxf ./build-gnu/build-gnu.tar.gz build-gnu.md >> body.md
