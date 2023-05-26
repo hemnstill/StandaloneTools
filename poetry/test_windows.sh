@@ -1,5 +1,8 @@
 #!/bin/bash
 
+is_windows_os=false && [[ $(uname) == Windows_NT* ]] && is_windows_os=true
+is_nanoserver_os=false && $is_windows_os && [[ ! -f "C:\Windows\notepad.exe" ]] && is_nanoserver_os=true
+
 pyproject_content='
 [tool.poetry]
 name = "StandaloneTools"
@@ -17,7 +20,7 @@ requires = ["poetry-core"]
 build-backend = "poetry.core.masonry.api"
 '
 
-poetry_install_stdout='Updating dependencies
+poetry_install_stdout_etalon='Updating dependencies
 Resolving dependencies...
 
 Package operations: 5 installs, 0 updates, 0 removals
@@ -41,7 +44,15 @@ test_install_from_path() {
   path_with_poetry="$PATH;$(readlink -f ../bin)"
   export PATH="$path_with_poetry"
 
-  assertEquals "$poetry_install_stdout" "$(poetry install --no-ansi | dos2unix | sed "s/\�/\•/g")"
+  poetry_install_stdout="$(poetry install | dos2unix)"
+
+  if [[ $is_nanoserver_os == "true" ]]; then
+    assertEquals "$poetry_install_stdout_etalon" "$poetry_install_stdout"
+  else
+    printf 'Windows has encoding problem wih ''•'' skip assert:\n%s' "$poetry_install_stdout"
+  fi
+
+  assertEquals "$(echo "$poetry_install_stdout_etalon" | head -4)" "$(echo "$poetry_install_stdout" | head -4)"
 }
 
 test_install_from_bat() {
