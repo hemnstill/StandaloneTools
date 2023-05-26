@@ -10,7 +10,7 @@ apk add --no-cache alpine-sdk python3-dev bash
 export LC_ALL=en_US.UTF-8
 
 tool_name="ansible"
-tool_version="7.5.0"
+tool_version="7.6.0"
 tool_lint_version="6.16.2"
 python_self_name="python-3.11.3"
 self_name="$tool_name-$tool_version"
@@ -25,14 +25,9 @@ python_bin_download_url="https://github.com/hemnstill/StandaloneTools/releases/d
 python_download_zip="$dp0/release/$python_self_name.tar.gz"
 [[ ! -f "$python_download_zip" ]] && wget "$python_bin_download_url" -O "$python_download_zip"
 
-echo "download bsdtar ..."
-bsdtar_version=3.6.2
-bsdtar_download_url="https://github.com/hemnstill/StandaloneTools/releases/download/bsdtar-$bsdtar_version/build-musl.tar.gz"
-bsdtar_tar_gz="bsdtar-$bsdtar_version-build-musl.tar.gz"
-[[ ! -f "$bsdtar_tar_gz" ]] && wget "$bsdtar_download_url" -O "$bsdtar_tar_gz"
-tar -xf "$bsdtar_tar_gz"
-
+"$dp0/../.tools/download_bsdtar.sh"
 bsdtar="$dp0/release/bsdtar"
+
 cpython_bin="$release_version_dirpath/Scripts/bin/python3"
 cpython_lib_path="$release_version_dirpath/Scripts/lib/python3.10/site-packages"
 [[ ! -f "$cpython_bin" ]] && "$bsdtar" -xf "$python_download_zip" -C "$release_version_dirpath"
