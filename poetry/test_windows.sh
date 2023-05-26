@@ -41,7 +41,7 @@ test_install_from_path() {
   path_with_poetry="$PATH;$(readlink -f ../bin)"
   export PATH="$path_with_poetry"
 
-  assertEquals "$poetry_install_stdout" "$(poetry install | dos2unix)"
+  assertEquals "$poetry_install_stdout" "$(poetry install | dos2unix | sed "s/�/•/g")"
 }
 
 test_install_from_bat() {
