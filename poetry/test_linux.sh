@@ -1,16 +1,10 @@
 #!/bin/bash
 
-is_alpine_os=false && [[ -f "/etc/alpine-release" ]] && is_alpine_os=true
 is_ubuntu_os=false && [[ -f "/etc/lsb-release" ]] && is_ubuntu_os=true
-
-if [[ "$is_alpine_os" == true ]]; then
-  apk update
-  apk add --no-cache clang mariadb-connector-c-dev
-fi
 
 if [[ $is_ubuntu_os == true ]]; then
   apt update
-  apt install -y clang musl libmysqlclient-dev
+  apt install -y clang libmysqlclient-dev
 fi
 
 pyproject_content='
