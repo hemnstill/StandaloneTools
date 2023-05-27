@@ -11,6 +11,7 @@ readme = "README.md"
 [tool.poetry.dependencies]
 python = "3.11.3"
 requests = "2.28.2"
+mysqlclient = "2.1.1"
 
 [build-system]
 requires = ["poetry-core"]
