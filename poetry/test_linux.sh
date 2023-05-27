@@ -5,7 +5,7 @@ is_ubuntu_os=false && [[ -f "/etc/lsb-release" ]] && is_ubuntu_os=true
 
 if [[ "$is_alpine_os" == true ]]; then
   apk update
-  apk add --no-cache mariadb-connector-c-dev
+  apk add --no-cache clang mariadb-connector-c-dev
 fi
 
 if [[ $is_ubuntu_os == true ]]; then
