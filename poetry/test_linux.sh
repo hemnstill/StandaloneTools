@@ -1,5 +1,12 @@
 #!/bin/bash
 
+is_ubuntu_os=false && [[ -f "/etc/lsb-release" ]] && is_ubuntu_os=true
+
+if [[ $is_ubuntu_os == true ]]; then
+  apt update
+  apt install -y libmysqlclient-dev
+fi
+
 pyproject_content='
 [tool.poetry]
 name = "StandaloneTools"

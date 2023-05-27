@@ -46,7 +46,7 @@ test_install_from_path() {
 
   poetry_install_stdout="$(poetry install | dos2unix)"
 
-  if [[ $is_nanoserver_os == "true" ]]; then
+  if [[ $is_nanoserver_os == true ]]; then
     assertEquals "$poetry_install_stdout_etalon" "$poetry_install_stdout"
   else
     printf 'Windows has encoding problem wih ''•'' skip assert:\n%s' "$poetry_install_stdout"
