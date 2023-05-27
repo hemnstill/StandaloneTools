@@ -10,7 +10,7 @@ fi
 
 if [[ $is_ubuntu_os == true ]]; then
   apt update
-  apt install -y clang libmysqlclient-dev
+  apt install -y clang musl libmysqlclient-dev
 fi
 
 pyproject_content='
