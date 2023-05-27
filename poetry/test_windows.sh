@@ -14,6 +14,7 @@ readme = "README.md"
 [tool.poetry.dependencies]
 python = "3.11.3"
 requests = "2.28.2"
+mysqlclient = "2.1.1"
 
 [build-system]
 requires = ["poetry-core"]
@@ -23,12 +24,13 @@ build-backend = "poetry.core.masonry.api"
 poetry_install_stdout_etalon='Updating dependencies
 Resolving dependencies...
 
-Package operations: 5 installs, 0 updates, 0 removals
+Package operations: 6 installs, 0 updates, 0 removals
 
   • Installing certifi (2023.5.7)
   • Installing charset-normalizer (3.1.0)
   • Installing idna (3.4)
   • Installing urllib3 (1.26.16)
+  • Installing mysqlclient (2.1.1)
   • Installing requests (2.28.2)
 
 Writing lock file'

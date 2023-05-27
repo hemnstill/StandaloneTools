@@ -1,6 +1,12 @@
 #!/bin/bash
 
+is_alpine_os=false && [[ -f "/etc/alpine-release" ]] && is_alpine_os=true
 is_ubuntu_os=false && [[ -f "/etc/lsb-release" ]] && is_ubuntu_os=true
+
+if [[ "$is_alpine_os" == true ]]; then
+  apk update
+  apk add --no-cache mariadb-connector-c-dev
+fi
 
 if [[ $is_ubuntu_os == true ]]; then
   apt update
@@ -28,12 +34,13 @@ build-backend = "poetry.core.masonry.api"
 poetry_install_stdout='Updating dependencies
 Resolving dependencies...
 
-Package operations: 5 installs, 0 updates, 0 removals
+Package operations: 6 installs, 0 updates, 0 removals
 
   • Installing certifi (2023.5.7)
   • Installing charset-normalizer (3.1.0)
   • Installing idna (3.4)
   • Installing urllib3 (1.26.16)
+  • Installing mysqlclient (2.1.1)
   • Installing requests (2.28.2)
 
 Writing lock file'
