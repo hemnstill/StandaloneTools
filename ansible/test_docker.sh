@@ -13,7 +13,7 @@ test_version() {
   ansible python module location = /usr/lib/python3.11/site-packages/ansible
   ansible collection location = /root/.ansible/collections:/usr/share/ansible/collections
   executable location = /usr/bin/ansible
-  python version = 3.11.3 (main, May 10 2023, 12:26:31) [GCC 12.2.1 20220924] (/usr/bin/python3)
+  python version = 3.11.4 (main, Jun  9 2023, 02:29:05) [GCC 12.2.1 20220924] (/usr/bin/python3)
   jinja version = 3.1.2
   libyaml = True" "$(docker run --rm $image_name ansible --version)"
 }
@@ -23,7 +23,7 @@ test_ansible_galaxy_version() {
 }
 
 test_ansible_lint_version() {
-  assertEquals "ansible-lint 6.16.2 using ansible-core:2.14.5 ruamel-yaml:0.17.27 ruamel-yaml-clib:0.2.7" "$(docker run --rm $image_name ansible-lint --version | head -1)"
+  assertEquals "ansible-lint 6.17.0 using ansible-core:2.14.5 ruamel-yaml:0.17.31 ruamel-yaml-clib:0.2.7" "$(docker run --rm $image_name ansible-lint --version | head -1)"
 }
 
 # Load and run shUnit2.
