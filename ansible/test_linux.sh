@@ -18,7 +18,7 @@ if [[ "$is_ubuntu_os" == true ]]; then
 fi
 
 test_version() {
-  assertEquals "ansible [core 2.14.6]
+  assertEquals "ansible [core 2.15.0]
   config file = None
   configured module search path = ['/github/home/.ansible/plugins/modules', '/usr/share/ansible/plugins/modules']
   ansible python module location = /__w/StandaloneTools/StandaloneTools/bin/Scripts/lib/python3.11/site-packages/ansible
@@ -30,27 +30,27 @@ test_version() {
 }
 
 test_bin_version() {
-  assertEquals "ansible [core 2.14.6]" "$(../bin/Scripts/bin/ansible --version | head -1)"
+  assertEquals "ansible [core 2.15.0]" "$(../bin/Scripts/bin/ansible --version | head -1)"
 }
 
 test_ansible_config_version() {
-  assertEquals "ansible-config [core 2.14.6]" "$(../bin/Scripts/bin/ansible-config --version | head -1)"
+  assertEquals "ansible-config [core 2.15.0]" "$(../bin/Scripts/bin/ansible-config --version | head -1)"
 }
 
 test_ansible_playbook_version() {
-  assertEquals "ansible-playbook [core 2.14.6]" "$(../bin/Scripts/bin/ansible-playbook --version | head -1)"
+  assertEquals "ansible-playbook [core 2.15.0]" "$(../bin/Scripts/bin/ansible-playbook --version | head -1)"
 }
 
 test_ansible_galaxy_version() {
-  assertEquals "ansible-galaxy [core 2.14.6]" "$(../bin/Scripts/bin/ansible-galaxy --version | head -1)"
+  assertEquals "ansible-galaxy [core 2.15.0]" "$(../bin/Scripts/bin/ansible-galaxy --version | head -1)"
 }
 
 test_ansible_lint_version() {
-  assertEquals "ansible-lint 6.16.2 using ansible-core:2.14.6 ruamel-yaml:0.17.27 ruamel-yaml-clib:0.2.7" "$(../bin/Scripts/bin/ansible-lint --version | head -1)"
+  assertEquals "ansible-lint 6.17.0 using ansible-core:2.15.0 ruamel-yaml:0.17.27 ruamel-yaml-clib:0.2.7" "$(../bin/Scripts/bin/ansible-lint --version | head -1)"
 }
 
 test_ansible_test_version() {
-  assertEquals "ansible-test version 2.14.6" "$(../bin/Scripts/bin/ansible-test --version | head -1)"
+  assertEquals "ansible-test version 2.15.0" "$(../bin/Scripts/bin/ansible-test --version | head -1)"
 }
 
 # Load and run shUnit2.

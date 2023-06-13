@@ -10,8 +10,8 @@ apk add --no-cache alpine-sdk python3-dev bash
 export LC_ALL=en_US.UTF-8
 
 tool_name="ansible"
-tool_version="7.6.0"
-tool_lint_version="6.16.2"
+tool_version="8.0.0"
+tool_lint_version="6.17.0"
 python_self_name="python-3.11.3"
 self_name="$tool_name-$tool_version"
 release_version_dirpath="$dp0/release/$self_name"
