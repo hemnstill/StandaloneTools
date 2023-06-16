@@ -30,8 +30,8 @@ Package operations: 6 installs, 0 updates, 0 removals
   • Installing charset-normalizer (3.1.0)
   • Installing idna (3.4)
   • Installing urllib3 (1.26.16)
-  • Installing requests (2.28.2)
   • Installing mysqlclient (2.1.1)
+  • Installing requests (2.28.2)
 
 Writing lock file'
 
