@@ -6,7 +6,7 @@ apt update
 apt install -y wget binutils
 
 tool_name="poetry"
-tool_version="1.5.0"
+tool_version="1.5.1"
 python_self_name="python-3.11.3"
 python_release_date="20230507"
 self_name="$tool_name-$tool_version"
@@ -37,6 +37,8 @@ cp -rf "python/install/include" "$release_version_dirpath/Scripts/include/"
 
 echo "install poetry ..."
 "$cpython_bin" -m pip install "poetry==$tool_version"
+"$cpython_bin" -m poetry self add poetry-plugin-sort
+"$cpython_bin" -m poetry self lock
 
 echo "prepare build artifacts ..."
 
@@ -50,7 +52,27 @@ cd "$release_version_dirpath"
 %s
 Python %s
 
-' "$self_toolset_name.tar.gz" "$(./"$tool_name.sh" about)" "$("$cpython_bin" -c "import sys; print(sys.version)")"
+<details>
+  <summary>poetry self show</summary>
+
+```
+%s
+```
+</details>
+
+<details>
+  <summary>poetry self show plugins</summary>
+
+```
+%s
+```
+</details>
+
+' "$self_toolset_name.tar.gz" \
+  "$(./"$tool_name.sh" about)" \
+  "$("$cpython_bin" -c "import sys; print(sys.version)")" \
+  "$(./"$tool_name.sh" self show)" \
+  "$(./"$tool_name.sh" self show plugins)"
 } > $self_toolset_name.md
 
 cat $self_toolset_name.md

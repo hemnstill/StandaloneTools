@@ -3,7 +3,7 @@ dp0="$(realpath "$(dirname "$0")")"
 set -e
 
 tool_name="poetry"
-tool_version="1.5.0"
+tool_version="1.5.1"
 python_self_name="python-3.11.3"
 self_name="$tool_name-$tool_version"
 self_toolset_name="build-msvc"
@@ -27,6 +27,8 @@ cpython_bin="$release_version_dirpath/Scripts/python.exe"
 echo "install poetry ..."
 
 "$cpython_bin" -m pip install poetry=="$tool_version"
+"$cpython_bin" -m poetry self add poetry-plugin-sort
+"$cpython_bin" -m poetry self lock
 
 echo "prepare build artifacts ..."
 cp -f "$dp0/release/poetry.bat" "$release_version_dirpath/"
@@ -39,7 +41,27 @@ cd "$release_version_dirpath"
 %s
 Python %s
 
-' "$self_toolset_name.tar.gz" "$(./"$tool_name.bat" about)" "$("$cpython_bin" -c "import sys; print(sys.version)")"
+<details>
+  <summary>poetry self show</summary>
+
+```
+%s
+```
+</details>
+
+<details>
+  <summary>poetry self show plugins</summary>
+
+```
+%s
+```
+</details>
+
+' "$self_toolset_name.tar.gz" \
+  "$(./"$tool_name.bat" about)" \
+  "$("$cpython_bin" -c "import sys; print(sys.version)")" \
+  "$(./"$tool_name.bat" self show)" \
+  "$(./"$tool_name.bat" self show plugins)"
 } > $self_toolset_name.md
 
 cat $self_toolset_name.md
