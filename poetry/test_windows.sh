@@ -36,7 +36,7 @@ Package operations: 6 installs, 0 updates, 0 removals
 Writing lock file'
 
 test_version() {
-  assertEquals "Poetry (version 1.5.0)" "$(../bin/poetry.bat --version)"
+  assertEquals "Poetry (version 1.5.1)" "$(../bin/poetry.bat --version)"
 }
 
 test_install_from_path() {

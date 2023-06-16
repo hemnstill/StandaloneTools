@@ -6,7 +6,7 @@ apt update
 apt install -y wget binutils
 
 tool_name="poetry"
-tool_version="1.5.0"
+tool_version="1.5.1"
 python_self_name="python-3.11.3"
 python_release_date="20230507"
 self_name="$tool_name-$tool_version"
