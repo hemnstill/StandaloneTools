@@ -27,6 +27,7 @@ cpython_bin="$release_version_dirpath/Scripts/python.exe"
 echo "install poetry ..."
 
 "$cpython_bin" -m pip install poetry=="$tool_version"
+"$cpython_bin" -m poetry self add poetry-plugin-sort
 
 echo "prepare build artifacts ..."
 cp -f "$dp0/release/poetry.bat" "$release_version_dirpath/"

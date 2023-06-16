@@ -37,6 +37,7 @@ cp -rf "python/install/include" "$release_version_dirpath/Scripts/include/"
 
 echo "install poetry ..."
 "$cpython_bin" -m pip install "poetry==$tool_version"
+"$cpython_bin" -m poetry self add poetry-plugin-sort
 
 echo "prepare build artifacts ..."
 
