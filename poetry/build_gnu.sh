@@ -70,9 +70,9 @@ Python %s
 
 ' "$self_toolset_name.tar.gz" \
   "$(./"$tool_name.sh" about)" \
+  "$("$cpython_bin" -c "import sys; print(sys.version)")" \
   "$(./"$tool_name.sh" self show)" \
-  "$(./"$tool_name.sh" self show plugins)" \
-  "$("$cpython_bin" -c "import sys; print(sys.version)")"
+  "$(./"$tool_name.sh" self show plugins)"
 } > $self_toolset_name.md
 
 cat $self_toolset_name.md
