@@ -28,6 +28,7 @@ echo "install poetry ..."
 
 "$cpython_bin" -m pip install poetry=="$tool_version"
 "$cpython_bin" -m poetry self add poetry-plugin-sort
+"$cpython_bin" -m poetry self lock
 
 echo "prepare build artifacts ..."
 cp -f "$dp0/release/poetry.bat" "$release_version_dirpath/"
@@ -40,7 +41,27 @@ cd "$release_version_dirpath"
 %s
 Python %s
 
-' "$self_toolset_name.tar.gz" "$(./"$tool_name.bat" about)" "$("$cpython_bin" -c "import sys; print(sys.version)")"
+<details>
+  <summary>poetry self show</summary>
+
+```
+%s
+```
+</details>
+
+<details>
+  <summary>poetry self show plugins</summary>
+
+```
+%s
+```
+</details>
+
+' "$self_toolset_name.tar.gz" \
+  "$(./"$tool_name.bat" about)" \
+  "$(./"$tool_name.bat" self show)" \
+  "$(./"$tool_name.bat" self show plugins)" \
+  "$("$cpython_bin" -c "import sys; print(sys.version)")"
 } > $self_toolset_name.md
 
 cat $self_toolset_name.md

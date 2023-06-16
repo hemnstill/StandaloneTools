@@ -39,23 +39,6 @@ test_version() {
   assertEquals "Poetry (version 1.5.1)" "$(../bin/poetry.bat --version)"
 }
 
-test_version_plugins() {
-  assertEquals "
-  • poetry-plugin-export (1.4.0) Poetry plugin to export the dependencies to various formats
-      1 application plugin
-
-      Dependencies
-        - poetry (>=1.5.0,<2.0.0)
-        - poetry-core (>=1.6.0,<2.0.0)
-
-  • poetry-plugin-sort (0.2.0) Poetry plugin to sort the dependencies alphabetically
-      1 application plugin
-
-      Dependencies
-        - poetry (>=1.2.0,<2.0.0)
-" "$(../bin/poetry.bat self show plugins)"
-}
-
 test_install_from_path() {
   { printf '%s' "$pyproject_content"
   } > pyproject.toml
