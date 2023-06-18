@@ -1,4 +1,5 @@
-name: openssl build
+name: openssl
+# version_tests: skip
 
 on: [pull_request, workflow_dispatch]
 
