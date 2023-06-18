@@ -12,7 +12,7 @@ _no_tool_version = '<no tool_version>'
 class ReleaseInfo:
     name: str = ''
     tool_version: str = ''
-    need_skip: bool = False
+    skip_reason: str = dataclasses.field(default='', compare = False)
 
 
 class VersionTests(unittest.TestCase):
@@ -31,11 +31,12 @@ class VersionTests(unittest.TestCase):
             if stripped_key == 'tool_version' and release_info.name and stripped_value:
                 release_info.tool_version = stripped_value
                 break
-            if line.strip() == '# version_tests: skip':
-                release_info.need_skip = True
-                break
+            if line.strip().startswith('# version_tests: skip_workflow'):
+                release_info.skip_reason = line.strip()
+            elif line.strip().startswith('# version_tests: skip_readme'):
+                release_info.skip_reason = line.strip()
 
-        if release_info.need_skip:
+        if release_info.skip_reason == '# version_tests: skip_workflow':
             return release_info
 
         self.assertTrue(release_info.name, f"cannot get {name} 'name' in workflow")
@@ -83,31 +84,50 @@ class VersionTests(unittest.TestCase):
 
         self.assertEqual(script_info, release_info, build_script_path)
 
-    def dir_path_contains_script(self, dir_path):
+    @classmethod
+    def dir_path_contains_script(cls, dir_path):
         return any((p for p in pathlib.Path(dir_path).iterdir() if p.name.endswith('.sh')))
 
-    def get_tools_dir_paths(self) -> list[str]:
+    @classmethod
+    def get_tools_dir_paths(cls) -> list[str]:
         tools_dir_paths = []
         for script_dir in pathlib.Path(_root_dir_path).iterdir():
             if not pathlib.Path(script_dir).is_dir():
                 continue
             if script_dir.name.startswith('.'):
                 continue
-            if not self.dir_path_contains_script(script_dir):
+            if not cls.dir_path_contains_script(script_dir):
                 continue
 
             tools_dir_paths.append(script_dir)
 
-        self.assertTrue(tools_dir_paths)
         return tools_dir_paths
 
+    def get_line_from_readme(self, release_info: ReleaseInfo):
+        readme_file_path = os.path.join(_root_dir_path, 'README.md')
+        for line in pathlib.Path(readme_file_path).read_text().splitlines():
+            stripped_line = line.strip()
+            if f'https://github.com/hemnstill/StandaloneTools/releases/tag/{release_info.name}-' in stripped_line:
+                return stripped_line
+
+        self.assertTrue('', f"Cannot find line with '{release_info.name}' in readme.")
+
+    def check_readme_versions(self, release_info: ReleaseInfo):
+        readme_line = self.get_line_from_readme(release_info)
+        self.assertEqual(3, readme_line.count(f'{release_info.name}-{release_info.tool_version}'),
+                         f"Cannot find '{release_info}' in readme 3 times.")
+
     def test_version_match(self):
-        for tool_dir_path in self.get_tools_dir_paths():
+        tools_dir_paths = self.get_tools_dir_paths()
+        self.assertTrue(tools_dir_paths)
+        for tool_dir_path in tools_dir_paths:
             workflow_name = pathlib.Path(tool_dir_path).name
             release_info = self.get_release_info_from_workflow(workflow_name)
-            if release_info.need_skip:
+            if release_info.skip_reason == '# version_tests: skip_workflow':
                 continue
-
             self.check_scripts_versions(release_info)
+            if release_info.skip_reason == '# version_tests: skip_readme':
+                continue
+            self.check_readme_versions(release_info)
 
 
