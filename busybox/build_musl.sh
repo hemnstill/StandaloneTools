@@ -10,7 +10,7 @@ apk add --no-cache alpine-sdk make linux-headers
 echo "::endgroup::"
 
 tool_name="busybox"
-# version_tests: no tool_version
+# version_tests: no_tool_version
 tool_version="1.35.0"
 echo "::set-output name=tool_name::$tool_name"
 echo "::set-output name=tool_version::$tool_version"

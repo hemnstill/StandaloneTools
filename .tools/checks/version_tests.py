@@ -6,13 +6,16 @@ import unittest
 _current_dir_path: str = os.path.dirname(os.path.realpath(__file__))
 _root_dir_path: str = os.path.dirname(os.path.dirname(_current_dir_path))
 
-_no_tool_version = '<no tool_version>'
+_no_tool_version = '# version_tests: no_tool_version'
+_skip_workflow = '# version_tests: skip_workflow'
+_skip_readme = '# version_tests: skip_readme'
+
 
 @dataclasses.dataclass
 class ReleaseInfo:
     name: str = ''
     tool_version: str = ''
-    skip_reason: str = dataclasses.field(default='', compare = False)
+    skip_reason: str = dataclasses.field(default='', compare=False)
 
 
 class VersionTests(unittest.TestCase):
@@ -31,12 +34,12 @@ class VersionTests(unittest.TestCase):
             if stripped_key == 'tool_version' and release_info.name and stripped_value:
                 release_info.tool_version = stripped_value
                 break
-            if line.strip().startswith('# version_tests: skip_workflow'):
+            if line.strip().startswith(_skip_workflow):
                 release_info.skip_reason = line.strip()
-            elif line.strip().startswith('# version_tests: skip_readme'):
+            elif line.strip().startswith(_skip_readme):
                 release_info.skip_reason = line.strip()
 
-        if release_info.skip_reason == '# version_tests: skip_workflow':
+        if release_info.skip_reason == _skip_workflow:
             return release_info
 
         self.assertTrue(release_info.name, f"cannot get {name} 'name' in workflow")
@@ -73,7 +76,7 @@ class VersionTests(unittest.TestCase):
             if stripped_key == 'tool_version' and script_info.name and stripped_value:
                 script_info.tool_version = stripped_value
                 break
-            if line.strip() == '# version_tests: no tool_version':
+            if line.strip() == _no_tool_version:
                 script_info.tool_version = _no_tool_version
                 break
 
@@ -123,11 +126,9 @@ class VersionTests(unittest.TestCase):
         for tool_dir_path in tools_dir_paths:
             workflow_name = pathlib.Path(tool_dir_path).name
             release_info = self.get_release_info_from_workflow(workflow_name)
-            if release_info.skip_reason == '# version_tests: skip_workflow':
+            if release_info.skip_reason == _skip_workflow:
                 continue
             self.check_scripts_versions(release_info)
-            if release_info.skip_reason == '# version_tests: skip_readme':
+            if release_info.skip_reason == _skip_readme:
                 continue
             self.check_readme_versions(release_info)
-
-
