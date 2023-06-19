@@ -19,6 +19,6 @@ jobs:
       - uses: actions/checkout@v3
       - run: |
           corepack enable && corepack prepare yarn@3.6.0 --activate
-          yarn set version 3.6.0
           cd .tools/checks
           yarn install --immutable
+          yarn run editorconfig
