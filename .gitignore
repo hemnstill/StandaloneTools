@@ -13,3 +13,7 @@ install-poetry*.py
 poetry/poetry-*
 
 /ansible/Dockerfile
+
+.tools/python-*/
+
+__pycache__/

@@ -7,7 +7,7 @@ testVersion() {
 }
 
 testDoubleQuotesWithSpaces() {
-   assertEquals "test-quotes.zip" "$(echo "test-quotes.zip" | "$grep" --only-matching "[^"" ]*quotes\.zip")"
+  assertEquals "test-quotes.zip" "$(echo "test-quotes.zip" | "$grep" --only-matching "[^"" ]*quotes\.zip")"
 }
 
 testParenthesesBracesEscapeDoubleQuotes() {

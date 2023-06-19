@@ -1,0 +1,12 @@
+{
+  "Exclude": [
+    "/node_modules/",
+    "/release/",
+    "/__pycache__/",
+    "^\\.git/",
+    "^\\.tools/",
+    "/yarn\\.lock$",
+    "\\.diff$",
+    "\\.tests/shunit2/"
+  ]
+}
