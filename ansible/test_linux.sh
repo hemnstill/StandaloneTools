@@ -54,7 +54,7 @@ test_ansible_test_version() {
 }
 
 test_ansible_doc_version() {
-  assertEquals "ansible-doc version 2.15.0" "$(../bin/Scripts/bin/ansible-doc --version | head -1)"
+  assertEquals "ansible-doc [core 2.15.0]" "$(../bin/Scripts/bin/ansible-doc --version | head -1)"
 }
 
 # Load and run shUnit2.
