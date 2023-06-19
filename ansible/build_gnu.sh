@@ -60,6 +60,9 @@ cp -f "$dp0/release/ansible-lint" "$release_version_dirpath/Scripts/bin/"
 cp -f "$dp0/release/__main__ansible-test.py" "$release_version_dirpath/"
 cp -f "$dp0/release/ansible-test" "$release_version_dirpath/Scripts/bin/"
 
+cp -f "$dp0/release/__main__ansible-doc.py" "$release_version_dirpath/"
+cp -f "$dp0/release/ansible-doc" "$release_version_dirpath/Scripts/bin/"
+
 echo "creating archive ..."
 
 cd "$release_version_dirpath"
@@ -79,12 +82,15 @@ cd "$release_version_dirpath"
 
 %s
 
+%s
+
 ' "$("./Scripts/bin/$tool_name" --version)" \
   "$("./Scripts/bin/ansible-config" --version | head -1)" \
   "$("./Scripts/bin/ansible-playbook" --version | head -1)" \
   "$("./Scripts/bin/ansible-galaxy" --version | head -1)" \
   "$("./Scripts/bin/ansible-lint" --version | head -1)" \
-  "$("./Scripts/bin/ansible-test" --version | head -1)"
+  "$("./Scripts/bin/ansible-test" --version | head -1)" \
+  "$("./Scripts/bin/ansible-doc" --version | head -1)"
 } > build-gnu.md
 
 cat build-gnu.md
