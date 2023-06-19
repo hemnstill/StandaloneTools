@@ -1,0 +1,7 @@
+{
+  "name": "checks",
+  "packageManager": "yarn@3.5.1",
+  "dependencies": {
+    "editorconfig-checker": "^5.1.0"
+  }
+}

@@ -14,7 +14,11 @@ jobs:
 
   editorconfig:
     runs-on: ubuntu-latest
+    container: node:18.16.0-alpine3.18
     steps:
       - uses: actions/checkout@v3
-      - uses: editorconfig-checker/action-editorconfig-checker@v1.0.0
-      - run: editorconfig-checker
+      - run: |
+          corepack enable && corepack prepare yarn@3.6.0 --activate
+          yarn set version 3.6.0
+          cd .tools/checks
+          yarn install --immutable
