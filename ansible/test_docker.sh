@@ -23,7 +23,7 @@ test_ansible_galaxy_version() {
 }
 
 test_ansible_lint_version() {
-  assertEquals "ansible-lint 6.17.0 using ansible-core:2.14.5 ruamel-yaml:0.17.32 ruamel-yaml-clib:0.2.7" "$(docker run --rm $image_name ansible-lint --version | head -1)"
+  assertEquals "ansible-lint 6.17.2 using ansible-core:2.14.5 ansible-compat:4.0.4 ruamel-yaml:0.17.32 ruamel-yaml-clib:0.2.7" "$(docker run --rm $image_name ansible-lint --version | head -1)"
 }
 
 # Load and run shUnit2.
