@@ -10,8 +10,8 @@ apk add --no-cache alpine-sdk python3-dev bash
 export LC_ALL=en_US.UTF-8
 
 tool_name="ansible"
-tool_version="8.0.0"
-tool_lint_version="6.17.1"
+tool_version="8.1.0"
+tool_lint_version="6.17.2"
 python_self_name="python-3.11.3"
 self_name="$tool_name-$tool_version"
 release_version_dirpath="$dp0/release/$self_name"
@@ -51,6 +51,9 @@ cp -f "$dp0/release/ansible-config" "$release_version_dirpath/Scripts/bin/"
 cp -f "$dp0/release/__main__ansible-playbook.py" "$release_version_dirpath/"
 cp -f "$dp0/release/ansible-playbook" "$release_version_dirpath/Scripts/bin/"
 
+cp -f "$dp0/release/__main__ansible-inventory.py" "$release_version_dirpath/"
+cp -f "$dp0/release/ansible-inventory" "$release_version_dirpath/Scripts/bin/"
+
 cp -f "$dp0/release/__main__ansible-galaxy.py" "$release_version_dirpath/"
 cp -f "$dp0/release/ansible-galaxy" "$release_version_dirpath/Scripts/bin/"
 
@@ -84,9 +87,12 @@ cd "$release_version_dirpath"
 
 %s
 
+%s
+
 ' "$("./Scripts/bin/$tool_name" --version)" \
   "$("./Scripts/bin/ansible-config" --version | head -1)" \
   "$("./Scripts/bin/ansible-playbook" --version | head -1)" \
+  "$("./Scripts/bin/ansible-inventory" --version | head -1)" \
   "$("./Scripts/bin/ansible-galaxy" --version | head -1)" \
   "$("./Scripts/bin/ansible-lint" --version | head -1)" \
   "$("./Scripts/bin/ansible-test" --version | head -1)" \
