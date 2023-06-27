@@ -1,7 +1,7 @@
 #!/bin/bash
 
 test_version() {
-  assertEquals "Version 1.31.1" "$(../bin/playwright.bat --version)"
+  assertEquals "Version 1.35.0" "$(../bin/playwright.bat --version)"
 }
 
 # Load and run shUnit2.
