@@ -20,7 +20,7 @@ python_download_zip="$dp0/release/$self_name.tar.gz"
 
 echo "download bsdtar ..."
 bsdtar_version=3.6.2
-bsdtar_download_url="https://github.com/rustrar/StandaloneTools/releases/download/bsdtar-$bsdtar_version/build-musl.tar.gz"
+bsdtar_download_url="https://github.com/hemnstill/StandaloneTools/releases/download/bsdtar-$bsdtar_version/build-musl.tar.gz"
 bsdtar_tar_gz="bsdtar-$bsdtar_version-build-musl.tar.gz"
 [[ ! -f "$bsdtar_tar_gz" ]] && wget "$bsdtar_download_url" -O "$bsdtar_tar_gz"
 tar -xf "$bsdtar_tar_gz"
