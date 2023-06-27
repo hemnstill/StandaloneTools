@@ -11,7 +11,7 @@ release_version_dirpath="$dp0/release/$tool_name-$tool_version"
 mkdir -p "$release_version_dirpath" && cd "$dp0/release"
 
 echo "download python install script ..."
-python_bin_download_url="https://github.com/rustrar/StandaloneTools/releases/download/$self_name/build-msvc.tar.gz"
+python_bin_download_url="https://github.com/hemnstill/StandaloneTools/releases/download/$self_name/build-msvc.tar.gz"
 python_download_zip="$dp0/release/$self_name.tar.gz"
 [[ ! -f "$python_download_zip" ]] && wget "$python_bin_download_url" -O "$python_download_zip"
 
