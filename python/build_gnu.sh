@@ -9,8 +9,8 @@ apk add --no-cache alpine-sdk python3-dev
 export LC_ALL=en_US.UTF-8
 
 tool_name="python"
-tool_version="3.11.3"
-release_date="20230507"
+tool_version="3.10.5"
+release_date="20220606"
 self_name="$tool_name-$tool_version"
 release_version_dirpath="$dp0/release/$self_name"
 echo "::set-output name=tool_name::$tool_name"
