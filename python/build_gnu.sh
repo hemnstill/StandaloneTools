@@ -10,7 +10,7 @@ export LC_ALL=en_US.UTF-8
 
 tool_name="python"
 tool_version="3.10.5"
-release_date="20220606"
+release_date="20220630"
 self_name="$tool_name-$tool_version"
 release_version_dirpath="$dp0/release/$self_name"
 echo "::set-output name=tool_name::$tool_name"
