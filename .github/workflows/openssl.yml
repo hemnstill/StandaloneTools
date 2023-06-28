@@ -7,20 +7,8 @@ env:
   IMAGE_NAME: mcr.microsoft.com/windows/nanoserver:ltsc2022-amd64
 
 jobs:
-  prejob:
-    runs-on: ubuntu-latest
-    environment: release
-    outputs:
-      tool: ${{ steps.setvar.outputs.envvar }}
-    steps:
-      - id: setvar
-        run: |
-          echo ${{ secrets._CURRENT_TOOL }} > CI_ENV
-          echo "::set-output name=envvar::$(sed -e 's/^_//' CI_ENV)"
-      - run: echo CURRENT_TOOL '${{ steps.setvar.outputs.envvar }}'
-
   openssl-alpine-musl:
-    if: ${{ needs.prejob.outputs.tool=='openssl' }}
+    if: ${{ vars.CURRENT_TOOL == github.workflow }}
     runs-on: ubuntu-latest
     container: alpine:3.15.0
     steps:
@@ -38,7 +26,7 @@ jobs:
             ./openssl/release/_musl.tar.gz
 
   openssl-alpine-mingw:
-    if: ${{ needs.prejob.outputs.tool=='openssl' }}
+    if: ${{ vars.CURRENT_TOOL == github.workflow }}
     runs-on: ubuntu-latest
     container: alpine:3.15.0
     steps:
