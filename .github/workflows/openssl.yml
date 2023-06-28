@@ -20,7 +20,6 @@ jobs:
       - run: echo CURRENT_TOOL '${{ steps.setvar.outputs.envvar }}'
 
   openssl-alpine-musl:
-    needs: prejob
     if: ${{ needs.prejob.outputs.tool=='openssl' }}
     runs-on: ubuntu-latest
     container: alpine:3.15.0
@@ -39,7 +38,6 @@ jobs:
             ./openssl/release/_musl.tar.gz
 
   openssl-alpine-mingw:
-    needs: prejob
     if: ${{ needs.prejob.outputs.tool=='openssl' }}
     runs-on: ubuntu-latest
     container: alpine:3.15.0
