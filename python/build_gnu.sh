@@ -9,8 +9,8 @@ apk add --no-cache alpine-sdk python3-dev
 export LC_ALL=en_US.UTF-8
 
 tool_name="python"
-tool_version="3.11.3"
-release_date="20230507"
+tool_version="3.10.5"
+release_date="20220630"
 self_name="$tool_name-$tool_version"
 release_version_dirpath="$dp0/release/$self_name"
 echo "::set-output name=tool_name::$tool_name"
@@ -26,7 +26,7 @@ echo "download python from $download_url ..."
 bsdtar="$dp0/release/bsdtar"
 
 cpython_bin="$dp0/.tmp/python/install/bin/python3"
-cpython_dll="$dp0/.tmp/python/install/lib/libpython3.11.so.1.0"
+cpython_dll="$dp0/.tmp/python/install/lib/libpython3.10.so.1.0"
 if [[ ! -f "$cpython_bin" ]]; then
   echo extract "$cpython_zip" to "$cpython_bin" ...
   rm -rf "$dp0/.tmp/"* && mkdir -p "$dp0/.tmp" && cd "$dp0/.tmp" || exit 1

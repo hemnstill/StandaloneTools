@@ -3,8 +3,8 @@ dp0="$(realpath "$(dirname "$0")")"
 set -e
 
 tool_name="playwright"
-tool_version="1.31.1"
-self_name="python-3.11.1"
+tool_version="1.35.0"
+self_name="python-3.10.5"
 echo "::set-output name=tool_name::$tool_name"
 
 apt update
