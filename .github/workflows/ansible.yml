@@ -3,16 +3,8 @@ name: ansible
 on: [pull_request, workflow_dispatch]
 
 jobs:
-  prejob:
-    uses: ./.github/workflows/set-output-workflow.yml
-    with:
-      workflow: ${{ github.workflow }}
-    secrets:
-      _WORKFLOW: ${{ secrets._CURRENT_TOOL }}
-
   alpine-gnu:
-    needs: prejob
-    if: ${{ needs.prejob.outputs.workflow == github.workflow }}
+    if: ${{ vars.CURRENT_TOOL == github.workflow }}
     uses: ./.github/workflows/build-alpine.yml
     with:
       workflow: ${{ github.workflow }}
@@ -20,8 +12,7 @@ jobs:
       version: 3.18.0
 
   ubuntu-docker:
-    needs: prejob
-    if: ${{ needs.prejob.outputs.workflow == github.workflow }}
+    if: ${{ vars.CURRENT_TOOL == github.workflow }}
     uses: ./.github/workflows/build-docker.yml
     with:
       workflow: ${{ github.workflow }}

@@ -3,30 +3,21 @@ name: bsdtar
 on: [pull_request, workflow_dispatch]
 
 jobs:
-  prejob:
-    uses: ./.github/workflows/set-output-workflow.yml
-    with:
-      workflow: ${{ github.workflow }}
-    secrets:
-      _WORKFLOW: ${{ secrets._CURRENT_TOOL }}
-
   alpine-musl:
-    needs: prejob
-    if: ${{ needs.prejob.outputs.workflow == github.workflow }}
+    if: ${{ vars.CURRENT_TOOL == github.workflow }}
     uses: ./.github/workflows/build-alpine.yml
     with:
       workflow: ${{ github.workflow }}
 
   windows-mingw:
-    needs: prejob
-    if: ${{ needs.prejob.outputs.workflow == github.workflow }}
+    if: ${{ vars.CURRENT_TOOL == github.workflow }}
     uses: ./.github/workflows/build-windows.yml
     with:
       workflow: ${{ github.workflow }}
 
   test-alpine:
     needs: alpine-musl
-    if: ${{ needs.prejob.outputs.workflow == github.workflow }}
+    if: ${{ vars.CURRENT_TOOL == github.workflow }}
     uses: ./.github/workflows/test-alpine.yml
     with:
       workflow: ${{ github.workflow }}
@@ -34,7 +25,7 @@ jobs:
 
   test-ubuntu:
     needs: alpine-musl
-    if: ${{ needs.prejob.outputs.workflow == github.workflow }}
+    if: ${{ vars.CURRENT_TOOL == github.workflow }}
     uses: ./.github/workflows/test-ubuntu.yml
     with:
       workflow: ${{ github.workflow }}
@@ -42,7 +33,7 @@ jobs:
 
   test-windows:
     needs: windows-mingw
-    if: ${{ needs.prejob.outputs.workflow == github.workflow }}
+    if: ${{ vars.CURRENT_TOOL == github.workflow }}
     uses: ./.github/workflows/test-windows.yml
     with:
       workflow: ${{ github.workflow }}
