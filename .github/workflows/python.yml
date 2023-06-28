@@ -1,4 +1,5 @@
 name: python
+# version_tests: skip_readme
 
 on: [pull_request, workflow_dispatch]
 
