@@ -3,26 +3,19 @@ dp0="$(realpath "$(dirname "$0")")"
 set -e
 
 tool_name="mypy"
-tool_version="1.1.1"
-self_name="python-3.11.1"
+tool_version="1.4.1"
+self_name="python-3.11.3"
 self_toolset_name="build-musl"
-echo "::set-output name=tool_name::$tool_name"
 
 release_version_dirpath="$dp0/release/$tool_name-$tool_version"
 mkdir -p "$release_version_dirpath" && cd "$dp0/release"
 
-echo "download poetry install script ..."
+echo "download python install script ..."
 python_bin_download_url="https://github.com/hemnstill/StandaloneTools/releases/download/$self_name/$self_toolset_name.tar.gz"
 python_download_zip="$dp0/release/$self_name.tar.gz"
 [[ ! -f "$python_download_zip" ]] && wget "$python_bin_download_url" -O "$python_download_zip"
 
-echo "download bsdtar ..."
-bsdtar_version=3.6.2
-bsdtar_download_url="https://github.com/hemnstill/StandaloneTools/releases/download/bsdtar-$bsdtar_version/build-musl.tar.gz"
-bsdtar_tar_gz="bsdtar-$bsdtar_version-build-musl.tar.gz"
-[[ ! -f "$bsdtar_tar_gz" ]] && wget "$bsdtar_download_url" -O "$bsdtar_tar_gz"
-tar -xf "$bsdtar_tar_gz"
-
+"$dp0/../.tools/download_bsdtar.sh"
 bsdtar="$dp0/release/bsdtar"
 
 cpython_bin="$release_version_dirpath/Scripts/bin/python3"
