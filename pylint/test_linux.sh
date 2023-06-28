@@ -4,8 +4,8 @@
 
 test_version() {
   assertEquals "pylint 2.17.4
-astroid 2.15.0
-Python 3.11.3 (main, Jan 16 2023, 22:40:32) [Clang 15.0.7 ]" "$(../bin/pylint.sh --version)"
+astroid 2.15.5
+Python 3.11.3 (main, May  7 2023, 19:33:53) [Clang 16.0.3 ]" "$(../bin/pylint.sh --version)"
 }
 
 # Load and run shUnit2.
