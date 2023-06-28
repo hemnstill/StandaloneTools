@@ -11,8 +11,6 @@ echo "::endgroup::"
 
 tool_name="openssl.exe"
 tool_version="3.0.1"
-echo "::set-output name=tool_name::$tool_name"
-echo "::set-output name=tool_version::$tool_version"
 
 download_url="https://github.com/openssl/openssl/archive/refs/tags/openssl-$tool_version.tar.gz"
 echo "::group::prepare sources $download_url"

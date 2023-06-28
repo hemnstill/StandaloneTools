@@ -15,8 +15,6 @@ tool_lint_version="6.17.2"
 python_self_name="python-3.11.3"
 self_name="$tool_name-$tool_version"
 release_version_dirpath="$dp0/release/$self_name"
-echo "::set-output name=tool_name::$tool_name"
-echo "::set-output name=tool_version::$tool_version"
 
 mkdir -p "$release_version_dirpath/Scripts/bin" && cd "$dp0/release"
 

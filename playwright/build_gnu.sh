@@ -5,7 +5,6 @@ set -e
 tool_name="playwright"
 tool_version="1.35.0"
 self_name="python-3.10.5"
-echo "::set-output name=tool_name::$tool_name"
 
 apt update
 apt install -y wget

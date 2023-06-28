@@ -12,8 +12,6 @@ echo "::endgroup::"
 tool_name="pg_dump.exe"
 # version_tests: no_tool_version
 tool_version="REL_15_1"
-echo "::set-output name=tool_name::$tool_name"
-echo "::set-output name=tool_version::$tool_version"
 
 download_url="https://github.com/postgres/postgres/archive/refs/tags/$tool_version.tar.gz"
 echo "::group::prepare sources $download_url"

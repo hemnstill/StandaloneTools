@@ -4,8 +4,6 @@ set -e
 
 tool_name="bsdtar.exe"
 tool_version="3.6.2"
-echo "::set-output name=tool_name::$tool_name"
-echo "::set-output name=tool_version::$tool_version"
 
 download_url="https://github.com/libarchive/libarchive/releases/download/v$tool_version/libarchive-$tool_version.tar.gz"
 echo "::group::prepare sources $download_url"
