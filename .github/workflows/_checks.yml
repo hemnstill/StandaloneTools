@@ -1,4 +1,4 @@
-name: checks
+name: _checks
 
 on: [pull_request, workflow_dispatch]
 

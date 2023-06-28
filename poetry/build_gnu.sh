@@ -12,8 +12,6 @@ python_release_date="20230507"
 self_name="$tool_name-$tool_version"
 self_toolset_name="build-gnu"
 release_version_dirpath="$dp0/release/$self_name"
-echo "::set-output name=tool_name::$tool_name"
-echo "::set-output name=tool_version::$tool_version"
 
 mkdir -p "$release_version_dirpath" && cd "$dp0/release"
 

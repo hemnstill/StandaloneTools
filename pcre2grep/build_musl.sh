@@ -11,8 +11,6 @@ echo "::endgroup::"
 
 tool_name="pcre2grep"
 tool_version="10.40"
-echo "::set-output name=tool_name::$tool_name"
-echo "::set-output name=tool_version::$tool_version"
 
 download_url="https://github.com/PCRE2Project/pcre2/releases/download/pcre2-$tool_version/pcre2-$tool_version.tar.gz"
 echo "::group::prepare sources $download_url"
