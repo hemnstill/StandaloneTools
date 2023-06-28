@@ -33,9 +33,6 @@ self_name="$tool_name-$tool_version"
 self_toolset_name="build-musl"
 self_url="https://github.com/hemnstill/StandaloneTools/releases/download/$self_name/$self_toolset_name.tar.gz"
 
-echo "::set-output name=tool_name::$tool_name"
-echo "::set-output name=tool_version::$tool_version"
-
 download_url="https://github.com/elfmz/far2l/archive/v_$tool_version.tar.gz"
 echo "::group::prepare sources $download_url"
 

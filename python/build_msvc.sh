@@ -7,8 +7,6 @@ tool_version="3.10.5"
 release_date="20220630"
 self_name="$tool_name-$tool_version"
 release_version_dirpath="$dp0/release/$self_name"
-echo "::set-output name=tool_name::$tool_name"
-echo "::set-output name=tool_version::$tool_version"
 
 mkdir -p "$release_version_dirpath" && cd "$dp0/release"
 download_url="https://github.com/indygreg/python-build-standalone/releases/download/$release_date/cpython-$tool_version+$release_date-x86_64-pc-windows-msvc-shared-pgo-full.tar.zst"

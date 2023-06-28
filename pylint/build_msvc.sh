@@ -6,7 +6,6 @@ tool_name="pylint"
 tool_version="2.17.0"
 self_name="python-3.11.1"
 self_toolset_name="build-msvc"
-echo "::set-output name=tool_name::$tool_name"
 
 release_version_dirpath="$dp0/release/$tool_name-$tool_version"
 mkdir -p "$release_version_dirpath" && cd "$dp0/release"
