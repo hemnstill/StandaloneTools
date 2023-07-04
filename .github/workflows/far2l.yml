@@ -15,6 +15,7 @@ jobs:
     with:
       workflow: ${{ github.workflow }}
       version: 18.04
+      toolset: glibc
 
   ubuntu-glibc-p:
     if: ${{ vars.CURRENT_TOOL == github.workflow }}
