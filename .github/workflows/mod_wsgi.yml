@@ -1,4 +1,5 @@
 name: mod_wsgi
+# version_tests: skip_workflow
 
 on: [pull_request, workflow_dispatch]
 
