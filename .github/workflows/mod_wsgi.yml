@@ -1,0 +1,11 @@
+name: mod_wsgi
+
+on: [pull_request, workflow_dispatch]
+
+jobs:
+  ubuntu-18:
+    if: ${{ vars.CURRENT_TOOL == github.workflow }}
+    uses: ./.github/workflows/build-ubuntu.yml
+    with:
+      workflow: ${{ github.workflow }}
+      version: 18.04
