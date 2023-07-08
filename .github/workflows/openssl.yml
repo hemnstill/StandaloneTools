@@ -1,5 +1,4 @@
 name: openssl
-# version_tests: skip_workflow
 
 on: [pull_request, workflow_dispatch]
 
