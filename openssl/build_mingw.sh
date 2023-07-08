@@ -30,7 +30,7 @@ echo "::endgroup::"
 
 echo "::group::build"
 
-./Configure mingw64 --cross-compile-prefix=x86_64-w64-mingw32- no-tests no-shared enable-legacy
+./Configure mingw64 --cross-compile-prefix=x86_64-w64-mingw32- no-tests no-shared no-module enable-legacy
 make
 
 echo "::endgroup::"
