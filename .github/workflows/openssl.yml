@@ -37,7 +37,7 @@ jobs:
       artifact: build-musl
 
   test-windows:
-    needs: windows-mingw
+    needs: alpine-mingw
     if: ${{ vars.CURRENT_TOOL == github.workflow }}
     uses: ./.github/workflows/test-windows.yml
     with:
