@@ -30,7 +30,7 @@ echo "::endgroup::"
 
 echo "::group::build"
 
-./Configure no-shared no-tests LDFLAGS='--static' linux-x86_64
+./Configure LDFLAGS='--static' linux-x86_64 no-tests no-shared enable-rc2
 make
 
 echo "::endgroup::"
