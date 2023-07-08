@@ -37,6 +37,7 @@ echo "::endgroup::"
 
 cd "$release_version_dirpath"
 cp -f "$dp0/release/openssl-openssl-$tool_version/apps/$tool_name" "$release_version_dirpath/"
+cp -f "$dp0/release/openssl-openssl-$tool_version/apps/openssl.cnf" "$release_version_dirpath/"
 
 { printf '### %s
 %s
