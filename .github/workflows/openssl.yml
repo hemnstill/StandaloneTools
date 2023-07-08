@@ -1,121 +1,61 @@
 name: openssl
-# version_tests: skip_workflow
 
 on: [pull_request, workflow_dispatch]
 
-env:
-  IMAGE_NAME: mcr.microsoft.com/windows/nanoserver:ltsc2022-amd64
-
 jobs:
-  openssl-alpine-musl:
+  alpine-musl:
     if: ${{ vars.CURRENT_TOOL == github.workflow }}
-    runs-on: ubuntu-latest
-    container: alpine:3.15.0
-    steps:
-      - uses: actions/checkout@v3
-      - name: build
-        id: build
-        run: |
-          apk add --no-cache bash
-          ./openssl/build.sh
+    uses: ./.github/workflows/build-alpine.yml
+    with:
+      workflow: ${{ github.workflow }}
 
-      - uses: actions/upload-artifact@v3
-        with:
-          name: openssl-alpine-musl
-          path: |
-            ./openssl/release/_musl.tar.gz
-
-  openssl-alpine-mingw:
+  alpine-mingw:
     if: ${{ vars.CURRENT_TOOL == github.workflow }}
-    runs-on: ubuntu-latest
-    container: alpine:3.15.0
-    steps:
-      - uses: actions/checkout@v3
-      - name: build
-        id: build
-        run: |
-          apk add --no-cache bash
-          ./openssl/build_mingw.sh
+    uses: ./.github/workflows/build-alpine.yml
+    with:
+      workflow: ${{ github.workflow }}
+      toolset: mingw
 
-      - uses: actions/upload-artifact@v3
-        with:
-          name: openssl-alpine-mingw
-          path: |
-            ./openssl/release/_mingw.tar.gz
+  test-alpine:
+    needs: alpine-musl
+    uses: ./.github/workflows/test-alpine.yml
+    with:
+      workflow: ${{ github.workflow }}
+      artifact: build-musl
 
-  openssl-alpine-test:
-    needs: openssl-alpine-musl
-    runs-on: ubuntu-latest
-    container: alpine:3.15.0
-    steps:
-      - uses: actions/download-artifact@v2
-        with:
-          name: openssl-alpine-musl
-          path: .
+  test-ubuntu:
+    needs: alpine-musl
+    uses: ./.github/workflows/test-ubuntu.yml
+    with:
+      workflow: ${{ github.workflow }}
+      artifact: build-musl
 
-      - name: Test musl build on Alpine
-        run: |
-          tar -xf ./_musl.tar.gz
-          ./openssl version
+  test-windows:
+    needs: alpine-mingw
+    uses: ./.github/workflows/test-windows.yml
+    with:
+      workflow: ${{ github.workflow }}
+      artifact: build-mingw
 
-  openssl-ubuntu-test:
-    needs: openssl-alpine-musl
-    runs-on: ubuntu-latest
-    container: ubuntu:20.04
-    steps:
-      - uses: actions/download-artifact@v2
-        with:
-          name: openssl-alpine-musl
-          path: .
+  test-nanoserver:
+    needs: alpine-mingw
+    uses: ./.github/workflows/test-nanoserver.yml
+    with:
+      workflow: ${{ github.workflow }}
+      artifact: build-mingw
 
-      - name: Test musl build on Ubuntu
-        run: |
-          tar -xf ./_musl.tar.gz
-          ./openssl version
-
-  openssl-nanoserver-test:
-    needs: openssl-alpine-mingw
-    runs-on: windows-2022
-    steps:
-      - uses: actions/download-artifact@v2
-        with:
-          name: openssl-alpine-mingw
-          path: .
-      - run: tar -xf .\_mingw.tar.gz
-
-      - name: pull windows container ${{ env.IMAGE_NAME }}
-        shell: cmd
-        run: |
-          docker pull ${{ env.IMAGE_NAME }}
-          docker images ${{ env.IMAGE_NAME }}
-
-      - name: Test mingw build on Nanoserver
-        shell: cmd
-        run: >
-          docker container run --rm -v ${{ github.workspace }}:C:\app ${{ env.IMAGE_NAME }}
-          C:\app\openssl.exe version
-
-  openssl-release:
-    runs-on: ubuntu-latest
-    needs: [openssl-alpine-test, openssl-ubuntu-test, openssl-nanoserver-test]
-    steps:
-      - uses: actions/download-artifact@v2
-        with:
-          name: openssl-alpine-musl
-          path: .
-      - uses: actions/download-artifact@v2
-        with:
-          name: openssl-alpine-mingw
-          path: .
-      - run: |
-          tar -xf ./_musl.tar.gz
-          tar -xf ./_mingw.tar.gz
-          cat _musl.md >> body.md
-          cat _mingw.md >> body.md
-      - uses: ncipollo/release-action@v1
-        with:
-          tag: 'openssl-3.0.1'
-          artifacts: './openssl*'
-          bodyFile: './body.md'
-          allowUpdates: true
-          token: ${{ secrets.GITHUB_TOKEN }}
+  release:
+    needs: [test-alpine,
+            test-ubuntu,
+            test-windows,
+            test-nanoserver]
+    uses: ./.github/workflows/release.yml
+    with:
+      workflow: ${{ github.workflow }}
+      tool_version: '3.1.1'
+      prepare_body: |
+        bsdtar -Oxf ./build-musl/build-musl.tar.gz build-musl.md >> body.md
+        bsdtar -Oxf ./build-mingw/build-mingw.tar.gz build-mingw.md >> body.md
+      artifacts: ./build-musl/build-musl.tar.gz,./build-mingw/build-mingw.tar.gz
+    secrets:
+      token: ${{ secrets.GITHUB_TOKEN }}
