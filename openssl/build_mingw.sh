@@ -10,14 +10,20 @@ apk add --no-cache alpine-sdk perl make linux-headers mingw-w64-gcc
 echo "::endgroup::"
 
 tool_name="openssl.exe"
-tool_version="3.0.1"
+tool_version="3.1.1"
+self_name="$tool_name-$tool_version"
+release_version_dirpath="$dp0/release/$self_name"
+
+mkdir -p "$release_version_dirpath" && cd "$dp0/release"
 
 download_url="https://github.com/openssl/openssl/archive/refs/tags/openssl-$tool_version.tar.gz"
 echo "::group::prepare sources $download_url"
 
-mkdir -p "$dp0/release" && cd "$dp0/release"
+"$dp0/../.tools/download_bsdtar.sh"
+bsdtar="$dp0/release/bsdtar"
+
 wget "$download_url" -O "tool-$tool_version.tar.gz"
-tar -xf "tool-$tool_version.tar.gz" && cd "openssl-openssl-$tool_version"
+"$bsdtar" -xf "tool-$tool_version.tar.gz" && cd "openssl-openssl-$tool_version"
 
 echo "::endgroup::"
 
@@ -28,14 +34,14 @@ make
 
 echo "::endgroup::"
 
-mkdir "$dp0/release/build" && cd "$dp0/release/build"
-cp -f "$dp0/release/openssl-openssl-$tool_version/apps/$tool_name" "$dp0/release/build/"
+cd "$release_version_dirpath"
+cp -f "$dp0/release/openssl-openssl-$tool_version/apps/$tool_name" "$release_version_dirpath/"
 
 { printf 'SHA-256: %s
 %s
 ' "$(sha256sum $tool_name)" "$download_url"
-} > _mingw.md
+} > build-mingw.md
 
-cat _mingw.md
+cat build-mingw.md
 
-tar -czvf ../_mingw.tar.gz .
+"$bsdtar" -czvf ../build-mingw.tar.gz .
