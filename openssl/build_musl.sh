@@ -45,7 +45,7 @@ chmod +x "$tool_name"
 { printf '### %s
 %s
 SHA-256: %s
-' "$self_toolset_name.tar.gz" "$(sha256sum $tool_name)" "$("./$tool_name" version)"
+' "$self_toolset_name.tar.gz" "$("./$tool_name" version)" "$(sha256sum $tool_name)"
 } > "$self_toolset_name.md"
 
 cat "$self_toolset_name.md"
