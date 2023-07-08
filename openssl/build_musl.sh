@@ -42,9 +42,10 @@ cp -f "$dp0/release/openssl-openssl-$tool_version/apps/openssl.cnf" "$release_ve
 strip "$tool_name"
 chmod +x "$tool_name"
 
-{ printf 'SHA-256: %s
+{ printf '### %s
 %s
-' "$(sha256sum $tool_name)" "$("./$tool_name" version)"
+SHA-256: %s
+' "$self_toolset_name.tar.gz" "$(sha256sum $tool_name)" "$("./$tool_name" version)"
 } > "$self_toolset_name.md"
 
 cat "$self_toolset_name.md"
