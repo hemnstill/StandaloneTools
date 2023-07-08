@@ -11,6 +11,7 @@ echo "::endgroup::"
 
 tool_name="openssl.exe"
 tool_version="3.1.1"
+self_toolset_name="build-mingw"
 self_name="$tool_name-$tool_version"
 release_version_dirpath="$dp0/release/$self_name"
 
@@ -40,8 +41,8 @@ cp -f "$dp0/release/openssl-openssl-$tool_version/apps/$tool_name" "$release_ver
 { printf 'SHA-256: %s
 %s
 ' "$(sha256sum $tool_name)" "$download_url"
-} > build-mingw.md
+} > "$self_toolset_name.md"
 
-cat build-mingw.md
+cat "$self_toolset_name.md"
 
-"$bsdtar" -czvf ../build-mingw.tar.gz .
+"$bsdtar" -czvf "../$self_toolset_name.tar.gz" .
