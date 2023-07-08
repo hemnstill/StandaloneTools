@@ -40,11 +40,10 @@ cp -f "$dp0/release/openssl-openssl-$tool_version/apps/$tool_name" "$release_ver
 cp -f "$dp0/release/openssl-openssl-$tool_version/apps/openssl.cnf" "$release_version_dirpath/"
 
 { printf '### %s
-%s
 SHA-256: %s
 %s
 
-' "$self_toolset_name.tar.gz" "$("./$tool_name" version)" "$(sha256sum $tool_name)" "$download_url"
+' "$self_toolset_name.tar.gz" "$(sha256sum $tool_name)" "$download_url"
 } > "$self_toolset_name.md"
 
 cat "$self_toolset_name.md"
