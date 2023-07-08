@@ -10,7 +10,7 @@ apk add --no-cache alpine-sdk perl make linux-headers mingw-w64-gcc
 echo "::endgroup::"
 
 tool_name="openssl.exe"
-tool_version="3.1.1"
+tool_version="3.0.9"
 self_toolset_name="build-mingw"
 self_name="$tool_name-$tool_version"
 release_version_dirpath="$dp0/release/$self_name"
