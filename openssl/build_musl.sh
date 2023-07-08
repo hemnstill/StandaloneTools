@@ -11,7 +11,7 @@ echo "::endgroup::"
 
 tool_name="openssl"
 tool_version="3.1.1"
-self_toolset_name="build-mingw"
+self_toolset_name="build-musl"
 self_name="$tool_name-$tool_version"
 release_version_dirpath="$dp0/release/$self_name"
 

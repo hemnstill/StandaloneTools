@@ -1,7 +1,7 @@
 #!/bin/bash
 
 testVersion() {
-  assertEquals "OpenSSL 1.1.1m" "$(../bin/openssl version)"
+  assertEquals "OpenSSL 3.1.1 30 May 2023 (Library: OpenSSL 3.1.1 30 May 2023)" "$(../bin/openssl version)"
 }
 
 # Load and run shUnit2.
