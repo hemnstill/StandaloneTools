@@ -30,7 +30,7 @@ echo "::endgroup::"
 
 echo "::group::build"
 
-./Configure LDFLAGS='--static' linux-x86_64 no-tests no-shared no-legacy
+./Configure LDFLAGS='--static' linux-x86_64 no-tests no-shared no-module enable-legacy
 make
 
 echo "::endgroup::"
