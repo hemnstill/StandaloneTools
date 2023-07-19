@@ -40,10 +40,18 @@ jobs:
       workflow: ${{ github.workflow }}
       artifact: build-mingw
 
+  test-nanoserver:
+    needs: windows-mingw
+    uses: ./.github/workflows/test-nanoserver.yml
+    with:
+      workflow: ${{ github.workflow }}
+      artifact: build-mingw
+
   release:
     needs: [test-alpine,
             test-ubuntu,
-            test-windows]
+            test-windows,
+            test-nanoserver]
     uses: ./.github/workflows/release.yml
     with:
       workflow: ${{ github.workflow }}
