@@ -31,7 +31,7 @@ wget "$download_url" -O "tool-$tool_version.tar.gz"
 
 cargo build --target x86_64-unknown-linux-musl
 
-cp -f "./target/x86_64-unknown-linux-musl/$tool_name" "$release_version_dirpath/"
+cp -f "./target/x86_64-unknown-linux-musl/debug/$tool_name" "$release_version_dirpath/"
 
 echo "::endgroup::"
 
