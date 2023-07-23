@@ -32,13 +32,11 @@ wget "$download_url" -O "tool-$tool_version.tar.gz"
 
 cargo build --target x86_64-pc-windows-gnu
 
-cp -f "./target/debug/$tool_name.exe" "$release_version_dirpath/"
+cp -f "./target/x86_64-pc-windows-gnu/$tool_name.exe" "$release_version_dirpath/"
 
 echo "::endgroup::"
 
 cd "$release_version_dirpath"
-
-strip "$tool_name.exe"
 
 { printf '### %s
 SHA-256: %s
