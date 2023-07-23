@@ -15,3 +15,17 @@ jobs:
     with:
       workflow: ${{ github.workflow }}
       toolset: mingw
+
+  test-ubuntu:
+    needs: alpine-musl
+    uses: ./.github/workflows/test-ubuntu.yml
+    with:
+      workflow: ${{ github.workflow }}
+      artifact: build-musl
+
+  test-windows:
+    needs: alpine-mingw
+    uses: ./.github/workflows/test-windows.yml
+    with:
+      workflow: ${{ github.workflow }}
+      artifact: build-mingw
