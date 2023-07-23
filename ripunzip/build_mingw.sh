@@ -43,7 +43,7 @@ strip "$tool_name.exe"
 { printf '### %s
 SHA-256: %s
 
-' "$self_toolset_name.tar.gz" "$(sha256sum $tool_name)"
+' "$self_toolset_name.tar.gz" "$(sha256sum $tool_name.exe)"
 } > "$self_toolset_name.md"
 
 cat "$self_toolset_name.md"
