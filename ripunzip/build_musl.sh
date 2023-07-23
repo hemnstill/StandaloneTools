@@ -39,12 +39,13 @@ cd "$release_version_dirpath"
 strip "$tool_name"
 chmod +x "$tool_name"
 
-{ printf 'SHA-256: %s
+{ printf '### %s
 %s
+SHA-256: %s
 
-' "$(sha256sum $tool_name)" "$("./$tool_name" --version)"
-} > build-musl.md
+' "$self_toolset_name.tar.gz" "$(sha256sum $tool_name)" "$("./$tool_name" --version)"
+} > "$self_toolset_name.md"
 
-cat build-musl.md
+cat "$self_toolset_name.md"
 
-tar -czvf ../build-musl.tar.gz .
+tar -czvf "../$self_toolset_name.tar.gz" .
