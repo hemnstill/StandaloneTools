@@ -16,7 +16,7 @@ rustup target add x86_64-pc-windows-gnu
 echo "::endgroup::"
 
 tool_name="ripunzip"
-tool_version="0.1.0"
+tool_version="0.4.0"
 self_name="$tool_name-$tool_version"
 self_toolset_name="build-musl"
 release_version_dirpath="$dp0/release/$self_name"
@@ -34,13 +34,11 @@ wget "$download_url" -O "tool-$tool_version.tar.gz"
 
 cargo build --target x86_64-pc-windows-gnu
 
-cp -f "./target/debug/$tool_name" "$release_version_dirpath/"
+cp -f "./target/debug/$tool_name.exe" "$release_version_dirpath/"
 
 echo "::endgroup::"
 
 cd "$release_version_dirpath"
-strip "$tool_name"
-chmod +x "$tool_name"
 
 { printf '### %s
 SHA-256: %s
