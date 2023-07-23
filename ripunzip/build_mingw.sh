@@ -11,7 +11,7 @@ rustup-init -y
 
 . "$HOME/.cargo/env"
 
-rustup target add stable-x86_64-pc-windows-gnu
+rustup target add x86_64-pc-windows-gnu
 
 echo "::endgroup::"
 
