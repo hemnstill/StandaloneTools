@@ -38,6 +38,8 @@ echo "::endgroup::"
 
 cd "$release_version_dirpath"
 
+strip "$tool_name.exe"
+
 { printf '### %s
 SHA-256: %s
 
