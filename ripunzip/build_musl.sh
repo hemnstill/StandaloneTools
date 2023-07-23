@@ -11,4 +11,5 @@ curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh -s -- -y
 
 echo "::endgroup::"
 
-rustup target add x86_64-unknown-linux-musl
+rustc --version
+
