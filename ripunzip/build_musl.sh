@@ -31,6 +31,8 @@ wget "$download_url" -O "tool-$tool_version.tar.gz"
 
 cargo build
 
+cp -f "./target/debug/ripunzip" "$release_version_dirpath/"
+
 echo "::endgroup::"
 
 
