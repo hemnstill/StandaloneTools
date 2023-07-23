@@ -16,7 +16,7 @@ echo "::endgroup::"
 tool_name="ripunzip"
 tool_version="0.4.0"
 self_name="$tool_name-$tool_version"
-self_toolset_name="build-musl"
+self_toolset_name="build-mingw"
 release_version_dirpath="$dp0/release/$self_name"
 
 mkdir -p "$release_version_dirpath" && cd "$dp0/release"
