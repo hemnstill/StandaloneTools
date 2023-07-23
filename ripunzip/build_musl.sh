@@ -7,11 +7,9 @@ echo "::group::install deps"
 apk update
 apk add --no-cache alpine-sdk curl rustup
 
-curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh -s -- -y
-
 echo "::endgroup::"
 
-rustup-init
+rustup-init -y
 
 rustc --version
 
