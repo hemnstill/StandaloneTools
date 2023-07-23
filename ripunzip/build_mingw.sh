@@ -5,7 +5,7 @@ set -e
 echo "::group::install deps"
 
 apk update
-apk add --no-cache alpine-sdk musl-dev gcc curl wget rustup pkgconfig openssl-dev
+apk add --no-cache alpine-sdk musl-dev gcc curl wget rustup pkgconfig openssl-dev mingw-w64-gcc
 
 rustup-init -y
 
