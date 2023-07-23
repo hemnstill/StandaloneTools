@@ -11,7 +11,10 @@ echo "::endgroup::"
 
 rustup-init -y
 
+. "$HOME/.cargo/env"
+
 rustc --version
+cargo --version
 
 
 
