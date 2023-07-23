@@ -9,6 +9,8 @@ apk add --no-cache alpine-sdk musl-dev gcc curl wget rustup pkgconfig openssl-de
 
 rustup-init -y
 
+rustup default stable-x86_64-pc-windows-gnu
+
 . "$HOME/.cargo/env"
 
 echo "::endgroup::"
@@ -41,10 +43,9 @@ strip "$tool_name"
 chmod +x "$tool_name"
 
 { printf '### %s
-%s
 SHA-256: %s
 
-' "$self_toolset_name.tar.gz" "$("./$tool_name" --version)" "$(sha256sum $tool_name)"
+' "$self_toolset_name.tar.gz" "$(sha256sum $tool_name)"
 } > "$self_toolset_name.md"
 
 cat "$self_toolset_name.md"
