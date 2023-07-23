@@ -29,9 +29,9 @@ bsdtar="$dp0/release/bsdtar"
 wget "$download_url" -O "tool-$tool_version.tar.gz"
 "$bsdtar" -xf "tool-$tool_version.tar.gz" && cd "$tool_name-main"
 
-cargo build --target x86_64-unknown-linux-musl
+cargo build --target x86_64-unknown-linux-musl --release
 
-cp -f "./target/x86_64-unknown-linux-musl/debug/$tool_name" "$release_version_dirpath/"
+cp -f "./target/x86_64-unknown-linux-musl/release/$tool_name" "$release_version_dirpath/"
 
 echo "::endgroup::"
 
