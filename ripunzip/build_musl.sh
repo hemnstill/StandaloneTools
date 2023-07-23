@@ -27,12 +27,24 @@ echo "::group::prepare sources $download_url"
 bsdtar="$dp0/release/bsdtar"
 
 wget "$download_url" -O "tool-$tool_version.tar.gz"
-"$bsdtar" -xf "tool-$tool_version.tar.gz" && cd "ripunzip-main"
+"$bsdtar" -xf "tool-$tool_version.tar.gz" && cd "$tool_name-main"
 
 cargo build
 
-cp -f "./target/debug/ripunzip" "$release_version_dirpath/"
+cp -f "./target/debug/$tool_name" "$release_version_dirpath/"
 
 echo "::endgroup::"
 
+cd "$release_version_dirpath"
+strip "$tool_name"
+chmod +x "$tool_name"
 
+{ printf 'SHA-256: %s
+%s
+
+' "$(sha256sum $tool_name)" "$("./$tool_name" --version)"
+} > build-musl.md
+
+cat build-musl.md
+
+tar -czvf ../build-musl.tar.gz .
