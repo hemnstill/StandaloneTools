@@ -8,9 +8,7 @@ apk update
 apk add --no-cache alpine-sdk musl-dev gcc curl wget rustup pkgconfig openssl-dev mingw-w64-gcc
 
 rustup-init -y
-
 . "$HOME/.cargo/env"
-
 rustup target add x86_64-pc-windows-gnu
 
 echo "::endgroup::"

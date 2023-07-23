@@ -8,7 +8,6 @@ apk update
 apk add --no-cache alpine-sdk musl-dev gcc curl wget rustup pkgconfig openssl-dev
 
 rustup-init -y
-
 . "$HOME/.cargo/env"
 
 echo "::endgroup::"
