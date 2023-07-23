@@ -11,8 +11,6 @@ rustup-init -y
 
 . "$HOME/.cargo/env"
 
-rustup default stable-x86_64-pc-windows-gnu
-
 echo "::endgroup::"
 
 tool_name="ripunzip"
@@ -32,7 +30,7 @@ bsdtar="$dp0/release/bsdtar"
 wget "$download_url" -O "tool-$tool_version.tar.gz"
 "$bsdtar" -xf "tool-$tool_version.tar.gz" && cd "$tool_name-main"
 
-cargo build
+cargo build --target x86_64-pc-windows-gnu
 
 cp -f "./target/debug/$tool_name" "$release_version_dirpath/"
 
