@@ -29,3 +29,17 @@ jobs:
     with:
       workflow: ${{ github.workflow }}
       artifact: build-mingw
+
+  release:
+    needs: [test-ubuntu,
+            test-windows]
+    uses: ./.github/workflows/release.yml
+    with:
+      workflow: ${{ github.workflow }}
+      tool_version: '0.4.0'
+      prepare_body: |
+        bsdtar -Oxf ./build-musl/build-musl.tar.gz build-musl.md >> body.md
+        bsdtar -Oxf ./build-mingw/build-mingw.tar.gz build-mingw.md >> body.md
+      artifacts: ./build-musl/build-musl.tar.gz,./build-mingw/build-mingw.tar.gz
+    secrets:
+      token: ${{ secrets.GITHUB_TOKEN }}
