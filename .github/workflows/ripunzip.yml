@@ -1,0 +1,10 @@
+name: ripunzip
+
+on: [pull_request, workflow_dispatch]
+
+jobs:
+  alpine-musl:
+    if: ${{ vars.CURRENT_TOOL == github.workflow }}
+    uses: ./.github/workflows/build-alpine.yml
+    with:
+      workflow: ${{ github.workflow }}
