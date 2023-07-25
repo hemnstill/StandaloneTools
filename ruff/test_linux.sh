@@ -1,7 +1,7 @@
 #!/bin/bash
 
 testVersion() {
-  assertEquals "ripunzip 0.4.0" "$(../bin/ripunzip --version)"
+  assertEquals "ruff 0.0.280" "$(../bin/ruff --version)"
 }
 
 # Load and run shUnit2.
