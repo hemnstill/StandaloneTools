@@ -9,7 +9,6 @@ apk add --no-cache alpine-sdk musl-dev gcc curl wget rustup pkgconfig openssl-de
 
 rustup-init -y
 . "$HOME/.cargo/env"
-rustup target add x86_64-pc-windows-gnu
 
 echo "::endgroup::"
 
@@ -30,7 +29,7 @@ bsdtar="$dp0/release/bsdtar"
 wget "$download_url" -O "tool-$tool_version.tar.gz"
 "$bsdtar" -xf "tool-$tool_version.tar.gz" && cd "$tool_name-$tool_version"
 
-cargo build --target x86_64-pc-windows-gnu --release || true
+cargo fetch
 rustup target add x86_64-pc-windows-gnu
 cargo build --target x86_64-pc-windows-gnu --release
 
