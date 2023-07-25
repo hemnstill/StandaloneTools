@@ -15,7 +15,7 @@ echo "::endgroup::"
 
 tool_name="ruff"
 tool_version="0.0.280"
-self_name="$tool_name-$tool_version"
+self_name="build-$tool_name-$tool_version"
 self_toolset_name="build-mingw"
 release_version_dirpath="$dp0/release/$self_name"
 
