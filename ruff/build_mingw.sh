@@ -30,6 +30,8 @@ bsdtar="$dp0/release/bsdtar"
 wget "$download_url" -O "tool-$tool_version.tar.gz"
 "$bsdtar" -xf "tool-$tool_version.tar.gz" && cd "$tool_name-$tool_version"
 
+cargo build --target x86_64-pc-windows-gnu --release || true
+rustup target add x86_64-pc-windows-gnu
 cargo build --target x86_64-pc-windows-gnu --release
 
 cp -f "./target/x86_64-pc-windows-gnu/release/$tool_name.exe" "$release_version_dirpath/"
