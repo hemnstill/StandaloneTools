@@ -5,7 +5,7 @@ set -e
 echo "::group::install deps"
 
 apk update
-apk add --no-cache alpine-sdk make linux-headers
+apk add --no-cache alpine-sdk make linux-headers clang
 
 echo "::endgroup::"
 
@@ -35,7 +35,7 @@ echo "::group::build"
 root="$tool_dirpath/CPP/7zip"
 
 cd "$root/Bundles/Alone2"
-make -j -f makefile.gcc
+make -j -f ../../cmpl_clang.mak
 cp -f "./x64/7zz" "$release_version_dirpath/"
 
 echo "::endgroup::"
