@@ -5,6 +5,6 @@ on: [pull_request, workflow_dispatch]
 jobs:
   windows-mingw:
     if: ${{ vars.CURRENT_TOOL == github.workflow }}
-    uses: ./.github/workflows/build-windows.yml
+    uses: ./.github/workflows/build-windows-msbuild.yml
     with:
       workflow: ${{ github.workflow }}
