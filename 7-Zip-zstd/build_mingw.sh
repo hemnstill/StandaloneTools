@@ -3,16 +3,15 @@ dp0="$(realpath "$(dirname "$0")")"
 set -e
 
 tool_name="7-Zip-zstd"
-tool_version="22.01-v1.5.5"
+tool_version="22.01-v1.5.5-R3"
 self_toolset_name="build-mingw"
-self_name="$tool_name-$tool_version"
 release_version_dirpath="$dp0/release/build"
 
-tool_dirpath="$dp0/release/7-Zip-zstd-$tool_version-R3"
+tool_dirpath="$dp0/release/7-Zip-zstd-$tool_version"
 
 mkdir -p "$release_version_dirpath" && cd "$dp0/release"
 
-download_url="https://github.com/mcmilk/7-Zip-zstd/archive/refs/tags/v$tool_version-R3.tar.gz"
+download_url="https://github.com/mcmilk/7-Zip-zstd/archive/refs/tags/v$tool_version.tar.gz"
 echo "::group::prepare sources $download_url"
 
 "$dp0/../.tools/download_bsdtar.sh"
@@ -23,7 +22,6 @@ wget "$download_url" -O "tool-$tool_version.tar.gz"
 tar -xf "tool-$tool_version.tar.gz" && cd "$tool_dirpath"
 
 echo "::endgroup::"
-
 
 echo "::group::build"
 
@@ -39,9 +37,10 @@ cp -f "./x64/7z.exe" "$release_version_dirpath/"
 
 echo "::endgroup::"
 
-ls -R
-
 cd "$release_version_dirpath"
+
+strip 7z.dll
+strip 7z.exe
 
 { printf '### %s
 SHA-256: %s
