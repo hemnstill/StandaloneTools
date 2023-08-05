@@ -27,10 +27,15 @@ echo "::endgroup::"
 
 echo "::group::build"
 
-cd "$tool_dirpath/CPP/7zip/Bundles/Format7zF"
-nmake
+root="$tool_dirpath/CPP/7zip"
 
+cd "$root/Bundles/Format7zF"
+nmake
 cp -f "./x64/7z.dll" "$release_version_dirpath/"
+
+cd "$root/UI/Console"
+nmake
+cp -f "./x64/7z.exe" "$release_version_dirpath/"
 
 echo "::endgroup::"
 
