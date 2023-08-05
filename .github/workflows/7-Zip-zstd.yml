@@ -8,6 +8,7 @@ jobs:
     uses: ./.github/workflows/build-ubuntu.yml
     with:
       workflow: ${{ github.workflow }}
+      toolset: musl
 
   windows-mingw:
     if: ${{ vars.CURRENT_TOOL == github.workflow }}
