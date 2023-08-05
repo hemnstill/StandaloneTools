@@ -43,10 +43,11 @@ strip 7z.dll
 strip 7z.exe
 
 { printf '### %s
+%s
 SHA-256: %s
 %s
 
-' "$self_toolset_name.tar.gz" "$(sha256sum $tool_name)" "$download_url"
+' "$(7z.exe | head -2)" "$self_toolset_name.tar.gz" "$(sha256sum $tool_name)" "$download_url"
 } > "$self_toolset_name.md"
 
 cat "$self_toolset_name.md"
