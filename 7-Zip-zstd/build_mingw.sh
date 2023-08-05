@@ -30,9 +30,9 @@ echo "::group::build"
 cd "$tool_dirpath/CPP/7zip/Bundles/Format7zF"
 nmake
 
-echo "::endgroup::"
+cp -f "./x64/7z.dll" "$release_version_dirpath/"
 
-cd "$tool_dirpath/build"
+echo "::endgroup::"
 
 ls -R
 
