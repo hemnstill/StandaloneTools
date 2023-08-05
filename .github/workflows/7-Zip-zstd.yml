@@ -8,3 +8,11 @@ jobs:
     uses: ./.github/workflows/build-windows-msbuild.yml
     with:
       workflow: ${{ github.workflow }}
+
+  test-windows:
+    needs: windows-mingw
+    if: ${{ vars.CURRENT_TOOL == github.workflow }}
+    uses: ./.github/workflows/test-windows.yml
+    with:
+      workflow: ${{ github.workflow }}
+      artifact: build-mingw
