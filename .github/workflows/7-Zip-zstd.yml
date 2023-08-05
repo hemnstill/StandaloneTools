@@ -5,10 +5,9 @@ on: [pull_request, workflow_dispatch]
 jobs:
   alpine-musl:
     if: ${{ vars.CURRENT_TOOL == github.workflow }}
-    uses: ./.github/workflows/build-alpine.yml
+    uses: ./.github/workflows/build-ubuntu.yml
     with:
       workflow: ${{ github.workflow }}
-      version: 3.12
 
   windows-mingw:
     if: ${{ vars.CURRENT_TOOL == github.workflow }}

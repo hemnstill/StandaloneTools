@@ -4,8 +4,8 @@ set -e
 
 echo "::group::install deps"
 
-apk update
-apk add --no-cache alpine-sdk make linux-headers
+apt update
+apt install -y build-essentials
 
 echo "::endgroup::"
 
