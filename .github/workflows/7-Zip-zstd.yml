@@ -8,7 +8,7 @@ jobs:
     uses: ./.github/workflows/build-alpine.yml
     with:
       workflow: ${{ github.workflow }}
-      version: 3.16.6
+      version: 3.12
 
   windows-mingw:
     if: ${{ vars.CURRENT_TOOL == github.workflow }}
