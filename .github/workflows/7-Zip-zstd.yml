@@ -3,44 +3,44 @@ name: 7-Zip-zstd
 on: [pull_request, workflow_dispatch]
 
 jobs:
-#  ubuntu-gnu:
-#    if: ${{ vars.CURRENT_TOOL == github.workflow }}
-#    uses: ./.github/workflows/build-ubuntu.yml
-#    with:
-#      workflow: ${{ github.workflow }}
-#      version: 20.04
-#
-#  test-ubuntu:
-#    needs: ubuntu-gnu
-#    if: ${{ vars.CURRENT_TOOL == github.workflow }}
-#    uses: ./.github/workflows/test-ubuntu.yml
-#    with:
-#      workflow: ${{ github.workflow }}
-#      artifact: build-gnu
-#
-  alpine-musl:
+  ubuntu-gnu:
     if: ${{ vars.CURRENT_TOOL == github.workflow }}
-    uses: ./.github/workflows/build-alpine.yml
+    uses: ./.github/workflows/build-ubuntu.yml
     with:
       workflow: ${{ github.workflow }}
-      toolset: musl
-      version: 3.16
+      version: 20.04
 
-  alpine-musl-test:
-    needs: alpine-musl
-    if: ${{ vars.CURRENT_TOOL == github.workflow }}
-    uses: ./.github/workflows/test-alpine.yml
-    with:
-      workflow: ${{ github.workflow }}
-      artifact: build-musl
-
-  ubuntu-musl-test:
-    needs: alpine-musl
+  test-ubuntu:
+    needs: ubuntu-gnu
     if: ${{ vars.CURRENT_TOOL == github.workflow }}
     uses: ./.github/workflows/test-ubuntu.yml
     with:
       workflow: ${{ github.workflow }}
-      artifact: build-musl
+      artifact: build-gnu
+
+#  alpine-musl:
+#    if: ${{ vars.CURRENT_TOOL == github.workflow }}
+#    uses: ./.github/workflows/build-alpine.yml
+#    with:
+#      workflow: ${{ github.workflow }}
+#      toolset: musl
+#      version: 3.16
+#
+#  alpine-musl-test:
+#    needs: alpine-musl
+#    if: ${{ vars.CURRENT_TOOL == github.workflow }}
+#    uses: ./.github/workflows/test-alpine.yml
+#    with:
+#      workflow: ${{ github.workflow }}
+#      artifact: build-musl
+#
+#  ubuntu-musl-test:
+#    needs: alpine-musl
+#    if: ${{ vars.CURRENT_TOOL == github.workflow }}
+#    uses: ./.github/workflows/test-ubuntu.yml
+#    with:
+#      workflow: ${{ github.workflow }}
+#      artifact: build-musl
 
 
   windows-mingw:
