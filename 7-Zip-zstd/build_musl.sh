@@ -38,9 +38,9 @@ cd "$root/Bundles/Alone2"
 make -j -f makefile.gcc
 #make -j -f ../../cmpl_clang.mak
 
-ls -R
+#ls -R
 
-# cp -f "./x64/7zz" "$release_version_dirpath/"
+cp -f "./7zz" "$release_version_dirpath/"
 
 echo "::endgroup::"
 
