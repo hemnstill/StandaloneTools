@@ -11,7 +11,7 @@ echo "::endgroup::"
 
 tool_name="7-Zip-zstd"
 tool_version="22.01-v1.5.5-R3"
-self_toolset_name="build-musl"
+self_toolset_name="build-gnu"
 release_version_dirpath="$dp0/release/build"
 
 # tool_dirpath="$dp0/release/7-Zip-zstd-$tool_version"
