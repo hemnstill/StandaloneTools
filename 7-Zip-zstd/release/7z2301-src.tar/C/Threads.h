@@ -12,7 +12,6 @@
 #if defined(__linux__)
 #if !defined(__APPLE__) && !defined(_AIX) && !defined(__ANDROID__)
 #ifndef Z7_AFFINITY_DISABLE
-#define Z7_AFFINITY_SUPPORTED
 // #pragma message(" ==== Z7_AFFINITY_SUPPORTED")
 // #define _GNU_SOURCE
 #endif
@@ -108,15 +107,15 @@ typedef UInt64 CCpuSet;
    But only root function main() contains instructions that
    set 16-byte alignment for stack pointer. And another functions
    just keep alignment, if it was set in some parent function.
-   
+
    The problem:
     if we create new thread in MinGW (GCC) 32-bit x86 via _beginthreadex() or CreateThread(),
        the root function of thread doesn't set 16-byte alignment.
        And stack frames in all child functions also will be unaligned in that case.
-   
+
    Here we set (force_align_arg_pointer) attribute for root function of new thread.
    Do we need (force_align_arg_pointer) also for another systems?  */
-  
+
   #define THREAD_FUNC_ATTRIB_ALIGN_ARG __attribute__((force_align_arg_pointer))
   // #define THREAD_FUNC_ATTRIB_ALIGN_ARG // for debug : bad alignment in SSE functions
 #else
