@@ -35,7 +35,7 @@ echo "::group::build"
 root="$tool_dirpath/CPP/7zip"
 
 cd "$root/Bundles/Alone2"
-make -j -f makefile.gcc
+make -j -f makefile.gcc DISABLE_RAR=1
 #make -j -f ../../cmpl_clang.mak
 
 ls -R
