@@ -35,7 +35,7 @@ cd "$release_version_dirpath"
 
 strip 7zz.exe
 
-7zz i
+./7zz.exe i
 
 { printf '### %s
 %s
