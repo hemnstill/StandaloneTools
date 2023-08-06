@@ -5,7 +5,7 @@ set -e
 echo "::group::install deps"
 
 apk update
-apk add --no-cache alpine-sdk make linux-headers xz
+apk add --no-cache alpine-sdk make linux-headers
 
 echo "::endgroup::"
 
@@ -23,8 +23,8 @@ echo "::group::prepare sources $download_url"
 bsdtar="$dp0/release/bsdtar"
 
 # wget failed: ssl_client: TLS error from peer (alert code 80): 80
-curl --location "$download_url" --output "tool-$tool_version.tar.gz"
-tar -xf "tool-$tool_version.tar.gz"
+curl --location "$download_url" --output "tool-$tool_version.tar.xz"
+tar -xf "tool-$tool_version.tar.xz"
 
 echo "::endgroup::"
 
