@@ -23,6 +23,8 @@ echo "::endgroup::"
 
 echo "::group::build"
 
+git apply "$dp0/release/0001-disable_rar.patch"
+
 cd "$dp0/release/CPP/7zip/Bundles/Alone2"
 nmake
 cp -f "./x64/7zz.exe" "$release_version_dirpath/"
@@ -32,6 +34,8 @@ echo "::endgroup::"
 cd "$release_version_dirpath"
 
 strip 7zz.exe
+
+7zz i
 
 { printf '### %s
 %s
