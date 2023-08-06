@@ -9,7 +9,7 @@ jobs:
     with:
       workflow: ${{ github.workflow }}
       toolset: musl
-      version: 18.04
+      version: 20.04
 
 #  windows-mingw:
 #    if: ${{ vars.CURRENT_TOOL == github.workflow }}
