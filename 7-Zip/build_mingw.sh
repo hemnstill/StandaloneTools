@@ -25,7 +25,7 @@ echo "::group::build"
 
 cd "$dp0/release/CPP/7zip/Bundles/Alone2"
 nmake DISABLE_RAR=1
-cp -f "./_o/7zz.exe" "$release_version_dirpath/"
+cp -f "./x64/7zz.exe" "$release_version_dirpath/"
 
 echo "::endgroup::"
 
