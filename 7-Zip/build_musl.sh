@@ -31,7 +31,7 @@ echo "::endgroup::"
 echo "::group::build"
 
 cd "$dp0/release/CPP/7zip/Bundles/Alone2"
-nmake DISABLE_RAR=1
+make -j -f makefile.gcc DISABLE_RAR=1
 cp -f "./_o/7zz" "$release_version_dirpath/"
 
 echo "::endgroup::"
