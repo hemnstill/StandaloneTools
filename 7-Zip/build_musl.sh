@@ -27,7 +27,6 @@ curl --location "$download_url" --output "tool-$tool_version.tar.xz"
 "$bsdtar" -xf "tool-$tool_version.tar.xz"
 
 git apply "$dp0/release/0001-static.patch"
-git apply "$dp0/release/0001-disable_rar.patch"
 
 echo "::endgroup::"
 

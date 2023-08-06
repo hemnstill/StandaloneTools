@@ -1,12 +1,11 @@
-From f785f414399e2ec8ba769cbff6d56bdbff4e9c34 Mon Sep 17 00:00:00 2001
+From 4e34f0326728a3c05ed9304b70047f7c02ae7c94 Mon Sep 17 00:00:00 2001
 From: Reshetnikov Alexandr <hemn.still@gmail.com>
 Date: Sun, 6 Aug 2023 22:20:50 +0400
 Subject: [PATCH] disable_rar
 
 ---
- CPP/7zip/Bundles/Format7zF/Arc.mak     | 9 ---------
- CPP/7zip/Bundles/Format7zF/Arc_gcc.mak | 2 ++
- 2 files changed, 2 insertions(+), 9 deletions(-)
+ CPP/7zip/Bundles/Format7zF/Arc.mak | 9 ---------
+ 1 file changed, 9 deletions(-)
 
 diff --git a/CPP/7zip/Bundles/Format7zF/Arc.mak b/CPP/7zip/Bundles/Format7zF/Arc.mak
 index 5b5252f..f9d5b35 100644
@@ -35,19 +34,6 @@ index 5b5252f..f9d5b35 100644
    $O\WzAes.obj \
    $O\ZipCrypto.obj \
    $O\ZipStrong.obj \
-diff --git a/CPP/7zip/Bundles/Format7zF/Arc_gcc.mak b/CPP/7zip/Bundles/Format7zF/Arc_gcc.mak
-index dd605a3..d066534 100644
---- a/CPP/7zip/Bundles/Format7zF/Arc_gcc.mak
-+++ b/CPP/7zip/Bundles/Format7zF/Arc_gcc.mak
-@@ -3,6 +3,8 @@ include ../../LzmaDec_gcc.mak
- LOCAL_FLAGS_ST =
- MT_OBJS =
- 
-+DISABLE_RAR = 1
-+
- ifdef SystemDrive
- IS_MINGW = 1
- else
 -- 
 2.37.2.windows.2
 
