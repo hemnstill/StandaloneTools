@@ -28,12 +28,14 @@ echo "::group::build"
 root="$tool_dirpath/CPP/7zip"
 
 cd "$root/Bundles/Alone2"
-nmake
+nmake DISABLE_RAR=1
 cp -f "./x64/7zz.exe" "$release_version_dirpath/"
 
 echo "::endgroup::"
 
 cd "$release_version_dirpath"
+
+strip 7zz.exe
 
 { printf '### %s
 %s
