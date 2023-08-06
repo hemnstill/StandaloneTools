@@ -16,6 +16,7 @@ release_version_dirpath="$dp0/release/build"
 
 # tool_dirpath="$dp0/release/7-Zip-zstd-$tool_version"
 tool_dirpath="$dp0/release/7z2301-src.tar"
+tool_dirpath="$dp0/release/7-Zip-zstd-22.01-v1.5.5-R3"
 
 mkdir -p "$release_version_dirpath" && cd "$dp0/release"
 
