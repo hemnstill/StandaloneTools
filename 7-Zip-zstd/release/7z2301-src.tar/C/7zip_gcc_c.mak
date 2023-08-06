@@ -54,6 +54,8 @@ endif
 endif
 endif
 
+LDFLAGS_STATIC_2 = -static
+
 LDFLAGS_STATIC = -DNDEBUG $(LDFLAGS_STATIC_2)
 
 ifdef DEF_FILE
@@ -88,7 +90,7 @@ endif
 
 PROGPATH = $(O)/$(PROG)$(SHARED_EXT)
 PROGPATH_STATIC = $(O)/$(PROG)s$(SHARED_EXT)
-	
+
 ifndef O
 O=_o
 endif
@@ -111,7 +113,7 @@ LIB2 = -lOle32 -loleaut32 -luuid -ladvapi32 -lUser32 -lShell32
 CFLAGS_EXTRA = -DUNICODE -D_UNICODE
 # -Wno-delete-non-virtual-dtor
 
- 
+
 else
 
 RM = rm -f
