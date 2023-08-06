@@ -4,8 +4,8 @@ set -e
 
 echo "::group::install deps"
 export DEBIAN_FRONTEND=noninteractive
-apk update
-apk add --no-cache alpine-sdk make linux-headers mingw-w64-gcc
+apt update
+apt install -y software-properties-common build-essential wget clang
 
 echo "::endgroup::"
 
