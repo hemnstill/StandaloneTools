@@ -11,6 +11,14 @@ jobs:
       toolset: musl
       version: 20.04
 
+  test-linux:
+    needs: alpine-musl
+    if: ${{ vars.CURRENT_TOOL == github.workflow }}
+    uses: ./.github/workflows/test-windows.yml
+    with:
+      workflow: ${{ github.workflow }}
+      artifact: build-musl
+
 #  windows-mingw:
 #    if: ${{ vars.CURRENT_TOOL == github.workflow }}
 #    uses: ./.github/workflows/build-windows-msbuild.yml
