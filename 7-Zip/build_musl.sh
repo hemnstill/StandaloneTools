@@ -24,7 +24,7 @@ bsdtar="$dp0/release/bsdtar"
 
 # wget failed: ssl_client: TLS error from peer (alert code 80): 80
 curl --location "$download_url" --output "tool-$tool_version.tar.xz"
-tar -xf "tool-$tool_version.tar.xz"
+"$bsdtar" -xf "tool-$tool_version.tar.xz"
 
 echo "::endgroup::"
 
