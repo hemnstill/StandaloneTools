@@ -50,6 +50,9 @@ struct DProps
 
 class CDecoder:public ICompressCoder,
   public ICompressSetDecoderProperties2,
+#ifndef NO_READ_FROM_CODER
+  public ICompressSetInStream,
+#endif
   public ICompressSetCoderMt,
   public CMyUnknownImp
 {
@@ -69,23 +72,27 @@ class CDecoder:public ICompressCoder,
   HRESULT SetOutStreamSizeResume(const UInt64 *outSize);
 public:
 
-  MY_QUERYINTERFACE_BEGIN2(ICompressCoder)
-  MY_QUERYINTERFACE_ENTRY(ICompressSetDecoderProperties2)
+  Z7_COM_QI_BEGIN2(ICompressCoder)
+  Z7_COM_QI_ENTRY(ICompressSetDecoderProperties2)
 #ifndef NO_READ_FROM_CODER
-  MY_QUERYINTERFACE_ENTRY(ICompressSetInStream)
+  Z7_COM_QI_ENTRY(ICompressSetInStream)
 #endif
-  MY_QUERYINTERFACE_ENTRY(ICompressSetCoderMt)
-  MY_QUERYINTERFACE_END
+  Z7_COM_QI_ENTRY(ICompressSetCoderMt)
+  Z7_COM_QI_END
 
-  MY_ADDREF_RELEASE
-  STDMETHOD (Code)(ISequentialInStream *inStream, ISequentialOutStream *outStream, const UInt64 *inSize, const UInt64 *outSize, ICompressProgressInfo *progress);
-  STDMETHOD (SetDecoderProperties2)(const Byte *data, UInt32 size);
+  Z7_COM_ADDREF_RELEASE
+
+public:
+  Z7_IFACE_COM7_IMP(ICompressCoder)
+  Z7_IFACE_COM7_IMP(ICompressSetDecoderProperties2)
+#ifndef NO_READ_FROM_CODER
+  Z7_IFACE_COM7_IMP(ICompressSetInStream)
+#endif
+  Z7_IFACE_COM7_IMP(ICompressSetCoderMt)
+
   STDMETHOD (SetOutStreamSize)(const UInt64 *outSize);
-  STDMETHOD (SetNumberOfThreads)(UInt32 numThreads);
 
 #ifndef NO_READ_FROM_CODER
-  STDMETHOD (SetInStream)(ISequentialInStream *inStream);
-  STDMETHOD (ReleaseInStream)();
   UInt64 GetInputProcessedSize() const { return _processedIn; }
 #endif
   HRESULT CodeResume(ISequentialOutStream *outStream, const UInt64 *outSize, ICompressProgressInfo *progress);

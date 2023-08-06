@@ -17,16 +17,16 @@ using namespace NRegistry;
 // CLISID (and Approved ?) items are separated for 32-bit and 64-bit code.
 // shellex items shared by 32-bit and 64-bit code?
 
-#define k_Clsid_A "{23170F69-20BB-278A-1000-000100020000}"
+#define k_Clsid_A "{23170F69-40C1-278A-1000-000100020000}"
 
 static LPCTSTR const k_Clsid = TEXT(k_Clsid_A);
-static LPCTSTR const k_ShellExtName = TEXT("7-Zip ZS Shell Extension");
+static LPCTSTR const k_ShellExtName = TEXT("7-Zip Shell Extension");
 
 static LPCTSTR const k_Approved = TEXT("Software\\Microsoft\\Windows\\CurrentVersion\\Shell Extensions\\Approved");
 static LPCTSTR const k_Inproc = TEXT("InprocServer32");
 
-static LPCSTR const k_KeyPostfix_ContextMenu = "\\shellex\\ContextMenuHandlers\\7-Zip-Zstandard";
-static LPCSTR const k_KeyPostfix_DragDrop    = "\\shellex\\DragDropHandlers\\7-Zip-Zstandard";
+static LPCSTR const k_KeyPostfix_ContextMenu = "\\shellex\\ContextMenuHandlers\\7-Zip";
+static LPCSTR const k_KeyPostfix_DragDrop    = "\\shellex\\DragDropHandlers\\7-Zip";
 
 static LPCSTR const k_KeyName_File      = "*";
 static LPCSTR const k_KeyName_Folder    = "Folder";
@@ -67,8 +67,9 @@ static Func_RegDeleteKeyExW func_RegDeleteKeyExW;
 static void Init_RegDeleteKeyExW()
 {
   if (!func_RegDeleteKeyExW)
-    func_RegDeleteKeyExW = (Func_RegDeleteKeyExW)
-      (void *)GetProcAddress(GetModuleHandleW(L"advapi32.dll"), "RegDeleteKeyExW");
+    func_RegDeleteKeyExW = Z7_GET_PROC_ADDRESS(
+    Func_RegDeleteKeyExW, GetModuleHandleW(L"advapi32.dll"),
+        "RegDeleteKeyExW");
 }
 
 #define INIT_REG_WOW if (wow != 0) Init_RegDeleteKeyExW();
@@ -205,7 +206,7 @@ LONG SetContextMenuHandler(bool setMode, const UString &path, UInt32 wow)
   if (setMode)
   for (unsigned i = 0; i < 2; i++)
   {
-    for (unsigned k = 0; k < ARRAY_SIZE(k_shellex_Prefixes); k++)
+    for (unsigned k = 0; k < Z7_ARRAY_SIZE(k_shellex_Prefixes); k++)
     {
       CSysString s (k_shellex_Prefixes[k]);
       s += (i == 0 ? k_KeyPostfix_ContextMenu : k_KeyPostfix_DragDrop);

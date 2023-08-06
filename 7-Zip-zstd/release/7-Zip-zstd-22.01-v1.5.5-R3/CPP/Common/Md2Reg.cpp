@@ -12,18 +12,15 @@ EXTERN_C_END
 #include "../7zip/Common/RegisterCodec.h"
 
 // MD2
-class CMD2Hasher:
-  public IHasher,
-  public CMyUnknownImp
-{
+Z7_CLASS_IMP_COM_1(
+  CMD2Hasher,
+  IHasher
+)
   MD2_CTX _ctx;
   Byte mtDummy[1 << 7];
 
 public:
   CMD2Hasher() { MD2_Init(&_ctx); }
-
-  MY_UNKNOWN_IMP1(IHasher)
-  INTERFACE_IHasher(;)
 };
 
 STDMETHODIMP_(void) CMD2Hasher::Init() throw()

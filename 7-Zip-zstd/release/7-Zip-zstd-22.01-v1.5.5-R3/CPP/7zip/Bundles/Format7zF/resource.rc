@@ -2,6 +2,7 @@
 
 MY_VERSION_INFO_DLL("7z Plugin" , "7z")
 
+
 0  ICON  "../../Archive/Icons/7z.ico"
 1  ICON  "../../Archive/Icons/zip.ico"
 2  ICON  "../../Archive/Icons/bz2.ico"

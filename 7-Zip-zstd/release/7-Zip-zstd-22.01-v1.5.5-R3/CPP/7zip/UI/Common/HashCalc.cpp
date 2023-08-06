@@ -17,16 +17,12 @@
 #include "../../Archive/Common/ItemNameUtils.h"
 #include "../../Archive/IArchive.h"
 
-#ifdef WANT_OPTIONAL_LOWERCASE
-#include "../FileManager/RegistryUtils.h"
-#endif
-
 #include "EnumDirItems.h"
 #include "HashCalc.h"
 
 using namespace NWindows;
 
-#ifdef EXTERNAL_CODECS
+#ifdef Z7_EXTERNAL_CODECS
 extern const CExternalCodecs *g_ExternalCodecs_Ptr;
 #endif
 
@@ -61,7 +57,7 @@ HRESULT CHashBundle::SetMethods(DECL_EXTERNAL_CODECS_LOC_VARS const UStringVecto
   for (i = 0; i < names.Size(); i++)
   {
     COneMethodInfo m;
-    RINOK(m.ParseMethodFromString(names[i]));
+    RINOK(m.ParseMethodFromString(names[i]))
 
     if (m.MethodName.IsEmpty())
       m.MethodName = k_DefaultHashMethod;
@@ -96,7 +92,7 @@ HRESULT CHashBundle::SetMethods(DECL_EXTERNAL_CODECS_LOC_VARS const UStringVecto
   {
     CMyComPtr<IHasher> hasher;
     AString name;
-    RINOK(CreateHasher(EXTERNAL_CODECS_LOC_VARS ids[i], name, hasher));
+    RINOK(CreateHasher(EXTERNAL_CODECS_LOC_VARS ids[i], name, hasher))
     if (!hasher)
       throw "Can't create hasher";
     const COneMethodInfo &m = methods[i];
@@ -104,7 +100,7 @@ HRESULT CHashBundle::SetMethods(DECL_EXTERNAL_CODECS_LOC_VARS const UStringVecto
       CMyComPtr<ICompressSetCoderProperties> scp;
       hasher.QueryInterface(IID_ICompressSetCoderProperties, &scp);
       if (scp)
-        RINOK(m.SetCoderProps(scp, NULL));
+        RINOK(m.SetCoderProps(scp, NULL))
     }
     const UInt32 digestSize = hasher->GetDigestSize();
     if (digestSize > k_HashCalc_DigestSize_Max)
@@ -334,14 +330,14 @@ static void AddHashResultLine(
     if (numSpaces > 0)
       SetSpacesAndNul(s + pos, (unsigned)numSpaces);
     if (i != 0)
-      _s += ' ';
+      _s.Add_Space();
     _s += s;
   }
   
   /*
   if (showSize)
   {
-    _s += ' ';
+    _s.Add_Space();
     static const unsigned kSizeField_Len = 13; // same as in HashCon.cpp
     char s[kSizeField_Len + 32];
     char *p = s;
@@ -471,7 +467,7 @@ HRESULT HashCalc(
   }
   else
   {
-    RINOK(callback->StartScanning());
+    RINOK(callback->StartScanning())
 
     dirItems.SymLinks = options.SymLinks.Val;
     dirItems.ScanAltStreams = options.AltStreamsMode;
@@ -491,12 +487,12 @@ HRESULT HashCalc(
         errorInfo = "Scanning error";
       return res;
     }
-    RINOK(callback->FinishScanning(dirItems.Stat));
+    RINOK(callback->FinishScanning(dirItems.Stat))
   }
 
   unsigned i;
   CHashBundle hb;
-  RINOK(hb.SetMethods(EXTERNAL_CODECS_LOC_VARS options.Methods));
+  RINOK(hb.SetMethods(EXTERNAL_CODECS_LOC_VARS options.Methods))
   // hb.Init();
 
   hb.NumErrors = dirItems.Stat.NumErrors;
@@ -504,12 +500,12 @@ HRESULT HashCalc(
   UInt64 totalSize = 0;
   if (options.StdInMode)
   {
-    RINOK(callback->SetNumFiles(1));
+    RINOK(callback->SetNumFiles(1))
   }
   else
   {
     totalSize = dirItems.Stat.GetTotalBytes();
-    RINOK(callback->SetTotal(totalSize));
+    RINOK(callback->SetTotal(totalSize))
   }
 
   const UInt32 kBufSize = 1 << 15;
@@ -519,7 +515,7 @@ HRESULT HashCalc(
 
   UInt64 completeValue = 0;
 
-  RINOK(callback->BeforeFirstFile(hb));
+  RINOK(callback->BeforeFirstFile(hb))
 
   /*
   CDynLimBuf hashFileString((size_t)1 << 31);
@@ -579,7 +575,7 @@ HRESULT HashCalc(
               if (curSize > di.Size)
               {
                 totalSize += curSize - di.Size;
-                RINOK(callback->SetTotal(totalSize));
+                RINOK(callback->SetTotal(totalSize))
                 // printf("\ntotal = %d MiB\n", (unsigned)(totalSize >> 20));
               }
             }
@@ -589,7 +585,7 @@ HRESULT HashCalc(
       }
     }
     
-    RINOK(callback->GetStream(path, isDir));
+    RINOK(callback->GetStream(path, isDir))
     UInt64 fileSize = 0;
 
     hb.InitForNewFile();
@@ -601,10 +597,10 @@ HRESULT HashCalc(
         if ((step & 0xFF) == 0)
         {
           // printf("\ncompl = %d\n", (unsigned)(completeValue >> 20));
-          RINOK(callback->SetCompleted(&completeValue));
+          RINOK(callback->SetCompleted(&completeValue))
         }
         UInt32 size;
-        RINOK(inStream->Read(buf, kBufSize, &size));
+        RINOK(inStream->Read(buf, kBufSize, &size))
         if (size == 0)
           break;
         hb.Update(buf, size);
@@ -630,8 +626,8 @@ HRESULT HashCalc(
     }
     */
 
-    RINOK(callback->SetOperationResult(fileSize, hb, !isDir));
-    RINOK(callback->SetCompleted(&completeValue));
+    RINOK(callback->SetOperationResult(fileSize, hb, !isDir))
+    RINOK(callback->SetCompleted(&completeValue))
   }
   
   /*
@@ -651,19 +647,11 @@ HRESULT HashCalc(
 
 static inline char GetHex_Upper(unsigned v)
 {
-#ifdef WANT_OPTIONAL_LOWERCASE
-  if (WantLowercaseHashes())
-    return (char)((v < 10) ? ('0' + v) : ('a' + (v - 10)));
-#endif
   return (char)((v < 10) ? ('0' + v) : ('A' + (v - 10)));
 }
 
 static inline char GetHex_Lower(unsigned v)
 {
-#ifdef WANT_OPTIONAL_LOWERCASE
-  if (!WantLowercaseHashes())
-    return (char)((v < 10) ? ('0' + v) : ('A' + (v - 10)));
-#endif
   return (char)((v < 10) ? ('0' + v) : ('a' + (v - 10)));
 }
 
@@ -788,7 +776,7 @@ bool CHashPair::ParseCksum(const char *s)
   Name = end;
   
   Hash.Alloc(4);
-  SetBe32(Hash, crc);
+  SetBe32(Hash, crc)
 
   Size_from_Arc = size;
   Size_from_Arc_Defined = true;
@@ -807,10 +795,18 @@ static const char *SkipWhite(const char *s)
 
 static const char * const k_CsumMethodNames[] =
 {
- "sha3-512", "sha3-384", "sha3-256",
- "sha512", "sha384", "sha256", "sha224",
- "sha1", "md5", "blake2b",
- "crc32", "crc64" , "cksum"
+    "sha256"
+  , "sha224"
+//  , "sha512/224"
+//  , "sha512/256"
+  , "sha512"
+  , "sha384"
+  , "sha1"
+  , "md5"
+  , "blake2b"
+  , "crc64"
+  , "crc32"
+  , "cksum"
 };
 
 static UString GetMethod_from_FileName(const UString &name)
@@ -827,7 +823,7 @@ static UString GetMethod_from_FileName(const UString &name)
   }
   const char *m = "";
   unsigned i;
-  for (i = 0; i < ARRAY_SIZE(k_CsumMethodNames); i++)
+  for (i = 0; i < Z7_ARRAY_SIZE(k_CsumMethodNames); i++)
   {
     m = k_CsumMethodNames[i];
     if (isExtension)
@@ -840,7 +836,7 @@ static UString GetMethod_from_FileName(const UString &name)
         break;
   }
   UString res;
-  if (i != ARRAY_SIZE(k_CsumMethodNames))
+  if (i != Z7_ARRAY_SIZE(k_CsumMethodNames))
     res = m;
   return res;
 }
@@ -1037,27 +1033,27 @@ static const Byte kRawProps[] =
 };
 
 
-STDMETHODIMP CHandler::GetParent(UInt32 /* index */ , UInt32 *parent, UInt32 *parentType)
+Z7_COM7F_IMF(CHandler::GetParent(UInt32 /* index */ , UInt32 *parent, UInt32 *parentType))
 {
   *parentType = NParentType::kDir;
   *parent = (UInt32)(Int32)-1;
   return S_OK;
 }
 
-STDMETHODIMP CHandler::GetNumRawProps(UInt32 *numProps)
+Z7_COM7F_IMF(CHandler::GetNumRawProps(UInt32 *numProps))
 {
-  *numProps = ARRAY_SIZE(kRawProps);
+  *numProps = Z7_ARRAY_SIZE(kRawProps);
   return S_OK;
 }
 
-STDMETHODIMP CHandler::GetRawPropInfo(UInt32 index, BSTR *name, PROPID *propID)
+Z7_COM7F_IMF(CHandler::GetRawPropInfo(UInt32 index, BSTR *name, PROPID *propID))
 {
   *propID = kRawProps[index];
-  *name = 0;
+  *name = NULL;
   return S_OK;
 }
 
-STDMETHODIMP CHandler::GetRawProp(UInt32 index, PROPID propID, const void **data, UInt32 *dataSize, UInt32 *propType)
+Z7_COM7F_IMF(CHandler::GetRawProp(UInt32 index, PROPID propID, const void **data, UInt32 *dataSize, UInt32 *propType))
 {
   *data = NULL;
   *dataSize = 0;
@@ -1081,7 +1077,7 @@ STDMETHODIMP CHandler::GetRawProp(UInt32 index, PROPID propID, const void **data
 IMP_IInArchive_Props
 IMP_IInArchive_ArcProps
 
-STDMETHODIMP CHandler::GetNumberOfItems(UInt32 *numItems)
+Z7_COM7F_IMF(CHandler::GetNumberOfItems(UInt32 *numItems))
 {
   *numItems = HashPairs.Size();
   return S_OK;
@@ -1093,7 +1089,7 @@ static void Add_OptSpace_String(UString &dest, const char *src)
   dest += src;
 }
 
-STDMETHODIMP CHandler::GetArchiveProperty(PROPID propID, PROPVARIANT *value)
+Z7_COM7F_IMF(CHandler::GetArchiveProperty(PROPID propID, PROPVARIANT *value))
 {
   NWindows::NCOM::CPropVariant prop;
   switch (propID)
@@ -1156,7 +1152,7 @@ STDMETHODIMP CHandler::GetArchiveProperty(PROPID propID, PROPVARIANT *value)
 }
 
 
-STDMETHODIMP CHandler::GetProperty(UInt32 index, PROPID propID, PROPVARIANT *value)
+Z7_COM7F_IMF(CHandler::GetProperty(UInt32 index, PROPID propID, PROPVARIANT *value))
 {
   // COM_TRY_BEGIN
   NWindows::NCOM::CPropVariant prop;
@@ -1210,10 +1206,9 @@ static HRESULT ReadStream_to_Buf(IInStream *stream, CByteBuffer &buf, IArchiveOp
 {
   buf.Free();
   UInt64 len;
-  RINOK(stream->Seek(0, STREAM_SEEK_END, &len));
+  RINOK(InStream_AtBegin_GetSize(stream, len))
   if (len == 0 || len >= ((UInt64)1 << 31))
     return S_FALSE;
-  RINOK(stream->Seek(0, STREAM_SEEK_SET, NULL));
   buf.Alloc((size_t)len);
   UInt64 pos = 0;
   // return ReadStream_FALSE(stream, buf, (size_t)len);
@@ -1222,7 +1217,7 @@ static HRESULT ReadStream_to_Buf(IInStream *stream, CByteBuffer &buf, IArchiveOp
     const UInt32 kBlockSize = ((UInt32)1 << 24);
     const UInt32 curSize = (len < kBlockSize) ? (UInt32)len : kBlockSize;
     UInt32 processedSizeLoc;
-    RINOK(stream->Read((Byte *)buf + pos, curSize, &processedSizeLoc));
+    RINOK(stream->Read((Byte *)buf + pos, curSize, &processedSizeLoc))
     if (processedSizeLoc == 0)
       return E_FAIL;
     len -= processedSizeLoc;
@@ -1232,13 +1227,13 @@ static HRESULT ReadStream_to_Buf(IInStream *stream, CByteBuffer &buf, IArchiveOp
     if (openCallback)
     {
       const UInt64 files = 0;
-      RINOK(openCallback->SetCompleted(&files, &pos));
+      RINOK(openCallback->SetCompleted(&files, &pos))
     }
   }
 }
 
 
-STDMETHODIMP CHandler::Open(IInStream *stream, const UInt64 *, IArchiveOpenCallback *openCallback)
+Z7_COM7F_IMF(CHandler::Open(IInStream *stream, const UInt64 *, IArchiveOpenCallback *openCallback))
 {
   COM_TRY_BEGIN
   {
@@ -1265,12 +1260,13 @@ STDMETHODIMP CHandler::Open(IInStream *stream, const UInt64 *, IArchiveOpenCallb
 
     if (openCallback)
     {
-      CMyComPtr<IArchiveOpenVolumeCallback> openVolumeCallback;
-      openCallback->QueryInterface(IID_IArchiveOpenVolumeCallback, (void **)&openVolumeCallback);
-      NCOM::CPropVariant prop;
+      Z7_DECL_CMyComPtr_QI_FROM(
+          IArchiveOpenVolumeCallback,
+          openVolumeCallback, openCallback)
       if (openVolumeCallback)
       {
-        RINOK(openVolumeCallback->GetProperty(kpidName, &prop));
+        NCOM::CPropVariant prop;
+        RINOK(openVolumeCallback->GetProperty(kpidName, &prop))
         if (prop.vt == VT_BSTR)
           _nameExtenstion = GetMethod_from_FileName(prop.bstrVal);
       }
@@ -1380,7 +1376,7 @@ void CHandler::ClearVars()
 }
 
 
-STDMETHODIMP CHandler::Close()
+Z7_COM7F_IMF(CHandler::Close())
 {
   ClearVars();
   _nameExtenstion.Empty();
@@ -1413,16 +1409,15 @@ static bool CheckDigests(const Byte *a, const Byte *b, size_t size)
 static void AddDefaultMethod(UStringVector &methods, unsigned size)
 {
   const char *m = NULL;
-       if (size == 64) m = "sha512";
-  else if (size == 32) m = "sha256";
+       if (size == 32) m = "sha256";
   else if (size == 20) m = "sha1";
   else if (size == 16) m = "md5";
   else if (size ==  8) m = "crc64";
   else if (size ==  4) m = "crc32";
   else
     return;
-  #ifdef EXTERNAL_CODECS
-  const CExternalCodecs *__externalCodecs = g_ExternalCodecs_Ptr;
+  #ifdef Z7_EXTERNAL_CODECS
+  const CExternalCodecs *_externalCodecs = g_ExternalCodecs_Ptr;
   #endif
   CMethodId id;
   if (FindHashMethod(EXTERNAL_CODECS_LOC_VARS
@@ -1431,8 +1426,8 @@ static void AddDefaultMethod(UStringVector &methods, unsigned size)
 }
 
 
-STDMETHODIMP CHandler::Extract(const UInt32 *indices, UInt32 numItems,
-    Int32 testMode, IArchiveExtractCallback *extractCallback)
+Z7_COM7F_IMF(CHandler::Extract(const UInt32 *indices, UInt32 numItems,
+    Int32 testMode, IArchiveExtractCallback *extractCallback))
 {
   COM_TRY_BEGIN
 
@@ -1447,8 +1442,8 @@ STDMETHODIMP CHandler::Extract(const UInt32 *indices, UInt32 numItems,
   if (numItems == 0)
     return S_OK;
 
-  #ifdef EXTERNAL_CODECS
-  const CExternalCodecs *__externalCodecs = g_ExternalCodecs_Ptr;
+  #ifdef Z7_EXTERNAL_CODECS
+  const CExternalCodecs *_externalCodecs = g_ExternalCodecs_Ptr;
   #endif
   
   CHashBundle hb_Glob;
@@ -1476,15 +1471,17 @@ STDMETHODIMP CHandler::Extract(const UInt32 *indices, UInt32 numItems,
 
   RINOK(hb_Glob.SetMethods(
       EXTERNAL_CODECS_LOC_VARS
-      methods));
+      methods))
 
-  CMyComPtr<IArchiveUpdateCallbackFile> updateCallbackFile;
-  extractCallback->QueryInterface(IID_IArchiveUpdateCallbackFile, (void **)&updateCallbackFile);
+  Z7_DECL_CMyComPtr_QI_FROM(
+      IArchiveUpdateCallbackFile,
+      updateCallbackFile, extractCallback)
   if (!updateCallbackFile)
     return E_NOTIMPL;
   {
-    CMyComPtr<IArchiveGetDiskProperty> GetDiskProperty;
-    extractCallback->QueryInterface(IID_IArchiveGetDiskProperty, (void **)&GetDiskProperty);
+    Z7_DECL_CMyComPtr_QI_FROM(
+        IArchiveGetDiskProperty,
+        GetDiskProperty, extractCallback)
     if (GetDiskProperty)
     {
       UInt64 totalSize = 0;
@@ -1497,13 +1494,13 @@ STDMETHODIMP CHandler::Extract(const UInt32 *indices, UInt32 numItems,
           continue;
         {
           NCOM::CPropVariant prop;
-          RINOK(GetDiskProperty->GetDiskProperty(index, kpidSize, &prop));
+          RINOK(GetDiskProperty->GetDiskProperty(index, kpidSize, &prop))
           if (prop.vt != VT_UI8)
             continue;
           totalSize += prop.uhVal.QuadPart;
         }
       }
-      RINOK(extractCallback->SetTotal(totalSize));
+      RINOK(extractCallback->SetTotal(totalSize))
       // RINOK(Hash_SetTotalUnpacked->Hash_SetTotalUnpacked(indices, numItems));
     }
   }
@@ -1521,7 +1518,7 @@ STDMETHODIMP CHandler::Extract(const UInt32 *indices, UInt32 numItems,
   UInt32 i;
   for (i = 0; i < numItems; i++)
   {
-    RINOK(lps->SetCur());
+    RINOK(lps->SetCur())
     const UInt32 index = allFilesMode ? i : indices[i];
 
     CHashPair &hp = HashPairs[index];
@@ -1533,7 +1530,7 @@ STDMETHODIMP CHandler::Extract(const UInt32 *indices, UInt32 numItems,
     const bool isDir = hp.IsDir();
     if (!isDir)
     {
-      RINOK(updateCallbackFile->GetStream2(index, &inStream, NUpdateNotifyOp::kHashRead));
+      RINOK(updateCallbackFile->GetStream2(index, &inStream, NUpdateNotifyOp::kHashRead))
       if (!inStream)
       {
         continue; // we have shown error in GetStream2()
@@ -1546,7 +1543,7 @@ STDMETHODIMP CHandler::Extract(const UInt32 *indices, UInt32 numItems,
         NArchive::NExtract::NAskMode::kExtract;
 
     CMyComPtr<ISequentialOutStream> realOutStream;
-    RINOK(extractCallback->GetStream(index, &realOutStream, askMode));
+    RINOK(extractCallback->GetStream(index, &realOutStream, askMode))
 
     /* PrepareOperation() can expect kExtract to set
        Attrib and security of output file */
@@ -1575,7 +1572,7 @@ STDMETHODIMP CHandler::Extract(const UInt32 *indices, UInt32 numItems,
         methods_loc.Add(UString(hp.Method));
         RINOK(hb_Loc.SetMethods(
             EXTERNAL_CODECS_LOC_VARS
-            methods_loc));
+            methods_loc))
       }
       else
         res_SetMethods = E_NOTIMPL;
@@ -1588,7 +1585,7 @@ STDMETHODIMP CHandler::Extract(const UInt32 *indices, UInt32 numItems,
         hb_Use = &hb_Loc;
         RINOK(hb_Loc.SetMethods(
             EXTERNAL_CODECS_LOC_VARS
-            methods_loc));
+            methods_loc))
       }
     }
 
@@ -1601,16 +1598,16 @@ STDMETHODIMP CHandler::Extract(const UInt32 *indices, UInt32 numItems,
       {
         if ((step & 0xFF) == 0)
         {
-          RINOK(lps->SetRatioInfo(NULL, &fileSize));
+          RINOK(progress->SetRatioInfo(NULL, &fileSize))
         }
         UInt32 size;
-        RINOK(inStream->Read(buf, kBufSize, &size));
+        RINOK(inStream->Read(buf, kBufSize, &size))
         if (size == 0)
           break;
         hb_Use->Update(buf, size);
         if (realOutStream)
         {
-          RINOK(WriteStream(realOutStream, buf, size));
+          RINOK(WriteStream(realOutStream, buf, size))
         }
         fileSize += size;
       }
@@ -1643,7 +1640,7 @@ STDMETHODIMP CHandler::Extract(const UInt32 *indices, UInt32 numItems,
       }
     }
 
-    RINOK(extractCallback->SetOperationResult(opRes));
+    RINOK(extractCallback->SetOperationResult(opRes))
   }
 
   return lps->SetCur();
@@ -1673,7 +1670,7 @@ static HRESULT GetPropString(IArchiveUpdateCallback *callback, UInt32 index, PRO
     bool convertSlash)
 {
   NCOM::CPropVariant prop;
-  RINOK(callback->GetProperty(index, propId, &prop));
+  RINOK(callback->GetProperty(index, propId, &prop))
   if (prop.vt == VT_BSTR)
   {
     res = prop.bstrVal;
@@ -1686,15 +1683,15 @@ static HRESULT GetPropString(IArchiveUpdateCallback *callback, UInt32 index, PRO
 }
 
 
-STDMETHODIMP CHandler::GetFileTimeType(UInt32 *type)
+Z7_COM7F_IMF(CHandler::GetFileTimeType(UInt32 *type))
 {
   *type = NFileTimeType::kUnix;
   return S_OK;
 }
 
 
-STDMETHODIMP CHandler::UpdateItems(ISequentialOutStream *outStream, UInt32 numItems,
-    IArchiveUpdateCallback *callback)
+Z7_COM7F_IMF(CHandler::UpdateItems(ISequentialOutStream *outStream, UInt32 numItems,
+    IArchiveUpdateCallback *callback))
 {
   COM_TRY_BEGIN
 
@@ -1702,8 +1699,8 @@ STDMETHODIMP CHandler::UpdateItems(ISequentialOutStream *outStream, UInt32 numIt
     return E_NOTIMPL;
 
   /*
-  CMyComPtr<IArchiveUpdateCallbackArcProp> reportArcProp;
-  callback->QueryInterface(IID_IArchiveUpdateCallbackArcProp, (void **)&reportArcProp);
+  Z7_DECL_CMyComPtr_QI_FROM(IArchiveUpdateCallbackArcProp,
+      reportArcProp, callback)
   */
 
   CObjectVector<CUpdateItem> updateItems;
@@ -1721,7 +1718,7 @@ STDMETHODIMP CHandler::UpdateItems(ISequentialOutStream *outStream, UInt32 numIt
     if (!callback)
       return E_FAIL;
     
-    RINOK(callback->GetUpdateItemInfo(i, &newData, &newProps, &indexInArc));
+    RINOK(callback->GetUpdateItemInfo(i, &newData, &newProps, &indexInArc))
 
     ui.NewProps = IntToBool(newProps);
     ui.NewData = IntToBool(newData);
@@ -1731,7 +1728,7 @@ STDMETHODIMP CHandler::UpdateItems(ISequentialOutStream *outStream, UInt32 numIt
     {
       {
         NCOM::CPropVariant prop;
-        RINOK(callback->GetProperty(i, kpidIsDir, &prop));
+        RINOK(callback->GetProperty(i, kpidIsDir, &prop))
         if (prop.vt == VT_EMPTY)
           ui.IsDir = false;
         else if (prop.vt != VT_BOOL)
@@ -1741,7 +1738,7 @@ STDMETHODIMP CHandler::UpdateItems(ISequentialOutStream *outStream, UInt32 numIt
       }
 
       RINOK(GetPropString(callback, i, kpidPath, ui.Path,
-          true)); // convertSlash
+          true)) // convertSlash
       /*
       if (ui.IsDir && !ui.Name.IsEmpty() && ui.Name.Back() != '/')
         ui.Name += '/';
@@ -1751,7 +1748,7 @@ STDMETHODIMP CHandler::UpdateItems(ISequentialOutStream *outStream, UInt32 numIt
     if (IntToBool(newData))
     {
       NCOM::CPropVariant prop;
-      RINOK(callback->GetProperty(i, kpidSize, &prop));
+      RINOK(callback->GetProperty(i, kpidSize, &prop))
       if (prop.vt == VT_UI8)
       {
         ui.Size = prop.uhVal.QuadPart;
@@ -1768,11 +1765,11 @@ STDMETHODIMP CHandler::UpdateItems(ISequentialOutStream *outStream, UInt32 numIt
 
   if (complexity != 0)
   {
-    RINOK(callback->SetTotal(complexity));
+    RINOK(callback->SetTotal(complexity))
   }
 
-  #ifdef EXTERNAL_CODECS
-  const CExternalCodecs *__externalCodecs = g_ExternalCodecs_Ptr;
+  #ifdef Z7_EXTERNAL_CODECS
+  const CExternalCodecs *_externalCodecs = g_ExternalCodecs_Ptr;
   #endif
 
   CHashBundle hb;
@@ -1790,13 +1787,13 @@ STDMETHODIMP CHandler::UpdateItems(ISequentialOutStream *outStream, UInt32 numIt
   }
   else
   {
-    CMyComPtr<IArchiveGetRootProps> getRootProps;
-    callback->QueryInterface(IID_IArchiveGetRootProps, (void **)&getRootProps);
-
-    NCOM::CPropVariant prop;
+    Z7_DECL_CMyComPtr_QI_FROM(
+        IArchiveGetRootProps,
+        getRootProps, callback)
     if (getRootProps)
     {
-      RINOK(getRootProps->GetRootProp(kpidArcFileName, &prop));
+      NCOM::CPropVariant prop;
+      RINOK(getRootProps->GetRootProp(kpidArcFileName, &prop))
       if (prop.vt == VT_BSTR)
       {
         const UString method = GetMethod_from_FileName(prop.bstrVal);
@@ -1806,7 +1803,7 @@ STDMETHODIMP CHandler::UpdateItems(ISequentialOutStream *outStream, UInt32 numIt
     }
   }
 
-  RINOK(hb.SetMethods(EXTERNAL_CODECS_LOC_VARS methods));
+  RINOK(hb.SetMethods(EXTERNAL_CODECS_LOC_VARS methods))
 
   CLocalProgress *lps = new CLocalProgress;
   CMyComPtr<ICompressProgressInfo> progress = lps;
@@ -1839,7 +1836,7 @@ STDMETHODIMP CHandler::UpdateItems(ISequentialOutStream *outStream, UInt32 numIt
   for (i = 0; i < updateItems.Size(); i++)
   {
     lps->InSize = complexity;
-    RINOK(lps->SetCur());
+    RINOK(lps->SetCur())
 
     const CUpdateItem &ui = updateItems[i];
     
@@ -1863,12 +1860,13 @@ STDMETHODIMP CHandler::UpdateItems(ISequentialOutStream *outStream, UInt32 numIt
           needWrite = false;
         else
         {
-          RINOK(res);
+          RINOK(res)
           
           if (fileInStream)
           {
-            CMyComPtr<IStreamGetSize> streamGetSize;
-            fileInStream->QueryInterface(IID_IStreamGetSize, (void **)&streamGetSize);
+            Z7_DECL_CMyComPtr_QI_FROM(
+                IStreamGetSize,
+                streamGetSize, fileInStream)
             if (streamGetSize)
             {
               UInt64 size;
@@ -1876,8 +1874,9 @@ STDMETHODIMP CHandler::UpdateItems(ISequentialOutStream *outStream, UInt32 numIt
                 currentComplexity = size;
             }
             /*
-            CMyComPtr<IStreamGetProps> getProps;
-            fileInStream->QueryInterface(IID_IStreamGetProps, (void **)&getProps);
+            Z7_DECL_CMyComPtr_QI_FROM(
+                IStreamGetProps,
+                getProps, fileInStream)
             if (getProps)
             {
               FILETIME mTime;
@@ -1906,11 +1905,11 @@ STDMETHODIMP CHandler::UpdateItems(ISequentialOutStream *outStream, UInt32 numIt
         {
           if ((step & 0xFF) == 0)
           {
-            RINOK(lps->SetRatioInfo(&fileSize, NULL));
+            RINOK(progress->SetRatioInfo(&fileSize, NULL))
             // RINOK(callback->SetCompleted(&completeValue));
           }
           UInt32 size;
-          RINOK(fileInStream->Read(buf, kBufSize, &size));
+          RINOK(fileInStream->Read(buf, kBufSize, &size))
           if (size == 0)
             break;
           hb.Update(buf, size);
@@ -1967,7 +1966,7 @@ STDMETHODIMP CHandler::UpdateItems(ISequentialOutStream *outStream, UInt32 numIt
         }
       }
       */
-      RINOK(callback->SetOperationResult(NArchive::NUpdate::NOperationResult::kOK));
+      RINOK(callback->SetOperationResult(NArchive::NUpdate::NOperationResult::kOK))
     }
     else
     {
@@ -1992,7 +1991,7 @@ STDMETHODIMP CHandler::UpdateItems(ISequentialOutStream *outStream, UInt32 numIt
       return E_OUTOFMEMORY;
   }
 
-  RINOK(WriteStream(outStream, hashFileString, hashFileString.Len()));
+  RINOK(WriteStream(outStream, hashFileString, hashFileString.Len()))
 
   return S_OK;
   COM_TRY_END
@@ -2045,7 +2044,7 @@ HRESULT CHandler::SetProperty(const wchar_t *nameSpec, const PROPVARIANT &value)
 }
 
 
-STDMETHODIMP CHandler::SetProperties(const wchar_t * const *names, const PROPVARIANT *values, UInt32 numProps)
+Z7_COM7F_IMF(CHandler::SetProperties(const wchar_t * const *names, const PROPVARIANT *values, UInt32 numProps))
 {
   COM_TRY_BEGIN
 
@@ -2053,7 +2052,7 @@ STDMETHODIMP CHandler::SetProperties(const wchar_t * const *names, const PROPVAR
 
   for (UInt32 i = 0; i < numProps; i++)
   {
-    RINOK(SetProperty(names[i], values[i]));
+    RINOK(SetProperty(names[i], values[i]))
   }
   return S_OK;
   COM_TRY_END
@@ -2091,11 +2090,11 @@ void Codecs_AddHashArcHandler(CCodecs *codecs)
   
     // ubuntu uses "SHA256SUMS" file
     item.AddExts(UString (
-        "sha3-512 sha3-384 sha3-256 "
-        "sha512 sha384 sha256 sha224 "
-        "sha1 sha md5 "
-        "crc32 crc64 "
-        "asc cksum"
+        "sha256 sha512 sha224 sha384 sha1 sha md5"
+        // "b2sum"
+        " crc32 crc64"
+        " asc"
+        " cksum"
         ),
         UString());
 

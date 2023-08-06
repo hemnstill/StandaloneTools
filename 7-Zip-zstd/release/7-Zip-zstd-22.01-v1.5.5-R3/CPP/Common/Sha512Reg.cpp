@@ -12,18 +12,15 @@ EXTERN_C_END
 #include "../7zip/Common/RegisterCodec.h"
 
 // SHA512
-class CSHA512Hasher:
-  public IHasher,
-  public CMyUnknownImp
-{
+Z7_CLASS_IMP_COM_1(
+  CSHA512Hasher,
+  IHasher
+)
   SHA512_CTX _ctx;
   Byte mtDummy[1 << 7];
 
 public:
   CSHA512Hasher() { SHA512_Init(&_ctx); }
-
-  MY_UNKNOWN_IMP1(IHasher)
-  INTERFACE_IHasher(;)
 };
 
 STDMETHODIMP_(void) CSHA512Hasher::Init() throw()

@@ -20,6 +20,7 @@
 
 using namespace NWindows;
 
+#ifdef Z7_LANG
 static const UInt32 kLangIDs[] =
 {
   IDX_SETTINGS_SHOW_DOTS,
@@ -29,14 +30,10 @@ static const UInt32 kLangIDs[] =
   IDX_SETTINGS_SHOW_GRID,
   IDX_SETTINGS_SINGLE_CLICK,
   IDX_SETTINGS_ALTERNATIVE_SELECTION,
-  IDX_SETTINGS_LARGE_PAGES,
-  IDX_SETTINGS_WANT_ARC_HISTORY,
-  IDX_SETTINGS_WANT_PATH_HISTORY,
-  IDX_SETTINGS_WANT_COPY_HISTORY,
-  IDX_SETTINGS_WANT_FOLDER_HISTORY,
-  IDX_SETTINGS_LOWERCASE_HASHES
+  IDX_SETTINGS_LARGE_PAGES
   // , IDT_COMPRESS_MEMORY
 };
+#endif
 
 #define kSettingsTopic "FM/options.htm#settings"
 
@@ -117,7 +114,9 @@ bool CSettingsPage::OnInit()
   _memCombo.Attach(GetItem(IDC_SETTINGS_MEM));
   */
 
-  LangSetDlgItems(*this, kLangIDs, ARRAY_SIZE(kLangIDs));
+#ifdef Z7_LANG
+  LangSetDlgItems(*this, kLangIDs, Z7_ARRAY_SIZE(kLangIDs));
+#endif
 
   CFmSettings st;
   st.Load();
@@ -186,11 +185,6 @@ bool CSettingsPage::OnInit()
   }
   */
   
-  CheckButton(IDX_SETTINGS_WANT_ARC_HISTORY, st.ArcHistory);
-  CheckButton(IDX_SETTINGS_WANT_PATH_HISTORY, st.PathHistory);
-  CheckButton(IDX_SETTINGS_WANT_COPY_HISTORY, st.CopyHistory);
-  CheckButton(IDX_SETTINGS_WANT_FOLDER_HISTORY, st.FolderHistory);
-  CheckButton(IDX_SETTINGS_LOWERCASE_HASHES, st.LowercaseHashes);
   // EnableSubItems();
 
   return CPropertyPage::OnInit();
@@ -222,11 +216,6 @@ LONG CSettingsPage::OnApply()
     st.ShowGrid = IsButtonCheckedBool(IDX_SETTINGS_SHOW_GRID);
     st.SingleClick = IsButtonCheckedBool(IDX_SETTINGS_SINGLE_CLICK);
     st.AlternativeSelection = IsButtonCheckedBool(IDX_SETTINGS_ALTERNATIVE_SELECTION);
-    st.ArcHistory = IsButtonCheckedBool(IDX_SETTINGS_WANT_ARC_HISTORY);
-    st.PathHistory = IsButtonCheckedBool(IDX_SETTINGS_WANT_PATH_HISTORY);
-    st.CopyHistory = IsButtonCheckedBool(IDX_SETTINGS_WANT_COPY_HISTORY);
-    st.FolderHistory = IsButtonCheckedBool(IDX_SETTINGS_WANT_FOLDER_HISTORY);
-    st.LowercaseHashes = IsButtonCheckedBool(IDX_SETTINGS_LOWERCASE_HASHES);
     // st.Underline = IsButtonCheckedBool(IDX_SETTINGS_UNDERLINE);
     
     st.ShowSystemMenu = IsButtonCheckedBool(IDX_SETTINGS_SHOW_SYSTEM_MENU);
@@ -240,7 +229,7 @@ LONG CSettingsPage::OnApply()
   {
     if (IsLargePageSupported())
     {
-      bool enable = IsButtonCheckedBool(IDX_SETTINGS_LARGE_PAGES);
+      const bool enable = IsButtonCheckedBool(IDX_SETTINGS_LARGE_PAGES);
       NSecurity::EnablePrivilege_LockMemory(enable);
       SaveLockMemoryEnable(enable);
     }
@@ -316,7 +305,7 @@ void CSettingsPage::OnNotifyHelp()
 }
 
 /*
-bool CSettingsPage::OnCommand(int code, int itemID, LPARAM param)
+bool CSettingsPage::OnCommand(unsigned code, unsigned itemID, LPARAM param)
 {
   if (code == CBN_SELCHANGE)
   {
@@ -334,7 +323,7 @@ bool CSettingsPage::OnCommand(int code, int itemID, LPARAM param)
 }
 */
 
-bool CSettingsPage::OnButtonClicked(int buttonID, HWND buttonHWND)
+bool CSettingsPage::OnButtonClicked(unsigned buttonID, HWND buttonHWND)
 {
   switch (buttonID)
   {
@@ -349,11 +338,6 @@ bool CSettingsPage::OnButtonClicked(int buttonID, HWND buttonHWND)
     case IDX_SETTINGS_FULL_ROW:
     case IDX_SETTINGS_SHOW_GRID:
     case IDX_SETTINGS_ALTERNATIVE_SELECTION:
-    case IDX_SETTINGS_WANT_ARC_HISTORY:
-    case IDX_SETTINGS_WANT_PATH_HISTORY:
-    case IDX_SETTINGS_WANT_COPY_HISTORY:
-    case IDX_SETTINGS_WANT_FOLDER_HISTORY:
-    case IDX_SETTINGS_LOWERCASE_HASHES:
       _wasChanged = true;
       break;
 

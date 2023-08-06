@@ -1,9 +1,11 @@
 // CompressCall.h
 
-#ifndef __COMPRESS_CALL_H
-#define __COMPRESS_CALL_H
+#ifndef ZIP7_INC_COMPRESS_CALL_H
+#define ZIP7_INC_COMPRESS_CALL_H
 
 #include "../../../Common/MyString.h"
+
+UString GetQuotedString(const UString &s);
 
 HRESULT CompressFiles(
     const UString &arcPathPrefix,

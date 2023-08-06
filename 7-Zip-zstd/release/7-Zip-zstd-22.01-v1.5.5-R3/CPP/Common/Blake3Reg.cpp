@@ -12,18 +12,15 @@ EXTERN_C_END
 #include "../7zip/Common/RegisterCodec.h"
 
 // BLAKE3
-class CBLAKE3Hasher:
-  public IHasher,
-  public CMyUnknownImp
-{
+Z7_CLASS_IMP_COM_1(
+  CBLAKE3Hasher,
+  IHasher
+)
   blake3_hasher _ctx;
   Byte mtDummy[1 << 7];
 
 public:
   CBLAKE3Hasher() { blake3_hasher_init(&_ctx); }
-
-  MY_UNKNOWN_IMP1(IHasher)
-  INTERFACE_IHasher(;)
 };
 
 STDMETHODIMP_(void) CBLAKE3Hasher::Init() throw()

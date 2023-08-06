@@ -13,17 +13,20 @@ using namespace NWindows;
 
 void ShowErrorMessage(HWND window, LPCWSTR message)
 {
-  ::MessageBoxW(window, message, L"7-Zip-Zstandard", MB_OK | MB_ICONSTOP);
+  ::MessageBoxW(window, message, L"7-Zip", MB_OK | MB_ICONSTOP);
 }
 
 void ShowErrorMessageHwndRes(HWND window, UINT resID)
 {
-  ShowErrorMessage(window, LangString(resID));
+  UString s = LangString(resID);
+  if (s.IsEmpty())
+    s.Add_UInt32(resID);
+  ShowErrorMessage(window, s);
 }
 
 void ShowErrorMessageRes(UINT resID)
 {
-  ShowErrorMessageHwndRes(0, resID);
+  ShowErrorMessageHwndRes(NULL, resID);
 }
 
 static void ShowErrorMessageDWORD(HWND window, DWORD errorCode)

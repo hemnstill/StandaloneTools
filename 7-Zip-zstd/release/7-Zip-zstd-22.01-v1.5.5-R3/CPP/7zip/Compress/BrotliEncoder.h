@@ -31,13 +31,13 @@ struct CProps
   Byte _level;
 };
 
-class CEncoder:
-  public ICompressCoder,
-  public ICompressSetCoderMt,
-  public ICompressSetCoderProperties,
-  public ICompressWriteCoderProperties,
-  public CMyUnknownImp
-{
+Z7_CLASS_IMP_COM_4(
+  CEncoder,
+  ICompressCoder,
+  ICompressSetCoderMt,
+  ICompressSetCoderProperties,
+  ICompressWriteCoderProperties
+)
   CProps _props;
 
   UInt64 _processedIn;
@@ -48,18 +48,6 @@ class CEncoder:
   BROTLIMT_CCtx *_ctx;
 
 public:
-  MY_QUERYINTERFACE_BEGIN2(ICompressCoder)
-  MY_QUERYINTERFACE_ENTRY(ICompressSetCoderMt)
-  MY_QUERYINTERFACE_ENTRY(ICompressSetCoderProperties)
-  MY_QUERYINTERFACE_ENTRY(ICompressWriteCoderProperties)
-  MY_QUERYINTERFACE_END
-  MY_ADDREF_RELEASE
-
-  STDMETHOD (Code)(ISequentialInStream *inStream, ISequentialOutStream *outStream, const UInt64 *inSize, const UInt64 *outSize, ICompressProgressInfo *progress);
-  STDMETHOD (SetCoderProperties)(const PROPID *propIDs, const PROPVARIANT *props, UInt32 numProps);
-  STDMETHOD (WriteCoderProperties)(ISequentialOutStream *outStream);
-  STDMETHOD (SetNumberOfThreads)(UInt32 numThreads);
-
   CEncoder();
   virtual ~CEncoder();
 };

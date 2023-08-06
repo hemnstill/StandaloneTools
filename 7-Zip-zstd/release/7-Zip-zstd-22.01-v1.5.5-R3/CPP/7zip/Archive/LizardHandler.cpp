@@ -22,13 +22,11 @@ using namespace NWindows;
 namespace NArchive {
 namespace NLIZARD {
 
-class CHandler:
-  public IInArchive,
-  public IArchiveOpenSeq,
-  public IOutArchive,
-  public ISetProperties,
-  public CMyUnknownImp
-{
+Z7_CLASS_IMP_CHandler_IInArchive_3(
+  IArchiveOpenSeq,
+  IOutArchive,
+  ISetProperties
+)
   CMyComPtr<IInStream> _stream;
   CMyComPtr<ISequentialInStream> _seqStream;
 
@@ -45,19 +43,6 @@ class CHandler:
   UInt64 _numBlocks;
 
   CSingleMethodProps _props;
-
-public:
-  MY_UNKNOWN_IMP4(
-      IInArchive,
-      IArchiveOpenSeq,
-      IOutArchive,
-      ISetProperties)
-  INTERFACE_IInArchive(;)
-  INTERFACE_IOutArchive(;)
-  STDMETHOD(OpenSeq)(ISequentialInStream *stream);
-  STDMETHOD(SetProperties)(const wchar_t * const *names, const PROPVARIANT *values, UInt32 numProps);
-
-  CHandler() { }
 };
 
 static const Byte kProps[] =

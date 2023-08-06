@@ -12,18 +12,15 @@ EXTERN_C_END
 #include "../7zip/Common/RegisterCodec.h"
 
 // MD5
-class CMD5Hasher:
-  public IHasher,
-  public CMyUnknownImp
-{
+Z7_CLASS_IMP_COM_1(
+  CMD5Hasher,
+  IHasher
+)
   MD5_CTX _ctx;
   Byte mtDummy[1 << 7];
 
 public:
   CMD5Hasher() { MD5_Init(&_ctx); }
-
-  MY_UNKNOWN_IMP1(IHasher)
-  INTERFACE_IHasher(;)
 };
 
 STDMETHODIMP_(void) CMD5Hasher::Init() throw()

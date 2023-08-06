@@ -11,19 +11,16 @@
 #include "../7zip/Common/RegisterCodec.h"
 
 // XXH32
-class CXXH32Hasher:
-  public IHasher,
-  public CMyUnknownImp
-{
+Z7_CLASS_IMP_COM_1(
+  CXXH32Hasher,
+  IHasher
+)
   XXH32_state_t *_ctx;
   Byte mtDummy[1 << 7];
 
 public:
   CXXH32Hasher() { _ctx = XXH32_createState(); }
   ~CXXH32Hasher() { XXH32_freeState(_ctx); }
-
-  MY_UNKNOWN_IMP1(IHasher)
-  INTERFACE_IHasher(;)
 };
 
 STDMETHODIMP_(void) CXXH32Hasher::Init() throw()

@@ -6,4 +6,3 @@
 #define IDT_ABOUT_VERSION    101
 #define IDT_ABOUT_DATE       102
 #define IDB_ABOUT_HOMEPAGE   110
-#define IDB_ABOUT_HOMEPAGE2  111

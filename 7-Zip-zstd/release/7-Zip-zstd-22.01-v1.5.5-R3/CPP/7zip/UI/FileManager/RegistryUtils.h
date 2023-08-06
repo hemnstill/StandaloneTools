@@ -1,7 +1,7 @@
 // RegistryUtils.h
 
-#ifndef __REGISTRY_UTILS_H
-#define __REGISTRY_UTILS_H
+#ifndef ZIP7_INC_REGISTRY_UTILS_H
+#define ZIP7_INC_REGISTRY_UTILS_H
 
 #include "../../../Common/MyTypes.h"
 #include "../../../Common/MyString.h"
@@ -25,11 +25,6 @@ struct CFmSettings
   bool ShowGrid;
   bool SingleClick;
   bool AlternativeSelection;
-  bool ArcHistory;
-  bool PathHistory;
-  bool CopyHistory;
-  bool FolderHistory;
-  bool LowercaseHashes;
   // bool Underline;
 
   bool ShowSystemMenu;
@@ -43,17 +38,6 @@ struct CFmSettings
 
 bool ReadLockMemoryEnable();
 void SaveLockMemoryEnable(bool enable);
-
-bool WantArcHistory();
-bool WantPathHistory();
-bool WantCopyHistory();
-bool WantFolderHistory();
-bool WantLowercaseHashes();
-
-bool WantArcHistory();
-bool WantPathHistory();
-bool WantCopyHistory();
-bool WantFolderHistory();
 
 void SaveFlatView(UInt32 panelIndex, bool enable);
 bool ReadFlatView(UInt32 panelIndex);

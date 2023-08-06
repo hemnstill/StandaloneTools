@@ -129,11 +129,9 @@ HRESULT CDecoder::Code(const CHeader &header, ISequentialOutStream *outStream,
 }
 
 
-class CHandler:
-  public IInArchive,
-  public IArchiveOpenSeq,
-  public CMyUnknownImp
-{
+Z7_CLASS_IMP_CHandler_IInArchive_1(
+  IArchiveOpenSeq
+)
   CHeader _header;
   CMyComPtr<IInStream> _stream;
   CMyComPtr<ISequentialInStream> _seqStream;
@@ -152,14 +150,6 @@ class CHandler:
   UInt64 _packSize;
   UInt64 _unpackSize;
   UInt64 _numStreams;
-
-public:
-  MY_UNKNOWN_IMP2(IInArchive, IArchiveOpenSeq)
-
-  INTERFACE_IInArchive(;)
-  STDMETHOD(OpenSeq)(ISequentialInStream *stream);
-
-  CHandler() { }
 };
 
 IMP_IInArchive_Props
@@ -276,16 +266,14 @@ STDMETHODIMP CHandler::Close()
    return S_OK;
 }
 
-class CCompressProgressInfoImp:
-  public ICompressProgressInfo,
-  public CMyUnknownImp
-{
+Z7_CLASS_IMP_COM_1(
+  CCompressProgressInfoImp,
+  ICompressProgressInfo
+)
   CMyComPtr<IArchiveOpenCallback> Callback;
 public:
   UInt64 Offset;
 
-  MY_UNKNOWN_IMP1(ICompressProgressInfo)
-  STDMETHOD(SetRatioInfo)(const UInt64 *inSize, const UInt64 *outSize);
   void Init(IArchiveOpenCallback *callback) { Callback = callback; }
 };
 

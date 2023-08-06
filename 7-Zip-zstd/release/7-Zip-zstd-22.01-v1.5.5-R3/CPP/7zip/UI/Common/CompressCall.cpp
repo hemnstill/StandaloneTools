@@ -17,10 +17,8 @@
 #include "../../../Windows/ProcessUtils.h"
 #include "../../../Windows/Synchronization.h"
 
-#include "../FileManager/StringUtils.h"
 #include "../FileManager/RegistryUtils.h"
 
-#include "ZipRegistry.h"
 #include "CompressCall.h"
 
 using namespace NWindows;
@@ -47,12 +45,19 @@ using namespace NWindows;
 #define kHashIncludeSwitches  kIncludeSwitch
 #define kStopSwitchParsing  " --"
 
-static NCompression::CInfo m_RegistryInfo;
 extern HWND g_HWND;
+
+UString GetQuotedString(const UString &s)
+{
+  UString s2 ('\"');
+  s2 += s;
+  s2 += '\"';
+  return s2;
+}
 
 static void ErrorMessage(LPCWSTR message)
 {
-  MessageBoxW(g_HWND, message, L"7-Zip ZS", MB_ICONERROR | MB_OK);
+  MessageBoxW(g_HWND, message, L"7-Zip", MB_ICONERROR | MB_OK);
 }
 
 static void ErrorMessageHRESULT(HRESULT res, LPCWSTR s = NULL)
@@ -78,7 +83,7 @@ static HRESULT Call7zGui(const UString &params,
   const WRes wres = process.Create(imageName, params, NULL); // curDir);
   if (wres != 0)
   {
-    HRESULT hres = HRESULT_FROM_WIN32(wres);
+    const HRESULT hres = HRESULT_FROM_WIN32(wres);
     ErrorMessageHRESULT(hres, imageName);
     return hres;
   }
@@ -87,7 +92,7 @@ static HRESULT Call7zGui(const UString &params,
   else if (event != NULL)
   {
     HANDLE handles[] = { process, *event };
-    ::WaitForMultipleObjects(ARRAY_SIZE(handles), handles, FALSE, INFINITE);
+    ::WaitForMultipleObjects(Z7_ARRAY_SIZE(handles), handles, FALSE, INFINITE);
   }
   return S_OK;
 }
@@ -170,35 +175,12 @@ static HRESULT CreateMap(const UStringVector &names,
     FOR_VECTOR (i, names)
     {
       const UString &s = names[i];
-      unsigned len = s.Len() + 1;
+      const unsigned len = s.Len() + 1;
       wmemcpy(cur, (const wchar_t *)s, len);
       cur += len;
     }
   }
   return S_OK;
-}
-
-int FindRegistryFormat(const UString &name)
-{
-  FOR_VECTOR (i, m_RegistryInfo.Formats)
-  {
-    const NCompression::CFormatOptions &fo = m_RegistryInfo.Formats[i];
-    if (name.IsEqualTo_NoCase(GetUnicodeString(fo.FormatID)))
-      return i;
-  }
-  return -1;
-}
-
-int FindRegistryFormatAlways(const UString &name)
-{
-  int index = FindRegistryFormat(name);
-  if (index < 0)
-  {
-    NCompression::CFormatOptions fo;
-    fo.FormatID = GetSystemString(name);
-    index = m_RegistryInfo.Formats.Add(fo);
-  }
-  return index;
 }
 
 HRESULT CompressFiles(
@@ -211,71 +193,16 @@ HRESULT CompressFiles(
 {
   MY_TRY_BEGIN
   UString params ('a');
-
+  
   CFileMapping fileMapping;
   NSynchronization::CManualResetEvent event;
   params += kIncludeSwitch;
-  RINOK(CreateMap(names, fileMapping, event, params));
+  RINOK(CreateMap(names, fileMapping, event, params))
 
-  if (!arcType.IsEmpty() && arcType == L"7z")
+  if (!arcType.IsEmpty())
   {
-    int index;
     params += kArchiveTypeSwitch;
     params += arcType;
-    m_RegistryInfo.Load();
-    index = FindRegistryFormatAlways(arcType);
-    if (index >= 0)
-    {
-      char temp[64];
-      const NCompression::CFormatOptions &fo = m_RegistryInfo.Formats[index];
-
-      if (!fo.Method.IsEmpty())
-      {
-        params += " -m0=";
-        params += fo.Method;
-      }
-
-      if (fo.Level)
-      {
-        params += " -mx=";
-        ConvertUInt32ToString(fo.Level, temp);
-        params += temp;
-      }
-
-      if (fo.Dictionary)
-      {
-        params += " -md=";
-        ConvertUInt32ToString(fo.Dictionary, temp);
-        params += temp;
-        params += "b";
-      }
-
-      if (fo.BlockLogSize)
-      {
-        params += " -ms=";
-        ConvertUInt64ToString(1ULL << fo.BlockLogSize, temp);
-        params += temp;
-        params += "b";
-      }
-
-      if (fo.NumThreads)
-      {
-        params += " -mmt=";
-        ConvertUInt32ToString(fo.NumThreads, temp);
-        params += temp;
-      }
-
-      if (!fo.Options.IsEmpty())
-      {
-        UStringVector strings;
-        SplitString(fo.Options, strings);
-        FOR_VECTOR (i, strings)
-        {
-          params += " -m";
-          params += strings[i];
-        }
-      }
-    }
   }
 
   if (email)
@@ -306,7 +233,6 @@ HRESULT CompressFiles(
     arcName);
   }
   
-  // ErrorMessage(params);
   return Call7zGui(params,
       // (arcPathPrefix.IsEmpty()? 0: (LPCWSTR)arcPathPrefix),
       waitFinish, &event);
@@ -410,7 +336,7 @@ void Benchmark(bool totalMode)
   if (totalMode)
     params += " -mm=*";
   AddLagePagesSwitch(params);
-  HRESULT result = Call7zGui(params, false, NULL);
+  const HRESULT result = Call7zGui(params, false, NULL);
   if (result != S_OK)
     ErrorMessageHRESULT(result);
   MY_TRY_FINISH_VOID
