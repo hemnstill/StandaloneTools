@@ -39,9 +39,10 @@ CFLAGS_BASE = -O2 $(CFLAGS_BASE_LIST) $(CFLAGS_WARN_WALL) $(CFLAGS_WARN) \
 FLAGS_FLTO = -ffunction-sections
 FLAGS_FLTO = -flto
 FLAGS_FLTO =
-# 
+#
 # -DZ7_AFFINITY_DISABLE
 
+Z7_AFFINITY_DISABLE = 1
 
 ifdef SystemDrive
 IS_MINGW = 1
@@ -110,7 +111,7 @@ endif
 
 PROGPATH = $(O)/$(PROG)$(SHARED_EXT)
 PROGPATH_STATIC = $(O)/$(PROG)s$(SHARED_EXT)
-	
+
 ifdef IS_MINGW
 
 ifdef MSYSTEM
@@ -130,7 +131,7 @@ LIB2 = -loleaut32 -luuid -ladvapi32 -lUser32 $(LIB2_GUI)
 CXXFLAGS_EXTRA = -DUNICODE -D_UNICODE
 # -Wno-delete-non-virtual-dtor
 
- 
+
 else
 
 RM = rm -f
