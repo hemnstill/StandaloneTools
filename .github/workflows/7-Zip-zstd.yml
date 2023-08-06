@@ -25,6 +25,23 @@ jobs:
       workflow: ${{ github.workflow }}
       toolset: musl
       version: 3.16
+
+  alpine-musl-test:
+    needs: alpine-musl
+    if: ${{ vars.CURRENT_TOOL == github.workflow }}
+    uses: ./.github/workflows/test-alpine.yml
+    with:
+      workflow: ${{ github.workflow }}
+      artifact: build-musl
+
+  ubuntu-musl-test:
+    needs: alpine-musl
+    if: ${{ vars.CURRENT_TOOL == github.workflow }}
+    uses: ./.github/workflows/test-ubuntu.yml
+    with:
+      workflow: ${{ github.workflow }}
+      artifact: build-musl
+
 #
 #  windows-mingw:
 #    if: ${{ vars.CURRENT_TOOL == github.workflow }}
