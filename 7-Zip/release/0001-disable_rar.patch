@@ -1,17 +1,28 @@
-From 4e34f0326728a3c05ed9304b70047f7c02ae7c94 Mon Sep 17 00:00:00 2001
+From d4ea6856ed302e4757879dc677d8e6392c85e82c Mon Sep 17 00:00:00 2001
 From: Reshetnikov Alexandr <hemn.still@gmail.com>
 Date: Sun, 6 Aug 2023 22:20:50 +0400
 Subject: [PATCH] disable_rar
 
 ---
- CPP/7zip/Bundles/Format7zF/Arc.mak | 9 ---------
- 1 file changed, 9 deletions(-)
+ CPP/7zip/Bundles/Format7zF/Arc.mak | 13 -------------
+ 1 file changed, 13 deletions(-)
 
 diff --git a/CPP/7zip/Bundles/Format7zF/Arc.mak b/CPP/7zip/Bundles/Format7zF/Arc.mak
-index 5b5252f..f9d5b35 100644
+index 5b5252f..64a77bb 100644
 --- a/CPP/7zip/Bundles/Format7zF/Arc.mak
 +++ b/CPP/7zip/Bundles/Format7zF/Arc.mak
-@@ -220,12 +220,6 @@ COMPRESS_OBJS = \
+@@ -150,10 +150,6 @@ NSIS_OBJS = \
+   $O\NsisIn.obj \
+   $O\NsisRegister.obj \
+ 
+-RAR_OBJS = \
+-  $O\RarHandler.obj \
+-  $O\Rar5Handler.obj \
+-
+ TAR_OBJS = \
+   $O\TarHandler.obj \
+   $O\TarHandlerOut.obj \
+@@ -220,12 +216,6 @@ COMPRESS_OBJS = \
    $O\PpmdRegister.obj \
    $O\PpmdZip.obj \
    $O\QuantumDecoder.obj \
@@ -24,7 +35,7 @@ index 5b5252f..f9d5b35 100644
    $O\ShrinkDecoder.obj \
    $O\XpressDecoder.obj \
    $O\XzDecoder.obj \
-@@ -243,9 +237,6 @@ CRYPTO_OBJS = \
+@@ -243,9 +233,6 @@ CRYPTO_OBJS = \
    $O\MyAesReg.obj \
    $O\Pbkdf2HmacSha1.obj \
    $O\RandGen.obj \
