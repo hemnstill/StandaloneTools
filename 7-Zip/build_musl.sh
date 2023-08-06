@@ -2,6 +2,13 @@
 dp0="$(realpath "$(dirname "$0")")"
 set -e
 
+echo "::group::install deps"
+
+apk update
+apk add --no-cache alpine-sdk make linux-headers mingw-w64-gcc
+
+echo "::endgroup::"
+
 tool_name="7-Zip"
 tool_version="23.01"
 self_toolset_name="build-musl"
