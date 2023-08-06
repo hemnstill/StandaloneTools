@@ -40,7 +40,7 @@ make -j -f makefile.gcc
 
 ls -R
 
-cp -f "./7zz" "$release_version_dirpath/"
+cp -f "./_o/7zz" "$release_version_dirpath/"
 
 echo "::endgroup::"
 
