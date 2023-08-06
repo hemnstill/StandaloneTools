@@ -42,6 +42,8 @@ cd "$release_version_dirpath"
 
 strip 7zz
 
+./7zz i
+
 { printf '### %s
 %s
 
