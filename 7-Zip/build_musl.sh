@@ -42,14 +42,20 @@ cd "$release_version_dirpath"
 
 strip 7zz
 
-./7zz i
-
 { printf '### %s
 %s
 
 SHA-256: %s
 
-' "$self_toolset_name.tar.gz" "$(./7zz | head -2)" "$(sha256sum 7zz)"
+<details>
+  <summary>7zz i</summary>
+
+```
+%s
+```
+</details>
+
+' "$self_toolset_name.tar.gz" "$(./7zz | head -2)" "$(sha256sum 7zz)" "$(./7zz i)"
 } > "$self_toolset_name.md"
 
 cat "$self_toolset_name.md"

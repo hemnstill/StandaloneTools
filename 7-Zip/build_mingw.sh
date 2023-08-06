@@ -35,16 +35,22 @@ cd "$release_version_dirpath"
 
 strip 7zz.exe
 
-./7zz.exe i
-
 { printf '### %s
 %s
 
 SHA-256: %s
 
+<details>
+  <summary>7zz i</summary>
+
+```
+%s
+```
+</details>
+
 %s
 
-' "$self_toolset_name.tar.gz" "$(./7zz.exe | head -2)" "$(sha256sum 7zz.exe)" "$download_url"
+' "$self_toolset_name.tar.gz" "$(./7zz.exe | head -2)" "$(sha256sum 7zz.exe)" "$(./7zz.exe i)" "$download_url"
 } > "$self_toolset_name.md"
 
 cat "$self_toolset_name.md"
