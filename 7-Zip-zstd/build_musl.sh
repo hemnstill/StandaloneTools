@@ -46,6 +46,9 @@ echo "::endgroup::"
 
 cd "$release_version_dirpath"
 
+strip 7zz
+ldd 7zz
+
 { printf '### %s
 %s
 
