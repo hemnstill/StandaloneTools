@@ -14,7 +14,8 @@ tool_version="22.01-v1.5.5-R3"
 self_toolset_name="build-musl"
 release_version_dirpath="$dp0/release/build"
 
-tool_dirpath="$dp0/release/7-Zip-zstd-$tool_version"
+# tool_dirpath="$dp0/release/7-Zip-zstd-$tool_version"
+tool_dirpath="$dp0/release/7z2301-src.tar"
 
 mkdir -p "$release_version_dirpath" && cd "$dp0/release"
 
@@ -25,8 +26,7 @@ echo "::group::prepare sources $download_url"
 bsdtar="$dp0/release/bsdtar"
 
 mkdir -p "$dp0/release" && cd "$dp0/release"
-wget "$download_url" -O "tool-$tool_version.tar.gz"
-tar -xf "tool-$tool_version.tar.gz" && cd "$tool_dirpath"
+cd "$tool_dirpath"
 
 echo "::endgroup::"
 
