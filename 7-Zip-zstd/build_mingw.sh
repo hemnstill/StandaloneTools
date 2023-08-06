@@ -27,8 +27,6 @@ echo "::group::build"
 
 root="$tool_dirpath/CPP/7zip"
 
-export LDFLAGS=-static
-
 cd "$root/Bundles/Alone2"
 nmake
 cp -f "./x64/7zz.exe" "$release_version_dirpath/"

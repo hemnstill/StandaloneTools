@@ -34,8 +34,6 @@ echo "::group::build"
 
 root="$tool_dirpath/CPP/7zip"
 
-export LDFLAGS=-static
-
 cd "$root/Bundles/Alone2"
 make -j -f makefile.gcc DISABLE_RAR=1
 
