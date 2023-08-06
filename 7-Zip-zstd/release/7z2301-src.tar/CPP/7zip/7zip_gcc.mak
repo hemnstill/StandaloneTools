@@ -67,7 +67,7 @@ endif
 endif
 endif
 
-LDFLAGS_STATIC_2 = -static -static-libstdc++ -static-libgcc
+LDFLAGS_STATIC_2 = -static
 
 LDFLAGS_STATIC = -DNDEBUG $(LDFLAGS_STATIC_2)
 
