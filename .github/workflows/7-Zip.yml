@@ -1,0 +1,50 @@
+name: 7-Zip
+
+on: [pull_request, workflow_dispatch]
+
+jobs:
+  alpine-musl:
+    if: ${{ vars.CURRENT_TOOL == github.workflow }}
+    uses: ./.github/workflows/build-alpine.yml
+    with:
+      workflow: ${{ github.workflow }}
+      toolset: musl
+      version: 3.16
+
+  alpine-musl-test:
+    needs: alpine-musl
+    if: ${{ vars.CURRENT_TOOL == github.workflow }}
+    uses: ./.github/workflows/test-alpine.yml
+    with:
+      workflow: ${{ github.workflow }}
+      artifact: build-musl
+
+  ubuntu-musl-test:
+    needs: alpine-musl
+    if: ${{ vars.CURRENT_TOOL == github.workflow }}
+    uses: ./.github/workflows/test-ubuntu.yml
+    with:
+      workflow: ${{ github.workflow }}
+      artifact: build-musl
+
+  windows-mingw:
+    if: ${{ vars.CURRENT_TOOL == github.workflow }}
+    uses: ./.github/workflows/build-windows.yml
+    with:
+      workflow: ${{ github.workflow }}
+
+  test-windows:
+    needs: windows-mingw
+    if: ${{ vars.CURRENT_TOOL == github.workflow }}
+    uses: ./.github/workflows/test-windows.yml
+    with:
+      workflow: ${{ github.workflow }}
+      artifact: build-mingw
+
+  test-nanoserver:
+    needs: windows-mingw
+    if: ${{ vars.CURRENT_TOOL == github.workflow }}
+    uses: ./.github/workflows/test-nanoserver.yml
+    with:
+      workflow: ${{ github.workflow }}
+      artifact: build-mingw
