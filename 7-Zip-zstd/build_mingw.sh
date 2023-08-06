@@ -27,27 +27,22 @@ echo "::group::build"
 
 root="$tool_dirpath/CPP/7zip"
 
-cd "$root/Bundles/Format7zF"
-nmake
-cp -f "./x64/7z.dll" "$release_version_dirpath/"
+export LDFLAGS=-static
 
-cd "$root/UI/Console"
+cd "$root/Bundles/Alone2"
 nmake
-cp -f "./x64/7z.exe" "$release_version_dirpath/"
+cp -f "./x64/7zz.exe" "$release_version_dirpath/"
 
 echo "::endgroup::"
 
 cd "$release_version_dirpath"
-
-strip 7z.dll
-strip 7z.exe
 
 { printf '### %s
 %s
 
 %s
 
-' "$(./7z.exe | head -2)" "$self_toolset_name.tar.gz" "$download_url"
+' "$(./7zz.exe | head -2)" "$self_toolset_name.tar.gz" "$download_url"
 } > "$self_toolset_name.md"
 
 cat "$self_toolset_name.md"
