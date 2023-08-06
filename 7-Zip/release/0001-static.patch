@@ -1,0 +1,38 @@
+From 1d9a48d5589fd888d63f363ed654f81c1693bec7 Mon Sep 17 00:00:00 2001
+From: Reshetnikov Alexandr <hemn.still@gmail.com>
+Date: Sun, 6 Aug 2023 22:01:23 +0400
+Subject: [PATCH] + static - affinity
+
+---
+ C/Threads.h           | 1 -
+ CPP/7zip/7zip_gcc.mak | 2 ++
+ 2 files changed, 2 insertions(+), 1 deletion(-)
+
+diff --git a/C/Threads.h b/C/Threads.h
+index c6aa6a8..7abb2ab 100644
+--- a/C/Threads.h
++++ b/C/Threads.h
+@@ -12,7 +12,6 @@
+ #if defined(__linux__)
+ #if !defined(__APPLE__) && !defined(_AIX) && !defined(__ANDROID__)
+ #ifndef Z7_AFFINITY_DISABLE
+-#define Z7_AFFINITY_SUPPORTED
+ // #pragma message(" ==== Z7_AFFINITY_SUPPORTED")
+ // #define _GNU_SOURCE
+ #endif
+diff --git a/CPP/7zip/7zip_gcc.mak b/CPP/7zip/7zip_gcc.mak
+index a8eb6e3..bf3e671 100644
+--- a/CPP/7zip/7zip_gcc.mak
++++ b/CPP/7zip/7zip_gcc.mak
+@@ -68,6 +68,8 @@ endif
+ endif
+ endif
+ 
++LDFLAGS_STATIC_2 = -static
++
+ LDFLAGS_STATIC = -DNDEBUG $(LDFLAGS_STATIC_2)
+ 
+ ifndef O
+-- 
+2.37.2.windows.2
+

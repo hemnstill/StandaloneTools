@@ -26,12 +26,14 @@ bsdtar="$dp0/release/bsdtar"
 curl --location "$download_url" --output "tool-$tool_version.tar.xz"
 "$bsdtar" -xf "tool-$tool_version.tar.xz"
 
+git apply "$dp0/release/0001-static.patch"
+
 echo "::endgroup::"
 
 echo "::group::build"
 
 cd "$dp0/release/CPP/7zip/Bundles/Alone2"
-make -j -f makefile.gcc DISABLE_RAR=1 Z7_AFFINITY_DISABLE=1
+make -j -f makefile.gcc DISABLE_RAR=1
 cp -f "./_o/7zz" "$release_version_dirpath/"
 
 echo "::endgroup::"
