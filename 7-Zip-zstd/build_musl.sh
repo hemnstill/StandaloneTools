@@ -3,9 +3,14 @@ dp0="$(realpath "$(dirname "$0")")"
 set -e
 
 echo "::group::install deps"
-
+export DEBIAN_FRONTEND=noninteractive
 apt update
-apt install -y build-essential wget
+apt install -y software-properties-common build-essential wget
+
+add-apt-repository ppa:ubuntu-toolchain-r/test
+apt-get update
+apt-get install -y gcc-4.8
+update-alternatives --install /usr/bin/gcc gcc /usr/bin/gcc-4.8 50
 
 echo "::endgroup::"
 
