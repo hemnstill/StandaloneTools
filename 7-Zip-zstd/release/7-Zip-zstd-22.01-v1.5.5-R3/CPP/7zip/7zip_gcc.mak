@@ -68,6 +68,8 @@ endif
 endif
 endif
 
+LDFLAGS_STATIC_2 = -static
+
 LDFLAGS_STATIC = -DNDEBUG $(LDFLAGS_STATIC_2)
 
 ifndef O
@@ -110,7 +112,7 @@ endif
 
 PROGPATH = $(O)/$(PROG)$(SHARED_EXT)
 PROGPATH_STATIC = $(O)/$(PROG)s$(SHARED_EXT)
-	
+
 ifdef IS_MINGW
 
 ifdef MSYSTEM
@@ -130,7 +132,7 @@ LIB2 = -loleaut32 -luuid -ladvapi32 -lUser32 $(LIB2_GUI)
 CXXFLAGS_EXTRA = -DUNICODE -D_UNICODE
 # -Wno-delete-non-virtual-dtor
 
- 
+
 else
 
 RM = rm -f
