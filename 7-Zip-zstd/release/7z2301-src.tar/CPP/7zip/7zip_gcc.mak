@@ -42,8 +42,6 @@ FLAGS_FLTO =
 #
 # -DZ7_AFFINITY_DISABLE
 
-Z7_AFFINITY_DISABLE = 1
-
 ifdef SystemDrive
 IS_MINGW = 1
 else
@@ -128,7 +126,7 @@ endif
 LIB2_GUI = -lOle32 -lGdi32 -lComctl32 -lComdlg32 -lShell32 $(LIB_HTMLHELP)
 LIB2 = -loleaut32 -luuid -ladvapi32 -lUser32 $(LIB2_GUI)
 
-CXXFLAGS_EXTRA = -DUNICODE -D_UNICODE
+CXXFLAGS_EXTRA = -DUNICODE -D_UNICODE -DZ7_AFFINITY_DISABLE
 # -Wno-delete-non-virtual-dtor
 
 
