@@ -5,7 +5,7 @@ set -e
 echo "::group::install deps"
 
 apk update
-apk add --no-cache alpine-sdk make linux-headers mingw-w64-gcc
+apk add --no-cache alpine-sdk make linux-headers xz
 
 echo "::endgroup::"
 
