@@ -33,6 +33,7 @@ cp -v "$cpython_lib/libpython3.11.so" /usr/lib/
 cp -v "$cpython_lib/libpython3.11.so.1.0" /usr/lib/
 
 "$cpython_bin" -m pip wheel "$tool_name==$tool_version" --wheel-dir "$release_version_dirpath"
+"$cpython_bin" -m pip wheel "uwsgi==2.0.22" --wheel-dir "$release_version_dirpath"
 
 echo "creating archive ..."
 
