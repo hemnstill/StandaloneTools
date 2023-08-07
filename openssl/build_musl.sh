@@ -5,13 +5,13 @@ set -e
 echo "::group::install deps"
 
 apk update
-apk add --no-cache alpine-sdk perl make linux-headers mingw-w64-gcc
+apk add --no-cache alpine-sdk perl make linux-headers
 
 echo "::endgroup::"
 
-tool_name="openssl.exe"
+tool_name="openssl"
 tool_version="3.0.9"
-self_toolset_name="build-mingw"
+self_toolset_name="build-musl"
 self_name="$tool_name-$tool_version"
 release_version_dirpath="$dp0/release/$self_name"
 
@@ -30,7 +30,7 @@ echo "::endgroup::"
 
 echo "::group::build"
 
-./Configure mingw64 --cross-compile-prefix=x86_64-w64-mingw32- no-tests no-shared no-module enable-legacy
+./Configure LDFLAGS='--static' linux-x86_64 no-tests no-shared no-module enable-legacy
 make
 
 echo "::endgroup::"
@@ -39,13 +39,15 @@ cd "$release_version_dirpath"
 cp -f "$dp0/release/openssl-openssl-$tool_version/apps/$tool_name" "$release_version_dirpath/"
 cp -f "$dp0/release/openssl-openssl-$tool_version/apps/openssl.cnf" "$release_version_dirpath/"
 
-{ printf '### %s
-SHA-256: %s
-%s
+strip "$tool_name"
+chmod +x "$tool_name"
 
-' "$self_toolset_name.tar.gz" "$(sha256sum $tool_name)" "$download_url"
+{ printf '%s
+### %s
+SHA-256: %s
+' "$("./$tool_name" version)" "$self_toolset_name.tar.gz" "$(sha256sum $tool_name)"
 } > "$self_toolset_name.md"
 
 cat "$self_toolset_name.md"
 
-"$bsdtar" -czvf "../$self_toolset_name.tar.gz" .
+tar -czvf "../$self_toolset_name.tar.gz" .

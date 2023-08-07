@@ -1,0 +1,33 @@
+on:
+  workflow_call:
+    inputs:
+      workflow:
+        required: true
+        type: string
+      toolset:
+        required: false
+        type: string
+        default: 'mingw'
+
+jobs:
+  build-windows:
+    runs-on: windows-2019
+    steps:
+      - uses: actions/checkout@v3
+
+      - name: Add msbuild to PATH
+        uses: microsoft/setup-msbuild@v1.3
+
+      - name: Enable Developer Command Prompt
+        uses: ilammy/msvc-dev-cmd@v1
+        with:
+          arch: amd64
+
+      - name: build ${{ inputs.workflow }}-windows-${{ inputs.toolset }}
+        run: |
+          .tools\busybox64.exe sh ${{ inputs.workflow }}\build_${{ inputs.toolset }}.sh
+
+      - uses: actions/upload-artifact@v3
+        with:
+          name: build-${{ inputs.toolset }}
+          path: ./${{ inputs.workflow }}/release/build-${{ inputs.toolset }}.tar.gz

@@ -1,4 +1,5 @@
-name: openssl
+name: ruff
+# version_tests: skip_readme
 
 on: [pull_request, workflow_dispatch]
 
@@ -37,22 +38,14 @@ jobs:
       workflow: ${{ github.workflow }}
       artifact: build-mingw
 
-  test-nanoserver:
-    needs: alpine-mingw
-    uses: ./.github/workflows/test-nanoserver.yml
-    with:
-      workflow: ${{ github.workflow }}
-      artifact: build-mingw
-
   release:
     needs: [test-alpine,
             test-ubuntu,
-            test-windows,
-            test-nanoserver]
+            test-windows]
     uses: ./.github/workflows/release.yml
     with:
       workflow: ${{ github.workflow }}
-      tool_version: '3.0.9'
+      tool_version: '0.0.280'
       prepare_body: |
         bsdtar -Oxf ./build-musl/build-musl.tar.gz build-musl.md >> body.md
         bsdtar -Oxf ./build-mingw/build-mingw.tar.gz build-mingw.md >> body.md

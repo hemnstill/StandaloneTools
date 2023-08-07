@@ -1,4 +1,4 @@
-name: openssl
+name: 7-Zip
 
 on: [pull_request, workflow_dispatch]
 
@@ -8,51 +8,56 @@ jobs:
     uses: ./.github/workflows/build-alpine.yml
     with:
       workflow: ${{ github.workflow }}
+      toolset: musl
+      version: 3.16
 
-  alpine-mingw:
-    if: ${{ vars.CURRENT_TOOL == github.workflow }}
-    uses: ./.github/workflows/build-alpine.yml
-    with:
-      workflow: ${{ github.workflow }}
-      toolset: mingw
-
-  test-alpine:
+  alpine-musl-test:
     needs: alpine-musl
+    if: ${{ vars.CURRENT_TOOL == github.workflow }}
     uses: ./.github/workflows/test-alpine.yml
     with:
       workflow: ${{ github.workflow }}
       artifact: build-musl
 
-  test-ubuntu:
+  ubuntu-musl-test:
     needs: alpine-musl
+    if: ${{ vars.CURRENT_TOOL == github.workflow }}
     uses: ./.github/workflows/test-ubuntu.yml
     with:
       workflow: ${{ github.workflow }}
       artifact: build-musl
 
+  windows-mingw:
+    if: ${{ vars.CURRENT_TOOL == github.workflow }}
+    uses: ./.github/workflows/build-windows-msbuild.yml
+    with:
+      workflow: ${{ github.workflow }}
+
   test-windows:
-    needs: alpine-mingw
+    needs: windows-mingw
+    if: ${{ vars.CURRENT_TOOL == github.workflow }}
     uses: ./.github/workflows/test-windows.yml
     with:
       workflow: ${{ github.workflow }}
       artifact: build-mingw
 
   test-nanoserver:
-    needs: alpine-mingw
+    needs: windows-mingw
+    if: ${{ vars.CURRENT_TOOL == github.workflow }}
     uses: ./.github/workflows/test-nanoserver.yml
     with:
       workflow: ${{ github.workflow }}
       artifact: build-mingw
 
   release:
-    needs: [test-alpine,
-            test-ubuntu,
+    needs: [alpine-musl-test,
+            ubuntu-musl-test,
             test-windows,
             test-nanoserver]
     uses: ./.github/workflows/release.yml
     with:
       workflow: ${{ github.workflow }}
-      tool_version: '3.0.9'
+      tool_version: '23.01'
       prepare_body: |
         bsdtar -Oxf ./build-musl/build-musl.tar.gz build-musl.md >> body.md
         bsdtar -Oxf ./build-mingw/build-mingw.tar.gz build-mingw.md >> body.md
