@@ -5,6 +5,7 @@ set -e
 tool_name="playwright"
 tool_version="1.35.0"
 self_name="python-3.10.5"
+self_toolset_name="build-gnu"
 
 apt update
 apt install -y wget
@@ -17,13 +18,7 @@ python_bin_download_url="https://github.com/hemnstill/StandaloneTools/releases/d
 python_download_zip="$dp0/release/$self_name.tar.gz"
 [[ ! -f "$python_download_zip" ]] && wget "$python_bin_download_url" -O "$python_download_zip"
 
-echo "download bsdtar ..."
-bsdtar_version=3.6.2
-bsdtar_download_url="https://github.com/hemnstill/StandaloneTools/releases/download/bsdtar-$bsdtar_version/build-musl.tar.gz"
-bsdtar_tar_gz="bsdtar-$bsdtar_version-build-musl.tar.gz"
-[[ ! -f "$bsdtar_tar_gz" ]] && wget "$bsdtar_download_url" -O "$bsdtar_tar_gz"
-tar -xf "$bsdtar_tar_gz"
-
+"$dp0/../.tools/download_bsdtar.sh"
 bsdtar="$dp0/release/bsdtar"
 
 cpython_bin="$release_version_dirpath/Scripts/bin/python3"
@@ -41,17 +36,17 @@ cd "$release_version_dirpath"
 
 echo "creating archive ..."
 
-{ printf '### build-gnu.tar.gz
+{ printf '### %s.tar.gz
 Playwright %s
 Python %s
 
-' "$(./"$tool_name.sh" --version)" "$("$cpython_bin" -c "import sys; print(sys.version)")"
-} > build-gnu.md
+' "$self_toolset_name" "$(./"$tool_name.sh" --version)" "$("$cpython_bin" -c "import sys; print(sys.version)")"
+} > "$self_toolset_name.md"
 
-cat build-gnu.md
+cat "$self_toolset_name.md"
 
 "$bsdtar" \
   --exclude="__pycache__" \
   --exclude="Scripts/Scripts" \
   --exclude="*.whl" \
-  -czvf ../build-gnu.tar.gz .
+  -czvf "../$self_toolset_name.tar.gz" .
