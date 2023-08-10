@@ -10,7 +10,8 @@ apk add --no-cache alpine-sdk zlib-dev zlib-static xz-dev zstd-dev zstd-static
 echo "::endgroup::"
 
 tool_name="bsdtar"
-tool_version="3.6.2"
+tool_version="3.7.1"
+self_toolset_name="build-musl"
 
 download_url="https://github.com/libarchive/libarchive/releases/download/v$tool_version/libarchive-$tool_version.tar.gz"
 echo "::group::prepare sources $download_url"
@@ -23,7 +24,7 @@ echo "::endgroup::"
 
 echo "::group::build"
 
-./configure LDFLAGS='--static' --enable-bsdtar=static --disable-shared --disable-bsdcpio --disable-bsdcat
+./configure LDFLAGS='--static' --enable-bsdtar=static --disable-shared --disable-bsdcpio --disable-bsdcat --disable-bsdunzip
 make -j$(nproc)
 
 mkdir "$dp0/release/build"
@@ -47,12 +48,13 @@ cd "$dp0/release/build"
 strip "$tool_name"
 chmod +x "$tool_name"
 
-{ printf 'SHA-256: %s
+{ printf '### %s
+SHA-256: %s
 %s
 
-' "$(sha256sum $tool_name)" "$("./$tool_name" --version)"
-} > build-musl.md
+' "$self_toolset_name.tar.gz" "$(sha256sum $tool_name)" "$("./$tool_name" --version)"
+} > "$self_toolset_name.md"
 
-cat build-musl.md
+cat "$self_toolset_name.md"
 
-tar -czvf ../build-musl.tar.gz .
+tar -czvf "../$self_toolset_name.tar.gz" .

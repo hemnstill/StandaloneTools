@@ -8,6 +8,7 @@ jobs:
     uses: ./.github/workflows/build-alpine.yml
     with:
       workflow: ${{ github.workflow }}
+      version: 3.16.6
 
   windows-mingw:
     if: ${{ vars.CURRENT_TOOL == github.workflow }}
@@ -39,14 +40,22 @@ jobs:
       workflow: ${{ github.workflow }}
       artifact: build-mingw
 
+  test-nanoserver:
+    needs: windows-mingw
+    uses: ./.github/workflows/test-nanoserver.yml
+    with:
+      workflow: ${{ github.workflow }}
+      artifact: build-mingw
+
   release:
     needs: [test-alpine,
             test-ubuntu,
-            test-windows]
+            test-windows,
+            test-nanoserver]
     uses: ./.github/workflows/release.yml
     with:
       workflow: ${{ github.workflow }}
-      tool_version: '3.6.2'
+      tool_version: '3.7.1'
       prepare_body: |
         bsdtar -Oxf ./build-musl/build-musl.tar.gz build-musl.md >> body.md
         bsdtar -Oxf ./build-mingw/build-mingw.tar.gz build-mingw.md >> body.md

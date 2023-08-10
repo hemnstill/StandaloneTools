@@ -3,7 +3,8 @@ dp0="$(realpath "$(dirname "$0")")"
 set -e
 
 tool_name="bsdtar.exe"
-tool_version="3.6.2"
+tool_version="3.7.1"
+self_toolset_name="build-mingw"
 
 download_url="https://github.com/libarchive/libarchive/releases/download/v$tool_version/libarchive-$tool_version.tar.gz"
 echo "::group::prepare sources $download_url"
@@ -32,12 +33,13 @@ echo "::endgroup::"
 mkdir "$dp0/release/build" && cd "$dp0/release/build"
 cp -f "$dp0/release/libarchive-$tool_version/build_ci/cmake/bin/$tool_name" "."
 
-{ printf 'SHA-256: %s
+{ printf '### %s
+SHA-256: %s
 %s
 %s
-' "$(sha256sum $tool_name)" "$("./$tool_name" --version)" "$download_url"
-} > build-mingw.md
+' "$self_toolset_name.tar.gz" "$(sha256sum $tool_name)" "$("./$tool_name" --version)" "$download_url"
+} > "$self_toolset_name.md"
 
-cat build-mingw.md
+cat "$self_toolset_name.md"
 
-tar -czvf ../build-mingw.tar.gz .
+tar -czvf "../$self_toolset_name.tar.gz" .
