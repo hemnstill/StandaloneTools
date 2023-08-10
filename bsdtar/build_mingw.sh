@@ -3,7 +3,7 @@ dp0="$(realpath "$(dirname "$0")")"
 set -e
 
 tool_name="bsdtar.exe"
-tool_version="3.7.0"
+tool_version="3.7.1"
 self_toolset_name="build-mingw"
 
 download_url="https://github.com/libarchive/libarchive/releases/download/v$tool_version/libarchive-$tool_version.tar.gz"
