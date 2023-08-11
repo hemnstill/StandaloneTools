@@ -6,7 +6,7 @@ echo "::group::install deps"
 
 export DEBIAN_FRONTEND=noninteractive
 apt update
-apt install -y build-essential wget curl cmake
+apt install -y build-essential wget curl cmake gcc
 
 echo "::endgroup::"
 
