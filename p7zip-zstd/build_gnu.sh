@@ -4,6 +4,7 @@ set -e
 
 echo "::group::install deps"
 
+export DEBIAN_FRONTEND=noninteractive
 apt update
 apt install -y build-essential wget curl cmake
 
