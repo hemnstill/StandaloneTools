@@ -5,7 +5,7 @@ set -e
 echo "::group::install deps"
 
 apt update
-apt install -y build-essential wget
+apt install -y build-essential wget curl
 
 echo "::endgroup::"
 
