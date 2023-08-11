@@ -13,6 +13,7 @@ tool_name="p7zip-zstd"
 tool_version="22.00"
 self_toolset_name="build-musl"
 release_version_dirpath="$dp0/release/build"
+source_dirpath="$dp0/release/p7zip-p7zip$tool_version"
 
 mkdir -p "$release_version_dirpath" && cd "$dp0/release"
 
@@ -24,7 +25,7 @@ bsdtar="$dp0/release/bsdtar"
 
 # wget failed: ssl_client: TLS error from peer (alert code 80): 80
 curl --location "$download_url" --output "tool-$tool_version.tar.xz"
-"$bsdtar" -xf "tool-$tool_version.tar.xz" && cd "p7zip-p7zip$tool_version"
+"$bsdtar" -xf "tool-$tool_version.tar.xz" && cd "$source_dirpath"
 
 #git apply "$dp0/release/0001-static.patch"
 
@@ -32,7 +33,7 @@ echo "::endgroup::"
 
 echo "::group::build"
 
-cd "$dp0/release/CPP/7zip/Bundles/Alone2"
+cd "$source_dirpath/CPP/7zip/Bundles/Alone2"
 make -j -f makefile.gcc
 cp -f "./_o/7zz" "$release_version_dirpath/"
 
