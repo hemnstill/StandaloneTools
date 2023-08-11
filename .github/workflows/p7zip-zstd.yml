@@ -26,6 +26,12 @@ jobs:
       workflow: ${{ github.workflow }}
       artifact: build-musl
 
+  ubuntu-gnu:
+    if: ${{ vars.CURRENT_TOOL == github.workflow }}
+    uses: ./.github/workflows/build-ubuntu.yml
+    with:
+      workflow: ${{ github.workflow }}
+
 #  windows-mingw:
 #    if: ${{ vars.CURRENT_TOOL == github.workflow }}
 #    uses: ./.github/workflows/build-windows-msbuild.yml
