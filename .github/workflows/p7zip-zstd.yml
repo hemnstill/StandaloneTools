@@ -32,7 +32,7 @@ jobs:
     uses: ./.github/workflows/build-ubuntu.yml
     with:
       workflow: ${{ github.workflow }}
-      version: 20.04
+      version: 22.04
 
 #  windows-mingw:
 #    if: ${{ vars.CURRENT_TOOL == github.workflow }}
