@@ -9,7 +9,6 @@ jobs:
     with:
       workflow: ${{ github.workflow }}
       toolset: musl
-      version: 3.16
 
   alpine-musl-test:
     needs: alpine-musl
