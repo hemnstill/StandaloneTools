@@ -11,7 +11,7 @@ echo "::endgroup::"
 
 tool_name="p7zip-zstd"
 tool_version="22.00"
-self_toolset_name="build-musl"
+self_toolset_name="build-gnu"
 release_version_dirpath="$dp0/release/build"
 source_dirpath="$dp0/release/p7zip-master"
 
