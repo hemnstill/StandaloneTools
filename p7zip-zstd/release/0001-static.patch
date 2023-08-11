@@ -1,17 +1,31 @@
-From 567ff6a6c40094f9b18f959f21f579bd433eddf9 Mon Sep 17 00:00:00 2001
+From e60ae713770e68b5d04851e0a5abbca7832646a0 Mon Sep 17 00:00:00 2001
 From: Reshetnikov Alexandr <hemn.still@gmail.com>
 Date: Fri, 11 Aug 2023 22:06:28 +0400
-Subject: [PATCH] p
+Subject: [PATCH] static
 
 ---
- CPP/7zip/7zip_gcc.mak | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
+ CPP/7zip/7zip_gcc.mak | 20 ++++++++++----------
+ 1 file changed, 10 insertions(+), 10 deletions(-)
 
 diff --git a/CPP/7zip/7zip_gcc.mak b/CPP/7zip/7zip_gcc.mak
-index 42fff6c..0add7ef 100644
+index 42fff6c..32c7c4c 100644
 --- a/CPP/7zip/7zip_gcc.mak
 +++ b/CPP/7zip/7zip_gcc.mak
-@@ -110,7 +110,7 @@ DEL_OBJ_EXE = -$(RM) $(O)\*.o $(O)\$(PROG).exe $(O)\$(PROG).dll
+@@ -94,7 +94,7 @@ endif
+ 
+ PROGPATH = $(O)/$(PROG)$(SHARED_EXT)
+ PROGPATH_STATIC = $(O)/$(PROG)s$(SHARED_EXT)
+-	
++
+ ifdef IS_MINGW
+ 
+ RM = del
+@@ -106,11 +106,11 @@ CXXFLAGS_EXTRA = -DUNICODE -D_UNICODE
+ # -Wno-delete-non-virtual-dtor
+ 
+ DEL_OBJ_EXE = -$(RM) $(O)\*.o $(O)\$(PROG).exe $(O)\$(PROG).dll
+- 
++
  else
  
  RM = rm -rf
@@ -20,6 +34,51 @@ index 42fff6c..0add7ef 100644
  CD = cd
  
  ifeq ($(shell uname),Darwin)
+@@ -210,11 +210,11 @@ endif
+ all: $(O) $(7z_BIN) $(7Z_ADDON_CODEC) $(PROGPATH) $(STATIC_TARGET)
+ 
+ $(O):
+-	$(MY_MKDIR) $(O)
++	$(MY_MKDIR) -p $(O)
+ $(7z_BIN):
+-	$(MY_MKDIR) $(O)/$(7z_BIN)
++	$(MY_MKDIR) -p $(O)/$(7z_BIN)
+ $(7Z_ADDON_CODEC):
+-	$(MY_MKDIR) $(O)/$(7z_LIB)/$(7Z_ADDON_CODEC)
++	$(MY_MKDIR) -p $(O)/$(7z_LIB)/$(7Z_ADDON_CODEC)
+ 
+ LFLAGS_ALL = -s $(MY_ARCH_2) $(LDFLAGS) $(LD_arch) $(OBJS) $(MY_LIBS) $(LIB2)
+ $(PROGPATH): $(ZSTD_LIB) $(LZ4_LIB) $(BROTLI_LIB) $(LIZARD_LIB) $(LZ5_LIB) $(FAST-LZMA2_LIB) $(LZHAM_LIB) $(OBJS)
+@@ -1289,7 +1289,7 @@ $O/sha512.o: ../../../../C/hashes/sha512.c
+ $O/blake3.o: ../../../../C/hashes/blake3.c
+ 	$(CC) $(CFLAGS) $<
+ 
+-# Build MT API 
++# Build MT API
+ $O/lz4-mt_common.o: ../../../../C/zstdmt/lz4-mt_common.c
+ 	$(CC) $(CFLAGS) $<
+ $O/lz4-mt_compress.o: ../../../../C/zstdmt/lz4-mt_compress.c
+@@ -1370,7 +1370,7 @@ $O/libbrotlicommon.$(DYSUFFIX) $O/libbrotlienc.$(DYSUFFIX) $O/libbrotlidec.$(DYS
+ 	patchelf --force-rpath --set-rpath '$$ORIGIN/' $O/$(7z_LIB)/$(7Z_ADDON_CODEC)/libbrotlidec.$(DYSUFFIX)*
+ 	patchelf --force-rpath --set-rpath '$$ORIGIN/' $O/$(7z_LIB)/$(7Z_ADDON_CODEC)/libbrotlienc.$(DYSUFFIX)*
+ 
+-# Compile brotli method and Handler 
++# Compile brotli method and Handler
+ $O/BrotliDecoder.o: ../../Compress/BrotliDecoder.cpp
+ 	$(CXX) $(CXXFLAGS) $< -I ../../../../C/brotli/c/include
+ $O/BrotliEncoder.o: ../../Compress/BrotliEncoder.cpp
+@@ -1455,9 +1455,9 @@ predef_cxx:
+ predef: predef_cc predef_cxx
+ 
+ install:
+-	$(MY_MKDIR) $(INSTALL_PREFIX)/bin
++	$(MY_MKDIR) -p $(INSTALL_PREFIX)/bin
+ 	$(CP) $(O)/$(7z_BIN)/* $(INSTALL_PREFIX)/bin 2>/dev/null || :
+-	$(MY_MKDIR) $(INSTALL_PREFIX)/lib
++	$(MY_MKDIR) -p $(INSTALL_PREFIX)/lib
+ 	$(CP) $(O)/$(7z_LIB)/* $(INSTALL_PREFIX)/lib
+ 
+ uninstall:
 -- 
 2.37.2.windows.2
 
