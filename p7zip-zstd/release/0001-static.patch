@@ -1,14 +1,14 @@
-From e60ae713770e68b5d04851e0a5abbca7832646a0 Mon Sep 17 00:00:00 2001
+From 1a057771a55f5918d3d771865de8978c10153d3c Mon Sep 17 00:00:00 2001
 From: Reshetnikov Alexandr <hemn.still@gmail.com>
 Date: Fri, 11 Aug 2023 22:06:28 +0400
 Subject: [PATCH] static
 
 ---
- CPP/7zip/7zip_gcc.mak | 20 ++++++++++----------
- 1 file changed, 10 insertions(+), 10 deletions(-)
+ CPP/7zip/7zip_gcc.mak | 28 ++++++++++++++--------------
+ 1 file changed, 14 insertions(+), 14 deletions(-)
 
 diff --git a/CPP/7zip/7zip_gcc.mak b/CPP/7zip/7zip_gcc.mak
-index 42fff6c..32c7c4c 100644
+index 42fff6c..5caaf33 100644
 --- a/CPP/7zip/7zip_gcc.mak
 +++ b/CPP/7zip/7zip_gcc.mak
 @@ -94,7 +94,7 @@ endif
@@ -39,13 +39,13 @@ index 42fff6c..32c7c4c 100644
  
  $(O):
 -	$(MY_MKDIR) $(O)
-+	$(MY_MKDIR) -p $(O)
++	mkdir -p $(O)
  $(7z_BIN):
 -	$(MY_MKDIR) $(O)/$(7z_BIN)
-+	$(MY_MKDIR) -p $(O)/$(7z_BIN)
++	mkdir -p $(O)/$(7z_BIN)
  $(7Z_ADDON_CODEC):
 -	$(MY_MKDIR) $(O)/$(7z_LIB)/$(7Z_ADDON_CODEC)
-+	$(MY_MKDIR) -p $(O)/$(7z_LIB)/$(7Z_ADDON_CODEC)
++	mkdir -p $(O)/$(7z_LIB)/$(7Z_ADDON_CODEC)
  
  LFLAGS_ALL = -s $(MY_ARCH_2) $(LDFLAGS) $(LD_arch) $(OBJS) $(MY_LIBS) $(LIB2)
  $(PROGPATH): $(ZSTD_LIB) $(LZ4_LIB) $(BROTLI_LIB) $(LIZARD_LIB) $(LZ5_LIB) $(FAST-LZMA2_LIB) $(LZHAM_LIB) $(OBJS)
@@ -58,6 +58,33 @@ index 42fff6c..32c7c4c 100644
  $O/lz4-mt_common.o: ../../../../C/zstdmt/lz4-mt_common.c
  	$(CC) $(CFLAGS) $<
  $O/lz4-mt_compress.o: ../../../../C/zstdmt/lz4-mt_compress.c
+@@ -1319,7 +1319,7 @@ $O/lz5-mt_decompress.o: ../../../../C/zstdmt/lz5-mt_decompress.c
+ # Build zstd lib static and dynamic
+ $O/libzstd.$(DYSUFFIX): ../../../../C/zstd/lib/zstd.h
+ 	$(RM) zstd_build
+-	$(MY_MKDIR) -p zstd_build
++	mkdir -p zstd_build
+ 	$(CD) zstd_build; \
+ 	cmake ../../../../../C/zstd/build/cmake -DCMAKE_BUILD_TYPE=Release -DZSTD_BUILD_PROGRAMS=OFF -DZSTD_BUILD_STATIC=OFF -DCMAKE_C_COMPILER=$(CC) -DCMAKE_CXX_COMPILER=$(CXX); \
+ 	$(MAKE) -j; \
+@@ -1339,7 +1339,7 @@ $O/ZstdHandler.o: ../../Archive/ZstdHandler.cpp
+ # Build lz4 lib static and dynamic
+ $O/liblz4.$(DYSUFFIX): ../../../../C/lz4/lib/lz4.h
+ 	$(RM) lz4_build
+-	$(MY_MKDIR) -p lz4_build
++	mkdir -p lz4_build
+ 	$(CD) lz4_build; \
+ 	cmake ../../../../../C/lz4/build/cmake -DCMAKE_BUILD_TYPE=Release -DLZ4_BUILD_CLI=OFF -DLZ4_BUILD_LEGACY_LZ4C=OFF -DCMAKE_C_COMPILER=$(CC) -DCMAKE_CXX_COMPILER=$(CXX); \
+ 	$(MAKE) -j; \
+@@ -1359,7 +1359,7 @@ $O/Lz4Handler.o: ../../Archive/Lz4Handler.cpp
+ # Build brotli lib static and dynamic
+ $O/libbrotlicommon.$(DYSUFFIX) $O/libbrotlienc.$(DYSUFFIX) $O/libbrotlidec.$(DYSUFFIX): ../../../../C/brotli/c/include/brotli/decode.h
+ 	$(RM) brotli_build
+-	$(MY_MKDIR) -p brotli_build
++	mkdir -p brotli_build
+ 	$(CD) brotli_build; \
+ 	cmake ../../../../../C/brotli/ -DCMAKE_BUILD_TYPE=Release -DBUILD_TESTING=OFF -DCMAKE_C_COMPILER=$(CC) -DCMAKE_CXX_COMPILER=$(CXX); \
+ 	$(MAKE) -j; \
 @@ -1370,7 +1370,7 @@ $O/libbrotlicommon.$(DYSUFFIX) $O/libbrotlienc.$(DYSUFFIX) $O/libbrotlidec.$(DYS
  	patchelf --force-rpath --set-rpath '$$ORIGIN/' $O/$(7z_LIB)/$(7Z_ADDON_CODEC)/libbrotlidec.$(DYSUFFIX)*
  	patchelf --force-rpath --set-rpath '$$ORIGIN/' $O/$(7z_LIB)/$(7Z_ADDON_CODEC)/libbrotlienc.$(DYSUFFIX)*
@@ -67,15 +94,24 @@ index 42fff6c..32c7c4c 100644
  $O/BrotliDecoder.o: ../../Compress/BrotliDecoder.cpp
  	$(CXX) $(CXXFLAGS) $< -I ../../../../C/brotli/c/include
  $O/BrotliEncoder.o: ../../Compress/BrotliEncoder.cpp
+@@ -1411,7 +1411,7 @@ $O/Lz5Handler.o: ../../Archive/Lz5Handler.cpp
+ # Build lzham lib static and dynamic
+ $O/liblzhamdll.$(DYSUFFIX) $O/liblzhamcomp.$(DYSUFFIX) $O/liblzhamdecomp.$(DYSUFFIX): ../../../../C/lzham_codec/lzhamdll/lzham_api.cpp
+ 	$(RM) lzham_build
+-	$(MY_MKDIR) -p lzham_build
++	mkdir -p lzham_build
+ 	$(CD) lzham_build; \
+ 	cmake ../../../../../C/lzham_codec/ -DCMAKE_BUILD_TYPE=Release -DCMAKE_C_COMPILER=$(CC) -DCMAKE_CXX_COMPILER=$(CXX); \
+ 	$(MAKE) -j; \
 @@ -1455,9 +1455,9 @@ predef_cxx:
  predef: predef_cc predef_cxx
  
  install:
 -	$(MY_MKDIR) $(INSTALL_PREFIX)/bin
-+	$(MY_MKDIR) -p $(INSTALL_PREFIX)/bin
++	mkdir -p $(INSTALL_PREFIX)/bin
  	$(CP) $(O)/$(7z_BIN)/* $(INSTALL_PREFIX)/bin 2>/dev/null || :
 -	$(MY_MKDIR) $(INSTALL_PREFIX)/lib
-+	$(MY_MKDIR) -p $(INSTALL_PREFIX)/lib
++	mkdir -p $(INSTALL_PREFIX)/lib
  	$(CP) $(O)/$(7z_LIB)/* $(INSTALL_PREFIX)/lib
  
  uninstall:
