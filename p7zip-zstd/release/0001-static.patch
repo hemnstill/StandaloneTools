@@ -1,14 +1,14 @@
-From 8a9a299ce23df4cdebb3bd3c6b0e5f5b3bbd85d0 Mon Sep 17 00:00:00 2001
+From 567ff6a6c40094f9b18f959f21f579bd433eddf9 Mon Sep 17 00:00:00 2001
 From: Reshetnikov Alexandr <hemn.still@gmail.com>
-Date: Fri, 11 Aug 2023 22:02:05 +0400
-Subject: [PATCH] -p
+Date: Fri, 11 Aug 2023 22:06:28 +0400
+Subject: [PATCH] p
 
 ---
  CPP/7zip/7zip_gcc.mak | 2 +-
  1 file changed, 1 insertion(+), 1 deletion(-)
 
 diff --git a/CPP/7zip/7zip_gcc.mak b/CPP/7zip/7zip_gcc.mak
-index 9588f05..d4bf65a 100644
+index 42fff6c..0add7ef 100644
 --- a/CPP/7zip/7zip_gcc.mak
 +++ b/CPP/7zip/7zip_gcc.mak
 @@ -110,7 +110,7 @@ DEL_OBJ_EXE = -$(RM) $(O)\*.o $(O)\$(PROG).exe $(O)\$(PROG).dll
@@ -18,8 +18,8 @@ index 9588f05..d4bf65a 100644
 -MY_MKDIR=mkdir -p
 +MY_MKDIR=mkdir
  CD = cd
- CP = cp -drf
- MAKE = make
+ 
+ ifeq ($(shell uname),Darwin)
 -- 
 2.37.2.windows.2
 
