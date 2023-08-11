@@ -16,7 +16,7 @@ release_version_dirpath="$dp0/release/build"
 
 mkdir -p "$release_version_dirpath" && cd "$dp0/release"
 
-download_url="https://github.com/p7zip-project/p7zip/archive/refs/tags/v17.05.tar.gz"
+download_url="https://github.com/p7zip-project/p7zip/archive/refs/heads/p7zip22.00.tar.gz"
 echo "::group::prepare sources $download_url"
 
 "$dp0/../.tools/download_bsdtar.sh"
