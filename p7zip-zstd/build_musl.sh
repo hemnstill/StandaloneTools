@@ -13,11 +13,11 @@ tool_name="p7zip-zstd"
 tool_version="22.00"
 self_toolset_name="build-musl"
 release_version_dirpath="$dp0/release/build"
-source_dirpath="$dp0/release/p7zip-p7zip$tool_version"
+source_dirpath="$dp0/release/p7zip-master"
 
 mkdir -p "$release_version_dirpath" && cd "$dp0/release"
 
-download_url="https://github.com/p7zip-project/p7zip/archive/refs/heads/p7zip22.00.tar.gz"
+download_url="https://github.com/jinfeihan57/p7zip/archive/refs/heads/master.tar.gz"
 echo "::group::prepare sources $download_url"
 
 "$dp0/../.tools/download_bsdtar.sh"
