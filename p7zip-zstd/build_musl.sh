@@ -10,7 +10,7 @@ apk add --no-cache alpine-sdk make linux-headers
 echo "::endgroup::"
 
 tool_name="p7zip-zstd"
-tool_version="17.05"
+tool_version="22.00"
 self_toolset_name="build-musl"
 release_version_dirpath="$dp0/release/build"
 
