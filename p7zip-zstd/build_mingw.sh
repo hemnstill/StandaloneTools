@@ -16,7 +16,6 @@ echo "::group::prepare sources $download_url"
 "$dp0/../.tools/download_bsdtar.sh"
 bsdtar="$dp0/release/bsdtar"
 
-# wget failed: ssl_client: TLS error from peer (alert code 80): 80
 curl --location "$download_url" --output "tool-$tool_version.tar.xz"
 "$bsdtar" -xf "tool-$tool_version.tar.xz" && cd "$source_dirpath"
 
