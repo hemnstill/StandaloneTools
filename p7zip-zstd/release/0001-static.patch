@@ -1,4 +1,4 @@
-From abda7581be82a8f70cdce8318b17604025e353a9 Mon Sep 17 00:00:00 2001
+From 24f6a00ee70ca6ea604e89fc2da93456727f1daf Mon Sep 17 00:00:00 2001
 From: Reshetnikov Alexandr <hemn.still@gmail.com>
 Date: Fri, 11 Aug 2023 19:54:38 +0400
 Subject: [PATCH] static
@@ -8,14 +8,14 @@ Subject: [PATCH] static
  1 file changed, 7 insertions(+), 5 deletions(-)
 
 diff --git a/CPP/7zip/7zip_gcc.mak b/CPP/7zip/7zip_gcc.mak
-index 9588f05..6091dd4 100644
+index 9588f05..259f23c 100644
 --- a/CPP/7zip/7zip_gcc.mak
 +++ b/CPP/7zip/7zip_gcc.mak
 @@ -51,6 +51,8 @@ endif
  endif
  endif
  
-+LDFLAGS_STATIC = -static
++LDFLAGS_STATIC_2 = -static
 +
  LDFLAGS_STATIC = -DNDEBUG $(LDFLAGS_STATIC_2)
  
