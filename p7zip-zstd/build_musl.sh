@@ -5,7 +5,7 @@ set -e
 echo "::group::install deps"
 
 apk update
-apk add --no-cache alpine-sdk build-base musl-dev make linux-headers cmake patchelf binutils execline brotli-dev gcc
+apk add --no-cache alpine-sdk build-base musl-dev make linux-headers cmake patchelf binutils execline brotli-dev gcc g++
 
 echo "::endgroup::"
 
