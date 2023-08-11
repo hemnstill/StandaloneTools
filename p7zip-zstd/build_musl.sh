@@ -17,7 +17,7 @@ source_dirpath="$dp0/release/p7zip-master"
 
 mkdir -p "$release_version_dirpath" && cd "$dp0/release"
 
-download_url="https://github.com/jinfeihan57/p7zip/archive/refs/heads/master.tar.gz"
+download_url="https://github.com/p7zip-project/p7zip/archive/refs/heads/master.tar.gz"
 echo "::group::prepare sources $download_url"
 
 "$dp0/../.tools/download_bsdtar.sh"
@@ -26,7 +26,7 @@ bsdtar="$dp0/release/bsdtar"
 curl --location "$download_url" --output "tool-$tool_version.tar.xz"
 "$bsdtar" -xf "tool-$tool_version.tar.xz" && cd "$source_dirpath"
 
-git apply "$dp0/release/0001-static.patch"
+# git apply "$dp0/release/0001-static.patch"
 
 echo "::endgroup::"
 
