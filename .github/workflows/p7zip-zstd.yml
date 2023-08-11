@@ -31,6 +31,7 @@ jobs:
     uses: ./.github/workflows/build-ubuntu.yml
     with:
       workflow: ${{ github.workflow }}
+      version: 18.04
 
 #  windows-mingw:
 #    if: ${{ vars.CURRENT_TOOL == github.workflow }}
