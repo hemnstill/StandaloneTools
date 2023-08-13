@@ -29,10 +29,9 @@ jobs:
 
   ubuntu-gnu:
     if: ${{ vars.CURRENT_TOOL == github.workflow }}
-    uses: ./.github/workflows/build-ubuntu.yml
+    uses: ./.github/workflows/build-ubuntu-agent.yml
     with:
       workflow: ${{ github.workflow }}
-      version: 20.04
 
 #  windows-mingw:
 #    if: ${{ vars.CURRENT_TOOL == github.workflow }}
