@@ -26,8 +26,10 @@ echo "::group::prepare sources $download_url"
 "$dp0/../.tools/download_bsdtar.sh"
 bsdtar="$dp0/release/bsdtar"
 
-curl --location "$download_url" --output "tool-$tool_version.tar.xz"
-"$bsdtar" -xf "tool-$tool_version.tar.xz" && cd "$source_dirpath"
+#curl --location "$download_url" --output "tool-$tool_version.tar.xz"
+#"$bsdtar" -xf "tool-$tool_version.tar.xz" && cd "$source_dirpath"
+
+git clone https://github.com/p7zip-project/p7zip "$source_dirpath"
 
 git apply "$dp0/release/0001-static.patch" --verbose
 
