@@ -1,4 +1,4 @@
-From bf55d6c18c3d4a664edcb2b22dd0a9762747094f Mon Sep 17 00:00:00 2001
+From 8f5d366c8a6c25fc21a3086f57890e8be9afeca1 Mon Sep 17 00:00:00 2001
 From: Reshetnikov Alexandr <hemn.still@gmail.com>
 Date: Fri, 11 Aug 2023 22:06:28 +0400
 Subject: [PATCH] static
@@ -77,7 +77,7 @@ index 9b5451d..c1396b4 100644
  	$(MAKE) -C $(BUILDIR)/cmake/build -j4;
  	$(MAKE) -C $(BUILDIR)/cmake/build install;
 diff --git a/CPP/7zip/7zip_gcc.mak b/CPP/7zip/7zip_gcc.mak
-index 42fff6c..5caaf33 100644
+index 42fff6c..dd09f3f 100644
 --- a/CPP/7zip/7zip_gcc.mak
 +++ b/CPP/7zip/7zip_gcc.mak
 @@ -94,7 +94,7 @@ endif
@@ -132,7 +132,7 @@ index 42fff6c..5caaf33 100644
  $O/libzstd.$(DYSUFFIX): ../../../../C/zstd/lib/zstd.h
  	$(RM) zstd_build
 -	$(MY_MKDIR) -p zstd_build
-+	mkdir -p zstd_build
++	mkdir zstd_build
  	$(CD) zstd_build; \
  	cmake ../../../../../C/zstd/build/cmake -DCMAKE_BUILD_TYPE=Release -DZSTD_BUILD_PROGRAMS=OFF -DZSTD_BUILD_STATIC=OFF -DCMAKE_C_COMPILER=$(CC) -DCMAKE_CXX_COMPILER=$(CXX); \
  	$(MAKE) -j; \
