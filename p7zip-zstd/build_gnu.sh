@@ -33,6 +33,7 @@ echo "::endgroup::"
 
 echo "::group::build"
 
+export PROJECT_ROOT="$(pwd)"
 cd "$source_dirpath/CPP/7zip/Bundles/Alone2"
 make -j -f makefile.gcc
 cp -f "./_o/7zz" "$release_version_dirpath/"
