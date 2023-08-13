@@ -1,12 +1,13 @@
-From bb8984b0a8e255b5b6dc26f7554aad0547aee61d Mon Sep 17 00:00:00 2001
+From bf55d6c18c3d4a664edcb2b22dd0a9762747094f Mon Sep 17 00:00:00 2001
 From: Reshetnikov Alexandr <hemn.still@gmail.com>
 Date: Fri, 11 Aug 2023 22:06:28 +0400
 Subject: [PATCH] static
 
 ---
  C/7zip_gcc_c.mak      |  8 ++++----
+ C/zstd/Makefile       |  6 +++---
  CPP/7zip/7zip_gcc.mak | 28 ++++++++++++++--------------
- 2 files changed, 18 insertions(+), 18 deletions(-)
+ 3 files changed, 21 insertions(+), 21 deletions(-)
 
 diff --git a/C/7zip_gcc_c.mak b/C/7zip_gcc_c.mak
 index e884440..de9c777 100644
@@ -44,6 +45,37 @@ index e884440..de9c777 100644
  
  LFLAGS_ALL = -s $(MY_ARCH_2) $(LDFLAGS) $(LD_arch) $(OBJS) $(MY_LIBS) $(LIB2)
  $(PROGPATH): $(OBJS)
+diff --git a/C/zstd/Makefile b/C/zstd/Makefile
+index 9b5451d..c1396b4 100644
+--- a/C/zstd/Makefile
++++ b/C/zstd/Makefile
+@@ -153,7 +153,7 @@ ifneq (,$(filter $(shell uname),Linux Darwin GNU/kFreeBSD GNU OpenBSD FreeBSD Dr
+ 
+ HOST_OS = POSIX
+ 
+-MKDIR ?= mkdir -p
++MKDIR ?= mkdir
+ 
+ HAVE_COLORNEVER = $(shell echo a | egrep --color=never a > /dev/null 2> /dev/null && echo 1 || echo 0)
+ EGREP_OPTIONS ?=
+@@ -292,7 +292,7 @@ update_regressionResults:
+ 	$(MAKE) -C programs zstd
+ 	$(MAKE) -C tests/regression test
+ 	$(RM) -rf $(REGRESS_RESULTS_DIR)
+-	$(MKDIR) $(REGRESS_RESULTS_DIR)
++	$(MKDIR) -p $(REGRESS_RESULTS_DIR)
+ 	./tests/regression/test                         \
+         --cache  tests/regression/cache             \
+         --output $(REGRESS_RESULTS_DIR)/results.csv \
+@@ -391,7 +391,7 @@ ifneq (,$(filter $(HOST_OS),MSYS POSIX))
+ cmakebuild:
+ 	cmake --version
+ 	$(RM) -r $(BUILDIR)/cmake/build
+-	$(MKDIR) $(BUILDIR)/cmake/build
++	$(MKDIR) -p $(BUILDIR)/cmake/build
+ 	cd $(BUILDIR)/cmake/build; cmake -DCMAKE_INSTALL_PREFIX:PATH=~/install_test_dir $(CMAKE_PARAMS) ..
+ 	$(MAKE) -C $(BUILDIR)/cmake/build -j4;
+ 	$(MAKE) -C $(BUILDIR)/cmake/build install;
 diff --git a/CPP/7zip/7zip_gcc.mak b/CPP/7zip/7zip_gcc.mak
 index 42fff6c..5caaf33 100644
 --- a/CPP/7zip/7zip_gcc.mak
