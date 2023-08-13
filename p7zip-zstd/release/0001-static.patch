@@ -1,12 +1,49 @@
-From 1a057771a55f5918d3d771865de8978c10153d3c Mon Sep 17 00:00:00 2001
+From bb8984b0a8e255b5b6dc26f7554aad0547aee61d Mon Sep 17 00:00:00 2001
 From: Reshetnikov Alexandr <hemn.still@gmail.com>
 Date: Fri, 11 Aug 2023 22:06:28 +0400
 Subject: [PATCH] static
 
 ---
+ C/7zip_gcc_c.mak      |  8 ++++----
  CPP/7zip/7zip_gcc.mak | 28 ++++++++++++++--------------
- 1 file changed, 14 insertions(+), 14 deletions(-)
+ 2 files changed, 18 insertions(+), 18 deletions(-)
 
+diff --git a/C/7zip_gcc_c.mak b/C/7zip_gcc_c.mak
+index e884440..de9c777 100644
+--- a/C/7zip_gcc_c.mak
++++ b/C/7zip_gcc_c.mak
+@@ -55,7 +55,7 @@ endif
+ 
+ PROGPATH = $(O)/$(PROG)$(SHARED_EXT)
+ PROGPATH_STATIC = $(O)/$(PROG)s$(SHARED_EXT)
+-	
++
+ ifndef O
+ O=_o
+ endif
+@@ -71,11 +71,11 @@ CXXFLAGS_EXTRA = -DUNICODE -D_UNICODE
+ # -Wno-delete-non-virtual-dtor
+ 
+ DEL_OBJ_EXE = -$(RM) $(O)\*.o $(O)\$(PROG).exe $(O)\$(PROG).dll
+- 
++
+ else
+ 
+ RM = rm -f
+-MY_MKDIR=mkdir -p
++MY_MKDIR=mkdir
+ # CFLAGS_BASE := $(CFLAGS_BASE) -D_7ZIP_ST
+ # CXXFLAGS_EXTRA = -D_FILE_OFFSET_BITS=64 -D_LARGEFILE_SOURCE
+ 
+@@ -118,7 +118,7 @@ endif
+ all: $(O) $(PROGPATH) $(STATIC_TARGET)
+ 
+ $(O):
+-	$(MY_MKDIR) $(O)
++	$(MY_MKDIR) -p $(O)
+ 
+ LFLAGS_ALL = -s $(MY_ARCH_2) $(LDFLAGS) $(LD_arch) $(OBJS) $(MY_LIBS) $(LIB2)
+ $(PROGPATH): $(OBJS)
 diff --git a/CPP/7zip/7zip_gcc.mak b/CPP/7zip/7zip_gcc.mak
 index 42fff6c..5caaf33 100644
 --- a/CPP/7zip/7zip_gcc.mak
