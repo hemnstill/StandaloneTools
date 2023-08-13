@@ -14,12 +14,13 @@ tool_name="p7zip-zstd"
 tool_version="22.00"
 self_toolset_name="build-gnu"
 release_version_dirpath="$dp0/release/build"
-source_dirpath="$dp0/release/p7zip-master"
+commit_id=8a99d67c94df534076293a7691c49da5a166c6ea
+source_dirpath="$dp0/release/p7zip-$commit_id"
 
 mkdir -p "$release_version_dirpath" && cd "$dp0/release"
 
 #download_url="https://github.com/p7zip-project/p7zip/archive/36f6b7422234c8c48d3eaaa80a0e8ceb1180f081.tar.gz"
-download_url="https://github.com/jinfeihan57/p7zip/archive/8a99d67c94df534076293a7691c49da5a166c6ea.tar.gz"
+download_url="https://github.com/jinfeihan57/p7zip/archive/$commit_id.tar.gz"
 echo "::group::prepare sources $download_url"
 
 "$dp0/../.tools/download_bsdtar.sh"
