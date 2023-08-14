@@ -24,6 +24,7 @@ jobs:
     uses: ./.github/workflows/build-ubuntu.yml
     with:
       workflow: ${{ github.workflow }}
+      version: 22.04
 
   release:
     needs: [
