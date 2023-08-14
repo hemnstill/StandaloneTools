@@ -34,7 +34,7 @@ echo "::group::build"
 
 cd "$source_dirpath/CPP/7zip/Bundles/Alone2"
 make -f makefile.gcc
-cp -f "./_o/7zz" "$release_version_dirpath/"
+cp -f "./_o/bin/7zz" "$release_version_dirpath/"
 
 echo "::endgroup::"
 
