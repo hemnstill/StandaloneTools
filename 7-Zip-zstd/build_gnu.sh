@@ -36,7 +36,7 @@ echo "::group::build"
 root="$tool_dirpath/CPP/7zip"
 
 cd "$root/Bundles/Alone2"
-make -j -f makefile.gcc DISABLE_RAR=1
+make -f makefile.gcc DISABLE_RAR=1
 
 cp -f "./_o/7zz" "$release_version_dirpath/"
 
