@@ -38,6 +38,8 @@ cd "$source_dirpath/CPP/7zip/Bundles/Alone2"
 make -f makefile.gcc
 cp -f "./_o/bin/7zz" "$release_version_dirpath/"
 
+ls -R "$source_dirpath/_o"
+
 echo "::endgroup::"
 
 cd "$release_version_dirpath"
