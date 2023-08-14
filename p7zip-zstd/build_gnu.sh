@@ -37,7 +37,8 @@ echo "::group::build"
 cd "$source_dirpath/CPP/7zip/Bundles/Alone2"
 make make CFLAGS_BASE_LIST="-c -static -D_7ZIP_AFFINITY_DISABLE=1 -DZ7_AFFINITY_DISABLE=1 -D_GNU_SOURCE=1" MY_ARCH="-static" -f makefile.gcc
 cp -vf "./_o/bin/7zz" "$release_version_dirpath/"
-cp -vr "./_o/lib/7z_addon_codec/." "$release_version_dirpath/"
+cp -vr "./_o/lib/7z_addon_codec/." "$release_version_dirpath/lib/"
+
 cp -vr "./_o/lib/7z_addon_codec/." "/lib/x86_64-linux-gnu/"
 
 echo "::endgroup::"
