@@ -5,7 +5,7 @@ set -e
 echo "::group::install deps"
 export DEBIAN_FRONTEND=noninteractive
 apt update
-apt install -y software-properties-common build-essential wget clang
+apt install -y software-properties-common build-essential wget gcc
 
 echo "::endgroup::"
 
