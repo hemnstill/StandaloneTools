@@ -37,11 +37,13 @@ echo "::group::build"
 cd "$source_dirpath/CPP/7zip/Bundles/Alone2"
 make -f makefile.gcc
 cp -vf "./_o/bin/7zz" "$release_version_dirpath/"
-cp -vr "./_o/lib/." "$release_version_dirpath/"
+cp -vr "./_o/lib/" "$release_version_dirpath/"
 
 echo "::endgroup::"
 
 cd "$release_version_dirpath"
+
+ldd 7zz
 
 strip 7zz
 
