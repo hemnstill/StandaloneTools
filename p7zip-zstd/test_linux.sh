@@ -1,5 +1,7 @@
 #!/bin/bash
 
+../.tools/install_alpine_glibc.sh
+
 cp -vr "../bin/lib/." "/lib/x86_64-linux-gnu/"
 
 testVersion() {
