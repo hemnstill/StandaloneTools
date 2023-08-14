@@ -25,11 +25,11 @@ jobs:
     with:
       workflow: ${{ github.workflow }}
 
-#  windows-mingw:
-#    if: ${{ vars.CURRENT_TOOL == github.workflow }}
-#    uses: ./.github/workflows/build-windows-msbuild.yml
-#    with:
-#      workflow: ${{ github.workflow }}
+  windows-mingw:
+    if: ${{ vars.CURRENT_TOOL == github.workflow }}
+    uses: ./.github/workflows/build-windows-msbuild.yml
+    with:
+      workflow: ${{ github.workflow }}
 #
 #  test-windows:
 #    needs: windows-mingw
