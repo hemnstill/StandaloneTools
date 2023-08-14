@@ -24,7 +24,7 @@ PROGPATH_STATIC = $(O)/$(PROG)s
 
 
 ifneq ($(CC), xlc)
-CFLAGS_WARN_WALL = -Werror -Wall -Wextra
+CFLAGS_WARN_WALL = -Wno-error -Wall -Wextra
 endif
 
 # for object file
@@ -39,7 +39,7 @@ CFLAGS_BASE = -O2 $(CFLAGS_BASE_LIST) $(CFLAGS_WARN_WALL) $(CFLAGS_WARN) \
 FLAGS_FLTO = -ffunction-sections
 FLAGS_FLTO = -flto
 FLAGS_FLTO =
-# 
+#
 # -DZ7_AFFINITY_DISABLE
 
 
