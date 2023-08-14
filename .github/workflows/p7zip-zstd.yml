@@ -21,7 +21,7 @@ jobs:
 
   ubuntu-gnu:
     if: ${{ vars.CURRENT_TOOL == github.workflow }}
-    uses: ./.github/workflows/build-ubuntu-agent.yml
+    uses: ./.github/workflows/build-ubuntu.yml
     with:
       workflow: ${{ github.workflow }}
 

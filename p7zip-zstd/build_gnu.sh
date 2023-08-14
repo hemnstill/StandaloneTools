@@ -5,8 +5,8 @@ set -e
 echo "::group::install deps"
 
 export DEBIAN_FRONTEND=noninteractive
-sudo apt update
-sudo apt install -y wget curl
+apt update
+apt install -y cmake build-essential wget curl patchelf gcc g++ execline
 
 echo "::endgroup::"
 
