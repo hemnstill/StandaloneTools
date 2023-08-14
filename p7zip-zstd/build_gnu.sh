@@ -35,9 +35,9 @@ echo "::endgroup::"
 echo "::group::build"
 
 cd "$source_dirpath/CPP/7zip/Bundles/Alone2"
-make CFLAGS_BASE_LIST="-c -static" -f makefile.gcc
+make -f makefile.gcc
 cp -vf "./_o/bin/7zz" "$release_version_dirpath/"
-cp -vr "./_o/lib/7z_addon_codec/." "$release_version_dirpath/"
+cp -vr "./_o/lib/." "$release_version_dirpath/"
 
 echo "::endgroup::"
 
