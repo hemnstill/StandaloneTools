@@ -3,29 +3,21 @@ name: p7zip-zstd
 on: [pull_request, workflow_dispatch]
 
 jobs:
-  alpine-musl:
-    if: ${{ vars.CURRENT_TOOL == github.workflow }}
-    uses: ./.github/workflows/build-alpine.yml
-    with:
-      workflow: ${{ github.workflow }}
-      toolset: musl
-      version: 3.16
-
-  alpine-musl-test:
-    needs: alpine-musl
+  alpine-test:
+    needs: ubuntu-gnu
     if: ${{ vars.CURRENT_TOOL == github.workflow }}
     uses: ./.github/workflows/test-alpine.yml
     with:
       workflow: ${{ github.workflow }}
-      artifact: build-musl
+      artifact: build-gnu
 
-  ubuntu-musl-test:
-    needs: alpine-musl
+  ubuntu-test:
+    needs: ubuntu-gnu
     if: ${{ vars.CURRENT_TOOL == github.workflow }}
     uses: ./.github/workflows/test-ubuntu.yml
     with:
       workflow: ${{ github.workflow }}
-      artifact: build-musl
+      artifact: build-gnu
 
   ubuntu-gnu:
     if: ${{ vars.CURRENT_TOOL == github.workflow }}
@@ -56,12 +48,14 @@ jobs:
 #      artifact: build-mingw
 
   release:
-    needs: [alpine-musl-test,
-            ubuntu-musl-test]
+    needs: [
+      alpine-test,
+      ubuntu-test
+    ]
     uses: ./.github/workflows/release.yml
     with:
       workflow: ${{ github.workflow }}
-      tool_version: '17.05'
+      tool_version: '22.00'
       prepare_body: |
         bsdtar -Oxf ./build-musl/build-musl.tar.gz build-musl.md >> body.md
         bsdtar -Oxf ./build-mingw/build-mingw.tar.gz build-mingw.md >> body.md
