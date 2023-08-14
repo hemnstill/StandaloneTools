@@ -1,5 +1,5 @@
 diff --git "a/CPP/7zip/7zip_gcc.mak" "b/CPP/7zip/7zip_gcc.mak"
-index 42fff6c..d17f554 100644
+index 42fff6c..16b8e60 100644
 --- "a/CPP/7zip/7zip_gcc.mak"
 +++ "b/CPP/7zip/7zip_gcc.mak"
 @@ -51,6 +51,8 @@ endif
@@ -107,7 +107,7 @@ index 42fff6c..d17f554 100644
  $O/BrotliDecoder.o: ../../Compress/BrotliDecoder.cpp
  	$(CXX) $(CXXFLAGS) $< -I ../../../../C/brotli/c/include
  $O/BrotliEncoder.o: ../../Compress/BrotliEncoder.cpp
-@@ -1378,53 +1385,6 @@ $O/BrotliEncoder.o: ../../Compress/BrotliEncoder.cpp
+@@ -1378,64 +1385,11 @@ $O/BrotliEncoder.o: ../../Compress/BrotliEncoder.cpp
  $O/BrotliRegister.o: ../../Compress/BrotliRegister.cpp
  	$(CXX) $(CXXFLAGS) $< -I ../../../../C/brotli/c/include
  
@@ -158,14 +158,13 @@ index 42fff6c..d17f554 100644
 -$O/LzhamRegister.o: ../../Compress/LzhamRegister.cpp
 -	$(CXX) $(CXXFLAGS) $< -I ../../../../C/lzham_codec/include
 -
- # Compile FastLzma2 method
- $O/libfast-lzma2.$(DYSUFFIX): ../../../../C/fast-lzma2/fast-lzma2.h
- 	$(MAKE) -C ../../../../C/fast-lzma2
-@@ -1432,10 +1392,12 @@ $O/libfast-lzma2.$(DYSUFFIX): ../../../../C/fast-lzma2/fast-lzma2.h
- 	$(CD) $O/$(7z_LIB)/$(7Z_ADDON_CODEC); \
- 	ln -sf libfast-lzma2.$(DYSUFFIX).1.0 libfast-lzma2.$(DYSUFFIX).1; \
- 	ln -sf libfast-lzma2.$(DYSUFFIX).1 libfast-lzma2.$(DYSUFFIX); \
-+
+-# Compile FastLzma2 method
+-$O/libfast-lzma2.$(DYSUFFIX): ../../../../C/fast-lzma2/fast-lzma2.h
+-	$(MAKE) -C ../../../../C/fast-lzma2
+-	$(CP) ../../../../C/fast-lzma2/libfast-lzma2.$(DYSUFFIX)* $O/$(7z_LIB)/$(7Z_ADDON_CODEC)
+-	$(CD) $O/$(7z_LIB)/$(7Z_ADDON_CODEC); \
+-	ln -sf libfast-lzma2.$(DYSUFFIX).1.0 libfast-lzma2.$(DYSUFFIX).1; \
+-	ln -sf libfast-lzma2.$(DYSUFFIX).1 libfast-lzma2.$(DYSUFFIX); \
  # only for 7zr
  $O/libfast-lzma2.a: ../../../../C/fast-lzma2/fast-lzma2.h
  	$(MAKE) -C ../../../../C/fast-lzma2
@@ -175,7 +174,7 @@ index 42fff6c..d17f554 100644
  
  $O/FastLzma2Register.o: ../../Compress/FastLzma2Register.cpp
  	$(CXX) $(CXXFLAGS) $<
-@@ -1469,7 +1431,4 @@ clean:
+@@ -1469,7 +1423,4 @@ clean:
  	$(RM) zstd_build
  	$(RM) lz4_build
  	$(RM) brotli_build
