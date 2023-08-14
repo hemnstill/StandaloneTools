@@ -1,5 +1,5 @@
 diff --git "a/CPP/7zip/7zip_gcc.mak" "b/CPP/7zip/7zip_gcc.mak"
-index 42fff6c..c12f93b 100644
+index 42fff6c..abb0810 100644
 --- "a/CPP/7zip/7zip_gcc.mak"
 +++ "b/CPP/7zip/7zip_gcc.mak"
 @@ -51,6 +51,8 @@ endif
@@ -53,7 +53,7 @@ index 42fff6c..c12f93b 100644
  
  LFLAGS_ALL = -s $(MY_ARCH_2) $(LDFLAGS) $(LD_arch) $(OBJS) $(MY_LIBS) $(LIB2)
 -$(PROGPATH): $(ZSTD_LIB) $(LZ4_LIB) $(BROTLI_LIB) $(LIZARD_LIB) $(LZ5_LIB) $(FAST-LZMA2_LIB) $(LZHAM_LIB) $(OBJS)
-+$(PROGPATH): $(ZSTD_LIB) $(LZ4_LIB) $(BROTLI_LIB) $(FAST-LZMA2_STATIC_LIB) $(OBJS)
++$(PROGPATH): $(ZSTD_LIB) $(LZ4_LIB) $(BROTLI_LIB) $(FAST-LZMA2_LIB) $(OBJS)
  	$(CXX) -o $(PROGPATH) $(LFLAGS_ALL) $(7z_ADDON_LIB) $(7z_ADDON_LIB_FLAG)
  
  $(PROGPATH_STATIC): $(OBJS)
@@ -161,7 +161,12 @@ index 42fff6c..c12f93b 100644
  # Compile FastLzma2 method
  $O/libfast-lzma2.$(DYSUFFIX): ../../../../C/fast-lzma2/fast-lzma2.h
  	$(MAKE) -C ../../../../C/fast-lzma2
-@@ -1436,6 +1396,7 @@ $O/libfast-lzma2.$(DYSUFFIX): ../../../../C/fast-lzma2/fast-lzma2.h
+@@ -1432,10 +1392,12 @@ $O/libfast-lzma2.$(DYSUFFIX): ../../../../C/fast-lzma2/fast-lzma2.h
+ 	$(CD) $O/$(7z_LIB)/$(7Z_ADDON_CODEC); \
+ 	ln -sf libfast-lzma2.$(DYSUFFIX).1.0 libfast-lzma2.$(DYSUFFIX).1; \
+ 	ln -sf libfast-lzma2.$(DYSUFFIX).1 libfast-lzma2.$(DYSUFFIX); \
++
+ # only for 7zr
  $O/libfast-lzma2.a: ../../../../C/fast-lzma2/fast-lzma2.h
  	$(MAKE) -C ../../../../C/fast-lzma2
  	$(CP) ../../../../C/fast-lzma2/libfast-lzma2.a $O
@@ -169,7 +174,7 @@ index 42fff6c..c12f93b 100644
  
  $O/FastLzma2Register.o: ../../Compress/FastLzma2Register.cpp
  	$(CXX) $(CXXFLAGS) $<
-@@ -1469,7 +1430,4 @@ clean:
+@@ -1469,7 +1431,4 @@ clean:
  	$(RM) zstd_build
  	$(RM) lz4_build
  	$(RM) brotli_build
