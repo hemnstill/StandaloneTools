@@ -29,6 +29,7 @@ curl --location "$download_url" --output "tool-$tool_version.tar.xz"
 "$bsdtar" -xf "tool-$tool_version.tar.xz" && cd "$source_dirpath"
 
 patch "$source_dirpath/CPP/7zip/7zip_gcc.mak" "$dp0/release/0001-static.patch"
+patch "$source_dirpath/CPP/7zip/Bundles/Format7zF/Arc_gcc.mak" "$dp0/release/0002-static.patch"
 
 echo "::endgroup::"
 

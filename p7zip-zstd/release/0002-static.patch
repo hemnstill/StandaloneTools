@@ -1,0 +1,61 @@
+diff --git "a/CPP/7zip/Bundles/Format7zF/Arc_gcc.mak" "b/CPP/7zip/Bundles/Format7zF/Arc_gcc.mak"
+index ab308cd..0360d81 100644
+--- "a/CPP/7zip/Bundles/Format7zF/Arc_gcc.mak"
++++ "b/CPP/7zip/Bundles/Format7zF/Arc_gcc.mak"
+@@ -37,12 +37,6 @@ MT_OBJS = \
+   $O/brotli-mt_common.o \
+   $O/brotli-mt_compress.o \
+   $O/brotli-mt_decompress.o \
+-  $O/lizard-mt_common.o \
+-  $O/lizard-mt_compress.o \
+-  $O/lizard-mt_decompress.o \
+-  $O/lz5-mt_common.o \
+-  $O/lz5-mt_compress.o \
+-  $O/lz5-mt_decompress.o \
+ 
+ endif
+ 
+@@ -145,8 +139,6 @@ AR_OBJS = \
+   $O/XzHandler.o \
+   $O/ZHandler.o \
+   $O/ZstdHandler.o \
+-  $O/LizardHandler.o \
+-  $O/Lz5Handler.o \
+   $O/Lz4Handler.o \
+ 
+ AR_COMMON_OBJS = \
+@@ -291,14 +283,7 @@ COMPRESS_OBJS = \
+   $O/BrotliDecoder.o \
+   $O/BrotliEncoder.o \
+   $O/BrotliRegister.o \
+-  $O/LizardDecoder.o \
+-  $O/LizardEncoder.o \
+-  $O/LizardRegister.o \
+-  $O/Lz5Decoder.o \
+-  $O/Lz5Encoder.o \
+-  $O/Lz5Register.o \
+   $O/FastLzma2Register.o \
+-  $O/LzhamRegister.o \
+ 
+ ifdef DISABLE_RAR
+ DISABLE_RAR_COMPRESS=1
+@@ -386,12 +371,7 @@ LZ4_LIB = $O/liblz4.$(DYSUFFIX)
+ BROTLI_LIB = $O/libbrotlienc.$(DYSUFFIX) \
+   $O/libbrotlidec.$(DYSUFFIX) \
+   $O/libbrotlicommon.$(DYSUFFIX)
+-LIZARD_LIB = $O/liblizard.$(DYSUFFIX)
+-LZ5_LIB = $O/liblz5.$(DYSUFFIX)
+ FAST-LZMA2_LIB = $O/libfast-lzma2.$(DYSUFFIX)
+-LZHAM_LIB = $O/liblzhamdll.$(DYSUFFIX) \
+-  $O/liblzhamdecomp.$(DYSUFFIX) \
+-  $O/liblzhamcomp.$(DYSUFFIX)
+ 
+ ADDED_HASH_OBJS = \
+   $O/md2.o \
+@@ -430,5 +410,5 @@ ARC_OBJS = \
+   $(COMPRESS_OBJS) \
+   $(CRYPTO_OBJS) \
+   $(7ZIP_COMMON_OBJS) \
+-  $(ADDED_HASH_OBJS) 
++  $(ADDED_HASH_OBJS)
+ 
