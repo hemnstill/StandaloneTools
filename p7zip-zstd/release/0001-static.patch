@@ -1,88 +1,13 @@
-From 944efeb02a5fcfc3141d96d7897601da5b815431 Mon Sep 17 00:00:00 2001
-From: Reshetnikov Alexandr <hemn.still@gmail.com>
-Date: Sun, 13 Aug 2023 22:53:57 +0400
-Subject: [PATCH] static
-
----
- CPP/7zip/7zip_gcc.mak | 16 ++++++++--------
- 1 file changed, 8 insertions(+), 8 deletions(-)
-
-diff --git a/CPP/7zip/7zip_gcc.mak b/CPP/7zip/7zip_gcc.mak
-index 42fff6c..13f636f 100644
---- a/CPP/7zip/7zip_gcc.mak
-+++ b/CPP/7zip/7zip_gcc.mak
-@@ -94,7 +94,7 @@ endif
+diff --git "a/CPP/7zip/7zip_gcc.mak" "b/CPP/7zip/7zip_gcc.mak"
+index 42fff6c..76cb2d0 100644
+--- "a/CPP/7zip/7zip_gcc.mak"
++++ "b/CPP/7zip/7zip_gcc.mak"
+@@ -51,6 +51,8 @@ endif
+ endif
+ endif
  
- PROGPATH = $(O)/$(PROG)$(SHARED_EXT)
- PROGPATH_STATIC = $(O)/$(PROG)s$(SHARED_EXT)
--	
++LDFLAGS_STATIC_2 = -static
 +
- ifdef IS_MINGW
+ LDFLAGS_STATIC = -DNDEBUG $(LDFLAGS_STATIC_2)
  
- RM = del
-@@ -106,7 +106,7 @@ CXXFLAGS_EXTRA = -DUNICODE -D_UNICODE
- # -Wno-delete-non-virtual-dtor
- 
- DEL_OBJ_EXE = -$(RM) $(O)\*.o $(O)\$(PROG).exe $(O)\$(PROG).dll
-- 
-+
- else
- 
- RM = rm -rf
-@@ -1289,7 +1289,7 @@ $O/sha512.o: ../../../../C/hashes/sha512.c
- $O/blake3.o: ../../../../C/hashes/blake3.c
- 	$(CC) $(CFLAGS) $<
- 
--# Build MT API 
-+# Build MT API
- $O/lz4-mt_common.o: ../../../../C/zstdmt/lz4-mt_common.c
- 	$(CC) $(CFLAGS) $<
- $O/lz4-mt_compress.o: ../../../../C/zstdmt/lz4-mt_compress.c
-@@ -1319,7 +1319,7 @@ $O/lz5-mt_decompress.o: ../../../../C/zstdmt/lz5-mt_decompress.c
- # Build zstd lib static and dynamic
- $O/libzstd.$(DYSUFFIX): ../../../../C/zstd/lib/zstd.h
- 	$(RM) zstd_build
--	$(MY_MKDIR) -p zstd_build
-+	$(MY_MKDIR) zstd_build
- 	$(CD) zstd_build; \
- 	cmake ../../../../../C/zstd/build/cmake -DCMAKE_BUILD_TYPE=Release -DZSTD_BUILD_PROGRAMS=OFF -DZSTD_BUILD_STATIC=OFF -DCMAKE_C_COMPILER=$(CC) -DCMAKE_CXX_COMPILER=$(CXX); \
- 	$(MAKE) -j; \
-@@ -1339,7 +1339,7 @@ $O/ZstdHandler.o: ../../Archive/ZstdHandler.cpp
- # Build lz4 lib static and dynamic
- $O/liblz4.$(DYSUFFIX): ../../../../C/lz4/lib/lz4.h
- 	$(RM) lz4_build
--	$(MY_MKDIR) -p lz4_build
-+	$(MY_MKDIR)  lz4_build
- 	$(CD) lz4_build; \
- 	cmake ../../../../../C/lz4/build/cmake -DCMAKE_BUILD_TYPE=Release -DLZ4_BUILD_CLI=OFF -DLZ4_BUILD_LEGACY_LZ4C=OFF -DCMAKE_C_COMPILER=$(CC) -DCMAKE_CXX_COMPILER=$(CXX); \
- 	$(MAKE) -j; \
-@@ -1359,7 +1359,7 @@ $O/Lz4Handler.o: ../../Archive/Lz4Handler.cpp
- # Build brotli lib static and dynamic
- $O/libbrotlicommon.$(DYSUFFIX) $O/libbrotlienc.$(DYSUFFIX) $O/libbrotlidec.$(DYSUFFIX): ../../../../C/brotli/c/include/brotli/decode.h
- 	$(RM) brotli_build
--	$(MY_MKDIR) -p brotli_build
-+	$(MY_MKDIR) brotli_build
- 	$(CD) brotli_build; \
- 	cmake ../../../../../C/brotli/ -DCMAKE_BUILD_TYPE=Release -DBUILD_TESTING=OFF -DCMAKE_C_COMPILER=$(CC) -DCMAKE_CXX_COMPILER=$(CXX); \
- 	$(MAKE) -j; \
-@@ -1370,7 +1370,7 @@ $O/libbrotlicommon.$(DYSUFFIX) $O/libbrotlienc.$(DYSUFFIX) $O/libbrotlidec.$(DYS
- 	patchelf --force-rpath --set-rpath '$$ORIGIN/' $O/$(7z_LIB)/$(7Z_ADDON_CODEC)/libbrotlidec.$(DYSUFFIX)*
- 	patchelf --force-rpath --set-rpath '$$ORIGIN/' $O/$(7z_LIB)/$(7Z_ADDON_CODEC)/libbrotlienc.$(DYSUFFIX)*
- 
--# Compile brotli method and Handler 
-+# Compile brotli method and Handler
- $O/BrotliDecoder.o: ../../Compress/BrotliDecoder.cpp
- 	$(CXX) $(CXXFLAGS) $< -I ../../../../C/brotli/c/include
- $O/BrotliEncoder.o: ../../Compress/BrotliEncoder.cpp
-@@ -1411,7 +1411,7 @@ $O/Lz5Handler.o: ../../Archive/Lz5Handler.cpp
- # Build lzham lib static and dynamic
- $O/liblzhamdll.$(DYSUFFIX) $O/liblzhamcomp.$(DYSUFFIX) $O/liblzhamdecomp.$(DYSUFFIX): ../../../../C/lzham_codec/lzhamdll/lzham_api.cpp
- 	$(RM) lzham_build
--	$(MY_MKDIR) -p lzham_build
-+	$(MY_MKDIR) lzham_build
- 	$(CD) lzham_build; \
- 	cmake ../../../../../C/lzham_codec/ -DCMAKE_BUILD_TYPE=Release -DCMAKE_C_COMPILER=$(CC) -DCMAKE_CXX_COMPILER=$(CXX); \
- 	$(MAKE) -j; \
--- 
-2.37.2.windows.2
-
+ ifndef O

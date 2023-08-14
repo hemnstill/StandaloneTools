@@ -28,6 +28,8 @@ bsdtar="$dp0/release/bsdtar"
 curl --location "$download_url" --output "tool-$tool_version.tar.xz"
 "$bsdtar" -xf "tool-$tool_version.tar.xz" && cd "$source_dirpath"
 
+patch "$source_dirpath/CPP/7zip/7zip_gcc.mak" "$dp0/release/0001-static.patch"
+
 echo "::endgroup::"
 
 echo "::group::build"
