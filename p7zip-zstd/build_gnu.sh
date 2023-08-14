@@ -37,7 +37,8 @@ echo "::group::build"
 cd "$source_dirpath/CPP/7zip/Bundles/Alone2"
 make -f makefile.gcc
 cp -vf "./_o/bin/7zz" "$release_version_dirpath/"
-cp -vr "./_o/lib/" "$release_version_dirpath/"
+cp -vr "./_o/lib/7z_addon_codec/." "$release_version_dirpath/"
+cp -vr "./_o/lib/7z_addon_codec/." "/lib/x86_64-linux-gnu/"
 
 echo "::endgroup::"
 
