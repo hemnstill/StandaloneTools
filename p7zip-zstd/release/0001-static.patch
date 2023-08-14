@@ -1,5 +1,5 @@
 diff --git "a/CPP/7zip/7zip_gcc.mak" "b/CPP/7zip/7zip_gcc.mak"
-index 42fff6c..5af2c57 100644
+index 42fff6c..3fb1c1e 100644
 --- "a/CPP/7zip/7zip_gcc.mak"
 +++ "b/CPP/7zip/7zip_gcc.mak"
 @@ -51,6 +51,8 @@ endif
@@ -51,7 +51,12 @@ index 42fff6c..5af2c57 100644
  
  # Compile zstd method and Handler
  $O/ZstdDecoder.o: ../../Compress/ZstdDecoder.cpp
-@@ -1345,6 +1348,7 @@ $O/liblz4.$(DYSUFFIX): ../../../../C/lz4/lib/lz4.h
+@@ -1341,10 +1344,11 @@ $O/liblz4.$(DYSUFFIX): ../../../../C/lz4/lib/lz4.h
+ 	$(RM) lz4_build
+ 	$(MY_MKDIR) -p lz4_build
+ 	$(CD) lz4_build; \
+-	cmake ../../../../../C/lz4/build/cmake -DCMAKE_BUILD_TYPE=Release -DLZ4_BUILD_CLI=OFF -DLZ4_BUILD_LEGACY_LZ4C=OFF -DCMAKE_C_COMPILER=$(CC) -DCMAKE_CXX_COMPILER=$(CXX); \
++	cmake ../../../../../C/lz4/build/cmake -DCMAKE_BUILD_TYPE=Release -DBUILD_STATIC_LIBS=ON -DLZ4_BUILD_CLI=OFF -DLZ4_BUILD_LEGACY_LZ4C=OFF -DCMAKE_C_COMPILER=$(CC) -DCMAKE_CXX_COMPILER=$(CXX); \
  	$(MAKE) -j; \
  	$(CD) ../; \
  	$(CP) lz4_build/liblz4.$(DYSUFFIX)* $O/$(7z_LIB)/$(7Z_ADDON_CODEC)
