@@ -1,5 +1,5 @@
 diff --git "a/CPP/7zip/7zip_gcc.mak" "b/CPP/7zip/7zip_gcc.mak"
-index 42fff6c..1c811c4 100644
+index 42fff6c..eb8554e 100644
 --- "a/CPP/7zip/7zip_gcc.mak"
 +++ "b/CPP/7zip/7zip_gcc.mak"
 @@ -51,6 +51,8 @@ endif
@@ -29,6 +29,34 @@ index 42fff6c..1c811c4 100644
  else
  
  RM = rm -rf
+@@ -192,15 +194,15 @@ endif
+ 7z_BIN = bin
+ 7z_LIB = lib
+ ifeq ($(PROG), 7za)
+-7z_ADDON_LIB = -lzstd -llz4 -lbrotlienc -lbrotlidec -lbrotlicommon -llizard -llz5 -lfast-lzma2 -llzhamcomp -llzhamdecomp -llzhamdll
++7z_ADDON_LIB = -lzstd -llz4 -lbrotlienc -lbrotlidec -lbrotlicommon -llizard -llz5 -lfast-lzma2
+ 7z_ADDON_LIB_FLAG = -L./$(O)/$(7z_LIB)/$(7Z_ADDON_CODEC) -Wl,-rpath='$$ORIGIN'/../$(7z_LIB)/$(7Z_ADDON_CODEC)
+ PROGPATH = $(O)/$(7z_BIN)/$(PROG)$(SHARED_EXT)
+ else ifeq ($(PROG), 7zz)
+-7z_ADDON_LIB = -lzstd -llz4 -lbrotlienc -lbrotlidec -lbrotlicommon -llizard -llz5 -lfast-lzma2 -llzhamcomp -llzhamdecomp -llzhamdll
++7z_ADDON_LIB = -lzstd -llz4 -lbrotlienc -lbrotlidec -lbrotlicommon -llizard -llz5 -lfast-lzma2
+ 7z_ADDON_LIB_FLAG = -L./$(O)/$(7z_LIB)/$(7Z_ADDON_CODEC) -Wl,-rpath='$$ORIGIN'/../$(7z_LIB)/$(7Z_ADDON_CODEC)
+ PROGPATH = $(O)/$(7z_BIN)/$(PROG)$(SHARED_EXT)
+ else ifeq ($(PROG), 7z)
+-7z_ADDON_LIB = -lzstd -llz4 -lbrotlienc -lbrotlidec -lbrotlicommon -llizard -llz5 -lfast-lzma2 -llzhamcomp -llzhamdecomp -llzhamdll
++7z_ADDON_LIB = -lzstd -llz4 -lbrotlienc -lbrotlidec -lbrotlicommon -llizard -llz5 -lfast-lzma2
+ 7z_ADDON_LIB_FLAG = -L./$(O)/$(7z_LIB)/$(7Z_ADDON_CODEC) -Wl,-rpath='$$ORIGIN'/$(7Z_ADDON_CODEC)
+ PROGPATH = $(O)/$(7z_LIB)/$(PROG)$(SHARED_EXT)
+ else
+@@ -217,7 +219,7 @@ $(7Z_ADDON_CODEC):
+ 	$(MY_MKDIR) $(O)/$(7z_LIB)/$(7Z_ADDON_CODEC)
+ 
+ LFLAGS_ALL = -s $(MY_ARCH_2) $(LDFLAGS) $(LD_arch) $(OBJS) $(MY_LIBS) $(LIB2)
+-$(PROGPATH): $(ZSTD_LIB) $(LZ4_LIB) $(BROTLI_LIB) $(LIZARD_LIB) $(LZ5_LIB) $(FAST-LZMA2_LIB) $(LZHAM_LIB) $(OBJS)
++$(PROGPATH): $(ZSTD_LIB) $(LZ4_LIB) $(BROTLI_LIB) $(LIZARD_LIB) $(LZ5_LIB) $(FAST-LZMA2_LIB) $(OBJS)
+ 	$(CXX) -o $(PROGPATH) $(LFLAGS_ALL) $(7z_ADDON_LIB) $(7z_ADDON_LIB_FLAG)
+ 
+ $(PROGPATH_STATIC): $(OBJS)
 @@ -1289,7 +1291,7 @@ $O/sha512.o: ../../../../C/hashes/sha512.c
  $O/blake3.o: ../../../../C/hashes/blake3.c
  	$(CC) $(CFLAGS) $<
@@ -79,3 +107,34 @@ index 42fff6c..1c811c4 100644
  $O/BrotliDecoder.o: ../../Compress/BrotliDecoder.cpp
  	$(CXX) $(CXXFLAGS) $< -I ../../../../C/brotli/c/include
  $O/BrotliEncoder.o: ../../Compress/BrotliEncoder.cpp
+@@ -1408,22 +1415,6 @@ $O/Lz5Register.o: ../../Compress/Lz5Register.cpp
+ $O/Lz5Handler.o: ../../Archive/Lz5Handler.cpp
+ 	$(CXX) $(CXXFLAGS) $<
+ 
+-# Build lzham lib static and dynamic
+-$O/liblzhamdll.$(DYSUFFIX) $O/liblzhamcomp.$(DYSUFFIX) $O/liblzhamdecomp.$(DYSUFFIX): ../../../../C/lzham_codec/lzhamdll/lzham_api.cpp
+-	$(RM) lzham_build
+-	$(MY_MKDIR) -p lzham_build
+-	$(CD) lzham_build; \
+-	cmake ../../../../../C/lzham_codec/ -DCMAKE_BUILD_TYPE=Release -DCMAKE_C_COMPILER=$(CC) -DCMAKE_CXX_COMPILER=$(CXX); \
+-	$(MAKE) -j; \
+-	$(CD) ../; \
+-	$(CP) lzham_build/lzhamcomp/liblzhamcomp.$(DYSUFFIX)* $O/$(7z_LIB)/$(7Z_ADDON_CODEC)
+-	$(CP) lzham_build/lzhamdecomp/liblzhamdecomp.$(DYSUFFIX)* $O/$(7z_LIB)/$(7Z_ADDON_CODEC)
+-	$(CP) lzham_build/lzhamdll/liblzhamdll.$(DYSUFFIX)* $O/$(7z_LIB)/$(7Z_ADDON_CODEC)
+-	patchelf --force-rpath --set-rpath '$$ORIGIN/' $O/$(7z_LIB)/$(7Z_ADDON_CODEC)/liblzhamdll.$(DYSUFFIX)*
+-
+-# Compile lzham register
+-$O/LzhamRegister.o: ../../Compress/LzhamRegister.cpp
+-	$(CXX) $(CXXFLAGS) $< -I ../../../../C/lzham_codec/include
+ 
+ # Compile FastLzma2 method
+ $O/libfast-lzma2.$(DYSUFFIX): ../../../../C/fast-lzma2/fast-lzma2.h
+@@ -1469,7 +1460,6 @@ clean:
+ 	$(RM) zstd_build
+ 	$(RM) lz4_build
+ 	$(RM) brotli_build
+-	$(RM) lzham_build
+ 	$(RM) b
+ 	$(MAKE) -C ../../../../C/lizard/lib clean
+ 	$(MAKE) -C ../../../../C/lz5/lib clean
