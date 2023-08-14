@@ -1,9 +1,5 @@
 #!/bin/bash
 
-../.tools/install_alpine_glibc.sh
-
-cp -vr "../bin/lib/." "/lib/x86_64-linux-gnu/"
-
 testVersion() {
   assertEquals "
 7-Zip (z) 22.00 ZS v1.5.2 (x64) : Copyright (c) 1999-2022 Igor Pavlov : 2022-06-15" "$(../bin/7zz | head -2)"
