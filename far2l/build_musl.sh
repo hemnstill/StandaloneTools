@@ -21,7 +21,9 @@ apk add --no-cache \
   neon-dev \
   spdlog-dev \
   xerces-c-dev \
-  uchardet-static
+  libexecinfo-dev \
+  uchardet-static \
+  libexecinfo-static
 
 echo "::endgroup::"
 
