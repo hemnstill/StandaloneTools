@@ -10,7 +10,7 @@ apk add --no-cache alpine-sdk python3-dev bash
 export LC_ALL=en_US.UTF-8
 
 tool_name="ansible"
-tool_version="8.1.0"
+tool_version="8.3.0"
 tool_lint_version="6.17.2"
 python_self_name="python-3.11.3"
 self_name="$tool_name-$tool_version"
@@ -42,6 +42,9 @@ echo "prepare build artifacts ..."
 
 cp -f "$dp0/release/__main__ansible.py" "$release_version_dirpath/"
 cp -f "$dp0/release/_ansible" "$release_version_dirpath/Scripts/bin/ansible"
+
+cp -f "$dp0/release/__main__ansible-vault.py" "$release_version_dirpath/"
+cp -f "$dp0/release/ansible-vault" "$release_version_dirpath/Scripts/bin/"
 
 cp -f "$dp0/release/__main__ansible-config.py" "$release_version_dirpath/"
 cp -f "$dp0/release/ansible-config" "$release_version_dirpath/Scripts/bin/"
@@ -87,7 +90,10 @@ cd "$release_version_dirpath"
 
 %s
 
+%s
+
 ' "$("./Scripts/bin/$tool_name" --version)" \
+  "$("./Scripts/bin/ansible-vault" --version | head -1)" \
   "$("./Scripts/bin/ansible-config" --version | head -1)" \
   "$("./Scripts/bin/ansible-playbook" --version | head -1)" \
   "$("./Scripts/bin/ansible-inventory" --version | head -1)" \

@@ -4,7 +4,7 @@ set -e
 
 tool_name="ansible"
 # version_tests: no_tool_version
-alpine_version="3.18.0"
+alpine_version="3.18.3"
 self_name="$tool_name-alpine-$alpine_version"
 image_name="$self_name:latest"
 
