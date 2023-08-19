@@ -1,6 +1,6 @@
 #!/bin/bash
 
-alpine_version="3.18.0"
+alpine_version="3.18.3"
 self_name="ansible-alpine-$alpine_version"
 image_name="$self_name:latest"
 
