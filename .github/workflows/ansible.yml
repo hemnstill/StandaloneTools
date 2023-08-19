@@ -9,7 +9,7 @@ jobs:
     with:
       workflow: ${{ github.workflow }}
       toolset: gnu
-      version: 3.18.0
+      version: 3.18.3
 
   ubuntu-docker:
     if: ${{ vars.CURRENT_TOOL == github.workflow }}
