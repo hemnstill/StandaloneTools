@@ -27,7 +27,7 @@ python_download_zip="$dp0/release/$python_self_name.tar.gz"
 bsdtar="$dp0/release/bsdtar"
 
 cpython_bin="$release_version_dirpath/Scripts/bin/python3"
-cpython_lib_path="$release_version_dirpath/Scripts/lib/python3.10/site-packages"
+cpython_lib_path="$release_version_dirpath/Scripts/lib/python3.11/site-packages"
 [[ ! -f "$cpython_bin" ]] && "$bsdtar" -xf "$python_download_zip" -C "$release_version_dirpath"
 
 echo "install ansbile ..."
