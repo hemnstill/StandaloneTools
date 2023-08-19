@@ -19,7 +19,7 @@ test_version() {
 }
 
 test_ansible_galaxy_version() {
-  assertEquals "ansible-galaxy [core 2.15.3]" "$(docker run --rm $image_name ansible-galaxy --version | head -1)"
+  assertEquals "ansible-galaxy [core 2.14.5]" "$(docker run --rm $image_name ansible-galaxy --version | head -1)"
 }
 
 test_ansible_lint_version() {
