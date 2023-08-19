@@ -43,6 +43,9 @@ echo "prepare build artifacts ..."
 cp -f "$dp0/release/__main__ansible.py" "$release_version_dirpath/"
 cp -f "$dp0/release/_ansible" "$release_version_dirpath/Scripts/bin/ansible"
 
+cp -f "$dp0/release/__main__ansible-vault.py" "$release_version_dirpath/"
+cp -f "$dp0/release/ansible-vault" "$release_version_dirpath/Scripts/bin/"
+
 cp -f "$dp0/release/__main__ansible-config.py" "$release_version_dirpath/"
 cp -f "$dp0/release/ansible-config" "$release_version_dirpath/Scripts/bin/"
 
