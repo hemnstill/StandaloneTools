@@ -7,7 +7,7 @@ image_name="$self_name:latest"
 docker load --input "../bin/$self_name.tar.gz"
 
 test_version() {
-  assertEquals "ansible [core 2.14.5]
+  assertEquals "ansible [core 2.15.3]
   config file = None
   configured module search path = ['/root/.ansible/plugins/modules', '/usr/share/ansible/plugins/modules']
   ansible python module location = /usr/lib/python3.11/site-packages/ansible
@@ -19,11 +19,11 @@ test_version() {
 }
 
 test_ansible_galaxy_version() {
-  assertEquals "ansible-galaxy [core 2.14.5]" "$(docker run --rm $image_name ansible-galaxy --version | head -1)"
+  assertEquals "ansible-galaxy [core 2.15.3]" "$(docker run --rm $image_name ansible-galaxy --version | head -1)"
 }
 
 test_ansible_lint_version() {
-  assertEquals "ansible-lint 6.17.2 using ansible-core:2.14.5 ansible-compat:4.0.4 ruamel-yaml:0.17.32 ruamel-yaml-clib:0.2.7" "$(docker run --rm $image_name ansible-lint --version | head -1)"
+  assertEquals "ansible-lint 6.17.2 using ansible-core:2.15.3 ansible-compat:4.1.6 ruamel-yaml:0.17.32 ruamel-yaml-clib:0.2.7" "$(docker run --rm $image_name ansible-lint --version | head -1)"
 }
 
 # Load and run shUnit2.
