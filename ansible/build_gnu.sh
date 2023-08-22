@@ -36,6 +36,8 @@ echo "install ansbile ..."
 "python3" -m pip install --target="$cpython_lib_path" cffi
 
 "$cpython_bin" -m pip install "$tool_name==$tool_version"
+# required by ansible-vault
+"$cpython_bin" -m pip install cryptography
 "$cpython_bin" -m pip install "ansible-lint==$tool_lint_version"
 
 echo "prepare build artifacts ..."
