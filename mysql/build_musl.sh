@@ -49,7 +49,7 @@ make
 
 ls -R
 
-cp -rf "./runtime_output_directory/." "$release_version_dirpath/"
+cp -rf "./utilities/runtime_output_directory/." "$release_version_dirpath/"
 
 cd "$release_version_dirpath"
 
