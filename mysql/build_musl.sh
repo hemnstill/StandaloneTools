@@ -25,4 +25,10 @@ bsdtar="$dp0/release/bsdtar"
 wget "$download_url" -O "tool-$tool_version.tar.gz"
 "$bsdtar" -xf "tool-$tool_version.tar.gz" && cd "mysql-server-mysql-$tool_version"
 
+echo "::endgroup::"
+
+echo "::group::build"
+
 cmake --build . --config Release
+
+echo "::endgroup::"
