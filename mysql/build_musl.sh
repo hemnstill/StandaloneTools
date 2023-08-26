@@ -27,6 +27,8 @@ bsdtar="$dp0/release/bsdtar"
 wget "$download_url" -O "tool-$tool_version.tar.gz"
 "$bsdtar" -xf "tool-$tool_version.tar.gz" && cd "mysql-server-mysql-$tool_version"
 
+patch "$dp0/libmysql/CMakeLists.txt" "$dp0/release/mysql-connector-c-8.0.27-res_n.patch"
+
 echo "::endgroup::"
 
 echo "::group::build"
@@ -41,6 +43,7 @@ cmake . \
   -DWITH_BUILD_ID=0 \
   -DREPRODUCIBLE_BUILD=1 \
   -DBUILD_CONFIG=mysql_release
+
 make
 
 echo "::endgroup::"
