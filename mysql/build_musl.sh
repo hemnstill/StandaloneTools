@@ -12,7 +12,7 @@ apk add --no-cache libaio-dev eudev-dev openldap-dev
 echo "::endgroup::"
 
 tool_name="mysql"
-tool_version="8.0.34"
+tool_version="8.1.0"
 self_toolset_name="build-musl"
 release_version_dirpath="$dp0/release/build"
 
