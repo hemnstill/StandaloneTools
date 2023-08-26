@@ -6,6 +6,7 @@ echo "::group::install deps"
 
 apk update
 apk add --no-cache alpine-sdk linux-headers cmake
+apk add --no-cache build-base autoconf openssl-dev ncurses-dev
 apk add --no-cache libaio-dev boost-dev
 
 echo "::endgroup::"
