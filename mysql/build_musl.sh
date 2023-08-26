@@ -6,7 +6,7 @@ echo "::group::install deps"
 
 apk update
 apk add --no-cache alpine-sdk linux-headers build-base autoconf cmake
-apk add --no-cache libaio-dev eudev-dev openldap-dev openssl-dev ncurses-dev
+apk add --no-cache libaio-dev eudev-dev openldap-dev openssl-dev ncurses-dev zstd-dev
 
 echo "::endgroup::"
 
@@ -41,8 +41,7 @@ cmake . -LH \
   -DBUILD_STATIC=1 \
   -DBUILD_SHARED_LIBS=0 \
   -DMYSQLCLIENT_STATIC_LINKING=1 \
-  -DCMAKE_EXE_LINKER_FLAGS="-static -static-libgcc -static-libstdc++" \
-  -DWITH_ZSTD="system" \
+  -DCMAKE_EXE_LINKER_FLAGS="-static" \
   -DBUNDLE_DEPENDENCIES=1 \
   -DWITH_UNIT_TESTS=0 \
   -DWITH_BUILD_ID=0 \
