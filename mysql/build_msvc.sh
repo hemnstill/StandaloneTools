@@ -32,6 +32,7 @@ cmake . -LH \
   -DFORCE_INSOURCE_BUILD=1 \
   -DWITHOUT_SERVER=1 \
   -DWITH_EMBEDDED_SHARED_LIBRARY=1 \
+  -DBUILD_STATIC=1 \
   -DWITH_UNIT_TESTS=0 \
   -DWITH_BUILD_ID=0 \
   -DREPRODUCIBLE_BUILD=1 \
@@ -39,7 +40,7 @@ cmake . -LH \
   -DCMAKE_BUILD_TYPE=Release \
   -DBUILD_CONFIG=mysql_release
 
-devenv MySQL.sln /build Release
+cmake --build . --config Release
 
 cp -rf "./runtime_output_directory/." "$release_version_dirpath/"
 
