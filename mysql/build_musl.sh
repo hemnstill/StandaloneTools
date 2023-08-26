@@ -29,7 +29,7 @@ echo "::endgroup::"
 
 echo "::group::build"
 
-cmake . -LH
-cmake -DFORCE_INSOURCE_BUILD=ON -DWITH_EMBEDDED_SHARED_LIBRARY=ON -DBUILD_CONFIG=mysql_release --build .
+cmake . -LH -DFORCE_INSOURCE_BUILD=ON -DWITH_EMBEDDED_SHARED_LIBRARY=ON -DBUILD_CONFIG=mysql_release
+cmake  --build .
 
 echo "::endgroup::"
