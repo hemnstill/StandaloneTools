@@ -7,6 +7,7 @@ echo "::group::install deps"
 apk update
 apk add --no-cache alpine-sdk linux-headers build-base autoconf cmake
 apk add --no-cache libaio-dev eudev-dev openldap-dev openssl-dev openssl-libs-static ncurses-dev zstd-dev
+apk add --no-cache pkgconf
 
 echo "::endgroup::"
 
@@ -49,6 +50,8 @@ cmake . -LH \
   -DREPRODUCIBLE_BUILD=1 \
   -DCMAKE_BUILD_TYPE=Release \
   -DBUILD_CONFIG=mysql_release
+
+pkg-config --static --libs mysqlclient
 
 cmake --build . --config Release
 
