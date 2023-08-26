@@ -7,7 +7,7 @@ export DEBIAN_FRONTEND=noninteractive
 echo "::group::install deps"
 
 apt update
-apt install -y build-essential cmake
+apt install -y build-essential cmake wget
 apt install -y libaio-dev libudev-dev libssl-dev ncurses-dev
 
 echo "::endgroup::"
