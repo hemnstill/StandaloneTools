@@ -5,7 +5,7 @@ set -e
 echo "::group::install deps"
 
 apk update
-apk add --no-cache build-base cmake
+apk add --no-cache linux-headers build-base cmake
 apk add --no-cache libaio-dev eudev-dev openldap-dev openssl-dev ncurses-dev
 
 echo "::endgroup::"
