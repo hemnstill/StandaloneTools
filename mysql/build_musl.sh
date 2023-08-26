@@ -6,6 +6,7 @@ echo "::group::install deps"
 
 apk update
 apk add --no-cache alpine-sdk linux-headers cmake
+apk add --no-cache libaio-dev
 
 echo "::endgroup::"
 
@@ -30,6 +31,5 @@ echo "::endgroup::"
 echo "::group::build"
 
 cmake . -LH -DFORCE_INSOURCE_BUILD=ON -DWITH_EMBEDDED_SHARED_LIBRARY=ON -DBUILD_CONFIG=mysql_release
-cmake  --build .
 
 echo "::endgroup::"
