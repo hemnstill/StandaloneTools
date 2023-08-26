@@ -7,7 +7,7 @@ is_ubuntu_os=false && [[ -f "/etc/lsb-release" ]] && is_ubuntu_os=true
 
 if [[ "$is_alpine_os" == true ]]; then
   apk update
-  apk add --no-cache libssl1.1
+  apk add --no-cache libssl1.1 libcrypto1.1
 
   export LC_ALL=en_US.UTF-8
 fi
