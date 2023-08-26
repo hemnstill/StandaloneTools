@@ -8,3 +8,10 @@ jobs:
     uses: ./.github/workflows/build-alpine.yml
     with:
       workflow: ${{ github.workflow }}
+
+  windows-mingw:
+    if: ${{ vars.CURRENT_TOOL == github.workflow }}
+    uses: ./.github/workflows/build-windows.yml
+    with:
+      workflow: ${{ github.workflow }}
+      toolset: msvc
