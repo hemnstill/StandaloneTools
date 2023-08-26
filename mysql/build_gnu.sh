@@ -8,7 +8,7 @@ echo "::group::install deps"
 
 apt update
 apt install -y build-essential cmake
-apt install -y libaio-dev libudev-dev openldap-dev openssl-dev ncurses-dev zstd-dev
+apt install -y libaio-dev libudev-dev libssl-dev ncurses-dev
 
 echo "::endgroup::"
 
