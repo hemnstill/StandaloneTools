@@ -30,6 +30,6 @@ echo "::endgroup::"
 
 echo "::group::build"
 
-cmake . -LH -DFORCE_INSOURCE_BUILD=ON -DWITH_EMBEDDED_SHARED_LIBRARY=ON -DBUILD_CONFIG=mysql_release
+cmake . -LH -DFORCE_INSOURCE_BUILD=ON -DWITHOUT_SERVER:BOOL=ON -DWITH_EMBEDDED_SHARED_LIBRARY=ON -DBUILD_CONFIG=mysql_release
 
 echo "::endgroup::"
