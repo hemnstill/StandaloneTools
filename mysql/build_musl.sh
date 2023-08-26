@@ -43,6 +43,7 @@ cmake . -LH \
   -DWITH_UNIT_TESTS=0 \
   -DWITH_BUILD_ID=0 \
   -DREPRODUCIBLE_BUILD=1 \
+  -DCMAKE_BUILD_TYPE=Release \
   -DBUILD_CONFIG=mysql_release
 
 make
