@@ -39,14 +39,14 @@ cmake . -LH \
   -DCMAKE_BUILD_TYPE=Release \
   -DBUILD_CONFIG=mysql_release
 
-cmake --build .
+cmake --build . --config Release
 
 cp -rf "./runtime_output_directory/." "$release_version_dirpath/"
 
 
 cd "$release_version_dirpath"
 
-find . -mindepth 1 -maxdepth 1 -name '*test' -exec rm -f "{}" \;
+find . -mindepth 1 -maxdepth 1 -name '*test.exe' -exec rm -f "{}" \;
 
 { printf '%s
 ### %s
