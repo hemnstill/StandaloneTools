@@ -27,7 +27,7 @@ bsdtar="$dp0/release/bsdtar"
 wget "$download_url" -O "tool-$tool_version.tar.gz"
 "$bsdtar" -xf "tool-$tool_version.tar.gz" && cd "mysql-server-mysql-$tool_version"
 
-patch "./libmysql/CMakeLists.txt" "$dp0/release/mysql-connector-c-8.0.27-res_n.patch"
+patch "./libmysql/dns_srv.cc" "$dp0/release/mysql-connector-c-8.0.27-res_n.patch"
 
 echo "::endgroup::"
 
