@@ -1,0 +1,23 @@
+# commit dcfbe3e4b7ad1ded9b17fa04743e9f97b8aad9fa
+# Author: Sam James <sam@gentoo.org>
+# Date:   Sun Apr 9 04:04:06 2023 +0100
+#
+#     sql/memory: Fix build on musl
+#
+#     _SC_LEVEL1_DCACHE_LINESIZE is not always available on Linux, e.g. with musl libc.
+#
+#     It's provided by glibc instead and is a glibc-internal.
+#
+# diff --git a/sql/memory/aligned_atomic.h b/sql/memory/aligned_atomic.h
+# index d13d45b9dee..bd19c0cf4d6 100644
+--- a/sql/memory/aligned_atomic.h
++++ b/sql/memory/aligned_atomic.h
+@@ -76,7 +76,7 @@ static inline size_t _cache_line_size() {
+   return line_size;
+ }
+
+-#elif defined(__linux__)
++#elif defined(__GLIBC__)
+ static inline size_t _cache_line_size() {
+   long size = sysconf(_SC_LEVEL1_DCACHE_LINESIZE);
+   if (size == -1) return 64;
