@@ -10,7 +10,7 @@ apk add --no-cache alpine-sdk linux-headers cmake
 echo "::endgroup::"
 
 tool_name="mysql"
-tool_version="8.0.34"
+tool_version="8.0.33"
 self_toolset_name="build-musl"
 release_version_dirpath="$dp0/release/build"
 
@@ -29,6 +29,7 @@ echo "::endgroup::"
 
 echo "::group::build"
 
+cmake .
 cmake --build . --config Release
 
 echo "::endgroup::"
