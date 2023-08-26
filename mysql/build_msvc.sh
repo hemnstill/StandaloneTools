@@ -35,6 +35,7 @@ cmake . -LH \
   -DWITH_UNIT_TESTS=0 \
   -DWITH_BUILD_ID=0 \
   -DREPRODUCIBLE_BUILD=1 \
+  -G "Visual Studio 16 2019 Win64" \
   -DBUILD_CONFIG=mysql_release
 
 make
