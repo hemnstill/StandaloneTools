@@ -10,6 +10,12 @@ jobs:
     with:
       workflow: ${{ github.workflow }}
 
+  ubuntu-gnu:
+    if: ${{ vars.CURRENT_TOOL == github.workflow }}
+    uses: ./.github/workflows/build-ubuntu.yml
+    with:
+      workflow: ${{ github.workflow }}
+
   windows-msvc:
     if: ${{ vars.CURRENT_TOOL == github.workflow }}
     uses: ./.github/workflows/build-windows.yml
@@ -25,7 +31,7 @@ jobs:
       artifact: build-musl
 
   test-ubuntu:
-    needs: alpine-musl
+    needs: ubuntu-gnu
     uses: ./.github/workflows/test-ubuntu.yml
     with:
       workflow: ${{ github.workflow }}
@@ -48,7 +54,8 @@ jobs:
       tool_version: '8.0.33'
       prepare_body: |
         bsdtar -Oxf ./build-musl/build-musl.tar.gz build-musl.md >> body.md
+        bsdtar -Oxf ./build-gnu/build-gnu.tar.gz build-gnu.md >> body.md
         bsdtar -Oxf ./build-mingw/build-msvc.tar.gz build-msvc.md >> body.md
-      artifacts: ./build-musl/build-musl.tar.gz,./build-msvc/build-msvc.tar.gz
+      artifacts: ./build-musl/build-musl.tar.gz,./build-gnu/build-gnu.tar.gz,./build-msvc/build-msvc.tar.gz
     secrets:
       token: ${{ secrets.GITHUB_TOKEN }}
