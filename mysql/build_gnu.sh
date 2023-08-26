@@ -53,7 +53,6 @@ cmake --build . --config Release
 
 cp -rf "./runtime_output_directory/." "$release_version_dirpath/"
 
-
 cd "$release_version_dirpath"
 
 find . -mindepth 1 -maxdepth 1 -name '*test' -exec rm -f "{}" \;
