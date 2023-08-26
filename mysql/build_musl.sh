@@ -34,11 +34,13 @@ echo "::endgroup::"
 
 echo "::group::build"
 
-cmake . \
+cmake . -LH \
   -DDOWNLOAD_BOOST=1 \
   -DWITH_BOOST=./boost \
   -DFORCE_INSOURCE_BUILD=1 \
   -DWITHOUT_SERVER=1 \
+  -DWITH_LZ4=0 \
+  -DWITH_LZMA=0 \
   -DWITH_EMBEDDED_SHARED_LIBRARY=1 \
   -DWITH_UNIT_TESTS=0 \
   -DWITH_BUILD_ID=0 \
