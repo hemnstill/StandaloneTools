@@ -31,7 +31,14 @@ echo "::endgroup::"
 
 echo "::group::build"
 
-cmake . -DDOWNLOAD_BOOST=1 -DWITH_BOOST=./boost -DFORCE_INSOURCE_BUILD=1 -DWITHOUT_SERVER=1 -DWITH_EMBEDDED_SHARED_LIBRARY=1 -DBUILD_CONFIG=mysql_release
+cmake . \
+  -DDOWNLOAD_BOOST=1 \
+  -DWITH_BOOST=./boost \
+  -DFORCE_INSOURCE_BUILD=1 \
+  -DWITHOUT_SERVER=1 \
+  -DWITH_EMBEDDED_SHARED_LIBRARY=1 \
+  -DWITH_UNIT_TESTS=0 \
+  -DBUILD_CONFIG=mysql_release
 make
 
 echo "::endgroup::"
