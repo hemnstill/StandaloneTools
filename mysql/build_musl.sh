@@ -54,11 +54,11 @@ cd "$release_version_dirpath"
 
 find . -mindepth 1 -maxdepth 1 -name '*test' -exec rm -f "{}" \;
 
-{ printf '%s
-### %s
+{ printf '### %s
+%s
 
 %s
-' "$("./$tool_name" --version)" "$self_toolset_name.tar.gz" "$(sha256sum ./*)"
+' "$self_toolset_name.tar.gz" "$("./$tool_name" --version)" "$(sha256sum ./*)"
 } > "$self_toolset_name.md"
 
 cat "$self_toolset_name.md"

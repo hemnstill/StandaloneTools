@@ -43,3 +43,19 @@ jobs:
     with:
       workflow: ${{ github.workflow }}
       artifact: build-msvc
+
+  release:
+    needs: [test-alpine,
+            test-ubuntu,
+            test-windows,
+            test-nanoserver]
+    uses: ./.github/workflows/release.yml
+    with:
+      workflow: ${{ github.workflow }}
+      tool_version: '8.1.0'
+      prepare_body: |
+        bsdtar -Oxf ./build-musl/build-musl.tar.gz build-musl.md >> body.md
+        bsdtar -Oxf ./build-mingw/build-msvc.tar.gz build-msvc.md >> body.md
+      artifacts: ./build-musl/build-musl.tar.gz,./build-msvc/build-msvc.tar.gz
+    secrets:
+      token: ${{ secrets.GITHUB_TOKEN }}
