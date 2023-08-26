@@ -45,9 +45,9 @@ cmake . -LH \
   -DCMAKE_BUILD_TYPE=Release \
   -DBUILD_CONFIG=mysql_release
 
-make
+cmake --build . --config Release
 
-cp -rf "./runtime_output_directory/." "$release_version_dirpath/"
+cp -rf "./runtime_output_directory/Release." "$release_version_dirpath/"
 
 
 cd "$release_version_dirpath"
