@@ -40,7 +40,7 @@ cmake . -LH \
   -DWITHOUT_SERVER=1 \
   -DBUILD_STATIC=1 \
   -DBUILD_SHARED_LIBS=0 \
-  -DCMAKE_EXE_LINKER_FLAGS="-static-libgcc -static-libstdc++" \
+  -DCMAKE_EXE_LINKER_FLAGS="-lssl -lcrypto -static-libgcc -static-libstdc++" \
   -DDISABLE_SHARED=1 \
   -DNCURSES_STATIC=1 \
   -DBUNDLE_DEPENDENCIES=1 \
