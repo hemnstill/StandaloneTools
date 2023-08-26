@@ -29,7 +29,7 @@ echo "::endgroup::"
 
 echo "::group::build"
 
-cmake .
-cmake --build . --config Release
+cmake . -LH
+cmake -DFORCE_INSOURCE_BUILD=ON -DWITH_EMBEDDED_SHARED_LIBRARY=ON --build . --config Release
 
 echo "::endgroup::"
