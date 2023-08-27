@@ -38,7 +38,7 @@ cmake . \
   -DFORCE_INSOURCE_BUILD=1 \
   -DWITHOUT_SERVER=1 \
   -DBUILD_SHARED_LIBS=0 \
-  -DCMAKE_EXE_LINKER_FLAGS="-lssl -lcrypto -lncurses" \
+  -DCMAKE_EXE_LINKER_FLAGS="-lssl -lcrypto -lncursesw" \
   -DWITH_UNIT_TESTS=0 \
   -DWITH_BUILD_ID=0 \
   -DREPRODUCIBLE_BUILD=1 \
@@ -48,7 +48,7 @@ cmake . \
 find . -type f -mindepth 2 -maxdepth 4 -name "link.txt" -o ! -name "*test.dir*" -exec echo "{}" \; \
   -exec sed -i -e 's@/usr/lib/x86_64-linux-gnu/libssl.so@/usr/lib/x86_64-linux-gnu/libssl.a@g' \
   -e 's@/usr/lib/x86_64-linux-gnu/libcrypto.so@/usr/lib/x86_64-linux-gnu/libcrypto.a@g' \
-  -e 's@-lssl -lcrypto -lncurses@-lssl -lcrypto -lncurses -static -static-libgcc -static-libstdc++@g' \
+  -e 's@-lssl -lcrypto -lncursesw@-lssl -lcrypto -lncursesw -static -static-libgcc -static-libstdc++@g' \
   "{}" \;
 
 cmake --build . --config Release
