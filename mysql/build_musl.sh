@@ -64,6 +64,7 @@ cp -rf "./runtime_output_directory/." "$release_version_dirpath/"
 
 cd "$release_version_dirpath"
 
+find . -mindepth 1 -maxdepth 1 -name '*test*' -exec rm -f "{}" \;
 find . -mindepth 1 -maxdepth 1 ! -name "mysql*" -exec rm -f "{}" \;
 find . -mindepth 1 -maxdepth 1 -exec strip "{}" \;
 
