@@ -48,6 +48,7 @@ find . -mindepth 1 -maxdepth 1 -name '*test*' -exec rm -f "{}" \;
 find . -mindepth 1 -maxdepth 1 \( ! -name "mysql*" -and ! -name "lib*" \) -exec rm -f "{}" \;
 
 { printf '### %s
+
 %s
 
 <details>
@@ -59,6 +60,7 @@ find . -mindepth 1 -maxdepth 1 \( ! -name "mysql*" -and ! -name "lib*" \) -exec 
 </details>
 
 %s
+
 ' "$self_toolset_name.tar.gz" "$("./$tool_name" --version)" "$(sha256sum ./*)" "$download_url"
 } > "$self_toolset_name.md"
 

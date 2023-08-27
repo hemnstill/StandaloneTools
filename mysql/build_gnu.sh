@@ -65,6 +65,7 @@ find . -mindepth 1 -maxdepth 1 -exec strip "{}" \;
 ldd "$tool_name"
 
 { printf '### %s
+
 %s
 
 <details>
@@ -82,7 +83,8 @@ ldd "$tool_name"
 %s
 ```
 </details>
-' "$self_toolset_name.tar.gz" "$(ldd "$tool_name")" "$("./$tool_name" --version)" "$(sha256sum ./*)"
+
+' "$self_toolset_name.tar.gz" "$("./$tool_name" --version)" "$(ldd "$tool_name")" "$(sha256sum ./*)"
 } > "$self_toolset_name.md"
 
 cat "$self_toolset_name.md"

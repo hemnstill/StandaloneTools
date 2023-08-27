@@ -69,6 +69,7 @@ find . -mindepth 1 -maxdepth 1 ! -name "mysql*" -exec rm -f "{}" \;
 find . -mindepth 1 -maxdepth 1 -exec strip "{}" \;
 
 { printf '### %s
+
 %s
 
 <details>
@@ -78,6 +79,7 @@ find . -mindepth 1 -maxdepth 1 -exec strip "{}" \;
 %s
 ```
 </details>
+
 ' "$self_toolset_name.tar.gz" "$("./$tool_name" --version)" "$(sha256sum ./*)"
 } > "$self_toolset_name.md"
 
