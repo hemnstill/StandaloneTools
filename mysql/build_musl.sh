@@ -46,11 +46,7 @@ cmake . \
   -DCMAKE_BUILD_TYPE=Release \
   -DBUILD_CONFIG=mysql_release
 
-find . -type f -mindepth 2 -maxdepth 5 -path "*test*/link.txt" -exec echo remove '-static' "{}" \; \
-  -exec sed -i -e 's@ -static @ @g' \
-  "{}" \;
-
-find . -type f -mindepth 2 -maxdepth 5 -path "*json_binlog_main.dir/link.txt" -exec echo remove '-static' "{}" \; \
+find . -type f -mindepth 2 -maxdepth 5 -path "*test*/link.txt" -o -path "*json_binlog_main.dir/link.txt" -exec echo remove '-static' "{}" \; \
   -exec sed -i -e 's@ -static @ @g' \
   "{}" \;
 
@@ -67,10 +63,7 @@ cp -rf "./runtime_output_directory/." "$release_version_dirpath/"
 
 cd "$release_version_dirpath"
 
-find . -mindepth 1 -maxdepth 1 -name '*test' -exec rm -f "{}" \;
-
-find . -mindepth 1 -maxdepth 1 -name 'json_binlog_main' -exec rm -f "{}" \;
-
+find . -mindepth 1 -maxdepth 1 ! -name "mysql*" -exec rm -f "{}" \;
 find . -mindepth 1 -maxdepth 1 -exec strip "{}" \;
 
 { printf '### %s
