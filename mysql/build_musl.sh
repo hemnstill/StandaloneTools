@@ -39,17 +39,20 @@ cmake . \
   -DFORCE_INSOURCE_BUILD=1 \
   -DWITHOUT_SERVER=1 \
   -DBUILD_SHARED_LIBS=0 \
-  -DCMAKE_EXE_LINKER_FLAGS="-lssl -lcrypto -lncursesw -static-libgcc -static-libstdc++" \
+  -DCMAKE_EXE_LINKER_FLAGS="-lssl -lcrypto -static -static-libgcc -static-libstdc++" \
   -DWITH_UNIT_TESTS=0 \
   -DWITH_BUILD_ID=0 \
   -DREPRODUCIBLE_BUILD=1 \
   -DCMAKE_BUILD_TYPE=Release \
   -DBUILD_CONFIG=mysql_release
 
-find . -type f -mindepth 2 -maxdepth 4 \( -name "link.txt" -o -name "*Cache.txt" \) -and ! -name "*test.dir*" -exec echo "{}" \; \
+find . -type f -mindepth 2 -maxdepth 4 -name "*test.dir*" -exec echo "{}" \; \
+  -exec sed -i -e 's@-lssl -lcrypto -static@@g' \
+  "{}" \;
+
+find . -type f -mindepth 2 -maxdepth 4 -name "link.txt" -exec echo "{}" \; \
   -exec sed -i -e 's@/usr/lib/libssl.so@/usr/lib/libssl.a@g' \
   -e 's@/usr/lib/libcrypto.so@/usr/lib/libcrypto.a@g' \
-  -e 's@/usr/lib/libncursesw.so@/usr/lib/libncursesw.a@g' \
   "{}" \;
 
 cmake --build . --config Release
