@@ -53,6 +53,8 @@ find . -type f -mindepth 2 -maxdepth 4 -name "link.txt" -o ! -name "*test.dir*" 
 
 cmake --build . --config Release
 
+echo "::endgroup::"
+
 cp -rf "./runtime_output_directory/." "$release_version_dirpath/"
 
 cd "$release_version_dirpath"
