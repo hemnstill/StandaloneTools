@@ -50,8 +50,16 @@ find . -mindepth 1 -maxdepth 1 \( ! -name "mysql*" -and ! -name "lib*" \) -exec 
 { printf '### %s
 %s
 
+<details>
+  <summary>sha256sum ./*</summary>
+
+```
 %s
-' "$self_toolset_name.tar.gz" "$("./$tool_name" --version)" "$(sha256sum ./*)"
+```
+</details>
+
+%s
+' "$self_toolset_name.tar.gz" "$("./$tool_name" --version)" "$(sha256sum ./*)" "$download_url"
 } > "$self_toolset_name.md"
 
 cat "$self_toolset_name.md"

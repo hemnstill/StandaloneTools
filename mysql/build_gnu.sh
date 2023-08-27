@@ -67,8 +67,22 @@ ldd "$tool_name"
 { printf '### %s
 %s
 
+<details>
+  <summary>ldd mysql</summary>
+
+```
 %s
-' "$self_toolset_name.tar.gz" "$("./$tool_name" --version)" "$(sha256sum ./*)"
+```
+</details>
+
+<details>
+  <summary>sha256sum ./*</summary>
+
+```
+%s
+```
+</details>
+' "$self_toolset_name.tar.gz" "$(ldd "$tool_name")" "$("./$tool_name" --version)" "$(sha256sum ./*)"
 } > "$self_toolset_name.md"
 
 cat "$self_toolset_name.md"

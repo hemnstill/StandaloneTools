@@ -71,7 +71,13 @@ find . -mindepth 1 -maxdepth 1 -exec strip "{}" \;
 { printf '### %s
 %s
 
+<details>
+  <summary>sha256sum ./*</summary>
+
+```
 %s
+```
+</details>
 ' "$self_toolset_name.tar.gz" "$("./$tool_name" --version)" "$(sha256sum ./*)"
 } > "$self_toolset_name.md"
 
