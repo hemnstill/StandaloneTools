@@ -1,7 +1,5 @@
 #!/bin/bash
 
-../.tools/install_alpine_glibc.sh
-
 ldd ../bin/mysql
 
 testVersion() {
