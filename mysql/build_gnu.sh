@@ -38,7 +38,7 @@ cmake . \
   -DFORCE_INSOURCE_BUILD=1 \
   -DWITHOUT_SERVER=1 \
   -DBUILD_SHARED_LIBS=0 \
-  -DCMAKE_EXE_LINKER_FLAGS="-lssl -lcrypto -static -static-libgcc -static-libstdc++" \
+  -DCMAKE_EXE_LINKER_FLAGS="-lssl -lcrypto -lresolv -static -static-libgcc -static-libstdc++" \
   -DWITH_UNIT_TESTS=0 \
   -DWITH_BUILD_ID=0 \
   -DREPRODUCIBLE_BUILD=1 \
@@ -49,9 +49,14 @@ find . -type f -mindepth 2 -maxdepth 4 -path "*test*/link.txt" -exec echo remove
   -exec sed -i -e 's@ -static @ @g' \
   "{}" \;
 
+find . -type f -mindepth 2 -maxdepth 4 -path "*json_binlog_main.dir/link.txt" -exec echo remove '-static' "{}" \; \
+  -exec sed -i -e 's@ -static @ @g' \
+  "{}" \;
+
 find . -type f -mindepth 2 -maxdepth 4 -name "link.txt" -exec echo replace '.so' "{}" \; \
   -exec sed -i -e 's@/usr/lib/x86_64-linux-gnu/libssl.so@/usr/lib/x86_64-linux-gnu/libssl.a@g' \
   -e 's@/usr/lib/x86_64-linux-gnu/libcrypto.so@/usr/lib/x86_64-linux-gnu/libcrypto.a@g' \
+  -e 's@/usr/lib/x86_64-linux-gnu/libresolv.so@/usr/lib/x86_64-linux-gnu/libresolv.a@g' \
   "{}" \;
 
 cmake --build . --config Release
