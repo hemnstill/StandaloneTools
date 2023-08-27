@@ -33,7 +33,7 @@ echo "::endgroup::"
 
 echo "::group::build"
 
-cmake . -LH \
+cmake . \
   -DDOWNLOAD_BOOST=1 \
   -DWITH_BOOST=./boost \
   -DFORCE_INSOURCE_BUILD=1 \
