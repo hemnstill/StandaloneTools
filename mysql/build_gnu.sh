@@ -45,15 +45,15 @@ cmake . \
   -DCMAKE_BUILD_TYPE=Release \
   -DBUILD_CONFIG=mysql_release
 
-find . -type f -mindepth 2 -maxdepth 4 -path "*test*/link.txt" -exec echo remove '-static' "{}" \; \
+find . -type f -mindepth 2 -maxdepth 5 -path "*test*/link.txt" -exec echo remove '-static' "{}" \; \
   -exec sed -i -e 's@ -static @ @g' \
   "{}" \;
 
-find . -type f -mindepth 2 -maxdepth 4 -path "*json_binlog_main.dir/link.txt" -exec echo remove '-static' "{}" \; \
+find . -type f -mindepth 2 -maxdepth 5 -path "*json_binlog_main.dir/link.txt" -exec echo remove '-static' "{}" \; \
   -exec sed -i -e 's@ -static @ @g' \
   "{}" \;
 
-find . -type f -mindepth 2 -maxdepth 4 -name "link.txt" -exec echo replace '.so' "{}" \; \
+find . -type f -mindepth 2 -maxdepth 5 -name "link.txt" -exec echo replace '.so' "{}" \; \
   -exec sed -i -e 's@/usr/lib/x86_64-linux-gnu/libssl.so@/usr/lib/x86_64-linux-gnu/libssl.a@g' \
   -e 's@/usr/lib/x86_64-linux-gnu/libcrypto.so@/usr/lib/x86_64-linux-gnu/libcrypto.a@g' \
   -e 's@/usr/lib/x86_64-linux-gnu/libresolv.so@@g' \
