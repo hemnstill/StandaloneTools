@@ -31,6 +31,21 @@ jobs:
       workflow: ${{ github.workflow }}
       artifact: build-musl
 
+  test-ubuntu-1804-musl:
+    needs: alpine-musl
+    uses: ./.github/workflows/test-ubuntu.yml
+    with:
+      workflow: ${{ github.workflow }}
+      artifact: build-musl
+      version: 18.04
+
+  test-ubuntu-musl:
+    needs: alpine-musl
+    uses: ./.github/workflows/test-ubuntu.yml
+    with:
+      workflow: ${{ github.workflow }}
+      artifact: build-musl
+
   test-ubuntu:
     needs: ubuntu-gnu
     uses: ./.github/workflows/test-ubuntu.yml
@@ -46,13 +61,6 @@ jobs:
       artifact: build-gnu
       version: 18.04
 
-  test-ubuntu-musl:
-    needs: alpine-musl
-    uses: ./.github/workflows/test-ubuntu.yml
-    with:
-      workflow: ${{ github.workflow }}
-      artifact: build-musl
-
   test-windows:
     needs: windows-msvc
     uses: ./.github/workflows/test-windows.yml
@@ -63,6 +71,7 @@ jobs:
   release:
     needs: [test-alpine,
             test-ubuntu-musl,
+            test-ubuntu-1804-musl,
             test-ubuntu,
             test-ubuntu-1804,
             test-windows]
