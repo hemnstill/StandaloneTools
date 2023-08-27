@@ -46,7 +46,7 @@ cmake . \
   -DCMAKE_BUILD_TYPE=Release \
   -DBUILD_CONFIG=mysql_release
 
-find . -type f -mindepth 2 -maxdepth 4 -name "link.txt" -and -name "*Cache.txt" -and ! -name "*test.dir*" -exec echo "{}" \; \
+find . -type f -mindepth 2 -maxdepth 4 \( -name "link.txt" -o -name "*Cache.txt" \) -and ! -name "*test.dir*" -exec echo "{}" \; \
   -exec sed -i -e 's@/usr/lib/libssl.so@/usr/lib/libssl.a@g' \
   -e 's@/usr/lib/libcrypto.so@/usr/lib/libcrypto.a@g' \
   -e 's@/usr/lib/libncursesw.so@/usr/lib/libncursesw.a@g' \
