@@ -37,7 +37,7 @@ jobs:
       workflow: ${{ github.workflow }}
       artifact: build-gnu
 
-  test-ubuntu-18.04:
+  test-ubuntu-1804:
     needs: ubuntu-gnu
     uses: ./.github/workflows/test-ubuntu.yml
     with:
@@ -63,7 +63,7 @@ jobs:
     needs: [test-alpine,
             test-ubuntu-musl,
             test-ubuntu,
-            test-ubuntu-18.04,
+            test-ubuntu-1804,
             test-windows]
     uses: ./.github/workflows/release.yml
     with:
