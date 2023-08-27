@@ -69,6 +69,8 @@ cd "$release_version_dirpath"
 
 find . -mindepth 1 -maxdepth 1 -name '*test' -exec rm -f "{}" \;
 
+find . -mindepth 1 -maxdepth 1 -name 'json_binlog_main' -exec rm -f "{}" \;
+
 find . -mindepth 1 -maxdepth 1 -exec strip "{}" \;
 
 ldd "$tool_name"

@@ -56,7 +56,7 @@ find . -type f -mindepth 2 -maxdepth 4 -path "*json_binlog_main.dir/link.txt" -e
 find . -type f -mindepth 2 -maxdepth 4 -name "link.txt" -exec echo replace '.so' "{}" \; \
   -exec sed -i -e 's@/usr/lib/x86_64-linux-gnu/libssl.so@/usr/lib/x86_64-linux-gnu/libssl.a@g' \
   -e 's@/usr/lib/x86_64-linux-gnu/libcrypto.so@/usr/lib/x86_64-linux-gnu/libcrypto.a@g' \
-  -e 's@/usr/lib/x86_64-linux-gnu/libresolv.so@/usr/lib/x86_64-linux-gnu/libresolv.a@g' \
+  -e 's@/usr/lib/x86_64-linux-gnu/libresolv.so@@g' \
   "{}" \;
 
 cmake --build . --config Release
@@ -68,6 +68,8 @@ cp -rf "./runtime_output_directory/." "$release_version_dirpath/"
 cd "$release_version_dirpath"
 
 find . -mindepth 1 -maxdepth 1 -name '*test' -exec rm -f "{}" \;
+
+find . -mindepth 1 -maxdepth 1 -name 'json_binlog_main' -exec rm -f "{}" \;
 
 find . -mindepth 1 -maxdepth 1 -exec strip "{}" \;
 
