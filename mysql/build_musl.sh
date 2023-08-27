@@ -48,8 +48,7 @@ cmake . \
 
 find . -type f -mindepth 2 -maxdepth 5 -path "*test*/link.txt" -o -path "*json_binlog_main.dir/link.txt" \
   -exec echo remove '-static' "{}" \; \
-  -exec sed -i -e 's@ -static @ @g' \
-  "{}" \;
+  -exec sed -i -e 's@ -static @ @g' "{}" \;
 
 find . -type f -mindepth 2 -maxdepth 5 -name "link.txt" \
   -exec echo replace '.so' "{}" \; \
@@ -78,5 +77,3 @@ find . -mindepth 1 -maxdepth 1 -exec strip "{}" \;
 cat "$self_toolset_name.md"
 
 tar -czvf "../$self_toolset_name.tar.gz" .
-
-echo "::endgroup::"

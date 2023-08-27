@@ -48,8 +48,7 @@ cmake . \
 find . -type f -mindepth 2 -maxdepth 5 -name "link.txt" \
   -exec echo replace '.so' "{}" \; \
   -exec sed -i -e 's@/usr/lib/x86_64-linux-gnu/libssl.so@/usr/lib/x86_64-linux-gnu/libssl.a@g' \
-  -e 's@/usr/lib/x86_64-linux-gnu/libcrypto.so@/usr/lib/x86_64-linux-gnu/libcrypto.a@g' \
-  "{}" \;
+               -e 's@/usr/lib/x86_64-linux-gnu/libcrypto.so@/usr/lib/x86_64-linux-gnu/libcrypto.a@g' "{}" \;
 
 cmake --build . --config Release
 
@@ -73,4 +72,3 @@ cat "$self_toolset_name.md"
 
 tar -czvf "../$self_toolset_name.tar.gz" .
 
-echo "::endgroup::"

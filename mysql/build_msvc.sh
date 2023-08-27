@@ -57,4 +57,3 @@ cat "$self_toolset_name.md"
 
 tar -czvf "../$self_toolset_name.tar.gz" .
 
-echo "::endgroup::"
