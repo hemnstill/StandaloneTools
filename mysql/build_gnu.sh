@@ -48,7 +48,7 @@ cmake . \
 find . -type f -mindepth 2 -maxdepth 4 -name "link.txt" -o ! -name "*test.dir*" -exec echo "{}" \; \
   -exec sed -i -e 's@/usr/lib/x86_64-linux-gnu/libssl.so@/usr/lib/x86_64-linux-gnu/libssl.a@g' \
   -e 's@/usr/lib/x86_64-linux-gnu/libcrypto.so@/usr/lib/x86_64-linux-gnu/libcrypto.a@g' \
-  -e 's@-lssl -lcrypto -lncurses@-lssl -lcrypto -lncurses -static@g' \
+  -e 's@-lssl -lcrypto -lncurses@-lssl -lcrypto -lncurses -static -static-libgcc -static-libstdc++@g' \
   "{}" \;
 
 cmake --build . --config Release
