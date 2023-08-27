@@ -45,7 +45,8 @@ cmake . \
   -DCMAKE_BUILD_TYPE=Release \
   -DBUILD_CONFIG=mysql_release
 
-find . -type f -mindepth 2 -maxdepth 5 -name "link.txt" -exec echo replace '.so' "{}" \; \
+find . -type f -mindepth 2 -maxdepth 5 -name "link.txt" \
+  -exec echo replace '.so' "{}" \; \
   -exec sed -i -e 's@/usr/lib/x86_64-linux-gnu/libssl.so@/usr/lib/x86_64-linux-gnu/libssl.a@g' \
   -e 's@/usr/lib/x86_64-linux-gnu/libcrypto.so@/usr/lib/x86_64-linux-gnu/libcrypto.a@g' \
   "{}" \;

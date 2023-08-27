@@ -26,7 +26,7 @@ echo "::endgroup::"
 
 echo "::group::build"
 
-cmake . -LH \
+cmake . \
   -DDOWNLOAD_BOOST=1 \
   -DWITH_BOOST=./boost \
   -DFORCE_INSOURCE_BUILD=1 \
@@ -42,10 +42,9 @@ cmake --build . --config Release
 
 cp -rf "./runtime_output_directory/Release/." "$release_version_dirpath/"
 
-
 cd "$release_version_dirpath"
 
-find . -mindepth 1 -maxdepth 1 -name '*test.exe' -exec rm -f "{}" \;
+find . -mindepth 1 -maxdepth 1 ! -name "mysql*" -and ! -name "lib*" -exec rm -f "{}" \;
 
 { printf '### %s
 %s
