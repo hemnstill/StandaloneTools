@@ -46,7 +46,7 @@ cmake . \
   -DCMAKE_BUILD_TYPE=Release \
   -DBUILD_CONFIG=mysql_release
 
-find . -type f -mindepth 2 -maxdepth 5 -path "*test*/link.txt" -o -path "*json_binlog_main.dir/link.txt" \
+find . -type f -mindepth 2 -maxdepth 5 -path "*test*/link.txt" -or -path "*json_binlog_main.dir/link.txt" \
   -exec echo remove '-static' "{}" \; \
   -exec sed -i -e 's@ -static @ @g' "{}" \;
 
