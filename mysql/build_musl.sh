@@ -46,7 +46,7 @@ cmake . \
   -DCMAKE_BUILD_TYPE=Release \
   -DBUILD_CONFIG=mysql_release
 
-find . -type f -mindepth 2 -maxdepth 4 -name "*test.dir*" -exec echo "{}" \; \
+find . -type f -mindepth 2 -maxdepth 4 -name "*test*" -exec echo "{}" \; \
   -exec sed -i -e 's@ -static @ @g' \
   "{}" \;
 
