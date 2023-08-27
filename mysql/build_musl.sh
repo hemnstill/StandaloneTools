@@ -49,7 +49,6 @@ cmake . \
 find . -type f -mindepth 2 -maxdepth 4 -name "link.txt" -and ! -name "*test.dir*" -exec echo "{}" \; \
   -exec sed -i -e 's@/usr/lib/libssl.so@/usr/lib/libssl.a@g' \
   -e 's@/usr/lib/libcrypto.so@/usr/lib/libcrypto.a@g' \
-  -e 's@-lssl -lcrypto -lncurses@-lssl -lcrypto -lncurses -static@g' \
   "{}" \;
 
 cmake --build . --config Release
@@ -58,12 +57,13 @@ echo "::endgroup::"
 
 cp -rf "./runtime_output_directory/." "$release_version_dirpath/"
 
-
 cd "$release_version_dirpath"
 
 find . -mindepth 1 -maxdepth 1 -name '*test' -exec rm -f "{}" \;
 
 find . -mindepth 1 -maxdepth 1 -exec strip "{}" \;
+
+ldd "$tool_name"
 
 { printf '### %s
 %s
