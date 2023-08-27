@@ -39,7 +39,7 @@ cmake . \
   -DFORCE_INSOURCE_BUILD=1 \
   -DWITHOUT_SERVER=1 \
   -DBUILD_SHARED_LIBS=0 \
-  -DCMAKE_EXE_LINKER_FLAGS="-lssl -lcrypto -static -static-libgcc -static-libstdc++" \
+  -DCMAKE_EXE_LINKER_FLAGS="-lssl -lcrypto -static" \
   -DWITH_UNIT_TESTS=0 \
   -DWITH_BUILD_ID=0 \
   -DREPRODUCIBLE_BUILD=1 \
