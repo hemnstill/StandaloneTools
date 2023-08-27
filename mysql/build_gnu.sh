@@ -8,7 +8,7 @@ echo "::group::install deps"
 
 apt update
 apt install -y build-essential cmake wget
-apt install -y libaio-dev libudev-dev libssl-dev ncurses-dev glibc-static libc6-dev
+apt install -y libaio-dev libudev-dev libssl-dev ncurses-dev libc6-dev
 
 echo "::endgroup::"
 
@@ -46,7 +46,7 @@ cmake . \
   -DBUILD_CONFIG=mysql_release
 
 find . -type f -mindepth 2 -maxdepth 4 -name "*test.dir*" -exec echo "{}" \; \
-  -exec sed -i -e 's@-lssl -lcrypto -static@@g' \
+  -exec sed -i -e 's@ -static @ @g' \
   "{}" \;
 
 find . -type f -mindepth 2 -maxdepth 4 -name "link.txt" -exec echo "{}" \; \
