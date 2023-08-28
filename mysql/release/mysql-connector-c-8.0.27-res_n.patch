@@ -1,0 +1,27 @@
+# Musl doesn't have res_n* functions so we are falling back to the not
+# thread safe ones. Patch made with help from developer Fabian Groffen
+# <grobian@gentoo.org>.
+#
+# Closes: https://bugs.gentoo.org/761352
+# See also: https://github.com/mysql/mysql-server/pull/385
+# See also: https://bugs.mysql.com/bug.php?id=106034
+--- a/libmysql/dns_srv.cc
++++ b/libmysql/dns_srv.cc
+@@ -37,6 +37,17 @@
+ #include <netdb.h>
+ #include <resolv.h>
+
++/* we don't have anything else but the non-thread-safe variants */
++#if !defined(HAVE_RES_NINIT)
++#define res_ninit(X)              (void)X
++#endif
++#if !defined(HAVE_RES_NSEARCH)
++#define res_nsearch(X,D,I,S,B,L)  res_search(D,I,S,B,L)
++#endif
++#if !defined(HAVE_RES_NCLOSE)
++#define res_nclose(X)             (void)X
++#endif
++
+ // POSIX version
+
+ static bool get_dns_srv(Dns_srv_data &data, const char *dnsname, int &error) {

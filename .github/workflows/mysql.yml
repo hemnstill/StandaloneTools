@@ -1,0 +1,95 @@
+name: mysql
+
+on: [pull_request, workflow_dispatch]
+
+jobs:
+  alpine-musl:
+    if: ${{ vars.CURRENT_TOOL == github.workflow }}
+    uses: ./.github/workflows/build-alpine.yml
+    with:
+      workflow: ${{ github.workflow }}
+
+  ubuntu-gnu:
+    if: ${{ vars.CURRENT_TOOL == github.workflow }}
+    uses: ./.github/workflows/build-ubuntu.yml
+    with:
+      workflow: ${{ github.workflow }}
+      version: 20.04
+
+  windows-msvc:
+    if: ${{ vars.CURRENT_TOOL == github.workflow }}
+    uses: ./.github/workflows/build-windows.yml
+    with:
+      workflow: ${{ github.workflow }}
+      toolset: msvc
+
+  test-alpine:
+    needs: alpine-musl
+    uses: ./.github/workflows/test-alpine.yml
+    with:
+      workflow: ${{ github.workflow }}
+      artifact: build-musl
+
+  test-ubuntu-1804-musl:
+    needs: alpine-musl
+    uses: ./.github/workflows/test-ubuntu.yml
+    with:
+      workflow: ${{ github.workflow }}
+      artifact: build-musl
+      version: 18.04
+
+  test-ubuntu-musl:
+    needs: alpine-musl
+    uses: ./.github/workflows/test-ubuntu.yml
+    with:
+      workflow: ${{ github.workflow }}
+      artifact: build-musl
+
+  test-ubuntu:
+    needs: ubuntu-gnu
+    uses: ./.github/workflows/test-ubuntu.yml
+    with:
+      workflow: ${{ github.workflow }}
+      artifact: build-gnu
+
+  test-ubuntu-2004:
+    needs: ubuntu-gnu
+    uses: ./.github/workflows/test-ubuntu.yml
+    with:
+      workflow: ${{ github.workflow }}
+      artifact: build-gnu
+      version: 20.04
+
+  test-alpine-gnu:
+    needs: ubuntu-gnu
+    uses: ./.github/workflows/test-ubuntu.yml
+    with:
+      workflow: ${{ github.workflow }}
+      artifact: build-gnu
+
+  test-windows:
+    needs: windows-msvc
+    uses: ./.github/workflows/test-windows.yml
+    with:
+      workflow: ${{ github.workflow }}
+      artifact: build-msvc
+
+  release:
+    needs: [test-alpine,
+            test-ubuntu-musl,
+            test-ubuntu-1804-musl,
+            test-ubuntu,
+            test-ubuntu-2004,
+            test-alpine-gnu,
+            test-windows]
+    uses: ./.github/workflows/release.yml
+    with:
+      workflow: ${{ github.workflow }}
+      tool_version: '8.0.33'
+      prepare_body: |
+        bsdtar -Oxf ./build-musl/build-musl.tar.gz build-musl.md >> body.md
+        bsdtar -Oxf ./build-gnu/build-gnu.tar.gz build-gnu.md >> body.md
+        bsdtar -Oxf ./build-msvc/build-msvc.tar.gz build-msvc.md >> body.md
+      artifacts: ./build-musl/build-musl.tar.gz,./build-gnu/build-gnu.tar.gz,./build-msvc/build-msvc.tar.gz
+    secrets:
+      token: ${{ secrets.GITHUB_TOKEN }}
