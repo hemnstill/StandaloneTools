@@ -5,7 +5,7 @@ set -e
 echo "::group::install deps"
 
 apk update
-apk add --no-cache alpine-sdk make linux-headers
+apk add --no-cache alpine-sdk make linux-headers musl-dev openssl-dev
 
 echo "::endgroup::"
 
@@ -29,7 +29,7 @@ echo "::endgroup::"
 
 echo "::group::build"
 
-make CFLAGS="-static" EXEEXT="-static"
+make CFLAGS="-static" LDFLAGS="-static"
 
 echo "::endgroup::"
 
