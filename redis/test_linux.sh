@@ -1,7 +1,7 @@
 #!/bin/bash
 
 testVersion() {
-  assertEquals "redis-cli 7.2.1 (git:80bea3ef)" "$(../bin/redis-cli --version)"
+  assertEquals "redis-cli 7.2.1" "$(../bin/redis-cli --version)"
 }
 
 # Load and run shUnit2.
