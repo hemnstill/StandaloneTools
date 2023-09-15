@@ -5,7 +5,7 @@ set -e
 echo "::group::install deps"
 
 apk update
-apk add --no-cache alpine-sdk make linux-headers musl-dev openssl-dev
+apk add --no-cache alpine-sdk make linux-headers
 
 echo "::endgroup::"
 
