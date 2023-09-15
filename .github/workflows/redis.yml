@@ -13,8 +13,14 @@ jobs:
 
   alpine-musl-test:
     needs: alpine-musl
-    if: ${{ vars.CURRENT_TOOL == github.workflow }}
     uses: ./.github/workflows/test-alpine.yml
+    with:
+      workflow: ${{ github.workflow }}
+      artifact: build-musl
+
+  ubuntu-musl-test:
+    needs: alpine-musl
+    uses: ./.github/workflows/test-ubuntu.yml
     with:
       workflow: ${{ github.workflow }}
       artifact: build-musl
