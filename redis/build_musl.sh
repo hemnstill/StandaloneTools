@@ -29,7 +29,6 @@ echo "::endgroup::"
 
 echo "::group::build"
 
-./configure
 make
 
 echo "::endgroup::"
