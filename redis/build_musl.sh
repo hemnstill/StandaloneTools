@@ -23,7 +23,7 @@ echo "::group::prepare sources $download_url"
 bsdtar="$dp0/release/bsdtar"
 
 wget "$download_url" -O "tool-$tool_version.tar.gz"
-"$bsdtar" -xf "tool-$tool_version.tar.gz"
+"$bsdtar" -xf "tool-$tool_version.tar.gz" && cd "redis-$tool_version"
 
 echo "::endgroup::"
 
