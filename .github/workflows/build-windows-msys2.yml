@@ -26,7 +26,9 @@ jobs:
 
       - name: build ${{ inputs.workflow }}-windows-${{ inputs.toolset }}
         run: |
-          msys2 sh ${{ inputs.workflow }}\build_${{ inputs.toolset }}.sh
+          . ./${{ inputs.workflow }}\build_${{ inputs.toolset }}.sh
+        shell:
+          msys2 {0}
 
       - uses: actions/upload-artifact@v3
         with:
