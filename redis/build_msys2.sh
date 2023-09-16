@@ -2,8 +2,6 @@
 dp0="$(realpath "$(dirname "$0")")"
 set -e
 
-uname
-
 tool_name="redis"
 tool_version="7.0.13"
 self_toolset_name="build-msys2"
@@ -14,8 +12,11 @@ mkdir -p "$release_version_dirpath" && cd "$dp0/release"
 download_url="https://github.com/redis/redis/archive/refs/tags/$tool_version.tar.gz"
 echo "::group::prepare sources $download_url"
 
+"$dp0/../.tools/download_bsdtar.sh"
+bsdtar="$dp0/release/bsdtar"
+
 wget "$download_url" -O "tool-$tool_version.tar.gz"
-"tar" -xf "tool-$tool_version.tar.gz" && cd "$tool_name-$tool_version"
+"bsdtar" -xf "tool-$tool_version.tar.gz" && cd "$tool_name-$tool_version"
 
 echo "::endgroup::"
 
@@ -47,4 +48,4 @@ SHA-256: %s
 
 cat "$self_toolset_name.md"
 
-"tar" -czvf "../$self_toolset_name.tar.gz" .
+"bsdtar" -czvf "../$self_toolset_name.tar.gz" .
