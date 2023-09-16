@@ -36,10 +36,11 @@ jobs:
         - uses: actions/checkout@v3
         - name: Version
           run: |
-            (ConvertFrom-Json(Invoke-WebRequest -Headers @{'Authorization' = 'token ${{ secrets.ACTION_TOKEN }}'} -Uri "https://api.github.com/repos/redis/redis/releases/tags/7.0.13").Content).body -Replace '\(\#', '(https://github.com/redis/redis/pull/' | Set-Content .\redis_latest_body.txt
+            (ConvertFrom-Json(Invoke-WebRequest -Headers @{'Authorization' = 'token ${{ secrets.GITHUB_TOKEN }}'} -Uri "https://api.github.com/repos/redis/redis/releases/tags/7.0.13").Content).body -Replace '\(\#', '(https://github.com/redis/redis/pull/' | Set-Content .\redis_latest_body.txt
             Invoke-WebRequest -Uri https://github.com/redis/redis/archive/refs/tags/7.0.13.tar.gz -OutFile redis-7.0.13.tar.gz
             tar -xvf redis-7.0.13.tar.gz
           shell: pwsh
+
 
         - name: Setup dotnet
           if: ${{ success() }}
