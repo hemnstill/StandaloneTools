@@ -26,7 +26,10 @@ make BUILD_TLS=yes
 
 echo "::endgroup::"
 
-find /d/a/_temp/msys64/usr/bin -mindepth 1 -maxdepth 1 -name 'msys-*.dll' -exec cp -f "{}" "$release_version_dirpath/" \;
+cp -f /d/a/_temp/msys64/usr/bin/msys-2.0.dll "$release_version_dirpath/"
+cp -f /d/a/_temp/msys64/usr/bin/msys-crypto-3.dll "$release_version_dirpath/"
+cp -f /d/a/_temp/msys64/usr/bin/msys-ssl-3.dll "$release_version_dirpath/"
+
 find ./src -mindepth 1 -maxdepth 1 -name '*.exe' -exec cp -f "{}" "$release_version_dirpath/" \;
 
 cd "$release_version_dirpath"
