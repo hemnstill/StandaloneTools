@@ -5,7 +5,7 @@ set -e
 
 tool_name="redis"
 tool_version="7.2.1"
-self_toolset_name="build-msys"
+self_toolset_name="build-msys2"
 release_version_dirpath="$dp0/release/build"
 
 mkdir -p "$release_version_dirpath" && cd "$dp0/release"

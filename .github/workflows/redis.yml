@@ -52,9 +52,9 @@ jobs:
             sed -i 's/__GNU_VISIBLE/1/' /d/a/_temp/msys64/usr/include/dlfcn.h
             cd redis-7.0.13 && make -i PREFIX=$workspace/dist install BUILD_TLS=yes
 
-  windows-msys:
+  windows-msys2:
     if: ${{ vars.CURRENT_TOOL == github.workflow }}
-    uses: ./.github/workflows/build-windows-msys.yml
+    uses: ./.github/workflows/build-windows-msys2.yml
     with:
       workflow: ${{ github.workflow }}
       msys_install: gcc make pkg-config mingw-w64-x86_64-python libopenssl openssl-devel mingw-w64-x86_64-libc++

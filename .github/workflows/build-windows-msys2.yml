@@ -7,7 +7,7 @@ on:
       toolset:
         required: false
         type: string
-        default: 'msys'
+        default: 'msys2'
       msys_install:
         required: true
         type: string
