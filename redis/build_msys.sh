@@ -23,9 +23,9 @@ echo "::endgroup::"
 
 echo "::group::build"
 
-msys sed -i 's/__GNU_VISIBLE/1/' /d/a/_temp/msys64/usr/include/dlfcn.h
+sed -i 's/__GNU_VISIBLE/1/' D:/a/_temp/msys64/usr/include/dlfcn.h
 
-msys make BUILD_TLS=yes
+make BUILD_TLS=yes
 
 echo "::endgroup::"
 
