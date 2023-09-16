@@ -47,8 +47,6 @@ find . -mindepth 1 -maxdepth 1 -exec strip "{}" \;
 { printf '### %s
 %s
 
-</details>
-
 <details>
   <summary>sha256sum ./*</summary>
 
