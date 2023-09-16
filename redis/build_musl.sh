@@ -29,7 +29,7 @@ echo "::endgroup::"
 
 echo "::group::build"
 
-make CFLAGS="-static" LDFLAGS="-static" BUILD_TLS=yes
+make CFLAGS="-static" LDFLAGS="-static"
 
 echo "::endgroup::"
 
