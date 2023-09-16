@@ -1,6 +1,6 @@
 #!/bin/bash
 
-is_windows_os=false && [[ $(uname) == Windows_NT* ]] && is_windows_os=true
+is_windows_os=false && [[ $(uname) == Windows_NT* ]] || [[ $(uname) == MSYS* ]] && is_windows_os=true
 
 echo "download bsdtar ..."
 bsdtar_version=3.7.1
