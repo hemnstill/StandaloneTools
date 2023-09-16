@@ -26,7 +26,7 @@ jobs:
 
       - name: build ${{ inputs.workflow }}-windows-${{ inputs.toolset }}
         run: |
-          sh ${{ inputs.workflow }}\build_${{ inputs.toolset }}.sh
+          sh ${{ inputs.workflow }}/build_${{ inputs.toolset }}.sh
         shell:
           msys2 {0}
 
