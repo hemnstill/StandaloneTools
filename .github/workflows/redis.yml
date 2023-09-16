@@ -25,7 +25,7 @@ jobs:
       workflow: ${{ github.workflow }}
       artifact: build-musl
 
-  windows-msys:
+  windows-msys-example:
       runs-on: windows-latest
 
       defaults:
@@ -58,3 +58,10 @@ jobs:
             cp $workspace/publish/* Redis-7.0.13-Windows-x64/
             mv Redis-7.0.13-Windows-x64 Redis-7.0.13-Windows-x64-with-Service
             tar -cvzf $workspace/Redis-7.0.13-Windows-x64-with-Service.tar.gz Redis-7.0.13-Windows-x64-with-Service/*
+
+  windows-msys:
+    if: ${{ vars.CURRENT_TOOL == github.workflow }}
+    uses: ./.github/workflows/build-windows-msys.yml
+    with:
+      workflow: ${{ github.workflow }}
+      msys_install: gcc make pkg-config mingw-w64-x86_64-python libopenssl openssl-devel mingw-w64-x86_64-libc++

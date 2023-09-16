@@ -1,0 +1,33 @@
+on:
+  workflow_call:
+    inputs:
+      workflow:
+        required: true
+        type: string
+      toolset:
+        required: false
+        type: string
+        default: 'msys'
+      msys_install:
+        required: true
+        type: string
+
+jobs:
+  build-windows:
+    runs-on: windows-2019
+    steps:
+      - uses: actions/checkout@v3
+
+      - uses: msys2/setup-msys2@v2
+        with:
+          update: true
+          install: ${{ inputs.msys_install }}
+
+      - name: build ${{ inputs.workflow }}-windows-${{ inputs.toolset }}
+        run: |
+          .tools\busybox64.exe sh ${{ inputs.workflow }}\build_${{ inputs.toolset }}.sh
+
+      - uses: actions/upload-artifact@v3
+        with:
+          name: build-${{ inputs.toolset }}
+          path: ./${{ inputs.workflow }}/release/build-${{ inputs.toolset }}.tar.gz
