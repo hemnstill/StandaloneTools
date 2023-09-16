@@ -16,7 +16,7 @@ echo "::group::prepare sources $download_url"
 bsdtar="$dp0/release/bsdtar"
 
 wget "$download_url" -O "tool-$tool_version.tar.gz"
-"bsdtar" -xf "tool-$tool_version.tar.gz" && cd "$tool_name-$tool_version"
+"$bsdtar" -xf "tool-$tool_version.tar.gz" && cd "$tool_name-$tool_version"
 
 echo "::endgroup::"
 
@@ -56,4 +56,4 @@ find . -mindepth 1 -maxdepth 1 -exec strip "{}" \;
 
 cat "$self_toolset_name.md"
 
-"bsdtar" -czvf "../$self_toolset_name.tar.gz" .
+"$bsdtar" -czvf "../$self_toolset_name.tar.gz" .
