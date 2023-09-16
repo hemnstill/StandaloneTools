@@ -16,7 +16,7 @@ jobs:
       - uses: actions/checkout@v3
       - name: build ${{ inputs.workflow }}-windows-${{ inputs.toolset }}
         run: |
-          .tools\busybox.exe sh ${{ inputs.workflow }}\build_${{ inputs.toolset }}.sh
+          .tools\busybox64.exe sh ${{ inputs.workflow }}\build_${{ inputs.toolset }}.sh
 
       - uses: actions/upload-artifact@v3
         with:
