@@ -23,7 +23,7 @@ echo "::endgroup::"
 
 echo "::group::build"
 
-sed -i 's/__GNU_VISIBLE/1/' D:/a/_temp/msys64/usr/include/dlfcn.h
+msys sed -i 's/__GNU_VISIBLE/1/' /d/a/_temp/msys64/usr/include/dlfcn.h
 
 msys make BUILD_TLS=yes
 
