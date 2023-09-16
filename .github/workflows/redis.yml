@@ -60,9 +60,9 @@ jobs:
       msys_install: gcc make pkg-config mingw-w64-x86_64-python libopenssl openssl-devel mingw-w64-x86_64-libc++
 
   test-windows:
-    needs: windows-msys
+    needs: windows-msys2
     if: ${{ vars.CURRENT_TOOL == github.workflow }}
     uses: ./.github/workflows/test-windows.yml
     with:
       workflow: ${{ github.workflow }}
-      artifact: build-msys
+      artifact: build-msys2
