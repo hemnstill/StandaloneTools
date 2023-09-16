@@ -2,6 +2,7 @@
 dp0="$(realpath "$(dirname "$0")")"
 set -e
 
+uname
 
 tool_name="redis"
 tool_version="7.0.13"
