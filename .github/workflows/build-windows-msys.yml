@@ -26,7 +26,7 @@ jobs:
 
       - name: build ${{ inputs.workflow }}-windows-${{ inputs.toolset }}
         run: |
-          .tools\busybox.exe sh ${{ inputs.workflow }}\build_${{ inputs.toolset }}.sh
+          msys2 sh ${{ inputs.workflow }}\build_${{ inputs.toolset }}.sh
 
       - uses: actions/upload-artifact@v3
         with:
