@@ -25,33 +25,6 @@ jobs:
       workflow: ${{ github.workflow }}
       artifact: build-musl
 
-  windows-msys-example:
-      runs-on: windows-latest
-
-      defaults:
-        run:
-          shell: msys2 {0}
-
-      steps:
-        - uses: actions/checkout@v3
-        - name: Version
-          run: |
-            (ConvertFrom-Json(Invoke-WebRequest -Headers @{'Authorization' = 'token ${{ secrets.GITHUB_TOKEN }}'} -Uri "https://api.github.com/repos/redis/redis/releases/tags/7.0.13").Content).body -Replace '\(\#', '(https://github.com/redis/redis/pull/' | Set-Content .\redis_latest_body.txt
-            Invoke-WebRequest -Uri https://github.com/redis/redis/archive/refs/tags/7.0.13.tar.gz -OutFile redis-7.0.13.tar.gz
-            tar -xvf redis-7.0.13.tar.gz
-          shell: pwsh
-
-        - uses: msys2/setup-msys2@v2
-          with:
-            update: true
-            install: gcc make pkg-config mingw-w64-x86_64-python libopenssl openssl-devel mingw-w64-x86_64-libc++
-        - name: Build Redis
-          if: ${{ success() }}
-          run: |
-            workspace=$(pwd)
-            sed -i 's/__GNU_VISIBLE/1/' /d/a/_temp/msys64/usr/include/dlfcn.h
-            cd redis-7.0.13 && make -i PREFIX=$workspace/dist install BUILD_TLS=yes
-
   windows-msys2:
     if: ${{ vars.CURRENT_TOOL == github.workflow }}
     uses: ./.github/workflows/build-windows-msys2.yml
