@@ -50,7 +50,7 @@ jobs:
       tool_version: '7.0.13'
       prepare_body: |
         bsdtar -Oxf ./build-musl/build-musl.tar.gz build-musl.md >> body.md
-        bsdtar -Oxf ./build-mingw/build-msys2.tar.gz build-msys2.md >> body.md
+        bsdtar -Oxf ./build-msys2/build-msys2.tar.gz build-msys2.md >> body.md
       artifacts: ./build-musl/build-musl.tar.gz,./build-msys2/build-msys2.tar.gz
     secrets:
       token: ${{ secrets.GITHUB_TOKEN }}
