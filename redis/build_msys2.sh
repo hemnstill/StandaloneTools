@@ -22,11 +22,12 @@ echo "::group::build"
 
 sed -i 's/__GNU_VISIBLE/1/' /d/a/_temp/msys64/usr/include/dlfcn.h
 
-make CFLAGS="-static" LDFLAGS="-static" BUILD_TLS=yes
+make BUILD_TLS=yes
 
 echo "::endgroup::"
 
-find ./src -mindepth 1 -maxdepth 1 \( -name '*.dll' -or -name '*.exe' \) -exec cp -f "{}" "$release_version_dirpath/" \;
+find /d/a/_temp/msys64/usr/bin -mindepth 1 -maxdepth 1 -name 'msys-*.dll' -exec cp -f "{}" "$release_version_dirpath/" \;
+find ./src -mindepth 1 -maxdepth 1 -name '*.exe' -exec cp -f "{}" "$release_version_dirpath/" \;
 
 cd "$release_version_dirpath"
 
