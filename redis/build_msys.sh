@@ -17,7 +17,7 @@ echo "::group::prepare sources $download_url"
 bsdtar="$dp0/release/bsdtar"
 
 wget "$download_url" -O "tool-$tool_version.tar.gz"
-"$bsdtar" -xf "tool-$tool_version.tar.gz" && cd "redis-$tool_version"
+"$bsdtar" -xf "tool-$tool_version.tar.gz" && cd "$tool_name-$tool_version"
 
 echo "::endgroup::"
 
@@ -29,12 +29,7 @@ msys make BUILD_TLS=yes
 
 echo "::endgroup::"
 
-cp -f "./src/redis-cli" "$release_version_dirpath/"
-cp -f "./src/redis-server" "$release_version_dirpath/"
-cp -f "./src/redis-benchmark" "$release_version_dirpath/"
-cp -f "./src/redis-sentinel" "$release_version_dirpath/"
-cp -f "./src/redis-check-rdb" "$release_version_dirpath/"
-cp -f "./src/redis-check-aof" "$release_version_dirpath/"
+find ./src -mindepth 1 -maxdepth 1 \( -name '*.dll' -or -name '*.exe' \) -exec cp -f "{}" "$release_version_dirpath/" \;
 
 cd "$release_version_dirpath"
 

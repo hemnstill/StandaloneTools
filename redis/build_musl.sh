@@ -23,13 +23,13 @@ echo "::group::prepare sources $download_url"
 bsdtar="$dp0/release/bsdtar"
 
 wget "$download_url" -O "tool-$tool_version.tar.gz"
-"$bsdtar" -xf "tool-$tool_version.tar.gz" && cd "redis-$tool_version"
+"$bsdtar" -xf "tool-$tool_version.tar.gz" && cd "$tool_name-$tool_version"
 
 echo "::endgroup::"
 
 echo "::group::build"
 
-make CFLAGS="-static" LDFLAGS="-static"
+make CFLAGS="-static" LDFLAGS="-static" BUILD_TLS=yes
 
 echo "::endgroup::"
 
