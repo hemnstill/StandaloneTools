@@ -30,7 +30,7 @@ jobs:
     uses: ./.github/workflows/build-windows-msys2.yml
     with:
       workflow: ${{ github.workflow }}
-      msys_install: gcc make pkg-config mingw-w64-x86_64-python libopenssl openssl-devel mingw-w64-x86_64-libc++
+      msys2_install: gcc make pkg-config mingw-w64-x86_64-python libopenssl openssl-devel mingw-w64-x86_64-libc++
 
   test-windows:
     needs: windows-msys2
