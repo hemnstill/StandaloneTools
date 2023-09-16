@@ -13,11 +13,8 @@ mkdir -p "$release_version_dirpath" && cd "$dp0/release"
 download_url="https://github.com/redis/redis/archive/refs/tags/$tool_version.tar.gz"
 echo "::group::prepare sources $download_url"
 
-"$dp0/../.tools/download_bsdtar.sh"
-bsdtar="$dp0/release/bsdtar"
-
 wget "$download_url" -O "tool-$tool_version.tar.gz"
-"$bsdtar" -xf "tool-$tool_version.tar.gz" && cd "$tool_name-$tool_version"
+"tar" -xf "tool-$tool_version.tar.gz" && cd "$tool_name-$tool_version"
 
 echo "::endgroup::"
 
@@ -45,4 +42,4 @@ SHA-256: %s
 
 cat "$self_toolset_name.md"
 
-"$bsdtar" -czvf "../$self_toolset_name.tar.gz" .
+"tar" -czvf "../$self_toolset_name.tar.gz" .
