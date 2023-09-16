@@ -1,0 +1,56 @@
+name: redis
+
+on: [pull_request, workflow_dispatch]
+
+jobs:
+  alpine-musl:
+    if: ${{ vars.CURRENT_TOOL == github.workflow }}
+    uses: ./.github/workflows/build-alpine.yml
+    with:
+      workflow: ${{ github.workflow }}
+      toolset: musl
+      version: 3.16
+
+  alpine-musl-test:
+    needs: alpine-musl
+    uses: ./.github/workflows/test-alpine.yml
+    with:
+      workflow: ${{ github.workflow }}
+      artifact: build-musl
+
+  ubuntu-musl-test:
+    needs: alpine-musl
+    uses: ./.github/workflows/test-ubuntu.yml
+    with:
+      workflow: ${{ github.workflow }}
+      artifact: build-musl
+
+  windows-msys2:
+    if: ${{ vars.CURRENT_TOOL == github.workflow }}
+    uses: ./.github/workflows/build-windows-msys2.yml
+    with:
+      workflow: ${{ github.workflow }}
+      msys2_install: gcc make pkg-config libopenssl openssl-devel mingw-w64-x86_64-libc++
+
+  test-windows:
+    needs: windows-msys2
+    if: ${{ vars.CURRENT_TOOL == github.workflow }}
+    uses: ./.github/workflows/test-windows.yml
+    with:
+      workflow: ${{ github.workflow }}
+      artifact: build-msys2
+
+  release:
+    needs: [alpine-musl-test,
+            ubuntu-musl-test,
+            test-windows]
+    uses: ./.github/workflows/release.yml
+    with:
+      workflow: ${{ github.workflow }}
+      tool_version: '7.0.13'
+      prepare_body: |
+        bsdtar -Oxf ./build-musl/build-musl.tar.gz build-musl.md >> body.md
+        bsdtar -Oxf ./build-msys2/build-msys2.tar.gz build-msys2.md >> body.md
+      artifacts: ./build-musl/build-musl.tar.gz,./build-msys2/build-msys2.tar.gz
+    secrets:
+      token: ${{ secrets.GITHUB_TOKEN }}

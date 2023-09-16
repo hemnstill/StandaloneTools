@@ -1,0 +1,36 @@
+on:
+  workflow_call:
+    inputs:
+      workflow:
+        required: true
+        type: string
+      toolset:
+        required: false
+        type: string
+        default: 'msys2'
+      msys2_install:
+        required: true
+        type: string
+
+jobs:
+  build-windows:
+    runs-on: windows-2019
+
+    steps:
+      - uses: actions/checkout@v3
+
+      - uses: msys2/setup-msys2@v2
+        with:
+          update: true
+          install: ${{ inputs.msys2_install }}
+
+      - name: build ${{ inputs.workflow }}-windows-${{ inputs.toolset }}
+        run: |
+          bash ${{ inputs.workflow }}/build_${{ inputs.toolset }}.sh
+        shell:
+          msys2 {0}
+
+      - uses: actions/upload-artifact@v3
+        with:
+          name: build-${{ inputs.toolset }}
+          path: ./${{ inputs.workflow }}/release/build-${{ inputs.toolset }}.tar.gz
