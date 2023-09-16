@@ -25,6 +25,8 @@ echo "::group::build"
 
 sed -i 's/__GNU_VISIBLE/1/' D:/a/_temp/msys64/usr/include/dlfcn.h
 
+export BB_OVERRIDE_APPLETS=make
+
 msys2 make BUILD_TLS=yes
 
 echo "::endgroup::"
