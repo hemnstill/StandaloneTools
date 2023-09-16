@@ -47,7 +47,15 @@ find . -mindepth 1 -maxdepth 1 -exec strip "{}" \;
 { printf '### %s
 %s
 
-SHA-256: %s
+</details>
+
+<details>
+  <summary>sha256sum ./*</summary>
+
+```
+%s
+```
+</details>
 
 ' "$self_toolset_name.tar.gz" "$(./redis-cli --version)" "$(sha256sum ./*)"
 } > "$self_toolset_name.md"
