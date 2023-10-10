@@ -20,7 +20,7 @@ echo "::group::build"
 git clone --depth 1 --branch v1.2.11 https://github.com/madler/zlib
 make -C zlib -f win32/Makefile.gcc libz.a
 
-CPPFLAGS=-I../zlib LDFLAGS=../zlib/libz.a make -j allzstd MOREFLAGS=-static V=1
+CPPFLAGS=-I../zlib LDFLAGS=../zlib/libz.a make -j MOREFLAGS=-static V=1
 
 cp -f "./$tool_name.exe" "$dp0/release/build/"
 
