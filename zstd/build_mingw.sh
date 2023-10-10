@@ -2,13 +2,6 @@
 dp0="$(realpath "$(dirname "$0")")"
 set -e
 
-echo "::group::install deps"
-
-apk update
-apk add --no-cache alpine-sdk zlib-dev zlib-static xz-dev zstd-dev zstd-static
-
-echo "::endgroup::"
-
 tool_name="zstd"
 tool_version="1.5.5"
 self_toolset_name="build-mingw"
@@ -27,3 +20,16 @@ echo "::group::build"
 make -C zlib -f win32/Makefile.gcc libz.a
 
 CPPFLAGS=-I../zlib LDFLAGS=../zlib/libz.a make -j allzstd MOREFLAGS=-static V=1
+
+cp -f "./$tool_name.exe" "$dp0/release/build/"
+
+{ printf '### %s
+SHA-256: %s
+%s
+%s
+' "$self_toolset_name.tar.gz" "$(sha256sum $tool_name)" "$("./$tool_name" --version)" "$download_url"
+} > "$self_toolset_name.md"
+
+cat "$self_toolset_name.md"
+
+tar -czvf "../$self_toolset_name.tar.gz" .
