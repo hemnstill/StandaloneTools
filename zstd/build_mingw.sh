@@ -11,9 +11,6 @@ echo "::group::prepare sources $download_url"
 
 mkdir -p "$dp0/release/build" && cd "$dp0/release"
 
-git clone --depth 1 --branch v1.2.11 https://github.com/madler/zlib
-make -C zlib -f win32/Makefile.gcc libz.a
-
 wget "$download_url" -O "tool-$tool_version.tar.gz"
 tar -xf "tool-$tool_version.tar.gz" && cd "$tool_name-$tool_version"
 
@@ -21,9 +18,12 @@ echo "::endgroup::"
 
 echo "::group::build"
 
-cd "$dp0/release/$tool_name-$tool_version"
-export CPPFLAGS=-I../zlib
-export LDFLAGS=../zlib/libz.a
+
+git clone --depth 1 --branch v1.2.11 https://github.com/madler/zlib
+make -C zlib -f win32/Makefile.gcc libz.a
+
+export CPPFLAGS=-I./zlib
+export LDFLAGS=./zlib/libz.a
 make -j allzstd MOREFLAGS=-static V=1
 
 cp -f "./$tool_name.exe" "$dp0/release/build/"
