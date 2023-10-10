@@ -11,8 +11,11 @@ echo "::group::prepare sources $download_url"
 
 mkdir -p "$dp0/release/build" && cd "$dp0/release"
 
+"$dp0/../.tools/download_bsdtar.sh"
+bsdtar="$dp0/release/bsdtar"
+
 wget "$download_url" -O "tool-$tool_version.tar.gz"
-tar -xf "tool-$tool_version.tar.gz"
+"$bsdtar" -xf "tool-$tool_version.tar.gz"
 
 echo "::endgroup::"
 
