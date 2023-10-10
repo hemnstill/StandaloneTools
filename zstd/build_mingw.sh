@@ -29,7 +29,7 @@ export CPPFLAGS=-I"$dp0/release/zlib"
 export LDFLAGS="$dp0/release/zlib/libz.a"
 make -j allzstd MOREFLAGS=-static V=1
 
-cp -f "./$tool_name.exe" "$dp0/release/build/"
+cp -f "./programs/$tool_name.exe" "$dp0/release/build/"
 
 cd "$dp0/release/build"
 
