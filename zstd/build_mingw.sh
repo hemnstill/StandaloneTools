@@ -14,6 +14,7 @@ mkdir -p "$dp0/release/build" && cd "$dp0/release"
 git clone --depth 1 --branch v1.2.11 https://github.com/madler/zlib
 make -C zlib -f win32/Makefile.gcc libz.a
 
+cd "$dp0/release"
 wget "$download_url" -O "tool-$tool_version.tar.gz"
 tar -xf "tool-$tool_version.tar.gz" && cd "$tool_name-$tool_version"
 
