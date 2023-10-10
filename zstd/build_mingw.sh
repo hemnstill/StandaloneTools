@@ -11,7 +11,7 @@ echo "::endgroup::"
 
 tool_name="zstd"
 tool_version="1.5.5"
-self_toolset_name="build-musl"
+self_toolset_name="build-mingw"
 
 download_url="https://github.com/facebook/zstd/archive/refs/tags/v$tool_version.tar.gz"
 echo "::group::prepare sources $download_url"
@@ -24,4 +24,6 @@ echo "::endgroup::"
 
 echo "::group::build"
 
-make
+make -C zlib -f win32/Makefile.gcc libz.a
+
+CPPFLAGS=-I../zlib LDFLAGS=../zlib/libz.a make -j allzstd MOREFLAGS=-static V=1

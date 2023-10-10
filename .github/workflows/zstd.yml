@@ -9,3 +9,11 @@ jobs:
     with:
       workflow: ${{ github.workflow }}
       version: 3.16.6
+
+  windows-msys2:
+    if: ${{ vars.CURRENT_TOOL == github.workflow }}
+    uses: ./.github/workflows/build-windows-msys2.yml
+    with:
+      workflow: ${{ github.workflow }}
+      msys2_install: make zlib git p7zip mingw-w64-x86_64-gcc
+      toolset: mingw
