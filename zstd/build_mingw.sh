@@ -21,8 +21,7 @@ echo "::endgroup::"
 
 echo "::group::build"
 
-cd "$dp0/release"
-git clone --depth 1 --branch v1.2.11 https://github.com/madler/zlib
+git clone --depth 1 --branch v1.3 https://github.com/madler/zlib
 make -C zlib -f win32/Makefile.gcc libz.a
 
 cd "$dp0/release/$tool_name-$tool_version"
