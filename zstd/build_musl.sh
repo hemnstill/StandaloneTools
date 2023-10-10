@@ -24,7 +24,7 @@ echo "::endgroup::"
 
 echo "::group::build"
 
-make
+make MOREFLAGS=-static V=1
 
 cp -f "./$tool_name" "$dp0/release/build/"
 
