@@ -18,11 +18,12 @@ echo "::endgroup::"
 echo "::group::build"
 
 git clone --depth 1 --branch v1.2.11 https://github.com/madler/zlib
-msys2 make -C zlib -f win32/Makefile.gcc libz.a
+make -C zlib -f win32/Makefile.gcc libz.a
 
+cd "$dp0/release/$tool_name-$tool_version"
 export CPPFLAGS=-I../zlib
 export LDFLAGS=../zlib/libz.a
-msys2 make -j allzstd MOREFLAGS=-static V=1
+make -j allzstd MOREFLAGS=-static V=1
 
 cp -f "./$tool_name.exe" "$dp0/release/build/"
 
