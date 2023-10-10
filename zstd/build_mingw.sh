@@ -23,6 +23,8 @@ CPPFLAGS=-I../zlib LDFLAGS=../zlib/libz.a make -j allzstd MOREFLAGS=-static V=1
 
 cp -f "./$tool_name.exe" "$dp0/release/build/"
 
+cd "$dp0/release/build"
+
 { printf '### %s
 SHA-256: %s
 %s

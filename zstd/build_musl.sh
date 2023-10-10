@@ -28,6 +28,10 @@ make
 
 cp -f "./$tool_name" "$dp0/release/build/"
 
+cd "$dp0/release/build"
+
+strip "$tool_name"
+
 { printf '### %s
 SHA-256: %s
 %s
