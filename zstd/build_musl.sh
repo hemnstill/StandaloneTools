@@ -24,7 +24,7 @@ echo "::endgroup::"
 
 echo "::group::build"
 
-cmake build/cmake -DZSTD_BUILD_STATIC=ON -DZSTD_USE_STATIC_RUNTIME=ON -DZSTD_BUILD_TESTS=OFF
+cmake build/cmake -DZSTD_BUILD_STATIC=ON -DZSTD_USE_STATIC_RUNTIME=ON -DZSTD_BUILD_TESTS=OFF -DCMAKE_EXE_LINKER_FLAGS="-static"
 cmake --build .
 
 cp -f "./programs/$tool_name" "$dp0/release/build/"
