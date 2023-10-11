@@ -23,10 +23,24 @@ jobs:
       workflow: ${{ github.workflow }}
       artifact: build-musl
 
-  windows-msys2:
+  windows-mingw:
     if: ${{ vars.CURRENT_TOOL == github.workflow }}
     uses: ./.github/workflows/build-windows-msys2.yml
     with:
       workflow: ${{ github.workflow }}
       msys2_install: make git mingw-w64-x86_64-gcc
       toolset: mingw
+
+  test-windows:
+    needs: windows-mingw
+    uses: ./.github/workflows/test-windows.yml
+    with:
+      workflow: ${{ github.workflow }}
+      artifact: build-mingw
+
+  test-nanoserver:
+    needs: windows-mingw
+    uses: ./.github/workflows/test-nanoserver.yml
+    with:
+      workflow: ${{ github.workflow }}
+      artifact: build-mingw
