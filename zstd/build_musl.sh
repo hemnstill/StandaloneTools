@@ -24,8 +24,8 @@ echo "::endgroup::"
 
 echo "::group::build"
 
-export LDFLAGS=/lib/libz.a
-make MOREFLAGS=--disable-shared -static V=1
+export LDFLAGS=-static
+make
 
 cp -f "./$tool_name" "$dp0/release/build/"
 
