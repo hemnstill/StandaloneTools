@@ -8,8 +8,6 @@ jobs:
     uses: ./.github/workflows/build-alpine.yml
     with:
       workflow: ${{ github.workflow }}
-      version: 3.16.6
-
 
   test-alpine:
     needs: alpine-musl
