@@ -24,10 +24,10 @@ echo "::endgroup::"
 
 echo "::group::build"
 
-cmake build/cmake -DZSTD_BUILD_STATIC=1 -DZSTD_USE_STATIC_RUNTIME=1
+cmake build/cmake -DZSTD_BUILD_STATIC=ON -DZSTD_USE_STATIC_RUNTIME=ON -DZSTD_BUILD_TESTS=OFF
 cmake --build .
 
-cp -f "./$tool_name" "$dp0/release/build/"
+cp -f "./programs/$tool_name" "$dp0/release/build/"
 
 cd "$dp0/release/build"
 
