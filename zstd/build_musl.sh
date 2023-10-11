@@ -5,7 +5,7 @@ set -e
 echo "::group::install deps"
 
 apk update
-apk add --no-cache alpine-sdk zlib-dev zlib-static
+apk add --no-cache alpine-sdk cmake zlib-dev zlib-static
 
 echo "::endgroup::"
 
@@ -24,8 +24,8 @@ echo "::endgroup::"
 
 echo "::group::build"
 
-export LDFLAGS=-static
-make
+cmake build/cmake -DZSTD_BUILD_STATIC=1 -DZSTD_USE_STATIC_RUNTIME=1
+cmake --build .
 
 cp -f "./$tool_name" "$dp0/release/build/"
 
