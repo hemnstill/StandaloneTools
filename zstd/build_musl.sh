@@ -36,8 +36,8 @@ strip "$tool_name"
 { printf '### %s
 SHA-256: %s
 %s
-%s
-' "$self_toolset_name.tar.gz" "$(sha256sum $tool_name)" "$("./$tool_name" --version)" "$download_url"
+
+' "$self_toolset_name.tar.gz" "$(sha256sum $tool_name)" "$("./$tool_name" --version)"
 } > "$self_toolset_name.md"
 
 cat "$self_toolset_name.md"
