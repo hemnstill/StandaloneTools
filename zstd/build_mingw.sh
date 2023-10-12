@@ -33,6 +33,8 @@ export CPPFLAGS=-I"$dp0/release/zlib-$tool_zlib_version"
 export LDFLAGS="$dp0/release/zlib-$tool_zlib_version/libz.a"
 make -j allzstd MOREFLAGS=-static V=1
 
+echo "::endgroup::"
+
 cp -f "./programs/$tool_name.exe" "$dp0/release/build/"
 
 cd "$dp0/release/build"
