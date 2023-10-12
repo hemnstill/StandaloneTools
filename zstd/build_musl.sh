@@ -41,7 +41,7 @@ strip "$tool_name"
 SHA-256: %s
 
 %s
-' "$("./$tool_name" --version)" "$self_toolset_name.tar.gz" "$(sha256sum $tool_name)" "$(apk version zlib-static)"
+' "$("./$tool_name" --version)" "$self_toolset_name.tar.gz" "$(sha256sum $tool_name)" "$(apk info zlib-static --webpage)"
 } > "$self_toolset_name.md"
 
 cat "$self_toolset_name.md"
