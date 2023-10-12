@@ -23,8 +23,8 @@ echo "::endgroup::"
 echo "::group::build"
 
 download_url_zlib="https://github.com/madler/zlib/archive/refs/tags/v$tool_zlib_version.tar.gz"
-wget "$download_url_zlib" -O "tool-$tool_zlib_version.tar.gz"
-"$bsdtar" -xf "tool-$tool_zlib_version.tar.gz"
+wget "$download_url_zlib" -O "zlib_tool-$tool_zlib_version.tar.gz"
+"$bsdtar" -xf "zlib_tool-$tool_zlib_version.tar.gz"
 
 make -C "zlib-$tool_zlib_version" -f win32/Makefile.gcc libz.a
 

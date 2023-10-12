@@ -28,7 +28,7 @@ jobs:
     uses: ./.github/workflows/build-windows-msys2.yml
     with:
       workflow: ${{ github.workflow }}
-      msys2_install: make git mingw-w64-x86_64-gcc
+      msys2_install: make mingw-w64-x86_64-gcc
       toolset: mingw
 
   test-windows:
