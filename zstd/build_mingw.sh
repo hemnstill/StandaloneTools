@@ -36,6 +36,8 @@ cd "$dp0/release/build"
 { printf '### %s
 SHA-256: %s
 %s
+
+
 %s
 ' "$self_toolset_name.tar.gz" "$(sha256sum $tool_name)" "$("./$tool_name" --version)" "$download_url"
 } > "$self_toolset_name.md"
