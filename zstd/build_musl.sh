@@ -38,7 +38,8 @@ strip "$tool_name"
 ### %s
 SHA-256: %s
 
-' "$("./$tool_name" --version)" "$self_toolset_name.tar.gz" "$(sha256sum $tool_name)"
+%s
+' "$("./$tool_name" --version)" "$self_toolset_name.tar.gz" "$(sha256sum $tool_name)" "$(apk version zlib-static)"
 } > "$self_toolset_name.md"
 
 cat "$self_toolset_name.md"
