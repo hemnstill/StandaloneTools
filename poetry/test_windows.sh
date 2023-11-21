@@ -3,6 +3,8 @@
 is_windows_os=false && [[ $(uname) == Windows_NT* ]] && is_windows_os=true
 is_nanoserver_os=false && $is_windows_os && [[ ! -f "C:\Windows\notepad.exe" ]] && is_nanoserver_os=true
 
+readme_content='test readme content'
+
 pyproject_content='
 [tool.poetry]
 name = "StandaloneTools"
@@ -28,17 +30,20 @@ Package operations: 6 installs, 0 updates, 0 removals
 '
 
 test_version() {
-  assertEquals "Poetry (version 1.5.1)" "$(../bin/poetry.bat --version)"
+  assertEquals "Poetry (version 1.7.1)" "$(../bin/poetry.bat --version)"
 }
 
 test_install_from_path() {
   { printf '%s' "$pyproject_content"
   } > pyproject.toml
 
+  { printf '%s' "$readme_content"
+  } > README.md
+
   path_with_poetry="$PATH;$(readlink -f ../bin)"
   export PATH="$path_with_poetry"
 
-  poetry_install_stdout="$(poetry install | dos2unix)"
+  poetry_install_stdout="$(poetry install --no-root | dos2unix)"
 
   assertEquals "$(echo "$poetry_install_stdout_etalon" | head -4)" "$(echo "$poetry_install_stdout" | head -4)"
 }
@@ -47,9 +52,12 @@ test_install_from_bat() {
   { printf '%s' "$pyproject_content"
   } > pyproject.toml
 
+  { printf '%s' "$readme_content"
+  } > README.md
+
   assertEquals "Installing dependencies from lock file
 
-No dependencies to install or update" "$(../bin/poetry.bat install | dos2unix)"
+No dependencies to install or update" "$(../bin/poetry.bat install --no-root | dos2unix)"
 }
 
 # Load and run shUnit2.

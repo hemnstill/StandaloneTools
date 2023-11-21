@@ -7,6 +7,8 @@ if [[ $is_ubuntu_os == true ]]; then
   apt install -y clang libmysqlclient-dev
 fi
 
+readme_content='test readme content'
+
 pyproject_content='
 [tool.poetry]
 name = "StandaloneTools"
@@ -30,17 +32,17 @@ Resolving dependencies...
 
 Package operations: 6 installs, 0 updates, 0 removals
 
-  • Installing certifi (2023.5.7)
-  • Installing charset-normalizer (3.1.0)
+  • Installing certifi (2023.11.17)
+  • Installing charset-normalizer (3.3.2)
   • Installing idna (3.4)
-  • Installing urllib3 (1.26.16)
+  • Installing urllib3 (1.26.18)
   • Installing mysqlclient (2.1.1)
   • Installing requests (2.28.2)
 
 Writing lock file'
 
 test_version() {
-  assertEquals "Poetry (version 1.5.1)" "$(../bin/poetry.sh --version)"
+  assertEquals "Poetry (version 1.7.1)" "$(../bin/poetry.sh --version)"
 }
 
 test_version_plugins() {
@@ -51,30 +53,36 @@ test_version_plugins() {
       Dependencies
         - poetry (>=1.2.0,<2.0.0)
 
-  • poetry-plugin-export (1.4.0) Poetry plugin to export the dependencies to various formats
+  • poetry-plugin-export (1.6.0) Poetry plugin to export the dependencies to various formats
       1 application plugin
 
       Dependencies
-        - poetry (>=1.5.0,<2.0.0)
-        - poetry-core (>=1.6.0,<2.0.0)" "$(../bin/poetry.sh self show plugins)"
+        - poetry (>=1.6.0,<2.0.0)
+        - poetry-core (>=1.7.0,<2.0.0)" "$(../bin/poetry.sh self show plugins)"
 }
 
 test_install_from_symlink() {
   { printf '%s' "$pyproject_content"
   } > pyproject.toml
 
+  { printf '%s' "$readme_content"
+  } > README.md
+
   ln -sf "$(readlink -f ../bin/poetry.sh)" /usr/local/bin/poetry
 
-  assertEquals "$poetry_install_stdout" "$(poetry install)"
+  assertEquals "$poetry_install_stdout" "$(poetry install --no-root)"
 }
 
 test_install_from_sh() {
   { printf '%s' "$pyproject_content"
   } > pyproject.toml
 
+  { printf '%s' "$readme_content"
+  } > README.md
+
   assertEquals "Installing dependencies from lock file
 
-No dependencies to install or update" "$(../bin/poetry.sh install)"
+No dependencies to install or update" "$(../bin/poetry.sh install --no-root)"
 }
 
 # Load and run shUnit2.
