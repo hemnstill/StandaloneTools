@@ -17,6 +17,9 @@ mkdir -p "$release_version_dirpath" && cd "$dp0/release"
 
 echo "download python install script ..."
 python_bin_download_url="https://github.com/hemnstill/StandaloneTools/releases/download/$python_self_name/$self_toolset_name.tar.gz"
+
+echo "::group::prepare sources $python_bin_download_url"
+
 python_download_zip="$dp0/release/$python_self_name.tar.gz"
 [[ ! -f "$python_download_zip" ]] && wget "$python_bin_download_url" -O "$python_download_zip"
 
@@ -33,10 +36,16 @@ cpython_bin="$release_version_dirpath/Scripts/bin/python3"
 "$bsdtar" -xf "$python_include_download_zip" "python/install/include"
 cp -rf "python/install/include" "$release_version_dirpath/Scripts/include/"
 
+echo "::endgroup::"
+
+echo "::group::build"
+
 echo "install poetry ..."
 "$cpython_bin" -m pip install "poetry==$tool_version"
 "$cpython_bin" -m poetry self add poetry-plugin-sort
 "$cpython_bin" -m poetry self lock
+
+echo "::endgroup::"
 
 echo "prepare build artifacts ..."
 
