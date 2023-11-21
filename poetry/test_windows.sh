@@ -43,7 +43,7 @@ test_install_from_path() {
   path_with_poetry="$PATH;$(readlink -f ../bin)"
   export PATH="$path_with_poetry"
 
-  poetry_install_stdout="$(poetry install | dos2unix)"
+  poetry_install_stdout="$(poetry install --no-root | dos2unix)"
 
   assertEquals "$(echo "$poetry_install_stdout_etalon" | head -4)" "$(echo "$poetry_install_stdout" | head -4)"
 }

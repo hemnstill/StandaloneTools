@@ -39,9 +39,7 @@ Package operations: 6 installs, 0 updates, 0 removals
   • Installing mysqlclient (2.1.1)
   • Installing requests (2.28.2)
 
-Writing lock file
-
-Installing the current project: StandaloneTools (1.0.0)'
+Writing lock file'
 
 test_version() {
   assertEquals "Poetry (version 1.7.1)" "$(../bin/poetry.sh --version)"
@@ -72,7 +70,7 @@ test_install_from_symlink() {
 
   ln -sf "$(readlink -f ../bin/poetry.sh)" /usr/local/bin/poetry
 
-  assertEquals "$poetry_install_stdout" "$(poetry install)"
+  assertEquals "$poetry_install_stdout" "$(poetry install --no-root)"
 }
 
 test_install_from_sh() {
