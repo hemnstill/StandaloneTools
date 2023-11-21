@@ -3,6 +3,8 @@
 is_windows_os=false && [[ $(uname) == Windows_NT* ]] && is_windows_os=true
 is_nanoserver_os=false && $is_windows_os && [[ ! -f "C:\Windows\notepad.exe" ]] && is_nanoserver_os=true
 
+readme_content='test readme content'
+
 pyproject_content='
 [tool.poetry]
 name = "StandaloneTools"
@@ -35,6 +37,9 @@ test_install_from_path() {
   { printf '%s' "$pyproject_content"
   } > pyproject.toml
 
+  { printf '%s' "$readme_content"
+  } > README.md
+
   path_with_poetry="$PATH;$(readlink -f ../bin)"
   export PATH="$path_with_poetry"
 
@@ -47,9 +52,12 @@ test_install_from_bat() {
   { printf '%s' "$pyproject_content"
   } > pyproject.toml
 
+  { printf '%s' "$readme_content"
+  } > README.md
+
   assertEquals "Installing dependencies from lock file
 
-No dependencies to install or update" "$(../bin/poetry.bat install | dos2unix)"
+No dependencies to install or update" "$(../bin/poetry.bat install --no-root | dos2unix)"
 }
 
 # Load and run shUnit2.
