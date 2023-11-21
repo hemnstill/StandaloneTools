@@ -40,7 +40,7 @@ Package operations: 6 installs, 0 updates, 0 removals
 Writing lock file'
 
 test_version() {
-  assertEquals "Poetry (version 1.5.1)" "$(../bin/poetry.sh --version)"
+  assertEquals "Poetry (version 1.7.1)" "$(../bin/poetry.sh --version)"
 }
 
 test_version_plugins() {
