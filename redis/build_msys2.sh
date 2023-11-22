@@ -3,7 +3,7 @@ dp0="$(realpath "$(dirname "$0")")"
 set -e
 
 tool_name="redis"
-tool_version="7.0.13"
+tool_version="7.2.3"
 self_toolset_name="build-msys2"
 release_version_dirpath="$dp0/release/build"
 
