@@ -47,7 +47,7 @@ jobs:
     uses: ./.github/workflows/release.yml
     with:
       workflow: ${{ github.workflow }}
-      tool_version: '7.0.13'
+      tool_version: '7.2.3'
       prepare_body: |
         bsdtar -Oxf ./build-musl/build-musl.tar.gz build-musl.md >> body.md
         bsdtar -Oxf ./build-msys2/build-msys2.tar.gz build-msys2.md >> body.md

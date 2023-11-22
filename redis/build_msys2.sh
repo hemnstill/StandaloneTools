@@ -3,7 +3,7 @@ dp0="$(realpath "$(dirname "$0")")"
 set -e
 
 tool_name="redis"
-tool_version="7.0.13"
+tool_version="7.2.3"
 self_toolset_name="build-msys2"
 release_version_dirpath="$dp0/release/build"
 
@@ -24,7 +24,7 @@ echo "::group::build"
 
 sed -i 's/__GNU_VISIBLE/1/' /d/a/_temp/msys64/usr/include/dlfcn.h
 
-make BUILD_TLS=yes
+make BUILD_TLS=yes CFLAGS=-Wno-char-subscripts
 
 echo "::endgroup::"
 
