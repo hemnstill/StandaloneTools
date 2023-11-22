@@ -24,7 +24,7 @@ echo "::group::build"
 
 sed -i 's/__GNU_VISIBLE/1/' /d/a/_temp/msys64/usr/include/dlfcn.h
 
-make BUILD_TLS=yes
+make BUILD_TLS=yes CFLAGS=-Wno-char-subscripts
 
 echo "::endgroup::"
 
