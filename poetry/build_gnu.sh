@@ -7,8 +7,7 @@ apt install -y wget binutils
 
 tool_name="poetry"
 tool_version="1.7.1"
-python_self_name="python-3.11.3"
-python_release_date="20230507"
+python_self_name="python-3.12.1"
 self_name="$tool_name-$tool_version"
 self_toolset_name="build-gnu"
 release_version_dirpath="$dp0/release/$self_name"
@@ -23,17 +22,12 @@ echo "::group::prepare sources $python_bin_download_url"
 python_download_zip="$dp0/release/$python_self_name.tar.gz"
 [[ ! -f "$python_download_zip" ]] && wget "$python_bin_download_url" -O "$python_download_zip"
 
-python_include_download_url="https://github.com/indygreg/python-build-standalone/releases/download/$python_release_date/c$python_self_name+$python_release_date-x86_64-unknown-linux-gnu-pgo-full.tar.zst"
-python_include_download_zip="$dp0/release/$python_self_name.tar.zst"
-[[ ! -f "$python_include_download_zip" ]] && wget "$python_include_download_url" -O "$python_include_download_zip"
-
 "$dp0/../.tools/download_bsdtar.sh"
 bsdtar="$dp0/release/bsdtar"
 
 cpython_bin="$release_version_dirpath/Scripts/bin/python3"
 [[ ! -f "$cpython_bin" ]] && tar -xf "$python_download_zip" -C "$release_version_dirpath"
 
-"$bsdtar" -xf "$python_include_download_zip" "python/install/include"
 cp -rf "python/install/include" "$release_version_dirpath/Scripts/include/"
 
 echo "::endgroup::"
