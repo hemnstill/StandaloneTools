@@ -18,7 +18,7 @@ authors = []
 readme = "README.md"
 
 [tool.poetry.dependencies]
-python = "3.11.3"
+python = "3.12.1"
 requests = "2.28.2"
 mysqlclient = "2.1.1"
 

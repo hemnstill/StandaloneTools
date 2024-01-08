@@ -28,8 +28,6 @@ bsdtar="$dp0/release/bsdtar"
 cpython_bin="$release_version_dirpath/Scripts/bin/python3"
 [[ ! -f "$cpython_bin" ]] && tar -xf "$python_download_zip" -C "$release_version_dirpath"
 
-cp -rf "python/install/include" "$release_version_dirpath/Scripts/include/"
-
 echo "::endgroup::"
 
 echo "::group::build"
