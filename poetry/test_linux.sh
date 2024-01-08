@@ -34,7 +34,7 @@ Package operations: 6 installs, 0 updates, 0 removals
 
   • Installing certifi (2023.11.17)
   • Installing charset-normalizer (3.3.2)
-  • Installing idna (3.4)
+  • Installing idna (3.6)
   • Installing urllib3 (1.26.18)
   • Installing mysqlclient (2.1.1)
   • Installing requests (2.28.2)
@@ -47,7 +47,7 @@ test_version() {
 
 test_version_plugins() {
   assertEquals "
-  • poetry-plugin-sort (0.2.0) Poetry plugin to sort the dependencies alphabetically
+  • poetry-plugin-sort (0.2.1) Poetry plugin to sort the dependencies alphabetically
       1 application plugin
 
       Dependencies
