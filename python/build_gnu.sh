@@ -40,7 +40,6 @@ if [[ ! -f "$cpython_bin" ]]; then
   --exclude="*.a" \
   --exclude="*.lib" \
   --exclude="*.pickle" \
-  --exclude="python/install/include" \
   --exclude="tcl*.dll" \
   --exclude="lib/tcl*" \
   --exclude="tk*.dll" \
