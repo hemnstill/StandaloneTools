@@ -4,7 +4,7 @@ is_ubuntu_os=false && [[ -f "/etc/lsb-release" ]] && is_ubuntu_os=true
 
 if [[ $is_ubuntu_os == true ]]; then
   apt update
-  apt install -y clang libmysqlclient-dev
+  apt install -y clang libmysqlclient-dev pkg-config
 fi
 
 readme_content='test readme content'
