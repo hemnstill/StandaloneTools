@@ -4,7 +4,7 @@ is_ubuntu_os=false && [[ -f "/etc/lsb-release" ]] && is_ubuntu_os=true
 
 if [[ $is_ubuntu_os == true ]]; then
   apt update
-  apt install -y clang libmysqlclient-dev
+  apt install -y clang libmysqlclient-dev pkg-config
 fi
 
 readme_content='test readme content'
@@ -18,9 +18,9 @@ authors = []
 readme = "README.md"
 
 [tool.poetry.dependencies]
-python = "3.11.3"
+python = "3.12.1"
 requests = "2.28.2"
-mysqlclient = "2.1.1"
+mysqlclient = "2.2.1"
 
 [build-system]
 requires = ["poetry-core"]
@@ -34,9 +34,9 @@ Package operations: 6 installs, 0 updates, 0 removals
 
   • Installing certifi (2023.11.17)
   • Installing charset-normalizer (3.3.2)
-  • Installing idna (3.4)
+  • Installing idna (3.6)
   • Installing urllib3 (1.26.18)
-  • Installing mysqlclient (2.1.1)
+  • Installing mysqlclient (2.2.1)
   • Installing requests (2.28.2)
 
 Writing lock file'
@@ -47,7 +47,7 @@ test_version() {
 
 test_version_plugins() {
   assertEquals "
-  • poetry-plugin-sort (0.2.0) Poetry plugin to sort the dependencies alphabetically
+  • poetry-plugin-sort (0.2.1) Poetry plugin to sort the dependencies alphabetically
       1 application plugin
 
       Dependencies

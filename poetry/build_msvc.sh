@@ -4,7 +4,7 @@ set -e
 
 tool_name="poetry"
 tool_version="1.7.1"
-python_self_name="python-3.11.3"
+python_self_name="python-3.12.1"
 self_name="$tool_name-$tool_version"
 self_toolset_name="build-msvc"
 release_version_dirpath="$dp0/release/$self_name"

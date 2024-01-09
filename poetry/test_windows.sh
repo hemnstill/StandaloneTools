@@ -14,9 +14,9 @@ authors = []
 readme = "README.md"
 
 [tool.poetry.dependencies]
-python = "3.11.3"
+python = "3.12.1"
 requests = "2.28.2"
-mysqlclient = "2.1.1"
+mysqlclient = "2.2.1"
 
 [build-system]
 requires = ["poetry-core"]
@@ -44,6 +44,8 @@ test_install_from_path() {
   export PATH="$path_with_poetry"
 
   poetry_install_stdout="$(poetry install --no-root | dos2unix)"
+
+  echo "$poetry_install_stdout"
 
   assertEquals "$(echo "$poetry_install_stdout_etalon" | head -4)" "$(echo "$poetry_install_stdout" | head -4)"
 }
