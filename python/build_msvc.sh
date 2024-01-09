@@ -3,8 +3,8 @@ dp0="$(realpath "$(dirname "$0")")"
 set -e
 
 tool_name="python"
-tool_version="3.10.5"
-release_date="20220630"
+tool_version="3.12.1"
+release_date="20240107"
 self_name="$tool_name-$tool_version"
 release_version_dirpath="$dp0/release/$self_name"
 
@@ -33,7 +33,6 @@ if [[ ! -f "$cpython_bin" ]]; then
   --exclude="*.a" \
   --exclude="*.lib" \
   --exclude="*.pickle" \
-  --exclude="python/install/include" \
   --exclude="tcl*.dll" \
   --exclude="lib/tcl*" \
   --exclude="tk*.dll" \
