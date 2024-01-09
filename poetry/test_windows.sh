@@ -59,7 +59,7 @@ test_install_from_bat() {
 
   assertEquals "Installing dependencies from lock file
 
-No dependencies to install or update" "$(../bin/poetry.bat install -vvv --no-root | dos2unix)"
+No dependencies to install or update" "$(../bin/poetry.bat install --no-root | dos2unix)"
 }
 
 # Load and run shUnit2.
