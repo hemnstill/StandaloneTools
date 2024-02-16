@@ -8,7 +8,9 @@ jobs:
     runs-on: ubuntu-latest
     steps:
     - name: Use variables
-      run: echo "CURRENT_TOOL is ${{ vars.CURRENT_TOOL }}"
+      run: |
+        echo "CURRENT_TOOL is ${{ vars.CURRENT_TOOL }}"
+        echo "vars is ${{ vars }}"
 
   alpine-musl:
     if: ${{ vars.CURRENT_TOOL == github.workflow }}
