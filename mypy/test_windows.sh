@@ -1,7 +1,7 @@
 #!/bin/bash
 
 test_version() {
-  assertEquals "mypy 1.4.1 (compiled: yes)" "$(../bin/mypy.bat --version)"
+  assertEquals "mypy 1.8.0 (compiled: yes)" "$(../bin/mypy.bat --version)"
 }
 
 # Load and run shUnit2.

@@ -4,9 +4,9 @@ is_musl_build=false && [[ -f "../build-musl.tar.gz" ]] && is_musl_build=true
 
 test_version() {
   if [[ "$is_musl_build" == true ]]; then
-    assertEquals "mypy 1.4.1 (compiled: no)" "$(../bin/mypy.sh --version)"
+    assertEquals "mypy 1.8.0 (compiled: no)" "$(../bin/mypy.sh --version)"
   else
-    assertEquals "mypy 1.4.1 (compiled: yes)" "$(../bin/mypy.sh --version)"
+    assertEquals "mypy 1.8.0 (compiled: yes)" "$(../bin/mypy.sh --version)"
   fi
 }
 
