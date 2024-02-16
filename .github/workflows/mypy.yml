@@ -5,11 +5,11 @@ on: [pull_request, workflow_dispatch]
 jobs:  
   displayvar:
     name: "Display var"
-    runs-on: alpine-musl
+    runs-on: ubuntu-latest
     steps:
     - name: Use variables
       run: echo "CURRENT_TOOL is ${{ vars.CURRENT_TOOL }}"
-      
+
   alpine-musl:
     if: ${{ vars.CURRENT_TOOL == github.workflow }}
     uses: ./.github/workflows/build-alpine.yml
