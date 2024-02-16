@@ -3,7 +3,7 @@ dp0="$(realpath "$(dirname "$0")")"
 set -e
 
 tool_name="pylint"
-tool_version="2.17.4"
+tool_version="3.0.3"
 self_name="python-3.11.3"
 self_toolset_name="build-msvc"
 
