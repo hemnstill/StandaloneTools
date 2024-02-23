@@ -1,8 +1,8 @@
 #!/bin/bash
 
 test_version() {
-  assertEquals "pylint 2.17.4
-astroid 2.15.5
+  assertEquals "pylint 3.0.3
+astroid 3.0.3
 Python 3.11.3 (main, May  7 2023, 18:40:36) [MSC v.1929 64 bit (AMD64)]" "$(../bin/pylint.bat --version | dos2unix )"
 }
 
