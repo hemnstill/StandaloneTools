@@ -3,7 +3,7 @@ dp0="$(realpath "$(dirname "$0")")"
 set -e
 
 tool_name="zstd"
-tool_version="1.5.5"
+tool_version="1.5.6"
 tool_zlib_version="1.3"
 self_toolset_name="build-mingw"
 
