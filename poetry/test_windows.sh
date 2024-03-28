@@ -14,7 +14,7 @@ authors = []
 readme = "README.md"
 
 [tool.poetry.dependencies]
-python = "3.12.1"
+python = "3.12.2"
 requests = "2.28.2"
 mysqlclient = "2.2.1"
 
@@ -30,7 +30,7 @@ Package operations: 6 installs, 0 updates, 0 removals
 '
 
 test_version() {
-  assertEquals "Poetry (version 1.7.1)" "$(../bin/poetry.bat --version)"
+  assertEquals "Poetry (version 1.8.2)" "$(../bin/poetry.bat --version)"
 }
 
 test_install_from_path() {
