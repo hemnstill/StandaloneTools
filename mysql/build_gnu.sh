@@ -13,7 +13,7 @@ apt install -y libaio-dev libudev-dev libssl-dev ncurses-dev libc6-dev
 echo "::endgroup::"
 
 tool_name="mysql"
-tool_version="8.0.33"
+tool_version="8.3.0"
 self_toolset_name="build-gnu"
 release_version_dirpath="$dp0/release/build"
 
