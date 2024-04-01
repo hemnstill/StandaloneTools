@@ -7,7 +7,7 @@ echo "::group::install deps"
 echo "::endgroup::"
 
 tool_name="mysql"
-tool_version="8.0.33"
+tool_version="8.3.0"
 self_toolset_name="build-msvc"
 release_version_dirpath="$dp0/release/build"
 
@@ -27,6 +27,7 @@ echo "::endgroup::"
 echo "::group::build"
 
 cmake . \
+  -DWITH_SSL=C:/vcpkg/packages/openssl_x64-windows \
   -DDOWNLOAD_BOOST=1 \
   -DWITH_BOOST=./boost \
   -DFORCE_INSOURCE_BUILD=1 \
@@ -34,7 +35,7 @@ cmake . \
   -DBUILD_SHARED_LIBS=0 \
   -DWITH_UNIT_TESTS=0 \
   -DREPRODUCIBLE_BUILD=1 \
-  -G "Visual Studio 16 2019" \
+  -G "Visual Studio 17 2022" \
   -DCMAKE_BUILD_TYPE=Release \
   -DBUILD_CONFIG=mysql_release
 
