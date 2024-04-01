@@ -27,7 +27,7 @@ echo "::endgroup::"
 echo "::group::build"
 
 cmake . \
-  -DWITH_SSL=C:/vcpkg/packages/openssl_x64-windows-static-md \
+  -DWITH_SSL=C:/vcpkg/installed/openssl_x64-windows-static-md \
   -DDOWNLOAD_BOOST=1 \
   -DWITH_BOOST=./boost \
   -DFORCE_INSOURCE_BUILD=1 \
