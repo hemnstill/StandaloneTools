@@ -34,7 +34,7 @@ cmake . \
   -DBUILD_SHARED_LIBS=0 \
   -DWITH_UNIT_TESTS=0 \
   -DREPRODUCIBLE_BUILD=1 \
-  -G "Visual Studio 16 2019" \
+  -G "Visual Studio 17 2022" \
   -DCMAKE_BUILD_TYPE=Release \
   -DBUILD_CONFIG=mysql_release
 
