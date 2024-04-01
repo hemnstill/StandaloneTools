@@ -8,10 +8,14 @@ on:
         required: false
         type: string
         default: 'mingw'
+      version:
+        required: false
+        type: string
+        default: '2019'
 
 jobs:
   build-windows:
-    runs-on: windows-2019
+    runs-on: windows-${{ inputs.version }}
     steps:
       - uses: actions/checkout@v3
       - name: build ${{ inputs.workflow }}-windows-${{ inputs.toolset }}
