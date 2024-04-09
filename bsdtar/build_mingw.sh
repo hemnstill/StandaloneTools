@@ -2,6 +2,12 @@
 dp0="$(realpath "$(dirname "$0")")"
 set -e
 
+echo "::group::install deps"
+
+choco install mingw
+
+echo "::endgroup::"
+
 tool_name="bsdtar.exe"
 tool_version="3.7.3"
 self_toolset_name="build-mingw"
