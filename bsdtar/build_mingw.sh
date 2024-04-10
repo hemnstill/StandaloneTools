@@ -4,8 +4,6 @@ set -e
 
 echo "::group::install deps"
 
-exit 1
-
 choco install mingw
 
 echo "::endgroup::"

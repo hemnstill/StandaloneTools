@@ -5,7 +5,10 @@ set -e
 echo "::group::install deps"
 
 apk update
-apk add --no-cache alpine-sdk zlib-dev zlib-static xz-dev xz-static zstd-dev zstd-static
+
+apk add --no-cache zlib-dev zlib-static xz-dev xz-static
+
+apk add --no-cache --repository=http://dl-cdn.alpinelinux.org/alpine/edge/main alpine-sdk zstd-dev zstd-static
 
 echo "::endgroup::"
 
