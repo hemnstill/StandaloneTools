@@ -2,7 +2,7 @@
 
 testVersion() {
   assertEquals "
-7-Zip (z) 23.01 (x64) : Copyright (c) 1999-2023 Igor Pavlov : 2023-06-20" "$(../bin/7zz | head -2)"
+7-Zip (z) 24.05 (x64) : Copyright (c) 1999-2024 Igor Pavlov : 2024-05-14" "$(../bin/7zz | head -2)"
 }
 
 # Load and run shUnit2.
