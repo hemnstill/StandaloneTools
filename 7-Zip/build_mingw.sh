@@ -3,7 +3,7 @@ dp0="$(realpath "$(dirname "$0")")"
 set -e
 
 tool_name="7-Zip"
-tool_version="24.05"
+tool_version="24.06"
 self_toolset_name="build-mingw"
 release_version_dirpath="$dp0/release/build"
 
