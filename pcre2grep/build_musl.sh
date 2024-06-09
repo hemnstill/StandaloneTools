@@ -11,6 +11,7 @@ echo "::endgroup::"
 
 tool_name="pcre2grep"
 tool_version="10.44"
+self_toolset_name="build-musl"
 
 download_url="https://github.com/PCRE2Project/pcre2/releases/download/pcre2-$tool_version/pcre2-$tool_version.tar.gz"
 echo "::group::prepare sources $download_url"
@@ -36,10 +37,13 @@ strip "$tool_name"
 chmod +x "$tool_name"
 
 { printf '%s
+
+### %s
 SHA-256: %s
-' "$("./$tool_name" --version)" "$(sha256sum $tool_name)"
+
+' "$("./$tool_name" --version)" "$self_toolset_name.tar.gz"  "$(sha256sum $tool_name)"
 } > build-musl.md
 
 cat build-musl.md
 
-tar -czvf ../build-musl.tar.gz .
+tar -czvf "../$self_toolset_name.tar.gz" .

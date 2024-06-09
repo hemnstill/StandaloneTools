@@ -4,6 +4,7 @@ set -e
 
 tool_name="pcre2grep.exe"
 tool_version="10.44"
+self_toolset_name="build-msvc"
 
 download_url="https://github.com/PCRE2Project/pcre2/releases/download/pcre2-$tool_version/pcre2-$tool_version.tar.gz"
 echo "::group::prepare sources $download_url"
@@ -26,10 +27,13 @@ cp -f "$dp0/release/pcre2-$tool_version/build/Release/$tool_name" "$dp0/release/
 
 cd "$dp0/release/build"
 
-{ printf 'SHA-256: %s (msvc)
-' "$(sha256sum $tool_name)"
+{ printf '### %s
+SHA-256: %s
+
+%s
+' "$self_toolset_name.tar.gz" "$(sha256sum $tool_name)" "$download_url"
 } > build-msvc.md
 
 cat build-msvc.md
 
-tar -czvf ../build-msvc.tar.gz .
+tar -czvf "../$self_toolset_name.tar.gz" .
