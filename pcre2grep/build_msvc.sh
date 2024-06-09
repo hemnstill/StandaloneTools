@@ -3,7 +3,7 @@ dp0="$(realpath "$(dirname "$0")")"
 set -e
 
 tool_name="pcre2grep.exe"
-tool_version="10.40"
+tool_version="10.44"
 
 download_url="https://github.com/PCRE2Project/pcre2/releases/download/pcre2-$tool_version/pcre2-$tool_version.tar.gz"
 echo "::group::prepare sources $download_url"
