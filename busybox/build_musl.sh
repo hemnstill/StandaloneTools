@@ -36,13 +36,10 @@ cd "$dp0/release/build"
 
 strip "./$tool_name"
 
-{ printf '```
-%s
-```
-
+{ printf '
 SHA-256: %s
 %s
-' "$(./$tool_name)" "$(sha256sum $tool_name)" "$download_url"
+' "$(sha256sum $tool_name)" "$download_url"
 } > build-musl.md
 
 cat build-musl.md
