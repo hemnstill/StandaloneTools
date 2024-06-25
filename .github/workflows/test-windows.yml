@@ -27,4 +27,4 @@ jobs:
       - uses: actions/upload-artifact@v3
         with:
           name: test-${{ inputs.artifact }}
-          path: ./${{ inputs.workflow }}/release/test-windows.md
+          path: ./${{ inputs.workflow }}/test-windows.md
