@@ -8,6 +8,7 @@ jobs:
     uses: ./.github/workflows/build-alpine.yml
     with:
       workflow: ${{ github.workflow }}
+      version: 3.19.2
 
   alpine-mingw:
     if: ${{ vars.CURRENT_TOOL == github.workflow }}
@@ -55,10 +56,11 @@ jobs:
     uses: ./.github/workflows/release.yml
     with:
       workflow: ${{ github.workflow }}
-      tool_version: '1.35.0-FRP-4784'
+      tool_version: '1.37.0-FRP-5398'
       prepare_body: |
-        bsdtar -Oxf ./build-musl/build-musl.tar.gz build-musl.md >> body.md
+        cat ./test-build-mingw/test-windows.md >> body.md
         bsdtar -Oxf ./build-mingw/build-mingw.tar.gz build-mingw.md >> body.md
+        bsdtar -Oxf ./build-musl/build-musl.tar.gz build-musl.md >> body.md
       artifacts: ./build-musl/build-musl.tar.gz, ./build-mingw/build-mingw.tar.gz
     secrets:
       token: ${{ secrets.GITHUB_TOKEN }}

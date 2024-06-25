@@ -11,7 +11,7 @@ echo "::endgroup::"
 
 tool_name="busybox"
 # version_tests: no_tool_version
-tool_version="1.35.0"
+tool_version="1.36.1"
 
 download_url="https://busybox.net/downloads/busybox-$tool_version.tar.bz2"
 echo "::group::prepare sources $download_url"
@@ -36,13 +36,10 @@ cd "$dp0/release/build"
 
 strip "./$tool_name"
 
-{ printf '```
-%s
-```
-
+{ printf '
 SHA-256: %s
 %s
-' "$(./$tool_name)" "$(sha256sum $tool_name)" "$download_url"
+' "$(sha256sum $tool_name)" "$download_url"
 } > build-musl.md
 
 cat build-musl.md
