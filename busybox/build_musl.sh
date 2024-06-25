@@ -11,7 +11,7 @@ echo "::endgroup::"
 
 tool_name="busybox"
 # version_tests: no_tool_version
-tool_version="1.35.0"
+tool_version="1.37.0"
 
 download_url="https://busybox.net/downloads/busybox-$tool_version.tar.bz2"
 echo "::group::prepare sources $download_url"
