@@ -24,3 +24,7 @@ jobs:
           cd ./${{ inputs.workflow }}
           ../.tools/busybox64.exe bash ./test_windows.sh
 
+      - uses: actions/upload-artifact@v3
+        with:
+          name: test-${{ inputs.artifact }}
+          path: ./${{ inputs.workflow }}/release/test-windows.md
