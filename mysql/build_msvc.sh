@@ -7,7 +7,7 @@ echo "::group::install deps"
 echo "::endgroup::"
 
 tool_name="mysql"
-tool_version="8.3.0"
+tool_version="8.4.0"
 self_toolset_name="build-msvc"
 release_version_dirpath="$dp0/release/build"
 
@@ -45,7 +45,7 @@ cp -rf "./runtime_output_directory/Release/." "$release_version_dirpath/"
 
 cd "$release_version_dirpath"
 
-find . -mindepth 1 -maxdepth 1 -name '*test*' -exec rm -f "{}" \;
+find . -mindepth 1 -maxdepth 1 \( -name '*test*' -or -name '*.pdb' \) -exec rm -f "{}" \;
 find . -mindepth 1 -maxdepth 1 \( ! -name "mysql*" -and ! -name "lib*" \) -exec rm -f "{}" \;
 
 { printf '### %s

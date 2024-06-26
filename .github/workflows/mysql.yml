@@ -8,6 +8,7 @@ jobs:
     uses: ./.github/workflows/build-alpine.yml
     with:
       workflow: ${{ github.workflow }}
+      version: 3.19.2
 
   ubuntu-gnu:
     if: ${{ vars.CURRENT_TOOL == github.workflow }}
@@ -23,6 +24,7 @@ jobs:
       workflow: ${{ github.workflow }}
       toolset: msvc
       version: 2022
+      vcpkg_install: openssl:x64-windows
 
   test-alpine:
     needs: alpine-musl
@@ -86,7 +88,7 @@ jobs:
     uses: ./.github/workflows/release.yml
     with:
       workflow: ${{ github.workflow }}
-      tool_version: '8.3.0'
+      tool_version: '8.4.0'
       prepare_body: |
         bsdtar -Oxf ./build-musl/build-musl.tar.gz build-musl.md >> body.md
         bsdtar -Oxf ./build-gnu/build-gnu.tar.gz build-gnu.md >> body.md
