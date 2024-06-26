@@ -21,7 +21,7 @@ jobs:
   build-windows:
     runs-on: windows-${{ inputs.version }}
     steps:
-      - name: Install OpenSSL (Windows)
+      - name: vcpkg install (Windows)
         if: ${{ inputs.vcpkg_install != '' }}
         shell: powershell
         run: |
