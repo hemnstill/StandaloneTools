@@ -8,6 +8,7 @@ jobs:
     uses: ./.github/workflows/build-alpine.yml
     with:
       workflow: ${{ github.workflow }}
+      version: 3.19.2
 
   ubuntu-gnu:
     if: ${{ vars.CURRENT_TOOL == github.workflow }}
