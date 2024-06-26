@@ -27,7 +27,7 @@ wget "$download_url" -O "tool-$tool_version.tar.gz"
 "$bsdtar" -xf "tool-$tool_version.tar.gz" && cd "mysql-server-mysql-$tool_version"
 
 patch "./libmysql/dns_srv.cc" "$dp0/release/mysql-connector-c-8.0.27-res_n.patch"
-patch "./sql/memory/aligned_atomic.h" "$dp0/release/_cache_line_size.patch"
+# patch "./sql/memory/aligned_atomic.h" "$dp0/release/_cache_line_size.patch"
 
 echo "::endgroup::"
 
