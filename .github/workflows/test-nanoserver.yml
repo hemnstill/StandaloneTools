@@ -29,5 +29,5 @@ jobs:
       - name: Test ${{ inputs.artifact }} build on nanoserver-ltsc2022
         run: |
           tar -xf ./${{ inputs.artifact }}.tar.gz -C ./bin
-          docker container run --rm -v ${{ github.workspace }}:C:\app -w C:\app\${{ inputs.workflow }} ${{ env.IMAGE_NAME }} C:\app\.tools\busybox64.exe bash test_windows.sh
+          docker container run --rm -v ${{ github.workspace }}:C:\app -w C:\app\${{ inputs.workflow }} ${{ env.IMAGE_NAME }} C:\app\.tools\busybox.exe bash test_windows.sh
 
