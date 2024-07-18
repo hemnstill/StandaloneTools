@@ -10,13 +10,13 @@ apk add --no-cache alpine-sdk make linux-headers
 echo "::endgroup::"
 
 tool_name="7-Zip"
-tool_version="24.06"
+tool_version="24.07"
 self_toolset_name="build-musl"
 release_version_dirpath="$dp0/release/build"
 
 mkdir -p "$release_version_dirpath" && cd "$dp0/release"
 
-download_url="https://www.7-zip.org/a/7z2406-src.tar.xz"
+download_url="https://www.7-zip.org/a/7z2407-src.tar.xz"
 echo "::group::prepare sources $download_url"
 
 "$dp0/../.tools/download_bsdtar.sh"
