@@ -7,7 +7,7 @@ jobs:
     runs-on: ubuntu-latest
     container: python:3.11.4-alpine3.17
     steps:
-      - uses: actions/checkout@v3
+      - uses: actions/checkout@v4
       - name: version tests
         run: |
           python -m unittest discover --start-directory .tools --pattern=*_tests.py
@@ -16,7 +16,7 @@ jobs:
     runs-on: ubuntu-latest
     container: node:18.16.0-alpine3.18
     steps:
-      - uses: actions/checkout@v3
+      - uses: actions/checkout@v4
       - run: |
           corepack enable && corepack prepare yarn@3.6.0 --activate
           cd .tools/checks

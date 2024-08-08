@@ -27,12 +27,12 @@ jobs:
         run: |
           vcpkg install ${{ inputs.vcpkg_install }}
 
-      - uses: actions/checkout@v3
+      - uses: actions/checkout@v4
       - name: build ${{ inputs.workflow }}-windows-${{ inputs.toolset }}
         run: |
           .tools\busybox.exe sh ${{ inputs.workflow }}\build_${{ inputs.toolset }}.sh
 
-      - uses: actions/upload-artifact@v3
+      - uses: actions/upload-artifact@v4
         with:
           name: build-${{ inputs.toolset }}
           path: ./${{ inputs.workflow }}/release/build-${{ inputs.toolset }}.tar.gz
