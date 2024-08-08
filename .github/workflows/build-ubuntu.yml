@@ -20,12 +20,12 @@ jobs:
     env:
       ACTIONS_ALLOW_USE_UNSECURE_NODE_VERSION: true
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v3
       - name: build ${{ inputs.workflow }}-ubuntu-${{ inputs.toolset }}
         run: |
           ./${{ inputs.workflow }}/build_${{ inputs.toolset }}.sh
 
-      - uses: actions/upload-artifact@v4
+      - uses: actions/upload-artifact@v3
         with:
           name: build-${{ inputs.toolset }}
           path: ./${{ inputs.workflow }}/release/build-${{ inputs.toolset }}.tar.gz
