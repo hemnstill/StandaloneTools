@@ -18,6 +18,9 @@ jobs:
     runs-on: ubuntu-latest
     container: ubuntu:${{ inputs.version }}
     steps:
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 20
       - uses: actions/checkout@v4
       - name: build ${{ inputs.workflow }}-ubuntu-${{ inputs.toolset }}
         run: |
