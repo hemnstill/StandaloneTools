@@ -21,7 +21,7 @@ jobs:
         run: |
           docker pull ${{ env.IMAGE_NAME }}
           docker images ${{ env.IMAGE_NAME }}
-      - uses: actions/download-artifact@v3
+      - uses: actions/download-artifact@v4
         with:
           name: ${{ inputs.artifact }}
           path: .
