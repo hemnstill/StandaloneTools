@@ -13,7 +13,7 @@ jobs:
   build-windows:
     runs-on: windows-2019
     steps:
-      - uses: actions/checkout@v3
+      - uses: actions/checkout@v4
 
       - name: Add msbuild to PATH
         uses: microsoft/setup-msbuild@v1.3
@@ -27,7 +27,7 @@ jobs:
         run: |
           .tools\busybox.exe sh ${{ inputs.workflow }}\build_${{ inputs.toolset }}.sh
 
-      - uses: actions/upload-artifact@v3
+      - uses: actions/upload-artifact@v4
         with:
           name: build-${{ inputs.toolset }}
           path: ./${{ inputs.workflow }}/release/build-${{ inputs.toolset }}.tar.gz
