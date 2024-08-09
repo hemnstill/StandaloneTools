@@ -19,11 +19,11 @@ on:
 jobs:
   release:
     runs-on: ubuntu-latest
-    container: ubuntu:latest
     steps:
       - run: |
-          apt update -y
-          apt install -y libarchive-tools
+          sudo apt update -y
+          sudo apt install -y libarchive-tools
+      - uses: actions/download-artifact@v3
       - uses: actions/download-artifact@v4
       - run: ${{ inputs.prepare_body }}
       - uses: ncipollo/release-action@v1

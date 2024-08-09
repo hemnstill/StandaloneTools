@@ -51,7 +51,7 @@ jobs:
     needs: [test-alpine,
             test-ubuntu,
             test-ubuntu-p]
-    uses: ./.github/workflows/release-unsecure.yml
+    uses: ./.github/workflows/release.yml
     with:
       workflow: ${{ github.workflow }}
       tool_version: '2.6.3'
