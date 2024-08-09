@@ -51,12 +51,11 @@ jobs:
     needs: [test-alpine,
             test-ubuntu,
             test-ubuntu-p]
-    uses: ./.github/workflows/release.yml
+    uses: ./.github/workflows/release-unsecure.yml
     with:
       workflow: ${{ github.workflow }}
       tool_version: '2.6.3'
       prepare_body: |
-        ls -R
         bsdtar -Oxf ./build-musl/build-musl.tar.gz build-musl.md >> body.md
         bsdtar -Oxf ./build-glibc/build-glibc.tar.gz build-glibc.md >> body.md
         bsdtar -Oxf ./build-glibc-p/build-glibc-p.tar.gz build-glibc-p.md >> body.md
