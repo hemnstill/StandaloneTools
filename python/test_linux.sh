@@ -3,7 +3,7 @@
 ../.tools/install_alpine_glibc.sh
 
 test_version() {
-  assertEquals "Python 3.12.2" "$(../bin/Scripts/bin/python3 --version)"
+  assertEquals "Python 3.12.5" "$(../bin/Scripts/bin/python3 --version)"
 }
 
 # Load and run shUnit2.
