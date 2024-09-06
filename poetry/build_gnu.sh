@@ -6,8 +6,8 @@ apt update
 apt install -y wget binutils
 
 tool_name="poetry"
-tool_version="1.8.2"
-python_self_name="python-3.12.2"
+tool_version="1.8.3"
+python_self_name="python-3.12.5"
 self_name="$tool_name-$tool_version"
 self_toolset_name="build-gnu"
 release_version_dirpath="$dp0/release/$self_name"
