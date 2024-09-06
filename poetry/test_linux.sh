@@ -32,10 +32,10 @@ Resolving dependencies...
 
 Package operations: 6 installs, 0 updates, 0 removals
 
-  - Installing certifi (2024.2.2)
+  - Installing certifi (2024.8.30)
   - Installing charset-normalizer (3.3.2)
-  - Installing idna (3.6)
-  - Installing urllib3 (1.26.18)
+  - Installing idna (3.8)
+  - Installing urllib3 (1.26.20)
   - Installing mysqlclient (2.2.1)
   - Installing requests (2.28.2)
 
@@ -47,18 +47,18 @@ test_version() {
 
 test_version_plugins() {
   assertEquals "
+  - poetry-plugin-export (1.8.0) Poetry plugin to export the dependencies to various formats
+      1 application plugin
+
+      Dependencies
+        - poetry (>=1.8.0,<3.0.0)
+        - poetry-core (>=1.7.0,<3.0.0)
+
   - poetry-plugin-sort (0.2.1) Poetry plugin to sort the dependencies alphabetically
       1 application plugin
 
       Dependencies
-        - poetry (>=1.2.0,<2.0.0)
-
-  - poetry-plugin-export (1.7.1) Poetry plugin to export the dependencies to various formats
-      1 application plugin
-
-      Dependencies
-        - poetry (>=1.8.0,<2.0.0)
-        - poetry-core (>=1.7.0,<2.0.0)" "$(../bin/poetry.sh self show plugins)"
+        - poetry (>=1.2.0,<2.0.0)" "$(../bin/poetry.sh self show plugins)"
 }
 
 test_install_from_symlink() {
