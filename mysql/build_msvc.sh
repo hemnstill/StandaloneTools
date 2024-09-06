@@ -7,7 +7,7 @@ echo "::group::install deps"
 echo "::endgroup::"
 
 tool_name="mysql"
-tool_version="8.4.0"
+tool_version="8.4.2"
 self_toolset_name="build-msvc"
 release_version_dirpath="$dp0/release/build"
 
