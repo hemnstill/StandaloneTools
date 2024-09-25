@@ -9,7 +9,7 @@ choco install mingw
 echo "::endgroup::"
 
 tool_name="bsdtar.exe"
-tool_version="3.7.5"
+tool_version="3.7.6"
 self_toolset_name="build-mingw"
 
 download_url="https://github.com/libarchive/libarchive/releases/download/v$tool_version/libarchive-$tool_version.tar.gz"
