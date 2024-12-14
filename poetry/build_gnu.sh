@@ -3,7 +3,10 @@ dp0="$(realpath "$(dirname "$0")")"
 set -e
 
 apt update
-apt install -y wget binutils curl clang rustc pkg-config
+apt install -y wget binutils curl clang pkg-config
+
+curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh -s -- -y
+source "$HOME/.cargo/env"
 
 tool_name="poetry"
 tool_version="1.8.5"
