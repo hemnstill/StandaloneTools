@@ -2,6 +2,8 @@
 dp0="$(realpath "$(dirname "$0")")"
 set -e
 
+export DEBIAN_FRONTEND=noninteractive
+
 apt update
 apt install -y wget binutils curl clang pkg-config
 
