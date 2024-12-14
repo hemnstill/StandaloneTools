@@ -3,13 +3,13 @@ dp0="$(realpath "$(dirname "$0")")"
 set -e
 
 tool_name="python"
-tool_version="3.12.5"
-release_date="20240814"
+tool_version="3.13.1"
+release_date="20241206"
 self_name="$tool_name-$tool_version"
 release_version_dirpath="$dp0/release/$self_name"
 
 mkdir -p "$release_version_dirpath" && cd "$dp0/release"
-download_url="https://github.com/indygreg/python-build-standalone/releases/download/$release_date/cpython-$tool_version+$release_date-x86_64-pc-windows-msvc-shared-pgo-full.tar.zst"
+download_url="https://github.com/indygreg/python-build-standalone/releases/download/$release_date/cpython-$tool_version+$release_date-x86_64-pc-windows-msvc-shared-freethreaded+pgo-full.tar.zst"
 cpython_zip="$dp0/release/raw_cpython-win.tar.zst"
 echo "download python from $download_url ..."
 [[ ! -f "$cpython_zip" ]] && wget "$download_url" -O "$cpython_zip"
