@@ -2,12 +2,17 @@
 dp0="$(realpath "$(dirname "$0")")"
 set -e
 
+export DEBIAN_FRONTEND=noninteractive
+
 apt update
-apt install -y wget binutils
+apt install -y wget binutils curl build-essential clang pkg-config libssl-dev
+
+curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh -s -- -y
+source "$HOME/.cargo/env"
 
 tool_name="poetry"
-tool_version="1.8.3"
-python_self_name="python-3.12.5"
+tool_version="1.8.5"
+python_self_name="python-3.13.1"
 self_name="$tool_name-$tool_version"
 self_toolset_name="build-gnu"
 release_version_dirpath="$dp0/release/$self_name"
@@ -33,6 +38,7 @@ echo "::endgroup::"
 echo "::group::build"
 
 echo "install poetry ..."
+"$cpython_bin" -m pip install msgpack --no-binary=msgpack
 "$cpython_bin" -m pip install "poetry==$tool_version"
 "$cpython_bin" -m poetry self add poetry-plugin-sort
 "$cpython_bin" -m poetry self lock

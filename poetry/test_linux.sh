@@ -18,7 +18,7 @@ authors = []
 readme = "README.md"
 
 [tool.poetry.dependencies]
-python = "3.12.5"
+python = "3.13.1"
 requests = "2.28.2"
 mysqlclient = "2.2.1"
 
@@ -42,7 +42,7 @@ Package operations: 6 installs, 0 updates, 0 removals
 Writing lock file'
 
 test_version() {
-  assertEquals "Poetry (version 1.8.3)" "$(../bin/poetry.sh --version)"
+  assertEquals "Poetry (version 1.8.5)" "$(../bin/poetry.sh --version)"
 }
 
 test_version_plugins() {
