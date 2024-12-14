@@ -5,7 +5,7 @@ set -e
 export DEBIAN_FRONTEND=noninteractive
 
 apt update
-apt install -y wget binutils curl clang pkg-config
+apt install -y wget binutils curl clang pkg-config libssl-dev
 
 curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh -s -- -y
 source "$HOME/.cargo/env"
