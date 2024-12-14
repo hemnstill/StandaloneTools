@@ -8,6 +8,7 @@ jobs:
     uses: ./.github/workflows/build-ubuntu.yml
     with:
       workflow: ${{ github.workflow }}
+      version: 24.04
 
   windows-msvc:
     if: ${{ vars.CURRENT_TOOL == github.workflow }}
