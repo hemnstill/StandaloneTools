@@ -3,8 +3,8 @@ dp0="$(realpath "$(dirname "$0")")"
 set -e
 
 tool_name="poetry"
-tool_version="1.8.3"
-python_self_name="python-3.12.5"
+tool_version="1.8.5"
+python_self_name="python-3.13.1"
 self_name="$tool_name-$tool_version"
 self_toolset_name="build-msvc"
 release_version_dirpath="$dp0/release/$self_name"
