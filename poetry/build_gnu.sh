@@ -6,6 +6,7 @@ apt update
 apt install -y wget binutils curl clang
 
 curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh -s -- -y
+source "$HOME/.cargo/env"
 
 tool_name="poetry"
 tool_version="1.8.5"
