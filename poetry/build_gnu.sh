@@ -5,7 +5,7 @@ set -e
 export DEBIAN_FRONTEND=noninteractive
 
 apt update
-apt install -y wget binutils curl clang pkg-config libssl-dev
+apt install -y wget binutils curl build-essential clang pkg-config libssl-dev
 
 curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh -s -- -y
 source "$HOME/.cargo/env"
@@ -38,6 +38,7 @@ echo "::endgroup::"
 echo "::group::build"
 
 echo "install poetry ..."
+"$cpython_bin" -m pip install msgpack --no-binary=msgpack
 "$cpython_bin" -m pip install "poetry==$tool_version"
 "$cpython_bin" -m poetry self add poetry-plugin-sort
 "$cpython_bin" -m poetry self lock
