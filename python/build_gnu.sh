@@ -24,7 +24,7 @@ echo "download python from $download_url ..."
 bsdtar="$dp0/release/bsdtar"
 
 cpython_bin="$dp0/.tmp/python/install/bin/python3"
-cpython_dll="$dp0/.tmp/python/install/lib/libpython3.13.so.1.0"
+cpython_dll="$dp0/.tmp/python/install/lib/libpython3.13t.so.1.0"
 if [[ ! -f "$cpython_bin" ]]; then
   echo extract "$cpython_zip" to "$cpython_bin" ...
   rm -rf "$dp0/.tmp/"* && mkdir -p "$dp0/.tmp" && cd "$dp0/.tmp" || exit 1
