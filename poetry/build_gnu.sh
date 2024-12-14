@@ -3,7 +3,7 @@ dp0="$(realpath "$(dirname "$0")")"
 set -e
 
 apt update
-apt install -y wget binutils
+apt install -y wget binutils clang
 
 tool_name="poetry"
 tool_version="1.8.5"
