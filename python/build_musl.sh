@@ -6,8 +6,8 @@ apk update
 apk add --no-cache alpine-sdk python3-dev
 
 tool_name="python"
-tool_version="3.12.5"
-release_date="20240814"
+tool_version="3.13.1"
+release_date="20241206"
 self_name="$tool_name-$tool_version"
 release_version_dirpath="$dp0/release/$self_name"
 
