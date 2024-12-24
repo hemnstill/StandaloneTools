@@ -32,9 +32,9 @@ Resolving dependencies...
 
 Package operations: 6 installs, 0 updates, 0 removals
 
-  - Installing certifi (2024.8.30)
-  - Installing charset-normalizer (3.3.2)
-  - Installing idna (3.8)
+  - Installing certifi (2024.12.14)
+  - Installing charset-normalizer (3.4.1)
+  - Installing idna (3.10)
   - Installing urllib3 (1.26.20)
   - Installing mysqlclient (2.2.1)
   - Installing requests (2.28.2)

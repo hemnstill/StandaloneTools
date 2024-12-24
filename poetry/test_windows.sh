@@ -26,7 +26,7 @@ build-backend = "poetry.core.masonry.api"
 poetry_install_stdout_etalon='Updating dependencies
 Resolving dependencies...
 
-Package operations: 6 installs, 0 updates, 0 removals
+Package operations: 1 install, 0 updates, 0 removals
 '
 
 test_version() {
