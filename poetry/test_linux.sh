@@ -20,7 +20,7 @@ readme = "README.md"
 [tool.poetry.dependencies]
 python = "3.13.1"
 requests = "2.28.2"
-mysqlclient = "2.2.1"
+mysqlclient = "2.2.6"
 
 [build-system]
 requires = ["poetry-core"]
@@ -36,7 +36,7 @@ Package operations: 6 installs, 0 updates, 0 removals
   - Installing charset-normalizer (3.4.1)
   - Installing idna (3.10)
   - Installing urllib3 (1.26.20)
-  - Installing mysqlclient (2.2.1)
+  - Installing mysqlclient (2.2.6)
   - Installing requests (2.28.2)
 
 Writing lock file'

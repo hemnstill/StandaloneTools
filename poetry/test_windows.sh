@@ -16,7 +16,7 @@ readme = "README.md"
 [tool.poetry.dependencies]
 python = "3.13.1"
 requests = "2.28.2"
-mysqlclient = "2.2.1"
+mysqlclient = "2.2.6"
 
 [build-system]
 requires = ["poetry-core"]
@@ -26,7 +26,7 @@ build-backend = "poetry.core.masonry.api"
 poetry_install_stdout_etalon='Updating dependencies
 Resolving dependencies...
 
-Package operations: 1 install, 0 updates, 0 removals
+Package operations: 6 installs, 0 updates, 0 removals
 '
 
 test_version() {
