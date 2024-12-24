@@ -15,7 +15,7 @@ self_name="$tool_name-$tool_version"
 release_version_dirpath="$dp0/release/$self_name"
 
 mkdir -p "$release_version_dirpath" && cd "$dp0/release"
-download_url="https://github.com/indygreg/python-build-standalone/releases/download/$release_date/cpython-$tool_version+$release_date-x86_64-unknown-linux-gnu-freethreaded+pgo-full.tar.zst"
+download_url="https://github.com/indygreg/python-build-standalone/releases/download/$release_date/cpython-$tool_version+$release_date-x86_64-unknown-linux-gnu-pgo-full.tar.zst"
 cpython_zip="$dp0/release/raw_cpython-linux.tar.zst"
 echo "download python from $download_url ..."
 [[ ! -f "$cpython_zip" ]] && wget "$download_url" -O "$cpython_zip"
@@ -24,7 +24,7 @@ echo "download python from $download_url ..."
 bsdtar="$dp0/release/bsdtar"
 
 cpython_bin="$dp0/.tmp/python/install/bin/python3"
-cpython_dll="$dp0/.tmp/python/install/lib/libpython3.13t.so.1.0"
+cpython_dll="$dp0/.tmp/python/install/lib/libpython3.13.so.1.0"
 if [[ ! -f "$cpython_bin" ]]; then
   echo extract "$cpython_zip" to "$cpython_bin" ...
   rm -rf "$dp0/.tmp/"* && mkdir -p "$dp0/.tmp" && cd "$dp0/.tmp" || exit 1
