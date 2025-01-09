@@ -4,7 +4,7 @@ set -e
 
 tool_name="python"
 tool_version="3.13.1"
-release_date="20241206"
+release_date="20250106"
 self_name="$tool_name-$tool_version"
 release_version_dirpath="$dp0/release/$self_name"
 
