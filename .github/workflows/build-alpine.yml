@@ -26,11 +26,6 @@ jobs:
           apk add --no-cache bash
           ./${{ inputs.workflow }}/build_${{ inputs.toolset }}.sh
 
-      - uses: actions/upload-artifact@v3
-        with:
-          name: build-${{ inputs.toolset }}
-          path: ./${{ inputs.workflow }}/release/build-${{ inputs.toolset }}.tar.gz
-
       - uses: actions/upload-artifact@v4
         with:
           name: build-${{ inputs.toolset }}
