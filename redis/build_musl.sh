@@ -10,7 +10,7 @@ apk add --no-cache alpine-sdk make linux-headers
 echo "::endgroup::"
 
 tool_name="redis"
-tool_version="7.2.5"
+tool_version="7.2.7"
 self_toolset_name="build-musl"
 release_version_dirpath="$dp0/release/build"
 
