@@ -7,7 +7,6 @@ export DEBIAN_FRONTEND=noninteractive
 apt update
 apt install -y wget binutils
 
-
 tool_name="poetry"
 tool_version="1.8.5"
 python_self_name="python-3.13.1"
