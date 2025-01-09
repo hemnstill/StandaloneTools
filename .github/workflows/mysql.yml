@@ -33,14 +33,6 @@ jobs:
       workflow: ${{ github.workflow }}
       artifact: build-musl
 
-  test-ubuntu-1804-musl:
-    needs: alpine-musl
-    uses: ./.github/workflows/test-ubuntu-unsecure.yml
-    with:
-      workflow: ${{ github.workflow }}
-      artifact: build-musl
-      version: 18.04
-
   test-ubuntu-musl:
     needs: alpine-musl
     uses: ./.github/workflows/test-ubuntu.yml
@@ -80,7 +72,6 @@ jobs:
   release:
     needs: [test-alpine,
             test-ubuntu-musl,
-            test-ubuntu-1804-musl,
             test-ubuntu-latest,
             test-ubuntu-2204-gnu,
             test-alpine-gnu,
@@ -88,7 +79,7 @@ jobs:
     uses: ./.github/workflows/release.yml
     with:
       workflow: ${{ github.workflow }}
-      tool_version: '8.4.2'
+      tool_version: '8.4.3'
       prepare_body: |
         bsdtar -Oxf ./build-musl/build-musl.tar.gz build-musl.md >> body.md
         bsdtar -Oxf ./build-gnu/build-gnu.tar.gz build-gnu.md >> body.md

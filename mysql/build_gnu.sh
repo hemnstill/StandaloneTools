@@ -7,13 +7,13 @@ export DEBIAN_FRONTEND=noninteractive
 echo "::group::install deps"
 
 apt update
-apt install -y build-essential cmake wget
+apt install -y build-essential cmake wget pkg-config
 apt install -y libaio-dev libudev-dev libssl-dev ncurses-dev libc6-dev
 
 echo "::endgroup::"
 
 tool_name="mysql"
-tool_version="8.4.2"
+tool_version="8.4.3"
 self_toolset_name="build-gnu"
 release_version_dirpath="$dp0/release/build"
 

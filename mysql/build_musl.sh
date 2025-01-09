@@ -6,12 +6,12 @@ echo "::group::install deps"
 
 apk update
 apk add --no-cache alpine-sdk linux-headers build-base autoconf cmake
-apk add --no-cache libaio-dev eudev-dev openldap-dev openssl-dev openssl-libs-static ncurses-dev ncurses-static
+apk add --no-cache libaio-dev libtirpc-dev eudev-dev openldap-dev openssl-dev openssl-libs-static ncurses-dev ncurses-static
 
 echo "::endgroup::"
 
 tool_name="mysql"
-tool_version="8.4.2"
+tool_version="8.4.3"
 self_toolset_name="build-musl"
 release_version_dirpath="$dp0/release/build"
 
