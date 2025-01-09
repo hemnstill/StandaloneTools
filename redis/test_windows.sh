@@ -1,11 +1,11 @@
 #!/bin/bash
 
 testVersion() {
-  assertEquals "redis-cli 7.2.5" "$(../bin/redis-cli.exe --version | head -c 15)"
+  assertEquals "redis-cli 7.2.7" "$(../bin/redis-cli.exe --version | head -c 15)"
 }
 
 testServerVersion() {
-  assertEquals "Redis server v=7.2.5" "$(../bin/redis-server.exe --version | head -c 20)"
+  assertEquals "Redis server v=7.2.7" "$(../bin/redis-server.exe --version | head -c 20)"
 }
 
 # Load and run shUnit2.
