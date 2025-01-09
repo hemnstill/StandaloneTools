@@ -54,11 +54,11 @@ test_version_plugins() {
         - poetry (>=1.8.0,<3.0.0)
         - poetry-core (>=1.7.0,<3.0.0)
 
-  - poetry-plugin-sort (0.2.1) Poetry plugin to sort the dependencies alphabetically
+  - poetry-plugin-sort (0.3.0) Poetry plugin to sort the dependencies alphabetically
       1 application plugin
 
       Dependencies
-        - poetry (>=1.2.0,<2.0.0)" "$(../bin/poetry.sh self show plugins)"
+        - poetry (>=1.2)" "$(../bin/poetry.sh self show plugins)"
 }
 
 test_install_from_symlink() {
