@@ -12,7 +12,7 @@ jobs:
 
   ubuntu-glibc:
     if: ${{ vars.CURRENT_TOOL == github.workflow }}
-    uses: ./.github/workflows/build-ubuntu-unsecure.yml
+    uses: ./.github/workflows/build-ubuntu.yml
     with:
       workflow: ${{ github.workflow }}
       version: 18.04
@@ -20,7 +20,7 @@ jobs:
 
   ubuntu-glibc-p:
     if: ${{ vars.CURRENT_TOOL == github.workflow }}
-    uses: ./.github/workflows/build-ubuntu-unsecure.yml
+    uses: ./.github/workflows/build-ubuntu.yml
     with:
       workflow: ${{ github.workflow }}
       version: 18.04
@@ -28,14 +28,14 @@ jobs:
 
   test-ubuntu:
     needs: ubuntu-glibc
-    uses: ./.github/workflows/test-ubuntu-unsecure.yml
+    uses: ./.github/workflows/test-ubuntu.yml
     with:
       workflow: ${{ github.workflow }}
       artifact: build-glibc
 
   test-ubuntu-p:
     needs: ubuntu-glibc-p
-    uses: ./.github/workflows/test-ubuntu-unsecure.yml
+    uses: ./.github/workflows/test-ubuntu.yml
     with:
       workflow: ${{ github.workflow }}
       artifact: build-glibc-p
