@@ -12,30 +12,30 @@ jobs:
 
   ubuntu-glibc:
     if: ${{ vars.CURRENT_TOOL == github.workflow }}
-    uses: ./.github/workflows/build-ubuntu-unsecure.yml
+    uses: ./.github/workflows/build-ubuntu.yml
     with:
       workflow: ${{ github.workflow }}
-      version: 18.04
+      version: 20.04
       toolset: glibc
 
   ubuntu-glibc-p:
     if: ${{ vars.CURRENT_TOOL == github.workflow }}
-    uses: ./.github/workflows/build-ubuntu-unsecure.yml
+    uses: ./.github/workflows/build-ubuntu.yml
     with:
       workflow: ${{ github.workflow }}
-      version: 18.04
+      version: 20.04
       toolset: glibc-p
 
   test-ubuntu:
     needs: ubuntu-glibc
-    uses: ./.github/workflows/test-ubuntu-unsecure.yml
+    uses: ./.github/workflows/test-ubuntu.yml
     with:
       workflow: ${{ github.workflow }}
       artifact: build-glibc
 
   test-ubuntu-p:
     needs: ubuntu-glibc-p
-    uses: ./.github/workflows/test-ubuntu-unsecure.yml
+    uses: ./.github/workflows/test-ubuntu.yml
     with:
       workflow: ${{ github.workflow }}
       artifact: build-glibc-p
@@ -54,7 +54,7 @@ jobs:
     uses: ./.github/workflows/release.yml
     with:
       workflow: ${{ github.workflow }}
-      tool_version: '2.6.3'
+      tool_version: '2.6.4'
       prepare_body: |
         bsdtar -Oxf ./build-musl/build-musl.tar.gz build-musl.md >> body.md
         bsdtar -Oxf ./build-glibc/build-glibc.tar.gz build-glibc.md >> body.md
