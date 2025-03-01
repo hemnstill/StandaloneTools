@@ -1,7 +1,7 @@
 #!/bin/bash
 
 test_version() {
-  assertEquals "FAR2L - oldschool file manager, with built-in terminal and other usefulness'es" "$(../bin/far2l --help | head -1)"
+  assertEquals "FAR2L Version: 2.6.4-beta" "$(../bin/far2l --help)"
 }
 
 # Load and run shUnit2.
