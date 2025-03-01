@@ -12,18 +12,18 @@ jobs:
 
   ubuntu-glibc:
     if: ${{ vars.CURRENT_TOOL == github.workflow }}
-    uses: ./.github/workflows/build-ubuntu-glibc.yml
+    uses: ./.github/workflows/build-ubuntu.yml
     with:
       workflow: ${{ github.workflow }}
-      version: 18.04
+      version: 20.04
       toolset: glibc
 
   ubuntu-glibc-p:
     if: ${{ vars.CURRENT_TOOL == github.workflow }}
-    uses: ./.github/workflows/build-ubuntu-glibc.yml
+    uses: ./.github/workflows/build-ubuntu.yml
     with:
       workflow: ${{ github.workflow }}
-      version: 18.04
+      version: 20.04
       toolset: glibc-p
 
   test-ubuntu:
