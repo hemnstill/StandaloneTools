@@ -20,7 +20,8 @@ jobs:
     steps:
       - run: |
           # Build GLIBC_2.29 from sources
-          apt-get install build-essential
+          apt update
+          apt install gawk bison -y
           wget -c https://ftp.gnu.org/gnu/glibc/glibc-2.28.tar.gz
           tar -zxvf glibc-2.28.tar.gz && cd glibc-2.28
           mkdir glibc-build && cd glibc-build
