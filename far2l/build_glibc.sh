@@ -30,7 +30,7 @@ apt install -y \
 echo "::endgroup::"
 
 tool_name="far2l"
-tool_version="2.6.3"
+tool_version="2.6.4"
 self_name="$tool_name-$tool_version"
 self_toolset_name="build-glibc"
 self_url="https://github.com/hemnstill/StandaloneTools/releases/download/$self_name/$self_toolset_name.tar.gz"
