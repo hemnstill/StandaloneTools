@@ -18,17 +18,6 @@ jobs:
     runs-on: ubuntu-latest
     container: ubuntu:${{ inputs.version }}
     steps:
-      - run: |
-          glibc_version=2.28
-          echo "::group::install GLIBC_$glibc_version from sources"
-          apt update && apt install -y gawk bison wget build-essential
-          wget -c https://ftp.gnu.org/gnu/glibc/glibc-$glibc_version.tar.gz
-          tar -zxvf glibc-$glibc_version.tar.gz && cd glibc-$glibc_version
-          mkdir glibc-build && cd glibc-build
-          ../configure --prefix=/opt/glibc-$glibc_version
-          make
-          make install
-          echo "::endgroup::"
       - uses: actions/checkout@v4
       - name: build ${{ inputs.workflow }}-ubuntu-${{ inputs.toolset }}
         run: |
