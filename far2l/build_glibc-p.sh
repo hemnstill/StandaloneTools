@@ -25,8 +25,6 @@ apt install -y \
   libsmbclient-dev \
   libfmt-dev \
   libssh-dev \
-  libxml2 \
-  libxml2-dev \
   cmake git
 
 echo "::endgroup::"
@@ -49,12 +47,7 @@ echo "::endgroup::"
 
 echo "::group::build"
 
-without_plugins="\
--DCOLORER=no \
-"
-
 cmake_command=$(printf 'cmake -DUSEWX=no -DUSEUCD=no -DCMAKE_EXE_LINKER_FLAGS="%s" -DCMAKE_BUILD_TYPE=Release .' \
-  "$without_plugins" \
   "-l:libuchardet.a -static-libstdc++ -static-libgcc")
 echo ">> $cmake_command"
 eval "$cmake_command"
