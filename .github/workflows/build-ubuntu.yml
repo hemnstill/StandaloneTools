@@ -18,6 +18,13 @@ jobs:
     runs-on: ubuntu-latest
     container: ubuntu:${{ inputs.version }}
     steps:
+      - name: install node 20 with glibc
+        run: |
+          NODE_VERSION=v20.18.1 &&
+          NODE_TAR_FILE=node-$NODE_VERSION-linux-x64-glibc-217.tar.gz &&
+          NODE_URL=https://unofficial-builds.nodejs.org/download/release/$NODE_VERSION/$NODE_TAR_FILE &&
+          curl -Lo /tmp/$NODE_TAR_FILE $NODE_URL &&
+          tar -C /__e/node20 -x --strip-components=1 -f /tmp/$NODE_TAR_FILE
       - uses: actions/checkout@v4
       - name: build ${{ inputs.workflow }}-ubuntu-${{ inputs.toolset }}
         run: |

@@ -15,7 +15,7 @@ jobs:
     uses: ./.github/workflows/build-ubuntu.yml
     with:
       workflow: ${{ github.workflow }}
-      version: 20.04
+      version: 18.04
       toolset: glibc
 
   ubuntu-glibc-p:
@@ -23,7 +23,7 @@ jobs:
     uses: ./.github/workflows/build-ubuntu.yml
     with:
       workflow: ${{ github.workflow }}
-      version: 20.04
+      version: 18.04
       toolset: glibc-p
 
   test-ubuntu:
