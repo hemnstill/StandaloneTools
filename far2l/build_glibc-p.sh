@@ -25,6 +25,7 @@ apt install -y \
   libsmbclient-dev \
   libfmt-dev \
   libssh-dev \
+  libxml2 \
   libxml2-dev \
   cmake git
 
