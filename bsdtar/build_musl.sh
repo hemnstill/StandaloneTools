@@ -13,7 +13,7 @@ apk add --no-cache --repository=http://dl-cdn.alpinelinux.org/alpine/edge/main a
 echo "::endgroup::"
 
 tool_name="bsdtar"
-tool_version="3.7.7"
+tool_version="3.7.8"
 self_toolset_name="build-musl"
 
 download_url="https://github.com/libarchive/libarchive/releases/download/v$tool_version/libarchive-$tool_version.tar.gz"
@@ -41,7 +41,7 @@ gcc -static -o "$dp0/release/build/$tool_name" \
   tar/bsdtar-write.o \
   .libs/libarchive.a \
   .libs/libarchive_fe.a \
-  /lib/libz.a \
+  /usr/lib/libz.a \
   /usr/lib/liblzma.a \
   /usr/lib/libzstd.a
 
