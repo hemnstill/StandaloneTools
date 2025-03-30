@@ -10,7 +10,7 @@ apk add --no-cache alpine-sdk cmake zlib-dev zlib-static
 echo "::endgroup::"
 
 tool_name="zstd"
-tool_version="1.5.6"
+tool_version="1.5.7"
 self_toolset_name="build-musl"
 
 download_url="https://github.com/facebook/zstd/archive/refs/tags/v$tool_version.tar.gz"
