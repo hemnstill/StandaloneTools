@@ -10,7 +10,7 @@ apk add --no-cache alpine-sdk pcre2-dev
 echo "::endgroup::"
 
 tool_name="pcre2grep"
-tool_version="10.44"
+tool_version="10.45"
 self_toolset_name="build-musl"
 
 download_url="https://github.com/PCRE2Project/pcre2/releases/download/pcre2-$tool_version/pcre2-$tool_version.tar.gz"
