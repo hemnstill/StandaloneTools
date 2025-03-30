@@ -3,7 +3,7 @@
 grep="../bin/pcre2grep"
 
 testVersion() {
-  assertEquals "pcre2grep version 10.45 2024-06-07" "$("$grep" --version)"
+  assertEquals "pcre2grep version 10.45 2025-02-05" "$("$grep" --version)"
 }
 
 testDoubleQuotesWithSpaces() {
