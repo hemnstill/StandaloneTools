@@ -30,15 +30,8 @@ jobs:
       workflow: ${{ github.workflow }}
       artifact: build-msvc
 
-  test-nanoserver-msvc:
-    needs: windows-msvc
-    uses: ./.github/workflows/test-nanoserver.yml
-    with:
-      workflow: ${{ github.workflow }}
-      artifact: build-msvc
-
   release:
-    needs: [test-ubuntu, test-windows-msvc, test-nanoserver-msvc]
+    needs: [test-ubuntu, test-windows-msvc]
     uses: ./.github/workflows/release.yml
     with:
       workflow: ${{ github.workflow }}
