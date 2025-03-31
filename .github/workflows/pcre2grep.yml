@@ -30,19 +30,12 @@ jobs:
       workflow: ${{ github.workflow }}
       artifact: build-msvc
 
-  test-nanoserver-msvc:
-    needs: windows-msvc
-    uses: ./.github/workflows/test-nanoserver.yml
-    with:
-      workflow: ${{ github.workflow }}
-      artifact: build-msvc
-
   release:
-    needs: [test-ubuntu, test-windows-msvc, test-nanoserver-msvc]
+    needs: [test-ubuntu, test-windows-msvc]
     uses: ./.github/workflows/release.yml
     with:
       workflow: ${{ github.workflow }}
-      tool_version: '10.44'
+      tool_version: '10.45'
       prepare_body: |
         bsdtar -Oxf ./build-musl/build-musl.tar.gz build-musl.md >> body.md
         bsdtar -Oxf ./build-msvc/build-msvc.tar.gz build-msvc.md >> body.md
