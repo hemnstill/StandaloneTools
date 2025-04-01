@@ -33,7 +33,7 @@ cargo fetch
 rustup target add x86_64-pc-windows-gnu
 cargo build --target x86_64-pc-windows-gnu --release
 
-cp -f "./target/x86_64-pc-windows-gnu/release/*.exe" "$release_version_dirpath/"
+find "./target/x86_64-pc-windows-gnu/release" -maxdepth 1 -type f -name "*.exe" -exec cp -f {} "$release_version_dirpath/" \;
 
 echo "::endgroup::"
 
