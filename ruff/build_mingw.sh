@@ -13,7 +13,7 @@ rustup-init -y
 echo "::endgroup::"
 
 tool_name="ruff"
-tool_version="0.0.280"
+tool_version="0.11.2"
 self_name="build-$tool_name-$tool_version"
 self_toolset_name="build-mingw"
 release_version_dirpath="$dp0/release/$self_name"
@@ -33,13 +33,14 @@ cargo fetch
 rustup target add x86_64-pc-windows-gnu
 cargo build --target x86_64-pc-windows-gnu --release
 
-cp -f "./target/x86_64-pc-windows-gnu/release/$tool_name.exe" "$release_version_dirpath/"
+cp -f "./target/x86_64-pc-windows-gnu/release/*.exe" "$release_version_dirpath/"
 
 echo "::endgroup::"
 
 cd "$release_version_dirpath"
 
 strip "$tool_name.exe"
+strip "red_knot.exe"
 
 { printf '### %s
 SHA-256: %s
