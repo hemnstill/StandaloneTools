@@ -13,14 +13,14 @@ rustup-init -y
 echo "::endgroup::"
 
 tool_name="ruff"
-tool_version="0.0.280"
+tool_version="0.11.2"
 self_name="build-$tool_name-$tool_version"
 self_toolset_name="build-musl"
 release_version_dirpath="$dp0/release/$self_name"
 
 mkdir -p "$release_version_dirpath" && cd "$dp0/release"
 
-download_url="https://github.com/astral-sh/ruff/archive/refs/tags/v$tool_version.tar.gz"
+download_url="https://github.com/astral-sh/ruff/archive/refs/tags/$tool_version.tar.gz"
 echo "::group::prepare sources $download_url"
 
 "$dp0/../.tools/download_bsdtar.sh"
@@ -37,6 +37,7 @@ echo "::endgroup::"
 
 cd "$release_version_dirpath"
 strip "$tool_name"
+strip "red_knot"
 chmod +x "$tool_name"
 
 { printf '%s
