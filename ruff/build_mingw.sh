@@ -20,7 +20,7 @@ release_version_dirpath="$dp0/release/$self_name"
 
 mkdir -p "$release_version_dirpath" && cd "$dp0/release"
 
-download_url="https://github.com/astral-sh/ruff/archive/refs/tags/v$tool_version.tar.gz"
+download_url="https://github.com/astral-sh/ruff/archive/refs/tags/$tool_version.tar.gz"
 echo "::group::prepare sources $download_url"
 
 "$dp0/../.tools/download_bsdtar.sh"
