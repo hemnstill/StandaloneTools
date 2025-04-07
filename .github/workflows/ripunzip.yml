@@ -9,6 +9,7 @@ jobs:
     uses: ./.github/workflows/build-alpine.yml
     with:
       workflow: ${{ github.workflow }}
+      version: '3.21.3'
 
   alpine-mingw:
     if: ${{ vars.CURRENT_TOOL == github.workflow }}
@@ -16,6 +17,7 @@ jobs:
     with:
       workflow: ${{ github.workflow }}
       toolset: mingw
+      version: '3.21.3'
 
   test-ubuntu:
     needs: alpine-musl
@@ -37,7 +39,7 @@ jobs:
     uses: ./.github/workflows/release.yml
     with:
       workflow: ${{ github.workflow }}
-      tool_version: '0.4.0'
+      tool_version: '2.0.1'
       prepare_body: |
         bsdtar -Oxf ./build-musl/build-musl.tar.gz build-musl.md >> body.md
         bsdtar -Oxf ./build-mingw/build-mingw.tar.gz build-mingw.md >> body.md
