@@ -9,6 +9,7 @@ jobs:
     uses: ./.github/workflows/build-alpine.yml
     with:
       workflow: ${{ github.workflow }}
+      version: '3.21.3'
 
   alpine-mingw:
     if: ${{ vars.CURRENT_TOOL == github.workflow }}
@@ -16,6 +17,7 @@ jobs:
     with:
       workflow: ${{ github.workflow }}
       toolset: mingw
+      version: '3.21.3'
 
   test-ubuntu:
     needs: alpine-musl
