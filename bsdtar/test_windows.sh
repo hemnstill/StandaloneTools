@@ -1,7 +1,7 @@
 #!/bin/bash
 
 testVersion() {
-  assertEquals "bsdtar 3.7.9 - libarchive 3.7.9 zlib/1.3 liblzma/5.6.3 libzstd/1.5.7 " "$(../bin/bsdtar.exe --version)"
+  assertEquals "bsdtar 3.8.0 - libarchive 3.8.0 zlib/1.3 liblzma/5.6.3 libzstd/1.5.7 " "$(../bin/bsdtar.exe --version)"
 }
 
 # Load and run shUnit2.

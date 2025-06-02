@@ -6,14 +6,14 @@ echo "::group::install deps"
 
 apk update
 
-apk add --no-cache zlib-dev zlib-static xz-dev xz-static
+apk add --no-cache zlib-dev zlib-static xz-dev xz-static openssl-dev openssl-libs-static
 
 apk add --no-cache --repository=http://dl-cdn.alpinelinux.org/alpine/edge/main alpine-sdk zstd-dev zstd-static
 
 echo "::endgroup::"
 
 tool_name="bsdtar"
-tool_version="3.7.9"
+tool_version="3.8.0"
 self_toolset_name="build-musl"
 
 download_url="https://github.com/libarchive/libarchive/releases/download/v$tool_version/libarchive-$tool_version.tar.gz"
