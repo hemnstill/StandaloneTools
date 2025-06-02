@@ -41,6 +41,7 @@ gcc -static -o "$dp0/release/build/$tool_name" \
   tar/bsdtar-write.o \
   .libs/libarchive.a \
   .libs/libarchive_fe.a \
+  /usr/lib/libcrypto.a \
   /usr/lib/libz.a \
   /usr/lib/liblzma.a \
   /usr/lib/libzstd.a
