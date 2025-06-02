@@ -27,7 +27,7 @@ echo "::endgroup::"
 
 echo "::group::build"
 
-./configure LDFLAGS='--static' --enable-bsdtar=static --with-openssl --disable-shared --disable-bsdcpio --disable-bsdcat --disable-bsdunzip
+./configure LDFLAGS='--static' --enable-bsdtar=static --disable-shared --disable-bsdcpio --disable-bsdcat --disable-bsdunzip
 make -j$(nproc)
 
 mkdir "$dp0/release/build"
