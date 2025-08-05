@@ -1,7 +1,7 @@
 #!/bin/bash
 
 testVersion() {
-  assertEquals "ruff 0.11.2" "$(../bin/ruff.exe --version)"
+  assertEquals "ruff 0.12.7" "$(../bin/ruff.exe --version)"
 }
 
 # Load and run shUnit2.

@@ -13,8 +13,8 @@ rustup-init -y
 echo "::endgroup::"
 
 tool_name="ruff"
-tool_name_knot="red_knot"
-tool_version="0.11.2"
+tool_name_ty="ty"
+tool_version="0.12.7"
 self_name="build-$tool_name-$tool_version"
 self_toolset_name="build-musl"
 release_version_dirpath="$dp0/release/$self_name"
@@ -32,15 +32,15 @@ wget "$download_url" -O "tool-$tool_version.tar.gz"
 
 cargo build --target x86_64-unknown-linux-musl --release
 
-find "./target/x86_64-unknown-linux-musl/release" -maxdepth 1 -type f \( -name "$tool_name" -o -name "$tool_name_knot" \) -exec cp -f {} "$release_version_dirpath/" \;
+find "./target/x86_64-unknown-linux-musl/release" -maxdepth 1 -type f \( -name "$tool_name" -o -name "$tool_name_ty" \) -exec cp -f {} "$release_version_dirpath/" \;
 
 echo "::endgroup::"
 
 cd "$release_version_dirpath"
 strip "$tool_name"
-strip "$tool_name_knot"
+strip "$tool_name_ty"
 chmod +x "$tool_name"
-chmod +x "$tool_name_knot"
+chmod +x "$tool_name_ty"
 
 { printf '%s
 
@@ -48,7 +48,7 @@ chmod +x "$tool_name_knot"
 SHA-256: %s
 SHA-256: %s
 
-' "$("./$tool_name" --version)" "$self_toolset_name.tar.gz" "$(sha256sum $tool_name)" "$(sha256sum $tool_name_knot)"
+' "$("./$tool_name" --version)" "$self_toolset_name.tar.gz" "$(sha256sum $tool_name)" "$(sha256sum $tool_name_ty)"
 } > "$self_toolset_name.md"
 
 cat "$self_toolset_name.md"
