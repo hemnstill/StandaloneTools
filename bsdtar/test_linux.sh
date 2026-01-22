@@ -1,7 +1,7 @@
 #!/bin/bash
 
 testVersion() {
-  assertEquals "bsdtar 3.8.1 - libarchive 3.8.1 zlib/1.3.1 liblzma/5.6.3 libzstd/1.5.7 openssl/3.5.1 libb2/bundled " "$(../bin/bsdtar --version)"
+  assertEquals "bsdtar 3.8.5 - libarchive 3.8.5 zlib/1.3.1 liblzma/5.6.3 libzstd/1.5.7 openssl/3.5.1 libb2/bundled " "$(../bin/bsdtar --version)"
 }
 
 testZipEncrypt() {
