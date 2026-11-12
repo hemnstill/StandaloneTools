@@ -19,10 +19,8 @@ mkdir -p "$dp0/release" && cd "$dp0/release"
 wget "$download_url" -O "libarchive-$tool_version.tar.gz"
 tar -xf "libarchive-$tool_version.tar.gz" && cd "libarchive-$tool_version"
 
-ci_download_url="https://raw.githubusercontent.com/libarchive/libarchive/v$tool_version/build/ci/github_actions/ci.cmd"
-wget "$ci_download_url" -O "$dp0/ci.cmd"
-
-patch "$dp0/ci.cmd" "$dp0/release/bdstar_remove_bzip2.diff"
+# ci.cmd is kept in this repo: libarchive's own ci.cmd from v3.8.5 with bzip2 removed and zstd 1.5.7.
+# Upstream dropped the deplibs step (static zlib/xz/zstd from source) in later versions.
 
 echo "::endgroup::"
 
