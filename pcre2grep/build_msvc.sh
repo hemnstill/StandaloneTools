@@ -3,7 +3,7 @@ dp0="$(realpath "$(dirname "$0")")"
 set -e
 
 tool_name="pcre2grep.exe"
-tool_version="10.45"
+tool_version="10.49"
 self_toolset_name="build-msvc"
 
 download_url="https://github.com/PCRE2Project/pcre2/releases/download/pcre2-$tool_version/pcre2-$tool_version.tar.gz"
@@ -17,7 +17,7 @@ echo "::endgroup::"
 
 echo "::group::build"
 
-cmake -DPCRE2_SUPPORT_JIT=ON -DPCRE2_BUILD_PCRE2_16=ON -DPCRE2_BUILD_PCRE2_32=ON -B build -DPCRE2_STATIC_RUNTIME=ON
+cmake -DPCRE2_SUPPORT_JIT=ON -DPCRE2_BUILD_PCRE2_16=ON -DPCRE2_BUILD_PCRE2_32=ON -B build -DCMAKE_MSVC_RUNTIME_LIBRARY=MultiThreaded
 
 cmake --build build --config Release
 
