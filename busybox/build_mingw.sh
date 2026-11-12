@@ -11,7 +11,7 @@ echo "::endgroup::"
 
 tool_name="busybox.exe"
 # version_tests: no_tool_version
-tool_version="FRP-5398-g89ae34445"
+tool_version="FRP-6354-g5f09fb446"
 
 download_url="https://github.com/rmyorston/busybox-w32/archive/refs/tags/$tool_version.tar.gz"
 echo "::group::prepare sources $download_url"
