@@ -15,7 +15,7 @@ apt install -y \
   m4 \
   libx11-dev \
   libxi-dev \
-  libxerces-c-dev \
+  libxml2-dev \
   libuchardet-dev \
   libssl-dev \
   libnfs-dev \
@@ -30,7 +30,7 @@ apt install -y \
 echo "::endgroup::"
 
 tool_name="far2l"
-tool_version="2.6.4"
+tool_version="2.9.1"
 self_name="$tool_name-$tool_version"
 self_toolset_name="build-glibc-p"
 self_url="https://github.com/hemnstill/StandaloneTools/releases/download/$self_name/$self_toolset_name.tar.gz"

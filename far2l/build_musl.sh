@@ -28,7 +28,7 @@ apk add --no-cache \
 echo "::endgroup::"
 
 tool_name="far2l"
-tool_version="2.6.4"
+tool_version="2.9.1"
 self_name="$tool_name-$tool_version"
 self_toolset_name="build-musl"
 self_url="https://github.com/hemnstill/StandaloneTools/releases/download/$self_name/$self_toolset_name.tar.gz"
@@ -46,7 +46,9 @@ echo "::endgroup::"
 echo "::group::build"
 
 without_plugins="\
+-DADB=no \
 -DALIGN=no \
+-DARCLITE=no \
 -DAUTOWRAP=no \
 -DCALC=no \
 -DCOLORER=no \
@@ -54,14 +56,25 @@ without_plugins="\
 -DDRAWLINE=no \
 -DEDITCASE=no \
 -DEDITORCOMP=no \
+-DEDSORT=no \
 -DFARFTP=no \
 -DFILECASE=no \
+-DGITGUTTER=no \
+-DHEXITOR=no \
+-DIMAGEVIEWER=no \
 -DINCSRCH=no \
 -DINSIDE=no \
+-DJUMPWORD=no \
+-DMEMO=no \
+-DMTP=no \
 -DMULTIARC=no \
 -DNETROCKS=no \
+-DOPENWITH=no \
+-DPYTHON=no \
 -DSIMPLEINDENT=no \
 -DTMPPANEL=no \
+-DTRANSFORMER=no \
+-DTRUNCATE=no \
 "
 
 cmake_command=$(printf 'cmake -DCMAKE_CXX_FLAGS="-D__MUSL__" -DUSEWX=no -DUSEUCD=no %s -DCMAKE_EXE_LINKER_FLAGS="%s" -DCMAKE_BUILD_TYPE=Release .' \
