@@ -1,16 +1,19 @@
 name: pg_dump
 
-on: [pull_request, workflow_dispatch]
+on:
+  pull_request:
+    paths:
+      - 'pg_dump/**'
+      - '.github/workflows/pg_dump.yml'
+  workflow_dispatch:
 
 jobs:
   alpine-musl:
-    if: ${{ vars.CURRENT_TOOL == github.workflow }}
     uses: ./.github/workflows/build-alpine.yml
     with:
       workflow: ${{ github.workflow }}
 
   alpine-mingw:
-    if: ${{ vars.CURRENT_TOOL == github.workflow }}
     uses: ./.github/workflows/build-alpine.yml
     with:
       workflow: ${{ github.workflow }}
@@ -18,7 +21,6 @@ jobs:
 
   alpine-musl-test:
     needs: alpine-musl
-    if: ${{ vars.CURRENT_TOOL == github.workflow }}
     uses: ./.github/workflows/test-alpine.yml
     with:
       workflow: ${{ github.workflow }}
@@ -26,7 +28,6 @@ jobs:
 
   ubuntu-glibc-test:
     needs: alpine-musl
-    if: ${{ vars.CURRENT_TOOL == github.workflow }}
     uses: ./.github/workflows/test-ubuntu.yml
     with:
       workflow: ${{ github.workflow }}
@@ -34,7 +35,6 @@ jobs:
 
   windows-mingw-test:
     needs: alpine-mingw
-    if: ${{ vars.CURRENT_TOOL == github.workflow }}
     uses: ./.github/workflows/test-windows.yml
     with:
       workflow: ${{ github.workflow }}

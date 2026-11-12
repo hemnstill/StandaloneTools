@@ -1,10 +1,14 @@
 name: 7-Zip
 
-on: [pull_request, workflow_dispatch]
+on:
+  pull_request:
+    paths:
+      - '7-Zip/**'
+      - '.github/workflows/7-Zip.yml'
+  workflow_dispatch:
 
 jobs:
   alpine-musl:
-    if: ${{ vars.CURRENT_TOOL == github.workflow }}
     uses: ./.github/workflows/build-alpine.yml
     with:
       workflow: ${{ github.workflow }}
@@ -13,7 +17,6 @@ jobs:
 
   alpine-musl-test:
     needs: alpine-musl
-    if: ${{ vars.CURRENT_TOOL == github.workflow }}
     uses: ./.github/workflows/test-alpine.yml
     with:
       workflow: ${{ github.workflow }}
@@ -21,21 +24,18 @@ jobs:
 
   ubuntu-musl-test:
     needs: alpine-musl
-    if: ${{ vars.CURRENT_TOOL == github.workflow }}
     uses: ./.github/workflows/test-ubuntu.yml
     with:
       workflow: ${{ github.workflow }}
       artifact: build-musl
 
   windows-mingw:
-    if: ${{ vars.CURRENT_TOOL == github.workflow }}
     uses: ./.github/workflows/build-windows-msbuild.yml
     with:
       workflow: ${{ github.workflow }}
 
   test-windows:
     needs: windows-mingw
-    if: ${{ vars.CURRENT_TOOL == github.workflow }}
     uses: ./.github/workflows/test-windows.yml
     with:
       workflow: ${{ github.workflow }}
@@ -43,7 +43,6 @@ jobs:
 
   test-nanoserver:
     needs: windows-mingw
-    if: ${{ vars.CURRENT_TOOL == github.workflow }}
     uses: ./.github/workflows/test-nanoserver.yml
     with:
       workflow: ${{ github.workflow }}

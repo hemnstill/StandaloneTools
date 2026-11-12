@@ -1,18 +1,21 @@
 name: playwright
 # version_tests: skip_readme
 
-on: [pull_request, workflow_dispatch]
+on:
+  pull_request:
+    paths:
+      - 'playwright/**'
+      - '.github/workflows/playwright.yml'
+  workflow_dispatch:
 
 jobs:
   ubuntu-gnu:
-    if: ${{ vars.CURRENT_TOOL == github.workflow }}
     uses: ./.github/workflows/build-ubuntu.yml
     with:
       workflow: ${{ github.workflow }}
       toolset: gnu
 
   windows-msvc:
-    if: ${{ vars.CURRENT_TOOL == github.workflow }}
     uses: ./.github/workflows/build-windows.yml
     with:
       workflow: ${{ github.workflow }}
