@@ -1,0 +1,20 @@
+--- a/ci.cmd
++++ b/ci.cmd
+@@ -10,7 +10,7 @@
+ 
+ SET ORIGPATH=%PATH%
+ IF "%BE%"=="mingw" (
+-  SET MINGWPATH=C:\WINDOWS\system32;C:\WINDOWS;C:\WINDOWS\System32\Wbem;C:\WINDOWS\System32\WindowsPowerShell\v1.0\;D:\msys64\%MSYSTEM%\bin;C:\Program Files\cmake\bin
++  SET MINGWPATH=C:\WINDOWS\system32;C:\WINDOWS;C:\WINDOWS\System32\Wbem;C:\WINDOWS\System32\WindowsPowerShell\v1.0\;C:\ProgramData\mingw64\mingw64\bin;C:\Program Files\cmake\bin
+ )
+ 
+ IF "%1%"=="configure" (
+@@ -18,7 +18,7 @@
+     SET PATH=%MINGWPATH%
+     MKDIR build_ci\cmake
+     CD build_ci\cmake
+-    cmake -G "MinGW Makefiles" ..\.. || EXIT /b 1
++    cmake -G "MinGW Makefiles" -D ENABLE_BZip2=OFF -D ZLIB_LIBRARY="%DEPS%/lib/libzlibstatic.a" -D ZLIB_INCLUDE_DIR="%DEPS%/include" -D LIBLZMA_LIBRARY="%DEPS%/lib/liblzma.a" -D LIBLZMA_INCLUDE_DIR="%DEPS%/include" -D ZSTD_LIBRARY="%DEPS%/lib/libzstd.a" -D ZSTD_INCLUDE_DIR="%DEPS%/include" ..\.. || EXIT /b 1
+   ) ELSE IF "%BE%"=="msvc" (
+     MKDIR build_ci\cmake
+     CD build_ci\cmake
