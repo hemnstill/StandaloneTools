@@ -17,8 +17,9 @@ jobs:
     container: node:18.16.0-alpine3.18
     steps:
       - uses: actions/checkout@v4
+      # npm wrapper always downloads the latest release, ec-* assets were removed in v4
       - run: |
-          corepack enable && corepack prepare yarn@3.6.0 --activate
-          cd .tools/checks
-          yarn install --immutable
-          yarn run editorconfig
+          EC_VERSION=v3.11.3
+          wget -qO- "https://github.com/editorconfig-checker/editorconfig-checker/releases/download/$EC_VERSION/ec-linux-amd64.tar.gz" | tar -xz -C /tmp bin/ec-linux-amd64
+          /tmp/bin/ec-linux-amd64 --version
+          /tmp/bin/ec-linux-amd64
