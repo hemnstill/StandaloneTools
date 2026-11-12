@@ -1,17 +1,20 @@
 name: ruff
 # version_tests: skip_readme
 
-on: [pull_request, workflow_dispatch]
+on:
+  pull_request:
+    paths:
+      - 'ruff/**'
+      - '.github/workflows/ruff.yml'
+  workflow_dispatch:
 
 jobs:
   alpine-musl:
-    if: ${{ vars.CURRENT_TOOL == github.workflow }}
     uses: ./.github/workflows/build-alpine.yml
     with:
       workflow: ${{ github.workflow }}
 
   alpine-mingw:
-    if: ${{ vars.CURRENT_TOOL == github.workflow }}
     uses: ./.github/workflows/build-alpine.yml
     with:
       workflow: ${{ github.workflow }}

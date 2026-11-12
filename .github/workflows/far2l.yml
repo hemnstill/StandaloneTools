@@ -1,17 +1,20 @@
 name: far2l
 
-on: [pull_request, workflow_dispatch]
+on:
+  pull_request:
+    paths:
+      - 'far2l/**'
+      - '.github/workflows/far2l.yml'
+  workflow_dispatch:
 
 jobs:
   alpine-musl:
-    if: ${{ vars.CURRENT_TOOL == github.workflow }}
     uses: ./.github/workflows/build-alpine.yml
     with:
       workflow: ${{ github.workflow }}
       version: 3.16
 
   ubuntu-glibc:
-    if: ${{ vars.CURRENT_TOOL == github.workflow }}
     uses: ./.github/workflows/build-ubuntu-glibc.yml
     with:
       workflow: ${{ github.workflow }}
@@ -19,7 +22,6 @@ jobs:
       toolset: glibc
 
   ubuntu-glibc-p:
-    if: ${{ vars.CURRENT_TOOL == github.workflow }}
     uses: ./.github/workflows/build-ubuntu.yml
     with:
       workflow: ${{ github.workflow }}

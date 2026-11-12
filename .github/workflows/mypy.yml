@@ -1,22 +1,24 @@
 name: mypy
 
-on: [pull_request, workflow_dispatch]
+on:
+  pull_request:
+    paths:
+      - 'mypy/**'
+      - '.github/workflows/mypy.yml'
+  workflow_dispatch:
 
 jobs:
   alpine-musl:
-    if: ${{ vars.CURRENT_TOOL == github.workflow }}
     uses: ./.github/workflows/build-alpine.yml
     with:
       workflow: ${{ github.workflow }}
 
   ubuntu-gnu:
-    if: ${{ vars.CURRENT_TOOL == github.workflow }}
     uses: ./.github/workflows/build-ubuntu.yml
     with:
       workflow: ${{ github.workflow }}
 
   windows-msvc:
-    if: ${{ vars.CURRENT_TOOL == github.workflow }}
     uses: ./.github/workflows/build-windows.yml
     with:
       workflow: ${{ github.workflow }}

@@ -1,10 +1,14 @@
 name: zstd
 
-on: [pull_request, workflow_dispatch]
+on:
+  pull_request:
+    paths:
+      - 'zstd/**'
+      - '.github/workflows/zstd.yml'
+  workflow_dispatch:
 
 jobs:
   alpine-musl:
-    if: ${{ vars.CURRENT_TOOL == github.workflow }}
     uses: ./.github/workflows/build-alpine.yml
     with:
       workflow: ${{ github.workflow }}
@@ -25,7 +29,6 @@ jobs:
       artifact: build-musl
 
   windows-mingw:
-    if: ${{ vars.CURRENT_TOOL == github.workflow }}
     uses: ./.github/workflows/build-windows-msys2.yml
     with:
       workflow: ${{ github.workflow }}

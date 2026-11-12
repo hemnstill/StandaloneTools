@@ -1,16 +1,19 @@
 name: pcre2grep
 
-on: [pull_request, workflow_dispatch]
+on:
+  pull_request:
+    paths:
+      - 'pcre2grep/**'
+      - '.github/workflows/pcre2grep.yml'
+  workflow_dispatch:
 
 jobs:
   alpine-musl:
-    if: ${{ vars.CURRENT_TOOL == github.workflow }}
     uses: ./.github/workflows/build-alpine.yml
     with:
       workflow: ${{ github.workflow }}
 
   windows-msvc:
-    if: ${{ vars.CURRENT_TOOL == github.workflow }}
     uses: ./.github/workflows/build-windows.yml
     with:
       workflow: ${{ github.workflow }}

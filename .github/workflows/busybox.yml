@@ -1,17 +1,20 @@
 name: busybox
 
-on: [pull_request, workflow_dispatch]
+on:
+  pull_request:
+    paths:
+      - 'busybox/**'
+      - '.github/workflows/busybox.yml'
+  workflow_dispatch:
 
 jobs:
   alpine-musl:
-    if: ${{ vars.CURRENT_TOOL == github.workflow }}
     uses: ./.github/workflows/build-alpine.yml
     with:
       workflow: ${{ github.workflow }}
       version: 3.19.2
 
   alpine-mingw:
-    if: ${{ vars.CURRENT_TOOL == github.workflow }}
     uses: ./.github/workflows/build-alpine.yml
     with:
       workflow: ${{ github.workflow }}
@@ -19,7 +22,6 @@ jobs:
 
   test-alpine:
     needs: alpine-musl
-    if: ${{ vars.CURRENT_TOOL == github.workflow }}
     uses: ./.github/workflows/test-alpine.yml
     with:
       workflow: ${{ github.workflow }}
@@ -27,7 +29,6 @@ jobs:
 
   test-ubuntu:
     needs: alpine-musl
-    if: ${{ vars.CURRENT_TOOL == github.workflow }}
     uses: ./.github/workflows/test-ubuntu.yml
     with:
       workflow: ${{ github.workflow }}
@@ -35,7 +36,6 @@ jobs:
 
   test-windows:
     needs: alpine-mingw
-    if: ${{ vars.CURRENT_TOOL == github.workflow }}
     uses: ./.github/workflows/test-windows.yml
     with:
       workflow: ${{ github.workflow }}

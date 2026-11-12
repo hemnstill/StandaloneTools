@@ -1,16 +1,19 @@
 name: poetry
 
-on: [pull_request, workflow_dispatch]
+on:
+  pull_request:
+    paths:
+      - 'poetry/**'
+      - '.github/workflows/poetry.yml'
+  workflow_dispatch:
 
 jobs:
   ubuntu-gnu:
-    if: ${{ vars.CURRENT_TOOL == github.workflow }}
     uses: ./.github/workflows/build-ubuntu.yml
     with:
       workflow: ${{ github.workflow }}
 
   windows-msvc:
-    if: ${{ vars.CURRENT_TOOL == github.workflow }}
     uses: ./.github/workflows/build-windows.yml
     with:
       workflow: ${{ github.workflow }}
