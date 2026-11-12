@@ -18,6 +18,7 @@ jobs:
     with:
       workflow: ${{ github.workflow }}
       toolset: msvc
+      version: 2022
 
   test-ubuntu:
     needs: alpine-musl
