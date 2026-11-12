@@ -1,0 +1,43 @@
+name: retag-on-merge
+
+# release.yml creates the release tag on the PR head commit.
+# After the PR is merged, move every tag that points at one of the PR commits
+# to the merge (squash) commit in master.
+
+on:
+  pull_request:
+    types: [closed]
+
+permissions:
+  contents: write
+  pull-requests: read
+
+jobs:
+  retag:
+    if: github.event.pull_request.merged == true
+    runs-on: ubuntu-latest
+    env:
+      GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      REPO: ${{ github.repository }}
+      PR: ${{ github.event.pull_request.number }}
+      MERGE_SHA: ${{ github.event.pull_request.merge_commit_sha }}
+    steps:
+      - run: |
+          set -eu
+          gh api --paginate "repos/$REPO/pulls/$PR/commits" --jq '.[].sha' | sort -u > pr_commits.txt
+          echo "PR #$PR commits:"; cat pr_commits.txt
+
+          # lightweight tags (created by release-action) point directly at a commit
+          gh api --paginate "repos/$REPO/git/matching-refs/tags/" \
+            --jq '.[] | select(.object.type == "commit") | "\(.object.sha) \(.ref | sub("^refs/tags/"; ""))"' \
+            > tags.txt
+
+          moved=0
+          while read -r sha tag; do
+            if grep -qx "$sha" pr_commits.txt; then
+              echo "move $tag: $sha -> $MERGE_SHA"
+              gh api -X PATCH "repos/$REPO/git/refs/tags/$tag" -f sha="$MERGE_SHA" -F force=true > /dev/null
+              moved=$((moved + 1))
+            fi
+          done < tags.txt
+          echo "moved $moved tag(s)"
