@@ -3,7 +3,7 @@ dp0="$(realpath "$(dirname "$0")")"
 set -e
 
 tool_name="7-Zip"
-tool_version="24.09"
+tool_version="26.06"
 self_toolset_name="build-mingw"
 release_version_dirpath="$dp0/release/build"
 
@@ -12,7 +12,7 @@ tool_version_digits_only="$(echo $tool_version | sed -e 's/\.//g')"
 
 mkdir -p "$release_version_dirpath" && cd "$dp0/release"
 
-download_url="https://www.7-zip.org/a/7z$tool_version_digits_only-src.tar.xz"
+download_url="https://github.com/ip7z/7zip/releases/download/$tool_version/7z$tool_version_digits_only-src.tar.xz"
 echo "::group::prepare sources $download_url"
 
 "$dp0/../.tools/download_bsdtar.sh"
