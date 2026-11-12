@@ -28,6 +28,9 @@ jobs:
       - uses: ncipollo/release-action@v1
         with:
           tag: "${{ inputs.workflow }}-${{ inputs.tool_version }}"
+          # tag the tested PR commit instead of the current master HEAD;
+          # retag-on-merge.yml moves it to the squash commit once the PR is merged
+          commit: ${{ github.event.pull_request.head.sha || github.sha }}
           bodyFile: './body.md'
           artifacts: ${{ inputs.artifacts }}
           allowUpdates: true

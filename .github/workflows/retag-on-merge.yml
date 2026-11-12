@@ -1,0 +1,21 @@
+name: retag-on-merge
+
+# release.yml tags the PR head commit; after merge move the tag to the merge commit in master.
+
+on:
+  pull_request:
+    types: [closed]
+
+permissions:
+  contents: write
+  pull-requests: read
+
+jobs:
+  retag:
+    if: github.event.pull_request.merged
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - run: .tools/retag_on_merge.sh "${{ github.repository }}" "${{ github.event.pull_request.number }}" "${{ github.event.pull_request.merge_commit_sha }}"
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
