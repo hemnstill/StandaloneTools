@@ -1,7 +1,7 @@
 #!/bin/bash
 
 testVersion() {
-  assertEquals "tar (busybox) 1.36.1" "$(../bin/busybox tar --version | head -1)"
+  assertEquals "tar (busybox) 1.38.0" "$(../bin/busybox tar --version | head -1)"
 }
 
 # Load and run shUnit2.
